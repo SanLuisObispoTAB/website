@@ -1,0 +1,471 @@
+# Decap CMS configuration for the SLOTAB website.
+#
+# When an editor saves in the admin, Decap calls the GitHub API to
+# commit the updated file to main. Vercel detects the push and
+# redeploys automatically.
+#
+# BEFORE FIRST DEPLOY:
+#   1. Replace `YOUR-GH-ORG/slotab-website` below with the real GitHub
+#      repo path once this site gets its own repo.
+#   2. Replace `https://slotab.org` with the real deploy URL (could be
+#      the Vercel preview URL during staging, then slotab.org at cutover).
+#   3. Create a GitHub OAuth App with the callback URL
+#      `<base_url>/api/decap/callback` and add the client ID/secret as
+#      DECAP_GITHUB_CLIENT_ID / DECAP_GITHUB_CLIENT_SECRET env vars on
+#      Vercel. See docs/decap-setup.md for the full walk-through.
+
+backend:
+  name: github
+  repo: YOUR-GH-ORG/slotab-website
+  branch: main
+  # Our own Next.js API routes handle the OAuth handshake so we don't
+  # depend on Netlify Identity.
+  base_url: https://slotab.org
+  auth_endpoint: /api/decap/auth
+
+# Uploaded media (sponsor logos, board photos, etc.) land here and
+# are served at /uploads/<filename>.
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Save as drafts first; click publish to commit.
+publish_mode: editorial_workflow
+
+site_url: https://slotab.org
+display_url: https://slotab.org
+logo_url: https://slotab.org/logos/slotab-booster-club.png
+
+collections:
+  # ---------------------------------------------------------------
+  # Business sponsors, grouped by tier
+  # ---------------------------------------------------------------
+  - name: sponsors
+    label: "Business Sponsors"
+    files:
+      - name: sponsors
+        label: "Sponsor Wall"
+        file: "src/app/data/sponsors.json"
+        description: "Platinum/Gold/Silver/Bronze business sponsors shown on the Membership page."
+        fields:
+          - { name: season, label: "Season", widget: string }
+          - name: tiers
+            label: "Tiers"
+            widget: list
+            fields:
+              - name: tier
+                label: "Tier"
+                widget: select
+                options: ["Platinum", "Gold", "Silver", "Bronze"]
+              - name: sponsors
+                label: "Sponsors in this tier"
+                widget: list
+                fields:
+                  - { name: name, label: "Business name", widget: string }
+                  - {
+                      name: logo,
+                      label: "Logo",
+                      widget: image,
+                      hint: "Upload the sponsor's logo (PNG, JPG or SVG).",
+                    }
+
+  # ---------------------------------------------------------------
+  # Board roster (shown on the Contact page)
+  # ---------------------------------------------------------------
+  - name: board
+    label: "Board Members"
+    files:
+      - name: board
+        label: "Board Roster"
+        file: "src/app/data/board.json"
+        description: "Current SLOTAB board members shown on the Contact page."
+        fields:
+          - { name: year, label: "School year label (e.g. 2025-26)", widget: string }
+          - name: members
+            label: "Members"
+            widget: list
+            fields:
+              - { name: role, label: "Role", widget: string }
+              - { name: name, label: "Name", widget: string }
+              - {
+                  name: email,
+                  label: "Public email (optional)",
+                  widget: string,
+                  required: false,
+                  hint: "Use a SLOTAB role-based email (e.g. slotabpres@gmail.com), never a personal address.",
+                }
+
+  # ---------------------------------------------------------------
+  # Teams — per-sport pages
+  # ---------------------------------------------------------------
+  - name: teams_index
+    label: "Teams — Index"
+    files:
+      - name: teams_index
+        label: "Master team list"
+        file: "src/app/data/teams.json"
+        description: "Every CIF varsity team. Flip hasPage to true once a team-specific JSON is created and a route page exists."
+        fields:
+          - name: teams
+            label: "Teams"
+            widget: list
+            fields:
+              - { name: slug, label: "Slug (URL)", widget: string }
+              - { name: name, label: "Sport", widget: string }
+              - {
+                  name: gender,
+                  label: "Gender",
+                  widget: select,
+                  options: ["Boys", "Girls", "Co-ed"],
+                }
+              - {
+                  name: season,
+                  label: "Season",
+                  widget: select,
+                  options: ["Fall", "Winter", "Spring", "Year-round"],
+                }
+              - {
+                  name: hasPage,
+                  label: "Has its own page?",
+                  widget: boolean,
+                  default: false,
+                }
+
+  - name: teams_football
+    label: "Team — Football"
+    files:
+      - name: football
+        label: "Football"
+        file: "src/app/data/teams/football.json"
+        fields:
+          - { name: slug, label: "Slug", widget: string }
+          - { name: name, label: "Team name", widget: string }
+          - { name: sport, label: "Sport", widget: string }
+          - { name: gender, label: "Gender", widget: string }
+          - { name: season, label: "Season", widget: string }
+          - { name: tagline, label: "Tagline", widget: string, required: false }
+          - { name: heroPhoto, label: "Hero photo", widget: image, required: false }
+          - { name: hudlVideoSport, label: "Hudl sport filter", widget: string, required: false }
+          - { name: tnnVideoSport, label: "TNN sport filter", widget: string, required: false }
+          - { name: eventCategory, label: "Event category", widget: string, required: false, hint: "Must match a category used in weekly-events.json so schedule auto-populates." }
+          - name: headCoach
+            label: "Head Coach"
+            widget: object
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: email, label: "Email", widget: string, required: false }
+              - { name: bio, label: "Bio", widget: text, required: false }
+          - name: liaisons
+            label: "SLOTAB Team Liaisons"
+            widget: list
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: email, label: "Email", widget: string }
+          - name: captains
+            label: "Captains"
+            widget: list
+            field: { name: name, label: "Name", widget: string }
+          - name: roster
+            label: "Roster"
+            widget: list
+            fields:
+              - { name: number, label: "Number", widget: number, value_type: int }
+              - { name: name, label: "Player name", widget: string }
+              - {
+                  name: year,
+                  label: "Year",
+                  widget: select,
+                  options: ["Freshman", "Sophomore", "Junior", "Senior"],
+                }
+              - { name: position, label: "Position", widget: string }
+          - name: wishlist
+            label: "Wishlist"
+            widget: list
+            fields:
+              - { name: item, label: "Item", widget: string }
+              - { name: cost, label: "Cost (dollars)", widget: number, value_type: int }
+          - name: externalLinks
+            label: "External links"
+            widget: list
+            fields:
+              - { name: label, label: "Label", widget: string }
+              - { name: url, label: "URL", widget: string }
+
+  # (Copy-paste the block above as 'teams_girls_volleyball' / 'teams_baseball'
+  # pointing at data/teams/girls-volleyball.json and data/teams/baseball.json
+  # once you want those editable via CMS. Omitted here to keep the config
+  # short for the prototype.)
+
+  # ---------------------------------------------------------------
+  # Watch — Hudl game streams
+  # ---------------------------------------------------------------
+  - name: hudl
+    label: "Watch (Hudl)"
+    files:
+      - name: hudl
+        label: "Hudl Game Streams"
+        file: "src/app/data/hudl.json"
+        description: "Live and on-demand Hudl game streams shown on the Watch tab and the home page teaser. Add a new entry each time a game is broadcast. When the Hudl API is wired up, this will populate automatically."
+        fields:
+          - { name: currentSeason, label: "Current season label", widget: string, hint: "E.g. 'Spring 2026'" }
+          - name: channel
+            label: "Hudl channel info"
+            widget: object
+            fields:
+              - { name: handle, label: "Channel handle", widget: string }
+              - { name: url, label: "Public fan page URL", widget: string }
+              - { name: archiveUrl, label: "Video archive URL", widget: string }
+              - { name: name, label: "Display name", widget: string }
+          - name: seasons
+            label: "Past seasons (archive links)"
+            widget: list
+            fields:
+              - { name: label, label: "Season label", widget: string }
+              - { name: url, label: "Link URL", widget: string }
+          - name: videos
+            label: "Games"
+            widget: list
+            fields:
+              - { name: id, label: "Unique ID", widget: string }
+              - { name: title, label: "Title", widget: string, hint: "E.g. 'Varsity Football vs Atascadero'" }
+              - {
+                  name: sport,
+                  label: "Sport",
+                  widget: select,
+                  options:
+                    [
+                      "Football",
+                      "Volleyball",
+                      "Beach Volleyball",
+                      "Basketball",
+                      "Soccer",
+                      "Baseball",
+                      "Softball",
+                      "Water Polo",
+                      "Tennis",
+                      "Swim & Dive",
+                      "Wrestling",
+                      "Lacrosse",
+                      "Track & Field",
+                      "Cross Country",
+                      "Golf",
+                      "Stunt / Cheer",
+                    ],
+                }
+              - { name: date, label: "Game date", widget: date }
+              - {
+                  name: status,
+                  label: "Status",
+                  widget: select,
+                  options: ["archive", "upcoming", "live"],
+                  default: "archive",
+                }
+              - {
+                  name: thumbnail,
+                  label: "Thumbnail (optional)",
+                  widget: image,
+                  required: false,
+                  hint: "A game photo. Leave blank to use the Hudl-branded placeholder.",
+                }
+              - { name: watchUrl, label: "Watch URL (fan.hudl.com link)", widget: string }
+              - {
+                  name: embedUrl,
+                  label: "Embed URL (optional)",
+                  widget: string,
+                  required: false,
+                  hint: "Paste the Hudl per-game iframe embed URL if you want the game to play inline.",
+                }
+          - name: nfhsPlaceholder
+            label: "NFHS placeholder (for board discussion)"
+            widget: object
+            fields:
+              - { name: question, label: "Question", widget: string }
+              - { name: context, label: "Context", widget: text }
+              - { name: nfhsUrl, label: "Reference URL", widget: string }
+
+  # ---------------------------------------------------------------
+  # Impact — what SLOTAB donations funded
+  # ---------------------------------------------------------------
+  - name: impact
+    label: "Impact Ledger"
+    files:
+      - name: impact
+        label: "Donation-Funded Purchases"
+        file: "src/app/data/impact.json"
+        description: "List of items SLOTAB donations have purchased. Shown on the Impact page with By Year / By Team toggle, plus totals and counts."
+        fields:
+          - {
+              name: note,
+              label: "Page note (shown under the intro)",
+              widget: text,
+              hint: "E.g. 'Amounts are rounded to the nearest dollar and exclude operating costs.' Set to empty to hide.",
+              required: false,
+            }
+          - { name: currency, label: "Currency code", widget: string, default: "USD" }
+          - name: categories
+            label: "Categories (shown as colored tag on each item)"
+            widget: list
+            fields:
+              - { name: key, label: "Key (slug)", widget: string, hint: "e.g. equipment, travel, food" }
+              - { name: label, label: "Display label", widget: string }
+          - name: items
+            label: "Line items"
+            widget: list
+            fields:
+              - { name: year, label: "School year (e.g. 2024-25)", widget: string }
+              - { name: team, label: "Team / program", widget: string, hint: "E.g. 'Girls Water Polo' or 'All Sports' for shared purchases" }
+              - {
+                  name: category,
+                  label: "Category",
+                  widget: select,
+                  options:
+                    [
+                      "equipment",
+                      "facilities",
+                      "travel",
+                      "food",
+                      "apparel",
+                      "recognition",
+                      "training",
+                      "all-athletes",
+                    ],
+                }
+              - { name: description, label: "Description", widget: string }
+              - { name: cost, label: "Cost (dollars)", widget: number, value_type: int }
+              - {
+                  name: photo,
+                  label: "Photo (optional)",
+                  widget: image,
+                  required: false,
+                  hint: "Upload a photo of the item or a game photo from the team.",
+                }
+
+  # ---------------------------------------------------------------
+  # Hall of Fame — induction ceremony, committee, mission, etc.
+  # ---------------------------------------------------------------
+  - name: hall_of_fame
+    label: "Hall of Fame"
+    files:
+      - name: hof
+        label: "Hall of Fame Page"
+        file: "src/app/data/hof.json"
+        description: "Mission statement, induction ceremony details, committee roster, nomination form links, and Alumni Membership copy."
+        fields:
+          - { name: missionStatement, label: "Mission statement", widget: text }
+          - {
+              name: officialPage,
+              label: "Official SLOHS HOF page URL",
+              widget: string,
+            }
+          - name: nominationForms
+            label: "Nomination form URLs"
+            widget: object
+            fields:
+              - { name: athlete, label: "Athlete nomination URL", widget: string }
+              - { name: coach, label: "Coach nomination URL", widget: string }
+          - name: nominationCriteria
+            label: "Nomination criteria bullet points"
+            widget: object
+            fields:
+              - {
+                  name: athlete,
+                  label: "Athlete criteria",
+                  widget: list,
+                  field: { name: bullet, label: "Bullet", widget: string },
+                }
+              - {
+                  name: coach,
+                  label: "Coach criteria",
+                  widget: list,
+                  field: { name: bullet, label: "Bullet", widget: string },
+                }
+          - name: ceremony
+            label: "Induction ceremony"
+            widget: object
+            fields:
+              - { name: title, label: "Title (e.g. 'Class of 2026 Induction')", widget: string }
+              - { name: dateLabel, label: "Date label (e.g. 'October 3, 2026')", widget: string }
+              - { name: date, label: "ISO date/time", widget: datetime }
+              - { name: venueName, label: "Venue name", widget: string }
+              - { name: venueDetail, label: "Venue detail / blurb", widget: text }
+              - { name: ticketsUrl, label: "Booster Bash tickets URL", widget: string }
+              - { name: donateUrl, label: "HOF Fund donate URL", widget: string }
+          - name: committee
+            label: "Committee members"
+            widget: list
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: role, label: "Role", widget: string }
+              - {
+                  name: note,
+                  label: "Note (optional)",
+                  widget: string,
+                  required: false,
+                }
+          - name: alumniMembership
+            label: "Alumni Membership block"
+            widget: object
+            fields:
+              - { name: title, label: "Heading", widget: string }
+              - { name: blurb, label: "Blurb", widget: text }
+              - { name: joinUrl, label: "Join URL", widget: string }
+
+  - name: hof_inductees
+    label: "Hall of Fame — Inductees"
+    files:
+      - name: inductees
+        label: "Inductee Roster"
+        file: "src/app/data/hof-inductees.json"
+        description: "Full roster of SLOHS Hall of Fame inductees. Add new inductees after each class is announced."
+        fields:
+          - name: inductees
+            label: "Inductees"
+            widget: list
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - { name: yearsAtSLOHS, label: "Years at SLOHS", widget: string }
+              - { name: yearInducted, label: "Year inducted", widget: string }
+              - { name: sport, label: "Sport(s)", widget: string, hint: "Comma-separated if multiple. 'Coach' for coach inductees." }
+              - {
+                  name: note,
+                  label: "Note (optional)",
+                  widget: string,
+                  required: false,
+                  hint: "E.g. 'Posthumous', '12 Varsity Letters', 'CIF in Dodger Stadium'",
+                }
+
+  # ---------------------------------------------------------------
+  # SLOTAB booster events (meetings, fundraisers, Spring Social)
+  # ---------------------------------------------------------------
+  - name: slotab_events
+    label: "SLOTAB Events"
+    files:
+      - name: events
+        label: "Event List"
+        file: "src/app/data/slotab-events.json"
+        description: "Non-sport events shown on the Upcoming page (Spring Social, monthly meetings, Physical Night, etc.). Sport events are imported automatically from the athletic department's weekly sheet."
+        fields:
+          - name: events
+            label: "Events"
+            widget: list
+            fields:
+              - {
+                  name: id,
+                  label: "ID",
+                  widget: string,
+                  hint: "Unique slug, e.g. ns-spring-social-2026",
+                }
+              - { name: title, label: "Title", widget: string }
+              - { name: date, label: "Date & time", widget: datetime }
+              - {
+                  name: categoryLabel,
+                  label: "Category label",
+                  widget: select,
+                  options: ["SLOTAB Event", "SLOTAB Meeting", "Fundraiser"],
+                }
+              - {
+                  name: detail,
+                  label: "Detail line (optional)",
+                  widget: string,
+                  required: false,
+                  hint: "Shown under the title. E.g. '6:00 PM at Cannon, 1050 Southwood Drive'",
+                }

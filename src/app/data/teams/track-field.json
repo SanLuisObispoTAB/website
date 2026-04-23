@@ -1,0 +1,111 @@
+{
+  "slug": "track-field",
+  "name": "Varsity Track & Field",
+  "sport": "Track & Field",
+  "gender": "Co-ed",
+  "season": "Spring",
+  "tagline": "Sprints, distance, throws, jumps, and the vault — every event, every Tiger.",
+  "heroPhoto": "/photos/081922SLOGVtennis-42.2-scaled.jpg",
+  "hudlVideoSport": "Track & Field",
+  "tnnVideoSport": "track",
+  "eventCategory": "track-field",
+  "headCoach": {
+    "name": "Nicholas Steele",
+    "email": "nsteele@slcusd.org",
+    "bio": "Director of SLOHS Track & Field and jumps coach. Source: slohs.slcusd.org/athletics/spring-sports and the team's Google Site (sites.google.com/a/slcusd.org/slohs-track-and-field)."
+  },
+  "assistantCoaches": [
+    {
+      "name": "Dave Gomes",
+      "role": "Girls Head Coach — Hurdles"
+    },
+    {
+      "name": "Bryan Krill",
+      "role": "Boys Head Coach — Sprints"
+    },
+    {
+      "name": "Nancy Steinmaus",
+      "role": "Boys Distance",
+      "bio": "Also serves as a head cross country coach — nsteinmaus@hotmail.com."
+    },
+    {
+      "name": "Dan Berkeland",
+      "role": "Girls Distance",
+      "bio": "Three-time All-American and 1992 National Champion in the 3000m steeplechase for Cal Poly San Luis Obispo, where he graduated in 1996 with a degree in Architecture. Co-founder of The Back Porch Bakery, which serves wholesale bread to over 200 locations across the Central Coast. Began coaching at SLOHS in 2024 as a girls track distance assistant; later took on the head role for girls cross country."
+    },
+    {
+      "name": "Joshua Carr",
+      "role": "Discus"
+    },
+    {
+      "name": "Dave Wilson",
+      "role": "Shot Put",
+      "bio": "Has been a coach in the San Luis Obispo area for over 30 years. Enjoys helping athletes achieve success not only on the track but in life."
+    },
+    {
+      "name": "Nathan Pearce",
+      "role": "Girls Sprints"
+    },
+    {
+      "name": "Chris Steeb",
+      "role": "Girls Sprints"
+    },
+    {
+      "name": "Charlie Pearson",
+      "role": "Pole Vault",
+      "bio": "Burlington, Washington native entering his second year at Cal Poly studying Kinesiology. Started pole vaulting his freshman year of high school."
+    },
+    {
+      "name": "Adam Basch",
+      "role": "Athletic Director & Meet Announcer"
+    }
+  ],
+  "liaisons": [
+    { "name": "Liaison TBD", "email": "tf-liaison@slotab.org" }
+  ],
+  "captains": [],
+  "operationalSetup": "custom",
+  "playerParentChannels": [
+    {
+      "kind": "google-site",
+      "label": "SLOHS T&F and XC Team Website",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/",
+      "meta": "Calendar, coaches, records, scholarships, meet info"
+    },
+    {
+      "kind": "parentsquare",
+      "label": "ParentSquare — SLOHS",
+      "url": "https://www.parentsquare.com/schools/1903/",
+      "meta": "District-wide comms; coach cross-posts team announcements here too"
+    }
+  ],
+  "roster": [],
+  "wishlist": [
+    { "item": "Pole vault standards refurbishment", "cost": 1800 },
+    { "item": "Meet finish-line camera / FAT timing support", "cost": 4500 },
+    { "item": "Shot put + discus practice implements", "cost": 950 },
+    { "item": "Team travel to Arcadia Invitational 2026", "cost": 3200 }
+  ],
+  "externalLinks": [
+    {
+      "label": "SLOHS T&F and XC Team Site",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/"
+    },
+    {
+      "label": "Athletic.net — 2026 Outdoor Season",
+      "url": "https://www.athletic.net/team/1865/track-and-field-outdoor/2026"
+    },
+    {
+      "label": "SLO Invitational (hosted by SLOHS)",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/all-meet-info/slo-invitational"
+    },
+    {
+      "label": "CCAA League Championships",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/all-meet-info/ccaa-league-championships"
+    },
+    {
+      "label": "Brian Waterbury Memorial Scholarship",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/cross-country/brian-waterbury-memorial-scholarship"
+    }
+  ]
+}

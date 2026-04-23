@@ -1,0 +1,208 @@
+{
+  "note": "DRAFT LINE ITEMS. All entries below are plausible examples intended to demonstrate the page layout and filters. The SLOTAB board should review and replace each entry with the real amount, description, and (where available) photo before publishing.",
+  "currency": "USD",
+  "categories": [
+    { "key": "equipment", "label": "Equipment" },
+    { "key": "facilities", "label": "Facilities" },
+    { "key": "travel", "label": "Travel & Tournaments" },
+    { "key": "food", "label": "Food & Hydration" },
+    { "key": "apparel", "label": "Apparel & Spirit" },
+    { "key": "recognition", "label": "Recognition & Awards" },
+    { "key": "training", "label": "Training & Medical" },
+    { "key": "all-athletes", "label": "All Athletes" }
+  ],
+  "items": [
+    {
+      "year": "2024-25",
+      "team": "All Sports",
+      "category": "apparel",
+      "description": "Sport-specific t-shirts for every SLOHS student-athlete (~650 shirts across fall, winter, spring seasons)",
+      "cost": 9800,
+      "photo": "/merch/SLOHS_TrackField_2.png"
+    },
+    {
+      "year": "2024-25",
+      "team": "Football (Varsity + JV + Frosh)",
+      "category": "equipment",
+      "description": "Replacement tackle dummies and blocking sled pads",
+      "cost": 3450,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Weight Room",
+      "category": "facilities",
+      "description": "Two new Olympic power racks + bumper plate set for the team strength & conditioning room",
+      "cost": 12500,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Girls Water Polo",
+      "category": "travel",
+      "description": "Team travel to Central Section tournament in Fresno (charter bus + hotel)",
+      "cost": 2150,
+      "photo": "/photos/03122GVWaterPolo-114-scaled.jpg"
+    },
+    {
+      "year": "2024-25",
+      "team": "All Sports",
+      "category": "food",
+      "description": "Pre-game meal and hydration supplies for home games (Gatorade, fruit, protein bars)",
+      "cost": 4200,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Girls Volleyball",
+      "category": "equipment",
+      "description": "New Molten V5M5000 match volleyballs (set of 12) and replacement net",
+      "cost": 1780,
+      "photo": "/photos/081822SLOGV-171cropped-1-scaled.jpg"
+    },
+    {
+      "year": "2024-25",
+      "team": "Boys & Girls Track and Field",
+      "category": "equipment",
+      "description": "Meet clock + three new shot put implements + relay batons",
+      "cost": 2950,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Baseball",
+      "category": "equipment",
+      "description": "Bullpen pitching machine + replacement catcher's gear (2 sets)",
+      "cost": 4400,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Softball",
+      "category": "facilities",
+      "description": "Field improvements: new base anchors, home plate, dugout benches",
+      "cost": 3275,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "All Sports",
+      "category": "recognition",
+      "description": "Senior night gifts and framed jerseys for ~90 graduating senior athletes",
+      "cost": 5400,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Cheer / Stunt",
+      "category": "travel",
+      "description": "Team registration + travel for the USA Regional Championships",
+      "cost": 3800,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "Boys Basketball",
+      "category": "apparel",
+      "description": "New home and away jerseys (Varsity + JV)",
+      "cost": 6200,
+      "photo": null
+    },
+    {
+      "year": "2024-25",
+      "team": "All Sports",
+      "category": "training",
+      "description": "Athletic trainer hydration and first-aid kit restock",
+      "cost": 1650,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "All Sports",
+      "category": "apparel",
+      "description": "Sport-specific t-shirts for every SLOHS student-athlete",
+      "cost": 9200,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "Football",
+      "category": "facilities",
+      "description": "Holt Field scoreboard LED display panel replacement",
+      "cost": 18500,
+      "photo": "/photos/081222SLOvPR-159.2-scaled.jpg"
+    },
+    {
+      "year": "2023-24",
+      "team": "Girls Tennis",
+      "category": "equipment",
+      "description": "Replacement nets for four outdoor courts + ball hoppers + practice baskets",
+      "cost": 2100,
+      "photo": "/photos/081922SLOGVtennis-42.2-scaled.jpg"
+    },
+    {
+      "year": "2023-24",
+      "team": "Boys Swim & Dive",
+      "category": "travel",
+      "description": "Entry fees and bus transport for the Clovis Invitational (prelims + finals)",
+      "cost": 2400,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "All Sports",
+      "category": "food",
+      "description": "Post-practice snacks and water coolers for 22 teams across the school year",
+      "cost": 3900,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "Boys Water Polo",
+      "category": "equipment",
+      "description": "New Turbo water polo caps (home + away sets) and replacement goal netting",
+      "cost": 2850,
+      "photo": "/photos/083122BVwaterpolobobbyteitge-scaled.jpg"
+    },
+    {
+      "year": "2023-24",
+      "team": "Wrestling",
+      "category": "equipment",
+      "description": "New mat tape and headgear (24 sets)",
+      "cost": 1450,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "Cross Country",
+      "category": "apparel",
+      "description": "Team singlets and warm-up jackets",
+      "cost": 3600,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "Girls Soccer",
+      "category": "travel",
+      "description": "Hotel + vans for Clovis Central Section playoffs",
+      "cost": 2600,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "All Sports",
+      "category": "recognition",
+      "description": "Team of the Year awards + Tiger Athletic Awards banquet venue and catering",
+      "cost": 4800,
+      "photo": null
+    },
+    {
+      "year": "2023-24",
+      "team": "Boys Golf",
+      "category": "training",
+      "description": "Range fees and indoor simulator time at Dairy Creek through winter training",
+      "cost": 1200,
+      "photo": null
+    }
+  ]
+}

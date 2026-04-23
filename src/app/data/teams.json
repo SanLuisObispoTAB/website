@@ -1,0 +1,33 @@
+{
+  "note": "Master index of SLOHS CIF varsity sports. Teams with hasPage=true have a dedicated page under /teams/<slug>. Everything else shows 'Coming soon'. operationalSetup indicates how current-player comms are handled: 'standard' = SLOTAB Remind+BAND+ParentSquare kit; 'custom' = coach uses their own tool; 'none' = not set up yet.",
+  "teams": [
+    { "slug": "football", "name": "Football", "gender": "Boys", "season": "Fall", "hasPage": true, "operationalSetup": "standard" },
+    { "slug": "girls-volleyball", "name": "Volleyball", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "standard" },
+    { "slug": "baseball", "name": "Baseball", "gender": "Boys", "season": "Spring", "hasPage": true, "operationalSetup": "standard" },
+    { "slug": "track-field", "name": "Track & Field", "gender": "Co-ed", "season": "Spring", "hasPage": true, "operationalSetup": "custom" },
+
+    { "slug": "softball", "name": "Softball", "gender": "Girls", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-volleyball", "name": "Volleyball", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "beach-volleyball", "name": "Beach Volleyball", "gender": "Girls", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-tennis", "name": "Tennis", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-tennis", "name": "Tennis", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-swim-dive", "name": "Swim & Dive", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-swim-dive", "name": "Swim & Dive", "gender": "Girls", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-water-polo", "name": "Water Polo", "gender": "Boys", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-water-polo", "name": "Water Polo", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-basketball", "name": "Basketball", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-basketball", "name": "Basketball", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-soccer", "name": "Soccer", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-soccer", "name": "Soccer", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-cross-country", "name": "Cross Country", "gender": "Boys", "season": "Fall", "hasPage": false, "operationalSetup": "custom" },
+    { "slug": "girls-cross-country", "name": "Cross Country", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "custom" },
+    { "slug": "boys-golf", "name": "Golf", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-golf", "name": "Golf", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "wrestling", "name": "Wrestling", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-lacrosse", "name": "Lacrosse", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "flag-football", "name": "Flag Football", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "field-hockey", "name": "Field Hockey", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "stunt", "name": "Stunt", "gender": "Co-ed", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "cheer", "name": "Cheer", "gender": "Co-ed", "season": "Year-round", "hasPage": false, "operationalSetup": "none" }
+  ]
+}

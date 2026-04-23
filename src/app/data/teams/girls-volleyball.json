@@ -1,0 +1,70 @@
+{
+  "slug": "girls-volleyball",
+  "name": "Varsity Girls Volleyball",
+  "sport": "Volleyball",
+  "gender": "Girls",
+  "season": "Fall",
+  "tagline": "Hard serves and long rallies in the Big Gym.",
+  "heroPhoto": "/photos/081822SLOGV-171cropped-1-scaled.jpg",
+  "hudlVideoSport": "Volleyball",
+  "tnnVideoSport": "volleyball",
+  "eventCategory": "volleyball",
+  "headCoach": {
+    "name": "Kennedy Meaney",
+    "email": "kmeaney@slcusd.org",
+    "bio": "Head coach bio placeholder. Source: slohs.slcusd.org/athletics/fall-sports. Full bio to be added."
+  },
+  "liaisons": [
+    { "name": "Liaison TBD", "email": "vb-liaison@slotab.org" }
+  ],
+  "captains": ["Captain TBD", "Captain TBD"],
+  "operationalSetup": "standard",
+  "playerParentChannels": [
+    {
+      "kind": "remind",
+      "label": "Remind announcements",
+      "url": "https://www.remind.com/join/slohsgvb26",
+      "meta": "Text @slohsgvb26 to 81010 to subscribe (placeholder code)"
+    },
+    {
+      "kind": "band",
+      "label": "SLOHS Girls Volleyball BAND",
+      "url": "https://band.us/n/slohs-gvb-placeholder",
+      "meta": "Team chat, RSVPs, game-day logistics"
+    },
+    {
+      "kind": "parentsquare",
+      "label": "ParentSquare — SLOHS",
+      "url": "https://www.parentsquare.com/schools/1903/",
+      "meta": "District-wide comms; coach cross-posts team announcements here too"
+    }
+  ],
+  "roster": [
+    { "number": 1, "name": "Player Name", "year": "Senior", "position": "Setter" },
+    { "number": 3, "name": "Player Name", "year": "Senior", "position": "Outside" },
+    { "number": 5, "name": "Player Name", "year": "Junior", "position": "Libero" },
+    { "number": 7, "name": "Player Name", "year": "Senior", "position": "Opposite" },
+    { "number": 9, "name": "Player Name", "year": "Sophomore", "position": "Middle" },
+    { "number": 11, "name": "Player Name", "year": "Junior", "position": "Middle" },
+    { "number": 13, "name": "Player Name", "year": "Senior", "position": "Outside" },
+    { "number": 15, "name": "Player Name", "year": "Sophomore", "position": "DS" },
+    { "number": 17, "name": "Player Name", "year": "Junior", "position": "Setter" },
+    { "number": 19, "name": "Player Name", "year": "Senior", "position": "Outside" }
+  ],
+  "wishlist": [
+    { "item": "New Molten match balls (team set of 12)", "cost": 980 },
+    { "item": "Replacement net + antennae", "cost": 800 },
+    { "item": "Team warmup gear + jackets", "cost": 1800 },
+    { "item": "Post-practice snack & hydration fund", "cost": 900 }
+  ],
+  "externalLinks": [
+    {
+      "label": "MaxPreps schedule & roster",
+      "url": "https://www.maxpreps.com/ca/san-luis-obispo/san-luis-obispo-tigers/volleyball/"
+    },
+    {
+      "label": "Watch on Hudl",
+      "url": "https://fan.hudl.com/slotigers"
+    }
+  ]
+}

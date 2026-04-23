@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "id": "ns-spring-social",
+      "title": "Spring Social",
+      "date": "2026-04-09T17:30:00",
+      "categoryLabel": "SLOTAB Event",
+      "detail": "5:30–8:00 PM at The Hub, 1701 Monterey Street"
+    },
+    {
+      "id": "ns-apr-mtg",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2026-04-13T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-may-mtg",
+      "title": "Final SLOTAB Meeting of the Year",
+      "date": "2026-05-04T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-physical-night",
+      "title": "Physical Night",
+      "date": "2026-05-14T17:00:00",
+      "categoryLabel": "SLOTAB Event",
+      "detail": "SLOTAB on site — see you at SLOHS"
+    }
+  ]
+}

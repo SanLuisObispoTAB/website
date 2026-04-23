@@ -1,0 +1,23 @@
+{
+  "note": "DRAFT placeholder directory shown on the admin portal until the Springly API is wired up. When the API key lands, this file is replaced at runtime by live data fetched from Springly.",
+  "members": [
+    { "id": "m-001", "name": "Fisher Family", "tier": "Tiger Pride", "email": "fisher@example.com", "joined": "2025-08-12", "status": "active" },
+    { "id": "m-002", "name": "Renaissance Foundation", "tier": "Tiger Pride", "email": "info@renaissance.org", "joined": "2025-08-22", "status": "active" },
+    { "id": "m-003", "name": "Brian & Anne Wallace", "tier": "Tiger Pride", "email": "wallace@example.com", "joined": "2025-09-01", "status": "active" },
+    { "id": "m-004", "name": "Tom & Nicole Katona", "tier": "Champion", "email": "katona@example.com", "joined": "2025-08-18", "status": "active" },
+    { "id": "m-005", "name": "Jen Melton", "tier": "Champion", "email": "melton@example.com", "joined": "2025-09-05", "status": "active" },
+    { "id": "m-006", "name": "Lindsey Noland", "tier": "Champion", "email": "noland@example.com", "joined": "2025-09-11", "status": "active" },
+    { "id": "m-007", "name": "Carrie Hartford", "tier": "Coach", "email": "hartford@example.com", "joined": "2025-09-20", "status": "active" },
+    { "id": "m-008", "name": "Derek Kasel", "tier": "Coach", "email": "kasel@example.com", "joined": "2025-09-28", "status": "active" }
+  ],
+  "sponsors": [
+    { "id": "s-001", "name": "FiveO Coast", "tier": "Platinum", "contact": "contact@fiveocoast.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-002", "name": "Golf and Event Center", "tier": "Platinum", "contact": "info@golfevent.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-003", "name": "Mr. Pickles", "tier": "Gold", "contact": "slo@mrpickles.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-004", "name": "Quaglino", "tier": "Gold", "contact": "info@quaglino.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-005", "name": "Cool Cats", "tier": "Gold", "contact": "info@coolcats.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-006", "name": "Central Coast Pediatrics", "tier": "Silver", "contact": "office@ccpediatrics.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-007", "name": "Moondoggies", "tier": "Silver", "contact": "slo@moondoggies.com", "renewsOn": "2026-08-01", "status": "active" },
+    { "id": "s-008", "name": "Slocum", "tier": "Bronze", "contact": "info@slocum.com", "renewsOn": "2026-08-01", "status": "active" }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "slug": "baseball",
+  "name": "Varsity Baseball",
+  "sport": "Baseball",
+  "gender": "Boys",
+  "season": "Spring",
+  "tagline": "Tigers baseball at the SLOHS diamond.",
+  "heroPhoto": "/photos/baileyhartford-1.jpg",
+  "hudlVideoSport": "Baseball",
+  "tnnVideoSport": "baseball",
+  "eventCategory": "baseball",
+  "headCoach": {
+    "name": "Sean Gabriel",
+    "email": "seangabe3@gmail.com",
+    "bio": "Head coach bio placeholder. Source: slohs.slcusd.org/athletics/spring-sports. Full bio to be added."
+  },
+  "liaisons": [
+    { "name": "Liaison TBD", "email": "baseball-liaison@slotab.org" },
+    { "name": "Liaison TBD", "email": "baseball-liaison2@slotab.org" }
+  ],
+  "captains": ["Captain TBD", "Captain TBD"],
+  "operationalSetup": "standard",
+  "playerParentChannels": [
+    {
+      "kind": "remind",
+      "label": "Remind announcements",
+      "url": "https://www.remind.com/join/slohsbb26",
+      "meta": "Text @slohsbb26 to 81010 to subscribe (placeholder code)"
+    },
+    {
+      "kind": "band",
+      "label": "SLOHS Baseball BAND",
+      "url": "https://band.us/n/slohs-baseball-placeholder",
+      "meta": "Team chat, tournament schedules, RSVPs"
+    },
+    {
+      "kind": "parentsquare",
+      "label": "ParentSquare — SLOHS",
+      "url": "https://www.parentsquare.com/schools/1903/",
+      "meta": "District-wide comms; coach cross-posts team announcements here too"
+    }
+  ],
+  "roster": [
+    { "number": 2, "name": "Player Name", "year": "Senior", "position": "SS" },
+    { "number": 4, "name": "Player Name", "year": "Junior", "position": "2B" },
+    { "number": 7, "name": "Player Name", "year": "Senior", "position": "CF" },
+    { "number": 9, "name": "Player Name", "year": "Senior", "position": "LF" },
+    { "number": 10, "name": "Player Name", "year": "Junior", "position": "RHP / 1B" },
+    { "number": 13, "name": "Player Name", "year": "Senior", "position": "C" },
+    { "number": 16, "name": "Player Name", "year": "Sophomore", "position": "3B" },
+    { "number": 18, "name": "Player Name", "year": "Junior", "position": "RHP" },
+    { "number": 21, "name": "Player Name", "year": "Senior", "position": "LHP / OF" },
+    { "number": 24, "name": "Player Name", "year": "Senior", "position": "1B" },
+    { "number": 27, "name": "Player Name", "year": "Junior", "position": "RHP" },
+    { "number": 33, "name": "Player Name", "year": "Senior", "position": "RF / DH" }
+  ],
+  "wishlist": [
+    { "item": "Bullpen pitching machine service + new balls", "cost": 1450 },
+    { "item": "Replacement catcher's gear (2 sets)", "cost": 1800 },
+    { "item": "Dugout bench upgrade", "cost": 1200 },
+    { "item": "Team tournament entry fee fund", "cost": 2500 }
+  ],
+  "externalLinks": [
+    {
+      "label": "MaxPreps schedule & roster",
+      "url": "https://www.maxpreps.com/ca/san-luis-obispo/san-luis-obispo-tigers/baseball/"
+    },
+    {
+      "label": "Watch on Hudl",
+      "url": "https://fan.hudl.com/slotigers"
+    }
+  ]
+}

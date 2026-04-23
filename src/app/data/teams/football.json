@@ -1,0 +1,73 @@
+{
+  "slug": "football",
+  "name": "Varsity Football",
+  "sport": "Football",
+  "gender": "Boys",
+  "season": "Fall",
+  "tagline": "Friday nights on Holt Field.",
+  "heroPhoto": "/photos/081222SLOvPR-159.2-scaled.jpg",
+  "hudlVideoSport": "Football",
+  "tnnVideoSport": "football",
+  "eventCategory": "football",
+  "headCoach": {
+    "name": "Pat Johnston",
+    "email": "pjohnston@slcusd.org",
+    "bio": "Head coach bio placeholder. Source: slohs.slcusd.org/athletics/fall-sports. The school athletic site lists Coach Johnston as head coach — full bio to be added."
+  },
+  "liaisons": [
+    { "name": "Liaison TBD", "email": "liaison1@slotab.org" },
+    { "name": "Liaison TBD", "email": "liaison2@slotab.org" }
+  ],
+  "captains": ["Captain TBD", "Captain TBD", "Captain TBD"],
+  "operationalSetup": "standard",
+  "playerParentChannels": [
+    {
+      "kind": "remind",
+      "label": "Remind announcements",
+      "url": "https://www.remind.com/join/slohsfb26",
+      "meta": "Text @slohsfb26 to 81010 to subscribe (placeholder code)"
+    },
+    {
+      "kind": "band",
+      "label": "SLOHS Football BAND",
+      "url": "https://band.us/n/slohs-football-placeholder",
+      "meta": "Team chat, RSVPs, photos, game-day logistics"
+    },
+    {
+      "kind": "parentsquare",
+      "label": "ParentSquare — SLOHS",
+      "url": "https://www.parentsquare.com/schools/1903/",
+      "meta": "District-wide comms; coach cross-posts team announcements here too"
+    }
+  ],
+  "roster": [
+    { "number": 1, "name": "Player Name", "year": "Senior", "position": "QB" },
+    { "number": 7, "name": "Player Name", "year": "Senior", "position": "WR" },
+    { "number": 11, "name": "Player Name", "year": "Junior", "position": "RB" },
+    { "number": 22, "name": "Player Name", "year": "Senior", "position": "WR / DB" },
+    { "number": 34, "name": "Player Name", "year": "Junior", "position": "LB" },
+    { "number": 44, "name": "Player Name", "year": "Senior", "position": "RB / LB" },
+    { "number": 55, "name": "Player Name", "year": "Senior", "position": "OL" },
+    { "number": 67, "name": "Player Name", "year": "Junior", "position": "OL / DL" },
+    { "number": 72, "name": "Player Name", "year": "Senior", "position": "OL" },
+    { "number": 81, "name": "Player Name", "year": "Junior", "position": "TE / DE" },
+    { "number": 88, "name": "Player Name", "year": "Senior", "position": "WR" },
+    { "number": 99, "name": "Player Name", "year": "Senior", "position": "DL" }
+  ],
+  "wishlist": [
+    { "item": "Replacement tackle dummies (set of 4)", "cost": 1200 },
+    { "item": "Film-study video equipment upgrade", "cost": 3500 },
+    { "item": "New team travel duffle bags", "cost": 2200 },
+    { "item": "Pre-game meal fund for 2026 away games", "cost": 4000 }
+  ],
+  "externalLinks": [
+    {
+      "label": "MaxPreps schedule & roster",
+      "url": "https://www.maxpreps.com/ca/san-luis-obispo/san-luis-obispo-tigers/football/"
+    },
+    {
+      "label": "Watch on Hudl",
+      "url": "https://fan.hudl.com/slotigers"
+    }
+  ]
+}

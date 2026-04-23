@@ -1,0 +1,37 @@
+{
+  "missionStatement": "The San Luis Obispo High School Athletics Hall of Fame seeks to fulfill an enduring legacy of honoring excellence among our athletic alumni, coaches, and contributors — recognizing those whose accomplishments on and off the field embody the Tiger spirit.",
+  "officialPage": "https://slohs.slcusd.org/athletics/hall-of-fame",
+  "nominationForms": {
+    "athlete": "https://slohs.slcusd.org/athletics/hall-of-fame",
+    "coach": "https://slohs.slcusd.org/athletics/hall-of-fame"
+  },
+  "nominationCriteria": {
+    "athlete": [
+      "Nominee must have graduated at least ten years prior to the year of induction.",
+      "Nominee must have participated in sports at SLOHS for more than one year.",
+      "Accomplishments at SLOHS and beyond must align with the Hall of Fame mission.",
+      "A complete nomination form must be submitted on the SLOHS HOF website."
+    ],
+    "coach": [
+      "Coach nominee must have coached at SLOHS for a minimum of ten years (not necessarily consecutive).",
+      "Accomplishments at SLOHS and beyond must align with the Hall of Fame mission."
+    ]
+  },
+  "ceremony": {
+    "title": "Class of 2026 Induction",
+    "dateLabel": "October 3, 2026",
+    "date": "2026-10-03T17:30:00",
+    "venueName": "Holland Ranch",
+    "venueDetail": "The annual SLOTAB Booster Bash — where this year's Hall of Fame class is officially inducted.",
+    "ticketsUrl": "#",
+    "donateUrl": "#"
+  },
+  "committee": [
+    { "name": "TBD", "role": "Chair", "note": "Committee contact information coming soon." }
+  ],
+  "alumniMembership": {
+    "title": "Become an Alumni Member",
+    "blurb": "Former SLOHS Tigers can now support the next generation of athletes through a dedicated Alumni Membership tier. Alumni Members receive recognition at the Booster Bash, an invitation to the Hall of Fame induction, and updates on every Tiger team all year long.",
+    "joinUrl": "#"
+  }
+}

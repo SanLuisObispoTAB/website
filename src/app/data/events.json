@@ -1,0 +1,289 @@
+[
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-01T15:00:00",
+    "opponent": "Arroyo Grande",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-02T16:30:00",
+    "opponent": "Atascadero",
+    "isHome": true
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-02T16:30:00",
+    "opponent": "Santa Ynez",
+    "isHome": false
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-02T18:00:00",
+    "opponent": "Righetti (Santa Maria, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-07T15:00:00",
+    "opponent": "San Marcos (Santa Barbara, CA)",
+    "isHome": true
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-07T16:30:00",
+    "opponent": "Valencia",
+    "isHome": false
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-09T15:00:00",
+    "opponent": "Morro Bay",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-10T12:30:00",
+    "opponent": "Gridley",
+    "isHome": false
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-10T17:30:00",
+    "opponent": "Millikan (Long Beach, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-11T09:00:00",
+    "opponent": "Turlock",
+    "isHome": false
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-11T14:00:00",
+    "opponent": "Pleasant Valley (Chico, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-13T15:00:00",
+    "opponent": "Santa Ynez",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-14T16:30:00",
+    "opponent": "Templeton",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-14T16:30:00",
+    "opponent": "Santa Maria",
+    "isHome": false
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-14T18:00:00",
+    "opponent": "Nipomo",
+    "isHome": false
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-15T15:00:00",
+    "opponent": "Paso Robles",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-16T16:30:00",
+    "opponent": "Templeton",
+    "isHome": true
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-16T18:00:00",
+    "opponent": "Arroyo Grande",
+    "isHome": false
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-20T15:00:00",
+    "opponent": "Nipomo",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-21T16:30:00",
+    "opponent": "Atascadero",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-21T17:30:00",
+    "opponent": "Paso Robles",
+    "isHome": true
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-21T18:00:00",
+    "opponent": "Orcutt Academy (Orcutt, CA)",
+    "isHome": true
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-22T15:00:00",
+    "opponent": "St. Joseph (Santa Maria, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-23T16:30:00",
+    "opponent": "Paso Robles",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-23T16:30:00",
+    "opponent": "Morro Bay",
+    "isHome": false
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-23T18:00:00",
+    "opponent": "Santa Ynez",
+    "isHome": false
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-24T13:00:00",
+    "opponent": "Exeter",
+    "isHome": true
+  },
+  {
+    "sport": "beach-volleyball",
+    "sportLabel": "Beach Volleyball",
+    "date": "2026-04-24T13:00:00",
+    "opponent": "Paso Robles",
+    "isHome": true
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-24T16:30:00",
+    "opponent": "Orcutt Academy (Orcutt, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-25T12:30:00",
+    "opponent": "Eastside (Lancaster, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-28T15:30:00",
+    "opponent": "Santa Ynez",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-28T16:30:00",
+    "opponent": "Cabrillo (Lompoc, CA)",
+    "isHome": true
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-28T18:00:00",
+    "opponent": "Righetti (Santa Maria, CA)",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-04-30T16:30:00",
+    "opponent": "Cabrillo (Lompoc, CA)",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-04-30T16:30:00",
+    "opponent": "Santa Maria",
+    "isHome": true
+  },
+  {
+    "sport": "boys-volleyball",
+    "sportLabel": "Boys Volleyball",
+    "date": "2026-04-30T18:00:00",
+    "opponent": "Nipomo",
+    "isHome": true
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-05-06T15:30:00",
+    "opponent": "Santa Barbara",
+    "isHome": true
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-05-07T16:30:00",
+    "opponent": "Atascadero",
+    "isHome": false
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-05-09T14:00:00",
+    "opponent": "Pacific Grove",
+    "isHome": false
+  },
+  {
+    "sport": "baseball",
+    "sportLabel": "Baseball",
+    "date": "2026-05-12T16:30:00",
+    "opponent": "Lompoc",
+    "isHome": false
+  },
+  {
+    "sport": "softball",
+    "sportLabel": "Softball",
+    "date": "2026-05-12T16:30:00",
+    "opponent": "Templeton",
+    "isHome": true
+  }
+]

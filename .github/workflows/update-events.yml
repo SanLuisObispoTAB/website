@@ -1,0 +1,45 @@
+name: SLOTAB — refresh weekly events
+
+# Refreshes src/app/data/weekly-events.json from the public
+# SLOHS Athletic Department Google Sheet every Sunday night and on Monday
+# mornings. The job commits any diff, which triggers a Vercel redeploy.
+
+on:
+  schedule:
+    # Sunday 11pm Pacific = Monday 07:00 UTC (roughly; ignoring DST nuance)
+    - cron: "0 7 * * 1"
+    # Monday 06:00 Pacific = Monday 14:00 UTC — catches any post-Sunday fixes
+    - cron: "0 14 * * 1"
+    # Wednesday 14:00 UTC — picks up any mid-week schedule changes
+    - cron: "0 14 * * 3"
+  workflow_dispatch: {}
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run the scraper
+        run: node scripts/update-slotab-events.mjs
+
+      - name: Commit if data changed
+        run: |
+          FILES="src/app/data/weekly-events.json src/app/data/tnn-videos.json"
+          if [[ -z "$(git status --porcelain $FILES)" ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          # Committer must be a Vercel team member for Vercel to auto-deploy
+          # this commit. Matches the identity used by the rest of this repo.
+          git config user.name "Erik Ramberg"
+          git config user.email "erik@ravens-peak-consulting.com"
+          git add $FILES
+          git commit -m "slotab: refresh weekly events and TNN videos"
+          git push

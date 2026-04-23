@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>SLOTAB Admin</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/logos/slotab-booster-club.png"
+    />
+    <!--
+      Hint to Decap so it resolves config.yml from this directory
+      regardless of trailing-slash on the URL.
+    -->
+    <link
+      rel="cms-config-url"
+      type="text/yaml"
+      href="/admin/config.yml"
+    />
+  </head>
+  <body>
+    <!--
+      Decap CMS. The script replaces the body at runtime with its own
+      editor UI. This file is intentionally a plain static page with
+      zero framework code so nothing fights with Decap's DOM takeover.
+    -->
+    <script
+      src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"
+      integrity="sha384-Ch3bpZcxxjHMuIde+QMTyDdxGqjtafFkpoGgvLjf50nHhptNH7bZyPTyKSkOvEo+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

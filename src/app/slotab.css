@@ -1,0 +1,1967 @@
+/* Scoped styles for the SLOTAB preview.
+   Everything under .slotab-scope is isolated from the rest of the
+   Raven's Peak site so the two visual systems don't collide. */
+
+.slotab-scope {
+  --slotab-gold: #ffcd38;
+  --slotab-gold-dark: #e6b52a;
+  --slotab-black: #0a0a0a;
+  --slotab-ink: #1a1a1a;
+  --slotab-muted: #555;
+  --slotab-bg: #ffffff;
+  --slotab-bg-alt: #f7f7f5;
+  --slotab-border: #e5e5e5;
+
+  font-family: var(--font-slotab-body), Georgia, serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--slotab-ink);
+  background: var(--slotab-bg);
+  min-height: 100vh;
+}
+
+.slotab-scope h1,
+.slotab-scope h2,
+.slotab-scope h3,
+.slotab-scope h4 {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  color: var(--slotab-black);
+  line-height: 1.15;
+}
+
+.slotab-scope h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+.slotab-scope h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: 0.75rem; }
+.slotab-scope h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+
+.slotab-scope a { color: var(--slotab-black); text-decoration: underline; text-decoration-color: var(--slotab-gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.slotab-scope a:hover { color: var(--slotab-gold-dark); }
+
+.slotab-scope p { margin-bottom: 1rem; }
+
+/* Container */
+.slotab-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Home masthead (home page only — sits above the nav) */
+.slotab-masthead {
+  background: linear-gradient(180deg, #000 0%, #0a0a0a 70%, #151515 100%);
+  color: #fff;
+  padding: 3rem 1.25rem 2.5rem;
+  text-align: center;
+  border-bottom: 1px solid #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+.slotab-masthead::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(255, 205, 56, 0.08), transparent 60%);
+  pointer-events: none;
+}
+.slotab-masthead-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.slotab-wordmark {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.25rem, 9vw, 6rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  text-transform: none;
+}
+.slotab-wordmark .wm-slo {
+  color: #f5f5f5;
+  font-weight: 300;
+}
+.slotab-wordmark .wm-tab {
+  color: var(--slotab-gold);
+  font-weight: 800;
+  text-shadow: 0 0 40px rgba(255, 205, 56, 0.35);
+}
+.slotab-wordmark .wm-divider {
+  width: 3px;
+  height: 0.75em;
+  background: var(--slotab-gold);
+  border-radius: 2px;
+  opacity: 0.9;
+}
+.slotab-masthead-sub {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #d0d0d0;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.slotab-masthead-sub .sub-slo { color: #f0f0f0; font-weight: 400; }
+.slotab-masthead-sub .sub-tab { color: var(--slotab-gold); font-weight: 600; }
+.slotab-masthead-sub .sub-dot { color: var(--slotab-gold); font-size: 0.6em; }
+
+/* Header */
+.slotab-header {
+  background: var(--slotab-black);
+  color: #fff;
+  border-bottom: 3px solid var(--slotab-gold);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.slotab-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  max-width: 1425px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+.slotab-brand {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: var(--slotab-gold);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.slotab-scope .slotab-brand,
+.slotab-scope .slotab-brand:hover { text-decoration: none; color: var(--slotab-gold); }
+.slotab-brand-mark {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.slotab-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+.slotab-nav-item { position: relative; }
+.slotab-nav a,
+.slotab-nav-trigger {
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  background: none;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.slotab-nav a:hover,
+.slotab-nav-trigger:hover,
+.slotab-nav a.active,
+.slotab-nav-trigger.active {
+  border-bottom-color: var(--slotab-gold);
+  color: var(--slotab-gold);
+}
+.slotab-nav-caret {
+  font-size: 0.7rem;
+  transition: transform 0.15s ease;
+}
+.slotab-nav-item.has-dropdown.open .slotab-nav-caret {
+  transform: rotate(180deg);
+}
+.slotab-nav-item.has-dropdown.open .slotab-nav-trigger {
+  color: var(--slotab-gold);
+  border-bottom-color: var(--slotab-gold);
+}
+
+/* Open the dropdown on hover on devices that can hover — snappier than
+   requiring a click on desktop. Click still works on touch. */
+@media (hover: hover) {
+  .slotab-nav-item.has-dropdown:hover > .slotab-nav-dropdown,
+  .slotab-nav-item.has-dropdown:focus-within > .slotab-nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .slotab-nav-item.has-dropdown:hover > .slotab-nav-trigger,
+  .slotab-nav-item.has-dropdown:focus-within > .slotab-nav-trigger {
+    color: var(--slotab-gold);
+    border-bottom-color: var(--slotab-gold);
+  }
+  .slotab-nav-item.has-dropdown:hover .slotab-nav-caret {
+    transform: rotate(180deg);
+  }
+}
+
+.slotab-nav-dropdown {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translate(-50%, -8px);
+  min-width: 220px;
+  background: var(--slotab-black);
+  border: 1px solid #2a2a2a;
+  border-top: 3px solid var(--slotab-gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s ease;
+  z-index: 100;
+}
+.slotab-nav-item.has-dropdown.open > .slotab-nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.slotab-nav-dropdown li { margin: 0; }
+.slotab-nav-dropdown a {
+  display: block;
+  padding: 0.6rem 1.15rem;
+  border-bottom: none !important;
+  color: #e0e0e0;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.slotab-nav-dropdown a:hover,
+.slotab-nav-dropdown a:focus-visible {
+  background: #1a1a1a;
+  color: var(--slotab-gold);
+}
+
+/* Persistent gold "Join" button on the right. */
+.slotab-join-btn {
+  background: var(--slotab-gold) !important;
+  color: var(--slotab-black) !important;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.55rem 1.25rem !important;
+  border: 2px solid var(--slotab-gold) !important;
+  border-bottom: 2px solid var(--slotab-gold) !important;
+  text-decoration: none !important;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+.slotab-join-btn:hover {
+  background: transparent !important;
+  color: var(--slotab-gold) !important;
+}
+
+@media (max-width: 900px) {
+  .slotab-header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .slotab-nav {
+    gap: 0.5rem 1.25rem;
+    flex: 0;
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .slotab-nav-item.has-dropdown {
+    width: 100%;
+  }
+  .slotab-nav-dropdown,
+  .slotab-nav-item.has-dropdown.open > .slotab-nav-dropdown {
+    position: static;
+    left: auto;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    min-width: 0;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    border-left: 3px solid var(--slotab-gold);
+    margin: 0.25rem 0 0.5rem 0.75rem;
+    padding: 0.25rem 0;
+  }
+  .slotab-nav-dropdown a {
+    white-space: normal;
+  }
+  .slotab-nav-item.has-dropdown:not(.open) > .slotab-nav-dropdown {
+    display: none;
+  }
+  .slotab-nav-item.has-dropdown.open > .slotab-nav-dropdown {
+    display: block;
+  }
+  .slotab-join-btn {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Hero carousel */
+.slotab-hero-carousel {
+  position: relative;
+  width: 100%;
+  min-height: 560px;
+  color: #fff;
+  border-bottom: 4px solid var(--slotab-gold);
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.slotab-hero-slides {
+  position: absolute;
+  inset: 0;
+}
+.slotab-hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.slotab-hero-slide.active { opacity: 1; }
+.slotab-hero-slide img { object-position: center; }
+
+.slotab-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.53) 0%,
+      rgba(10, 10, 10, 0.34) 45%,
+      rgba(10, 10, 10, 0.66) 100%
+    );
+  pointer-events: none;
+}
+
+.slotab-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 6rem 1.25rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.slotab-hero-content h1 {
+  color: #fff;
+  text-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.85),
+    0 0 40px rgba(0, 0, 0, 0.6);
+}
+.slotab-hero-content .slotab-kicker {
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+.slotab-hero-content p {
+  max-width: 700px;
+  margin: 1rem auto 2rem;
+  font-size: 1.1rem;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(0, 0, 0, 0.6);
+}
+
+.slotab-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  background: rgba(10, 10, 10, 0.55);
+  color: var(--slotab-gold);
+  border: 2px solid var(--slotab-gold);
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  padding: 0 0 6px;
+}
+.slotab-hero-arrow:hover { background: var(--slotab-gold); color: var(--slotab-black); }
+.slotab-hero-arrow.prev { left: 1.25rem; }
+.slotab-hero-arrow.next { right: 1.25rem; }
+
+.slotab-hero-dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+}
+.slotab-hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--slotab-gold);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.slotab-hero-dot.active { background: var(--slotab-gold); transform: scale(1.2); }
+
+@media (max-width: 640px) {
+  .slotab-hero-carousel { min-height: 480px; }
+  .slotab-hero-content { padding: 4rem 1.25rem 5rem; }
+  .slotab-hero-arrow { width: 38px; height: 38px; font-size: 1.5rem; }
+  .slotab-hero-arrow.prev { left: 0.5rem; }
+  .slotab-hero-arrow.next { right: 0.5rem; }
+}
+
+/* Buttons */
+.slotab-btn {
+  display: inline-block;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  padding: 0.9rem 1.75rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: 2px solid var(--slotab-gold);
+  transition: all 0.15s ease;
+}
+.slotab-btn:hover { background: transparent; color: var(--slotab-gold); text-decoration: none; }
+.slotab-btn.outline { background: transparent; color: var(--slotab-gold); }
+.slotab-btn.outline:hover { background: var(--slotab-gold); color: var(--slotab-black); }
+.slotab-btn.dark { background: var(--slotab-black); color: var(--slotab-gold); border-color: var(--slotab-black); }
+.slotab-btn.dark:hover { background: var(--slotab-gold); color: var(--slotab-black); border-color: var(--slotab-gold); }
+
+.slotab-btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* Sections */
+.slotab-section { padding: 4rem 0; }
+.slotab-section.alt { background: var(--slotab-bg-alt); }
+.slotab-section-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.slotab-section-title .slotab-kicker {
+  display: block;
+  color: var(--slotab-gold-dark);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.slotab-section-title h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--slotab-gold);
+  margin: 0.75rem auto 0;
+}
+
+/* Page header (non-home) */
+.slotab-page-header {
+  background: var(--slotab-black);
+  color: #fff;
+  padding: 3.5rem 1.25rem 3rem;
+  text-align: center;
+  border-bottom: 4px solid var(--slotab-gold);
+}
+.slotab-page-header h1 { color: #fff; }
+.slotab-page-header .slotab-kicker {
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Content prose */
+.slotab-prose {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.slotab-prose h2 { margin-top: 2.5rem; }
+.slotab-prose h3 { margin-top: 1.75rem; color: var(--slotab-gold-dark); }
+.slotab-prose ul { margin: 0 0 1rem 1.5rem; }
+.slotab-prose li { margin-bottom: 0.35rem; }
+
+/* Grid cards */
+.slotab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.slotab-card {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.75rem;
+}
+.slotab-card h3 { margin-top: 0; }
+.slotab-card.dark {
+  background: var(--slotab-black);
+  color: #fff;
+  border-top-color: var(--slotab-gold);
+}
+.slotab-card.dark h3 { color: var(--slotab-gold); }
+
+/* Sponsor tiers (legacy text-only, kept for fallback) */
+.slotab-tier { margin-bottom: 2rem; }
+.slotab-tier h3 {
+  color: var(--slotab-black);
+  border-bottom: 2px solid var(--slotab-gold);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+.slotab-tier ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.slotab-tier li { margin: 0; }
+
+/* Sponsor wall (logo grid) */
+.slotab-sponsor-wall { max-width: 1200px; margin: 0 auto; }
+.slotab-sponsor-tier { margin-bottom: 3rem; }
+.slotab-sponsor-tier h3 {
+  text-align: center;
+  color: var(--slotab-black);
+  position: relative;
+  margin-bottom: 1.75rem;
+}
+.slotab-sponsor-tier h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--slotab-gold);
+  margin: 0.6rem auto 0;
+}
+.slotab-sponsor-grid {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  align-items: center;
+}
+.slotab-sponsor-tier.platinum .slotab-sponsor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.slotab-sponsor-tier.gold .slotab-sponsor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.slotab-sponsor-tier.silver .slotab-sponsor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+.slotab-sponsor-tier.bronze .slotab-sponsor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.slotab-sponsor-logo {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.slotab-sponsor-logo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--slotab-gold);
+}
+.slotab-sponsor-tier.platinum .slotab-sponsor-logo { min-height: 200px; padding: 1.25rem; }
+.slotab-sponsor-tier.gold .slotab-sponsor-logo { min-height: 150px; }
+.slotab-sponsor-tier.silver .slotab-sponsor-logo { min-height: 120px; }
+.slotab-sponsor-tier.bronze .slotab-sponsor-logo { min-height: 95px; padding: 0.75rem; }
+
+/* Sport merch grid */
+.slotab-merch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.slotab-merch-item {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.25rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.slotab-merch-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.slotab-merch-item img { width: 100%; height: auto; display: block; }
+.slotab-merch-item h4 {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  margin-top: 0.75rem;
+  color: var(--slotab-black);
+}
+
+/* Season pass product images */
+.slotab-pass-image {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto 1rem;
+  background: #fff;
+  padding: 0.75rem;
+}
+.slotab-pass-image img { width: 100%; height: auto; display: block; }
+
+/* Booster bash flyer */
+.slotab-flyer {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  border: 4px solid var(--slotab-gold);
+}
+.slotab-flyer img { display: block; width: 100%; height: auto; }
+
+/* Event list (homepage next-up strip — old) */
+.slotab-events { list-style: none; padding: 0; margin: 0; }
+.slotab-events li {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--slotab-border);
+}
+.slotab-events li:last-child { border-bottom: none; }
+.slotab-events .date {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  color: var(--slotab-gold-dark);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+@media (max-width: 640px) {
+  .slotab-events li { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* Full Events page with filter */
+.slotab-events-page { max-width: 980px; margin: 0 auto; }
+.slotab-event-filter {
+  background: var(--slotab-bg-alt);
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.slotab-event-filter-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+.slotab-event-filter-head .slotab-kicker {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  color: var(--slotab-gold-dark);
+}
+.slotab-event-filter-actions {
+  font-size: 0.85rem;
+  color: var(--slotab-muted);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.slotab-event-filter-actions button {
+  background: none;
+  border: none;
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.15rem 0.5rem;
+}
+.slotab-event-filter-actions button:hover { color: var(--slotab-gold-dark); }
+.slotab-event-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.slotab-event-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.85rem;
+  background: #fff;
+  border: 2px solid var(--slotab-border);
+  color: var(--slotab-muted);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.slotab-event-chip.on {
+  background: var(--slotab-black);
+  border-color: var(--slotab-gold);
+  color: var(--slotab-gold);
+}
+.slotab-event-chip.on.accent {
+  background: var(--slotab-gold);
+  border-color: var(--slotab-gold);
+  color: var(--slotab-black);
+}
+.slotab-event-chip.off { opacity: 0.55; }
+.slotab-event-chip:hover { transform: translateY(-1px); }
+.slotab-event-chip .chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.slotab-event-chip.off .chip-count { background: var(--slotab-border); color: var(--slotab-muted); }
+.slotab-event-chip.on.accent .chip-count { background: rgba(0, 0, 0, 0.15); color: var(--slotab-black); }
+
+.slotab-event-month { margin-bottom: 2.5rem; }
+.slotab-event-month-title {
+  font-size: 1.4rem;
+  color: var(--slotab-black);
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid var(--slotab-gold);
+  margin-bottom: 1rem;
+}
+.slotab-event-list { list-style: none; padding: 0; margin: 0; }
+.slotab-event-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--slotab-border);
+  align-items: center;
+}
+.slotab-event-row:last-child { border-bottom: none; }
+.slotab-event-row.non-sport {
+  background: linear-gradient(90deg, rgba(255, 205, 56, 0.08), transparent 70%);
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--slotab-gold);
+}
+.slotab-event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-slotab-heading), sans-serif;
+  background: var(--slotab-black);
+  color: #fff;
+  padding: 0.5rem 0;
+  border-top: 3px solid var(--slotab-gold);
+}
+.slotab-event-date .day {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--slotab-gold);
+}
+.slotab-event-date .num {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+.slotab-event-date .mon {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: #bdbdbd;
+  letter-spacing: 0.1em;
+  margin-top: 0.1rem;
+}
+.slotab-event-body { min-width: 0; }
+.slotab-event-title {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--slotab-black);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.slotab-event-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  letter-spacing: 0.1em;
+  border-radius: 2px;
+}
+.slotab-event-tag.home {
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+}
+.slotab-event-tag.away {
+  background: transparent;
+  border: 1px solid var(--slotab-muted);
+  color: var(--slotab-muted);
+}
+.slotab-event-meta {
+  font-size: 0.85rem;
+  color: var(--slotab-muted);
+  margin-top: 0.2rem;
+}
+.slotab-events-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--slotab-muted);
+  font-style: italic;
+}
+@media (max-width: 560px) {
+  .slotab-event-row { grid-template-columns: 60px 1fr; gap: 0.85rem; }
+  .slotab-event-date .num { font-size: 1.4rem; }
+}
+
+/* Preview banner */
+.slotab-preview-banner {
+  background: #fff8d1;
+  border-bottom: 1px solid #e6cf3a;
+  color: #6b5200;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* Footer */
+.slotab-footer {
+  background: var(--slotab-black);
+  color: #bdbdbd;
+  padding: 3rem 1.25rem 2rem;
+  border-top: 4px solid var(--slotab-gold);
+  margin-top: 4rem;
+}
+.slotab-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 2rem;
+}
+.slotab-footer h4 {
+  color: var(--slotab-gold);
+  font-size: 0.9rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+.slotab-footer a { color: #fff; text-decoration: none; }
+.slotab-footer a:hover { color: var(--slotab-gold); }
+.slotab-footer ul { list-style: none; padding: 0; margin: 0; }
+.slotab-footer li { margin-bottom: 0.35rem; font-size: 0.9rem; }
+.slotab-footer-copy {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid #2a2a2a;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.05em;
+}
+@media (max-width: 720px) {
+  .slotab-footer-inner { grid-template-columns: 1fr; }
+}
+
+/* Hudl-specific card extensions (reuses .slotab-tnn-* grid + card styles) */
+.slotab-hudl-placeholder-thumb {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #151515 100%);
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.slotab-hudl-placeholder-thumb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 30px,
+      rgba(255, 205, 56, 0.05) 30px 31px
+    );
+}
+.slotab-hudl-placeholder-thumb span { position: relative; z-index: 1; }
+.slotab-hudl-live-badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  background: #d40000;
+  color: #fff;
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  animation: slotab-pulse 2s ease-in-out infinite;
+}
+@keyframes slotab-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Tiger News Network filter bar */
+.slotab-tnn-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 auto 2.5rem;
+  max-width: 1000px;
+}
+
+/* Tiger News Network video grid */
+.slotab-tnn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.slotab-tnn-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.slotab-scope .slotab-tnn-card,
+.slotab-scope .slotab-tnn-card:hover { text-decoration: none; }
+.slotab-tnn-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border-color: var(--slotab-gold);
+}
+.slotab-tnn-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--slotab-black);
+}
+.slotab-tnn-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.slotab-tnn-card:hover .slotab-tnn-thumb img { transform: scale(1.04); }
+.slotab-tnn-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.75rem;
+  color: #fff;
+  background: rgba(10, 10, 10, 0.25);
+  opacity: 0.9;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+.slotab-tnn-card:hover .slotab-tnn-play {
+  background: rgba(255, 205, 56, 0.35);
+  opacity: 1;
+  color: var(--slotab-gold);
+}
+.slotab-tnn-duration {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: rgba(10, 10, 10, 0.85);
+  color: #fff;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.slotab-tnn-body { padding: 1rem; }
+.slotab-tnn-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+.slotab-tnn-tag {
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+}
+.slotab-tnn-title {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--slotab-black);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+}
+.slotab-tnn-meta {
+  font-size: 0.8rem;
+  color: var(--slotab-muted);
+  margin-top: 0.4rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.03em;
+}
+
+/* Join form */
+.slotab-join-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.25rem;
+  background: var(--slotab-bg-alt);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.5rem;
+  border: 1px solid var(--slotab-border);
+  border-top-width: 4px;
+}
+.slotab-join-field { display: flex; flex-direction: column; gap: 0.3rem; }
+.slotab-join-field.wide { grid-column: 1 / -1; }
+.slotab-join-field label {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slotab-black);
+}
+.slotab-join-field input,
+.slotab-join-field select,
+.slotab-join-field textarea {
+  font: inherit;
+  padding: 0.55rem 0.75rem;
+  border: 2px solid var(--slotab-border);
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.slotab-join-field input:focus,
+.slotab-join-field select:focus,
+.slotab-join-field textarea:focus {
+  outline: none;
+  border-color: var(--slotab-gold);
+  box-shadow: 0 0 0 3px rgba(255, 205, 56, 0.25);
+}
+@media (max-width: 560px) {
+  .slotab-join-form { grid-template-columns: 1fr; }
+}
+
+/* Springly admin portal table */
+.slotab-portal-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--slotab-border);
+  background: #fff;
+}
+.slotab-portal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.slotab-portal-table thead {
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+}
+.slotab-portal-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.slotab-portal-table td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--slotab-border);
+  vertical-align: middle;
+}
+.slotab-portal-table tr:hover { background: var(--slotab-bg-alt); }
+.slotab-portal-chip {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.slotab-portal-chip.tier-platinum { background: #e5e4e2; color: #111; }
+.slotab-portal-chip.tier-gold { background: var(--slotab-gold); color: var(--slotab-black); }
+.slotab-portal-chip.tier-silver { background: #c0c0c0; color: #111; }
+.slotab-portal-chip.tier-bronze { background: #cd7f32; color: #fff; }
+.slotab-portal-status {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.slotab-portal-status.active {
+  background: #e7f5e6;
+  color: #2e6a2e;
+  border: 1px solid #6ea76b;
+}
+.slotab-portal-status.lapsed {
+  background: #fdecec;
+  color: #a0231f;
+  border: 1px solid #c9302c;
+}
+
+/* Team pages — hero, quick facts, roster, wishlist */
+.slotab-team-hero {
+  position: relative;
+  min-height: 360px;
+  color: #fff;
+  border-bottom: 4px solid var(--slotab-gold);
+  overflow: hidden;
+}
+.slotab-team-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.35) 0%,
+    rgba(10, 10, 10, 0.2) 40%,
+    rgba(10, 10, 10, 0.75) 100%
+  );
+}
+.slotab-team-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 5rem 1.25rem 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.slotab-team-hero-content h1 {
+  color: #fff;
+  margin: 0.5rem 0 0.75rem;
+  text-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(0, 0, 0, 0.6);
+}
+.slotab-team-hero-content .slotab-kicker {
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  display: block;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+.slotab-team-tagline {
+  margin: 0.75rem auto 0;
+  font-size: 1.1rem;
+  max-width: 620px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+
+.slotab-team-quickfacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.slotab-team-fact {
+  background: var(--slotab-bg-alt);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.25rem 1.5rem;
+}
+.slotab-team-fact-label {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.7rem;
+  color: var(--slotab-gold-dark);
+  margin-bottom: 0.3rem;
+}
+.slotab-team-fact-value {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  color: var(--slotab-black);
+  font-size: 1.1rem;
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
+}
+
+.slotab-team-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0.5rem 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.slotab-team-roster-row {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr auto;
+  grid-template-rows: auto auto;
+  column-gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--slotab-border);
+  align-items: baseline;
+}
+.slotab-team-roster-num {
+  grid-row: 1 / 3;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--slotab-gold-dark);
+  align-self: center;
+}
+.slotab-team-roster-name {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  color: var(--slotab-black);
+  font-size: 1rem;
+}
+.slotab-team-roster-year {
+  font-size: 0.8rem;
+  color: var(--slotab-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  grid-column: 3;
+  grid-row: 1;
+}
+.slotab-team-roster-position {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 0.85rem;
+  color: var(--slotab-ink);
+}
+
+.slotab-team-wishlist {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 820px;
+}
+.slotab-team-wishlist li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px dashed var(--slotab-border);
+  gap: 1rem;
+}
+.slotab-team-wishlist-item {
+  font-size: 1rem;
+}
+.slotab-team-wishlist-cost {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  color: var(--slotab-gold-dark);
+  white-space: nowrap;
+}
+
+/* "For Players & Parents" operational comms strip.
+   Visually distinct from the booster content above/below so nobody
+   confuses the audiences. Sits on a subtle gold-tinted background with
+   a double gold border top+bottom. */
+.slotab-team-comms {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 205, 56, 0.08) 0%,
+    rgba(255, 205, 56, 0.03) 100%
+  );
+  padding: 2.5rem 1.25rem;
+  border-top: 3px solid var(--slotab-gold);
+  border-bottom: 3px solid var(--slotab-gold);
+}
+.slotab-team-comms-inner { max-width: 1000px; margin: 0 auto; }
+.slotab-team-comms-head { text-align: center; margin-bottom: 1.75rem; }
+.slotab-team-comms-head .slotab-kicker {
+  color: var(--slotab-gold-dark);
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  margin-bottom: 0.75rem;
+  border-radius: 2px;
+}
+.slotab-team-comms-head h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+}
+.slotab-team-comms-head p {
+  color: var(--slotab-ink);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.slotab-team-comms-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.slotab-team-comms-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: #fff;
+  border: 2px solid var(--slotab-black);
+  padding: 1rem 1.15rem;
+  text-decoration: none !important;
+  color: inherit;
+  transition: all 0.15s ease;
+}
+.slotab-team-comms-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--slotab-gold);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.slotab-team-comms-kind {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: var(--slotab-black);
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  align-self: flex-start;
+}
+/* Tool-specific accent colors so the brand is recognizable */
+.slotab-team-comms-remind .slotab-team-comms-kind { background: #13a4ec; }
+.slotab-team-comms-band .slotab-team-comms-kind { background: #00c73c; }
+.slotab-team-comms-parentsquare .slotab-team-comms-kind { background: #ff6a3d; }
+.slotab-team-comms-google-site .slotab-team-comms-kind { background: #4285f4; }
+.slotab-team-comms-teamsnap .slotab-team-comms-kind { background: #d32121; }
+.slotab-team-comms-instagram .slotab-team-comms-kind {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 50%, #bc1888 100%);
+}
+
+.slotab-team-comms-label {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  color: var(--slotab-black);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.slotab-team-comms-meta {
+  font-size: 0.85rem;
+  color: var(--slotab-muted);
+}
+.slotab-team-comms-go {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--slotab-gold-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+}
+.slotab-team-comms-note {
+  text-align: center;
+  color: var(--slotab-muted);
+  font-size: 0.85rem;
+  margin: 1.25rem 0 0;
+}
+.slotab-team-comms-none {
+  background: #fff8d1;
+  border: 2px dashed var(--slotab-gold);
+  padding: 1.25rem;
+  text-align: center;
+}
+
+/* Teams index — operationalSetup status badge */
+.slotab-team-card .slotab-team-card-status {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  margin-top: 0.35rem;
+  align-self: flex-start;
+}
+.slotab-team-card-status.standard {
+  background: #e7f5e6;
+  color: #2e6a2e;
+  border: 1px solid #6ea76b;
+}
+.slotab-team-card-status.custom {
+  background: #fff8d1;
+  color: #6b5200;
+  border: 1px solid var(--slotab-gold-dark);
+}
+.slotab-team-card-status.none {
+  background: #fdecec;
+  color: #a0231f;
+  border: 1px solid #c9302c;
+}
+
+/* Coaching staff cards */
+.slotab-coach-staff {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.slotab-coach-card {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-top: 3px solid var(--slotab-gold);
+  padding: 1rem 1.15rem;
+}
+.slotab-coach-name {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--slotab-black);
+}
+.slotab-coach-role {
+  color: var(--slotab-gold-dark);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+.slotab-coach-bio {
+  color: var(--slotab-ink);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0;
+  line-height: 1.5;
+}
+
+/* Teams index cards */
+.slotab-teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.slotab-team-card {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-left: 4px solid var(--slotab-gold);
+  padding: 1.15rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+.slotab-scope .slotab-team-card,
+.slotab-scope .slotab-team-card:hover {
+  text-decoration: none;
+}
+.slotab-team-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-left-color: var(--slotab-gold-dark);
+}
+.slotab-team-card.soon {
+  opacity: 0.55;
+  cursor: default;
+  background: var(--slotab-bg-alt);
+  border-left-color: var(--slotab-border);
+}
+.slotab-team-card-gender {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--slotab-muted);
+  letter-spacing: 0.1em;
+}
+.slotab-team-card-name {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--slotab-black);
+}
+.slotab-team-card-cta {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--slotab-gold-dark);
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.05em;
+}
+.slotab-team-card.soon .slotab-team-card-cta {
+  color: var(--slotab-muted);
+}
+
+/* Hall of Fame inductee grid */
+.slotab-hof-grid-wrap { max-width: 1100px; margin: 0 auto; }
+.slotab-hof-controls {
+  background: var(--slotab-bg-alt);
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.slotab-hof-search {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 2px solid var(--slotab-border);
+  background: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.slotab-hof-search:focus {
+  outline: none;
+  border-color: var(--slotab-gold);
+  box-shadow: 0 0 0 3px rgba(255, 205, 56, 0.25);
+}
+
+.slotab-hof-year { margin-bottom: 2.5rem; }
+.slotab-hof-year-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  color: var(--slotab-black);
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid var(--slotab-gold);
+  margin-bottom: 1rem;
+}
+.slotab-hof-year-count {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--slotab-muted);
+  font-weight: 500;
+}
+.slotab-hof-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.slotab-hof-card {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-left: 4px solid var(--slotab-gold);
+  padding: 1rem 1.15rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.slotab-hof-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-left-color: var(--slotab-gold-dark);
+}
+.slotab-hof-card-name {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--slotab-black);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+}
+.slotab-hof-card-sport {
+  color: var(--slotab-gold-dark);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.slotab-hof-card-years {
+  color: var(--slotab-muted);
+  font-size: 0.85rem;
+}
+.slotab-hof-card-note {
+  color: var(--slotab-black);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--slotab-border);
+  font-style: italic;
+}
+
+/* Impact ledger */
+.slotab-impact {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Draft watermark — diagonal tiled "DRAFT · FAKE ITEMS" text over the
+   ledger so nobody mistakes the placeholder numbers for real data. */
+.slotab-impact::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='180' viewBox='0 0 420 180'><g transform='rotate(-22 210 90)'><text x='210' y='100' text-anchor='middle' font-family='Raleway, Arial, sans-serif' font-size='26' font-weight='800' letter-spacing='3' fill='%23c9302c'>DRAFT · FAKE ITEMS</text></g></svg>");
+  background-repeat: repeat;
+  background-size: 420px 180px;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+}
+.slotab-impact > * { position: relative; z-index: 1; }
+
+/* Extra red ribbon at the top of the ledger so the watermark intent is
+   reinforced even in high-contrast/dark-mode browsers where the diagonal
+   SVG might wash out. */
+.slotab-impact-draft-ribbon {
+  background: #c9302c;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+
+.slotab-impact-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.slotab-impact-stat {
+  background: var(--slotab-black);
+  color: #fff;
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+.slotab-impact-stat-value {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--slotab-gold);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+.slotab-impact-stat-label {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  color: #d5d5d5;
+}
+
+.slotab-impact-toggle {
+  display: inline-flex;
+  background: #fff;
+  border: 2px solid var(--slotab-border);
+  margin-bottom: 1.75rem;
+}
+.slotab-impact-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--slotab-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.slotab-impact-toggle-btn.on {
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+}
+
+.slotab-impact-group { margin-bottom: 2rem; }
+.slotab-impact-group-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid var(--slotab-gold);
+  margin-bottom: 0.75rem;
+}
+.slotab-impact-group-head h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.slotab-impact-group-total {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  color: var(--slotab-black);
+  font-size: 1.05rem;
+}
+.slotab-impact-group-count {
+  font-weight: 400;
+  color: var(--slotab-muted);
+  font-size: 0.85rem;
+}
+
+.slotab-impact-items { list-style: none; padding: 0; margin: 0; }
+.slotab-impact-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--slotab-border);
+  align-items: center;
+}
+.slotab-impact-item:last-child { border-bottom: none; }
+.slotab-impact-item-photo {
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  background: var(--slotab-bg-alt);
+  border: 1px solid var(--slotab-border);
+}
+.slotab-impact-item-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--slotab-gold-dark);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #fff 0 10px,
+      rgba(255, 205, 56, 0.08) 10px 20px
+    );
+}
+.slotab-impact-item-body { min-width: 0; }
+.slotab-impact-item-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+.slotab-impact-item-team {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--slotab-black);
+}
+.slotab-impact-item-cat {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slotab-black);
+  background: var(--slotab-gold);
+  padding: 0.15rem 0.45rem;
+  font-weight: 600;
+}
+.slotab-impact-item-desc {
+  color: var(--slotab-ink);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.slotab-impact-item-cost {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--slotab-gold-dark);
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  .slotab-impact-item {
+    grid-template-columns: 56px 1fr;
+    grid-template-areas:
+      "photo body"
+      "cost  cost";
+    row-gap: 0.5rem;
+  }
+  .slotab-impact-item-photo { width: 56px; height: 56px; grid-area: photo; }
+  .slotab-impact-item-body { grid-area: body; }
+  .slotab-impact-item-cost { grid-area: cost; justify-self: end; }
+}
+
+/* Homepage dark impact strip */
+.slotab-impact-strip {
+  background:
+    linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
+  color: #fff;
+  padding: 3rem 1.25rem;
+  border-top: 4px solid var(--slotab-gold);
+  border-bottom: 4px solid var(--slotab-gold);
+}
+.slotab-impact-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+.slotab-impact-strip-lead { max-width: 720px; }
+.slotab-impact-strip-lead .slotab-kicker {
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.slotab-impact-strip-lead h2 {
+  color: #fff;
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+}
+.slotab-impact-strip-lead p {
+  margin: 0;
+  color: #d5d5d5;
+  font-size: 1rem;
+  max-width: 640px;
+}
+@media (max-width: 720px) {
+  .slotab-impact-strip-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .slotab-impact-strip-lead { max-width: none; }
+  .slotab-impact-strip-lead p { margin: 0 auto; }
+}
+
+/* Homepage feature strip */
+.slotab-feature-strip {
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+.slotab-feature-strip h2 { color: var(--slotab-black); margin-bottom: 0.5rem; }
+.slotab-feature-strip p { margin: 0 auto 1.25rem; max-width: 600px; }
+
+/* Board roster */
+.slotab-board { list-style: none; padding: 0; margin: 0; }
+.slotab-board li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--slotab-border);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.slotab-board .role {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--slotab-gold-dark);
+  font-weight: 600;
+}

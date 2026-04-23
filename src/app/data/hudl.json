@@ -1,0 +1,82 @@
+{
+  "note": "Placeholder Hudl video entries. Replace each embedUrl with the real Hudl iframe embed URL once API credentials are set up, or paste per-game embed codes manually via the Decap CMS. Cards with embedUrl=null fall back to the 'Watch on Hudl' link.",
+  "channel": {
+    "handle": "slotigers",
+    "url": "https://fan.hudl.com/slotigers",
+    "archiveUrl": "https://fan.hudl.com/usa/ca/san-luis-obispo/organization/5267/san-luis-obispo-high-school/video",
+    "name": "SLO Tigers on Hudl"
+  },
+  "currentSeason": "Spring 2026",
+  "seasons": [
+    { "label": "Fall 2025", "url": "https://fan.hudl.com/slotigers" },
+    { "label": "Winter 2025-26", "url": "https://fan.hudl.com/slotigers" },
+    { "label": "Spring 2025", "url": "https://fan.hudl.com/slotigers" }
+  ],
+  "videos": [
+    {
+      "id": "placeholder-bv-2026-04-09",
+      "title": "Girls Beach Volleyball vs Morro Bay",
+      "sport": "Beach Volleyball",
+      "date": "2026-04-09",
+      "status": "live",
+      "thumbnail": "/photos/081822SLOGV-171cropped-1-scaled.jpg",
+      "watchUrl": "https://fan.hudl.com/slotigers",
+      "embedUrl": null
+    },
+    {
+      "id": "placeholder-baseball-2026-04-02",
+      "title": "Varsity Baseball vs Atascadero",
+      "sport": "Baseball",
+      "date": "2026-04-02",
+      "status": "archive",
+      "thumbnail": null,
+      "watchUrl": "https://fan.hudl.com/slotigers",
+      "embedUrl": null
+    },
+    {
+      "id": "placeholder-bvb-2026-04-02",
+      "title": "Boys Volleyball @ Righetti",
+      "sport": "Volleyball",
+      "date": "2026-04-02",
+      "status": "archive",
+      "thumbnail": null,
+      "watchUrl": "https://fan.hudl.com/slotigers",
+      "embedUrl": null
+    },
+    {
+      "id": "placeholder-softball-2026-03-31",
+      "title": "Varsity Softball vs Atascadero",
+      "sport": "Softball",
+      "date": "2026-03-31",
+      "status": "archive",
+      "thumbnail": null,
+      "watchUrl": "https://fan.hudl.com/slotigers",
+      "embedUrl": null
+    },
+    {
+      "id": "placeholder-football-2025-11-07",
+      "title": "Varsity Football vs Lemoore",
+      "sport": "Football",
+      "date": "2025-11-07",
+      "status": "archive",
+      "thumbnail": "/photos/081222SLOvPR-159.2-scaled.jpg",
+      "watchUrl": "https://fan.hudl.com/slotigers",
+      "embedUrl": null
+    },
+    {
+      "id": "placeholder-football-2025-10-31",
+      "title": "Varsity Football vs Atascadero",
+      "sport": "Football",
+      "date": "2025-10-31",
+      "status": "archive",
+      "thumbnail": null,
+      "watchUrl": "https://fan.hudl.com/slotigers",
+      "embedUrl": null
+    }
+  ],
+  "nfhsPlaceholder": {
+    "question": "Include NFHS Network videos alongside Hudl?",
+    "context": "SLOHS also appears on nfhsnetwork.com. NFHS is subscription-based for most content; Hudl is our primary source. To be discussed at the next board meeting — if yes, we'll add an NFHS card row below the Hudl grid.",
+    "nfhsUrl": "https://www.nfhsnetwork.com/schools/san-luis-obispo-high-school-san-luis-obispo-ca"
+  }
+}
