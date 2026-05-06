@@ -49,6 +49,7 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-04-23 | 21 | **Goal model**: per-team goals + per-trimester campaign goal (overall) | Board ✅ |
 | 2026-04-23 | 22 | **ParentSquare URL**: `https://www.parentsquare.com/schools/1903/` | Board ✅ |
 | 2026-04-23 | 23 | **GitHub repo**: <https://github.com/eramberg/slo-tab-website> (personal account; can transfer to org later) | Erik ✅ |
+| 2026-04-23 | 24 | **Vercel project** created and connected to the new repo | Erik ✅ |
 
 ---
 
@@ -235,8 +236,8 @@ G1 + G2 done ✅. Remaining items below.
 |---|---|---|
 | ~~G1~~ | ~~Push to new GitHub repo~~ | ✅ <https://github.com/eramberg/slo-tab-website> |
 | ~~G2~~ | ~~Update `public/admin/config.yml` `backend.repo`~~ | ✅ `eramberg/slo-tab-website` |
-| G3 | Connect Vercel project to the new repo | Now unblocked |
-| G4 | GitHub OAuth App + `DECAP_GITHUB_CLIENT_ID` / `DECAP_GITHUB_CLIENT_SECRET` env vars | Callback URL depends on G3 |
+| ~~G3~~ | ~~Connect Vercel project to the new repo~~ | ✅ |
+| G4 | GitHub OAuth App + `DECAP_GITHUB_CLIENT_ID` / `DECAP_GITHUB_CLIENT_SECRET` env vars | Now unblocked |
 | G5 | DNS cutover — `slotab.org` → new Vercel project | After G3 live |
 | G6 | Drop `robots: noindex` from `src/app/layout.tsx` | At cutover |
 | G7 | Cancel GoDaddy Managed WordPress | 48 hours after G5 |
@@ -248,7 +249,7 @@ The transcript and the two API keys (E1, E3) release the most:
 - Hudl API key → E1, E2, real Watch tab
 - Springly API key → E3, live Join form, admin portal
 
-**Total open**: 6 transcript-blocked · 6 board-blocked · 15 external-blocked · 5 deploy-blocked
+**Total open**: 6 transcript-blocked · 6 board-blocked · 15 external-blocked · 4 deploy-blocked
 
 ---
 
