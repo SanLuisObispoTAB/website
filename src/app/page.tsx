@@ -1,63 +1,11 @@
 import Link from "next/link";
 import HeroCarousel from "./components/HeroCarousel";
 import HudlGrid from "./components/HudlGrid";
-import TigerNews from "./components/TigerNews";
 
 export default function SlotabHome() {
   return (
     <>
       <HeroCarousel />
-
-      <section className="slotab-section">
-        <div className="slotab-container">
-          <div className="slotab-section-title">
-            <span className="slotab-kicker">How You Can Help</span>
-            <h2>Three Ways to Support Tiger Athletics</h2>
-          </div>
-          <div className="slotab-grid">
-            <div className="slotab-card">
-              <h3>Join SLOTAB</h3>
-              <p>
-                Individual and family memberships go directly into our general
-                fund, supporting coaches with equipment, travel, facility
-                improvements, and more.
-              </p>
-              <Link
-                href="/membership"
-                className="slotab-btn dark"
-              >
-                Membership Levels
-              </Link>
-            </div>
-            <div className="slotab-card">
-              <h3>Sponsor a Team</h3>
-              <p>
-                Local businesses can sponsor SLOTAB at Platinum, Gold, Silver,
-                or Bronze tiers — or sponsor a specific Tiger team directly.
-              </p>
-              <Link
-                href="/membership"
-                className="slotab-btn dark"
-              >
-                Business Sponsorship
-              </Link>
-            </div>
-            <div className="slotab-card">
-              <h3>Volunteer</h3>
-              <p>
-                Help at the concession stand, apparel booth, gate, or Booster
-                Bash. Every hour goes straight to the athletes.
-              </p>
-              <Link
-                href="/volunteer"
-                className="slotab-btn dark"
-              >
-                Volunteer Opportunities
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section className="slotab-impact-strip">
         <div className="slotab-container slotab-impact-strip-inner">
@@ -150,8 +98,6 @@ export default function SlotabHome() {
           </div>
         </div>
       </section>
-
-      <TigerNews />
 
       <section className="slotab-section">
         <div className="slotab-container">

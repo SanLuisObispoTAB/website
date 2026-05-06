@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 export default function WatchPage() {
-  const { channel, currentSeason, seasons, nfhsPlaceholder } = hudlData;
+  const { channel, currentSeason, seasons } = hudlData;
 
   return (
     <>
@@ -90,57 +90,6 @@ export default function WatchPage() {
         </div>
       </section>
 
-      {/* NFHS placeholder — to be discussed at the next board meeting */}
-      <section className="slotab-section alt">
-        <div className="slotab-container">
-          <div className="slotab-section-title">
-            <span className="slotab-kicker">For Board Discussion</span>
-            <h2>NFHS Network — include or not?</h2>
-          </div>
-          <div
-            className="slotab-prose"
-            style={{ textAlign: "center", maxWidth: 680 }}
-          >
-            <div
-              style={{
-                background: "#fffbe5",
-                border: "2px dashed var(--slotab-gold)",
-                padding: "1.25rem 1.5rem",
-                textAlign: "left",
-              }}
-            >
-              <p style={{ margin: 0, fontWeight: 600 }}>
-                {nfhsPlaceholder.question}
-              </p>
-              <p
-                style={{
-                  margin: "0.75rem 0 0",
-                  fontSize: "0.95rem",
-                  color: "var(--slotab-ink)",
-                }}
-              >
-                {nfhsPlaceholder.context}
-              </p>
-              <p
-                style={{
-                  margin: "0.75rem 0 0",
-                  fontSize: "0.85rem",
-                  color: "var(--slotab-muted)",
-                }}
-              >
-                Reference:{" "}
-                <Link
-                  href={nfhsPlaceholder.nfhsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  SLOHS on NFHS Network
-                </Link>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

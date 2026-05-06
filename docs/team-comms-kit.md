@@ -4,6 +4,17 @@
 channel (coach → athletes & parents) by default, while still respecting
 coaches who already have their own tools working.
 
+> **Board decision (April 2026):** the kit is an **internal operational
+> standard for the board and coaches** — it is *not* surfaced on
+> slotab.org. The website pages will not display Remind codes, BAND
+> invites, or ParentSquare links. Liaisons sourced from the kit *are*
+> shown on each team page.
+>
+> The kit also no longer carries the team's schedule. Coaches link out
+> to the central schedule (the SLOHS athletic-department weekly sheet,
+> mirrored on `slotab.org/upcoming`) rather than maintaining a separate
+> copy inside Remind/BAND.
+
 ---
 
 ## The two jobs a "team site" does
@@ -11,16 +22,16 @@ coaches who already have their own tools working.
 | | Operational | Booster / Community |
 |---|---|---|
 | **Audience** | Current players & their parents | Alumni, donors, community |
-| **Content** | Practice changes, departure times, forms, announcements, team chat, RSVPs | Team identity, schedule, wishlist, donate, recognition |
+| **Content** | Practice changes, departure times, forms, announcements, team chat, RSVPs | Team identity, roster, wishlist, donate, recognition, liaisons |
 | **Privacy** | Mostly private — rosters with contact info, parent numbers | Fully public, indexed, shareable |
 | **Cadence** | Daily during season; dormant off-season | Aligned with news & fundraising calendar |
 | **Owned by** | Head coach (changes when coach changes) | SLOTAB board (survives coaching changes) |
-| **Lives on** | Coach's preferred tool (standard kit OR their own) | `slotab.org/teams/<sport>` |
+| **Lives on** | Coach's chosen tools (Remind / BAND / ParentSquare / coach's own) | `slotab.org/teams/<sport>` |
 
 The SLOTAB team page hosts the **community / booster face** only. The
-coach's operational tool handles everything else. The SLOTAB team page
-prominently links to the coach's tool via the "For Current Players &
-Parents" strip.
+coach's operational tools handle everything else and are not linked from
+slotab.org. Parents find them via direct distribution at the start of
+the season (parent meeting, team email, school office).
 
 ---
 
@@ -56,24 +67,29 @@ Every team gets these three tools set up by default:
   (use this exact URL in the `playerParentChannels` entry for
   every team — it's the SLOHS school ID, not per-team).
 
-When all three are set up, a team's page shows three branded cards under
-"For Current Players & Parents" — Remind, BAND, and ParentSquare —
-each with a one-click link to join.
+All three are set up by SLOTAB and handed to the coach. The kit is
+**not** linked from slotab.org — parents discover it via the parent
+meeting, the team email, and printed handouts.
+
+### What the kit does NOT include
+
+- **Schedule**. The team's schedule lives in one place: the SLOHS
+  athletic-department weekly sheet (mirrored on `slotab.org/upcoming`).
+  Coaches link to that URL from inside Remind / BAND / ParentSquare
+  rather than maintaining a duplicate schedule that drifts.
+- **Rosters with contact info**. Those live inside whichever tool the
+  coach uses (Remind subscribers list, BAND members, etc.) — never on
+  slotab.org.
 
 ---
 
-## Per-Team Status Model
+## Liaisons
 
-Each team carries an `operationalSetup` flag in `data/teams.json`:
-
-| Status | Means | Shown on index as |
-|---|---|---|
-| `standard` | Coach is using the SLOTAB Standard Kit | Green "Standard Kit" badge |
-| `custom` | Coach runs their own tool (Google Site, personal site, etc.) — standard kit not used | Gold "Coach's Site" badge |
-| `none` | Not set up yet — SLOTAB board should help before season | Red "Not set up" badge |
-
-Board members can scan the Teams index page in one glance to see which
-teams need help getting their comms kit set up.
+Each team has 1-2 SLOTAB volunteer liaisons identified at the start of
+the season. **Liaison name + role + email IS surfaced on the public
+team page** (under the Quick Facts strip) — they're the public-facing
+booster contact for that team. Liaison contact information is sourced
+from the comms kit metadata so the kit and the website stay in sync.
 
 ---
 
@@ -85,11 +101,13 @@ teams need help getting their comms kit set up.
    - ParentSquare: coach uses their existing district account; SLOTAB
      helps them create the team group if needed
 2. **SLOTAB sends the coach a one-page onboarding sheet** with the
-   codes, URLs, and invite links.
+   codes, URLs, and invite links — *and the central schedule URL*
+   (`slotab.org/upcoming`) the coach pins at the top of each tool.
 3. **Coach announces** all three at the first parent meeting of the
    season and/or first email home.
-4. **SLOTAB updates `data/teams/<sport>.json`** with the three channel
-   URLs and flips `operationalSetup` to `standard`.
+4. **SLOTAB updates `data/teams/<sport>.json`** with the team's
+   liaison(s) sourced from the kit roster — but **does not** publish
+   the comms URLs to the website.
 
 When a coach leaves, SLOTAB transfers account ownership to the
 incoming coach — no rebuild required.
@@ -103,30 +121,12 @@ example: the head coach maintains a rich Google Site with calendar,
 coaches' bios, school records, meet info, and a memorial scholarship.
 Forcing them onto the Standard Kit would be strictly worse.
 
-The opt-out is one field change:
+For these teams the SLOTAB board logs the opt-out internally (which
+tools the coach uses + how parents reach them) but the public team
+page on slotab.org carries no operational links either way.
 
-```json
-{
-  "operationalSetup": "custom",
-  "playerParentChannels": [
-    {
-      "kind": "google-site",
-      "label": "SLOHS T&F and XC Team Website",
-      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/",
-      "meta": "Calendar, coaches, records, scholarships, meet info"
-    },
-    {
-      "kind": "parentsquare",
-      "label": "ParentSquare — SLOHS",
-      "url": "https://www.parentsquare.com/schools/slohs",
-      "meta": "District-wide comms"
-    }
-  ]
-}
-```
-
-Custom teams are still encouraged to surface **ParentSquare** because
-it's district-wide and some families only monitor that channel.
+ParentSquare is still encouraged for every team because it's
+district-wide and some families only monitor that channel.
 
 ---
 
@@ -146,12 +146,19 @@ individual athlete contact info:
 
 ---
 
-## When a team has `operationalSetup: "none"`
+## Tracking which teams have the kit
 
-The team page shows a yellow "Not set up yet" callout in place of the
-comms strip, pointing to this playbook. Parents are told to contact a
-board member or the team liaison for interim access. This is also the
-board's cue to schedule the Standard Kit onboarding for that team.
+Since comms aren't surfaced on slotab.org anymore, the per-team status
+is tracked **internally** (board spreadsheet or a future Decap
+collection that's hidden from public rendering). Status values:
+
+- **standard** — Coach is using the SLOTAB Standard Kit.
+- **custom** — Coach uses their own tool; SLOTAB still helps with
+  ParentSquare cross-posting if needed.
+- **none** — Not set up yet. Board's cue to schedule onboarding.
+
+The board's job is to track which teams need to move from `none` to
+either `standard` or `custom` before each season starts.
 
 ---
 

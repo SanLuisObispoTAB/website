@@ -3,7 +3,7 @@
 // normalized events file at src/app/data/weekly-events.json.
 //
 // The sheet is maintained weekly by the school. Run this on a cron (GitHub
-// Actions) so the SLOTAB preview site stays current.
+// Actions) so the SLOTAB site stays current.
 //
 // Sheet: https://docs.google.com/spreadsheets/d/1qWOPM3Shc6bE60kqZrPv-LxmnH89jNDPslzXVFn4AIc/
 // CSV export (public): ?format=csv&gid=<tabId>
@@ -14,22 +14,12 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
-const OUTPUT = path.join(
-  REPO_ROOT,
-  "src/app/data/weekly-events.json",
-);
+const OUTPUT = path.join(REPO_ROOT, "src/app/data/weekly-events.json");
 
 const SHEET_ID = "1qWOPM3Shc6bE60kqZrPv-LxmnH89jNDPslzXVFn4AIc";
 const EMBED_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/htmlembed`;
 const csvUrlFor = (gid) =>
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}`;
-
-// Tiger News Network — student-run SLOHS YouTube channel.
-const TNN_URL = "https://www.youtube.com/@TNNSLOHS/videos";
-const TNN_OUTPUT = path.join(
-  REPO_ROOT,
-  "src/app/data/tnn-videos.json",
-);
 
 // Pulls the list of visible tabs (one per week) from the htmlembed page.
 // The schedule owner keeps two or three weeks live at a time — current plus
@@ -116,17 +106,14 @@ function parseCsv(text) {
 
 function parseDate(dateStr, timeStr) {
   // Accepts "4/7/2026", "4/10-4/11/26", "4/11/2026", etc.
-  // For multi-day ranges, use the first date.
   const clean = dateStr.trim();
   const firstPart = clean.split(/-|–/)[0].trim();
-  // Normalize 2-digit year: "4/11/26" → "4/11/2026"
   const m = firstPart.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/);
   if (!m) return null;
   const month = Number(m[1]);
   const day = Number(m[2]);
   let year = m[3] ? Number(m[3]) : new Date().getFullYear();
   if (year < 100) year += 2000;
-  // Parse time: "3:30 PM", "12:30 PM, 5:30 PM" (take first), "TBA", "9:00 AM"
   let hours = 12;
   let minutes = 0;
   const tm = (timeStr || "").split(",")[0].trim();
@@ -147,6 +134,12 @@ function isHome(location) {
   return loc.includes("slohs") || loc.includes("slo hs") || loc === "home";
 }
 
+// Strip HTML tags from spreadsheet cell values — defense against XSS
+// payloads injected into Google Sheets cells.
+function stripTags(s) {
+  return typeof s === "string" ? s.replace(/<[^>]+>/g, "").slice(0, 300) : "";
+}
+
 async function fetchTabEvents({ name, gid }) {
   const res = await fetch(csvUrlFor(gid), {
     headers: { "User-Agent": "slotab-events-scraper/1.0" },
@@ -162,14 +155,6 @@ async function fetchTabEvents({ name, gid }) {
   if (headerIdx < 0) return [];
 
   const events = [];
-  // Strip HTML tags from spreadsheet cell values (defense against XSS
-  // payloads injected into Google Sheets cells).
-  function stripTags(s) {
-    return typeof s === "string"
-      ? s.replace(/<[^>]+>/g, "").slice(0, 300)
-      : "";
-  }
-
   for (const row of rows.slice(headerIdx + 1)) {
     if (!row || !row[0] || !row[0].trim()) continue;
     const [sport, date, _day, opponent, location, startTime] = row.map(stripTags);
@@ -193,193 +178,6 @@ async function fetchTabEvents({ name, gid }) {
     });
   }
   return events;
-}
-
-// Walk a nested object tree (the YouTube ytInitialData blob) collecting every
-// video entry we can find. Each hit has videoId, title, publishedTimeText,
-// lengthText, viewCountText, thumbnail.
-function walkYtVideos(obj, found = [], depth = 0) {
-  if (depth > 18 || found.length > 60) return found;
-  if (obj && typeof obj === "object" && !Array.isArray(obj)) {
-    if (obj.videoId && obj.title) {
-      const title =
-        typeof obj.title === "string"
-          ? obj.title
-          : obj.title.simpleText ||
-            (obj.title.runs && obj.title.runs[0] && obj.title.runs[0].text);
-      const published = obj.publishedTimeText && obj.publishedTimeText.simpleText;
-      const length = obj.lengthText && obj.lengthText.simpleText;
-      const views = obj.viewCountText && obj.viewCountText.simpleText;
-      const thumbs =
-        (obj.thumbnail && obj.thumbnail.thumbnails) || [];
-      const thumbnail = thumbs.length ? thumbs[thumbs.length - 1].url : null;
-      if (title) {
-        found.push({
-          id: obj.videoId,
-          title,
-          published,
-          duration: length,
-          views,
-          thumbnail,
-        });
-      }
-    }
-    for (const v of Object.values(obj)) walkYtVideos(v, found, depth + 1);
-  } else if (Array.isArray(obj)) {
-    for (const v of obj) walkYtVideos(v, found, depth + 1);
-  }
-  return found;
-}
-
-// Sport keyword → filter category. Each keyword is used both as a YouTube
-// channel search query and as a title substring check (to guard against the
-// search picking up unrelated videos). Multiple keywords can point at the
-// same category so "swim" and "dive" both land under swim-dive.
-const SPORT_KEYWORDS = [
-  { kw: "football", category: "football", label: "Football" },
-  { kw: "volleyball", category: "volleyball", label: "Volleyball" },
-  { kw: "beach volleyball", category: "beach-volleyball", label: "Beach Volleyball" },
-  { kw: "basketball", category: "basketball", label: "Basketball" },
-  { kw: "soccer", category: "soccer", label: "Soccer" },
-  { kw: "baseball", category: "baseball", label: "Baseball" },
-  { kw: "softball", category: "softball", label: "Softball" },
-  { kw: "water polo", category: "water-polo", label: "Water Polo" },
-  { kw: "tennis", category: "tennis", label: "Tennis" },
-  { kw: "swim", category: "swim-dive", label: "Swim & Dive" },
-  { kw: "wrestling", category: "wrestling", label: "Wrestling" },
-  { kw: "lacrosse", category: "lacrosse", label: "Lacrosse" },
-  { kw: "track", category: "track-field", label: "Track & Field" },
-  { kw: "cross country", category: "cross-country", label: "Cross Country" },
-  { kw: "golf", category: "golf", label: "Golf" },
-  { kw: "stunt", category: "stunt", label: "Stunt / Cheer" },
-  { kw: "cheer", category: "stunt", label: "Stunt / Cheer" },
-  { kw: "field hockey", category: "field-hockey", label: "Field Hockey" },
-];
-
-async function fetchTnnChannelSearch(query) {
-  const url = `https://www.youtube.com/@TNNSLOHS/search?query=${encodeURIComponent(query)}`;
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0",
-      "Accept-Language": "en-US,en;q=0.9",
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`TNN search '${query}' failed: ${res.status}`);
-  }
-  const html = await res.text();
-  const m = html.match(/var ytInitialData\s*=\s*(\{[\s\S]+?\});/);
-  if (!m) return [];
-  try {
-    return walkYtVideos(JSON.parse(m[1]));
-  } catch {
-    return [];
-  }
-}
-
-// Approximate age in days from YouTube's fuzzy "Streamed N months ago" string.
-function ageDays(pub) {
-  if (!pub) return 99999;
-  const s = pub.toLowerCase();
-  if (/hour|minute|second/.test(s)) return 0;
-  const nMatch = s.match(/(\d+)/);
-  const n = nMatch ? Number(nMatch[1]) : 1;
-  if (/day/.test(s)) return n;
-  if (/week/.test(s)) return n * 7;
-  if (/month/.test(s)) return n * 30;
-  if (/year/.test(s)) return n * 365;
-  return 99999;
-}
-
-async function fetchTnnVideos() {
-  process.stdout.write(`Searching TNN channel for each sport...\n`);
-
-  // Map videoId → { video fields, Set<category>, Set<label> }
-  const catalog = new Map();
-
-  for (const entry of SPORT_KEYWORDS) {
-    let hits = [];
-    try {
-      hits = await fetchTnnChannelSearch(entry.kw);
-    } catch (err) {
-      process.stderr.write(
-        `  ! ${entry.kw}: ${err.message} (non-fatal)\n`,
-      );
-      continue;
-    }
-    // Only keep videos whose title actually contains the keyword — the channel
-    // search is fuzzy and will return weakly-related items otherwise.
-    const kw = entry.kw.toLowerCase();
-    const matched = hits.filter((v) => v.title.toLowerCase().includes(kw));
-    process.stdout.write(`  ${entry.kw}: ${matched.length} matched\n`);
-    for (const v of matched) {
-      if (!catalog.has(v.id)) {
-        catalog.set(v.id, {
-          ...v,
-          categories: new Set(),
-          categoryLabels: new Set(),
-        });
-      }
-      const item = catalog.get(v.id);
-      item.categories.add(entry.category);
-      item.categoryLabels.add(entry.label);
-    }
-  }
-
-  // Sanitize scraped values before writing to the data file — YouTube
-  // content is untrusted (XSS via crafted video titles, javascript: URIs
-  // in thumbnail URLs).
-  function sanitize(s) {
-    if (typeof s !== "string") return null;
-    return s.replace(/<[^>]+>/g, "").slice(0, 300); // strip HTML tags, cap length
-  }
-  function isValidThumb(url) {
-    if (typeof url !== "string") return false;
-    try {
-      const u = new URL(url);
-      return (
-        u.protocol === "https:" &&
-        (u.hostname.endsWith(".ytimg.com") ||
-          u.hostname.endsWith(".ggpht.com") ||
-          u.hostname.endsWith(".googleusercontent.com"))
-      );
-    } catch {
-      return false;
-    }
-  }
-
-  // Finalize: sanitize, serialize sets, sort newest-first. Keep everything
-  // we found so less-active sports (wrestling, track, stunt) don't get
-  // evicted by the higher-volume ones (basketball, football).
-  const videos = [...catalog.values()]
-    .map((v) => ({
-      id: v.id,
-      title: sanitize(v.title) ?? "(untitled)",
-      published: sanitize(v.published),
-      duration: sanitize(v.duration),
-      views: sanitize(v.views),
-      thumbnail: isValidThumb(v.thumbnail) ? v.thumbnail : null,
-      categories: [...v.categories],
-      categoryLabels: [...v.categoryLabels],
-    }))
-    .sort((a, b) => ageDays(a.published) - ageDays(b.published));
-
-  const payload = {
-    source: "https://www.youtube.com/@TNNSLOHS/search",
-    channel: {
-      handle: "@TNNSLOHS",
-      url: "https://www.youtube.com/@TNNSLOHS",
-      name: "SLHS - TNN - Tiger News Network",
-    },
-    fetchedAt: new Date().toISOString(),
-    videos,
-  };
-  fs.mkdirSync(path.dirname(TNN_OUTPUT), { recursive: true });
-  fs.writeFileSync(TNN_OUTPUT, JSON.stringify(payload, null, 2) + "\n");
-  process.stdout.write(
-    `Wrote ${videos.length} sport-tagged TNN videos to ${path.relative(REPO_ROOT, TNN_OUTPUT)}\n`,
-  );
 }
 
 async function main() {
@@ -423,14 +221,6 @@ async function main() {
   process.stdout.write(
     `Wrote ${unique.length} unique events to ${path.relative(REPO_ROOT, OUTPUT)}\n`,
   );
-
-  // Grab the latest TNN videos too. Failures here are non-fatal — YouTube's
-  // scraping-unfriendly layout can change. Log and continue.
-  try {
-    await fetchTnnVideos();
-  } catch (err) {
-    process.stderr.write(`TNN scrape failed (non-fatal): ${err.message}\n`);
-  }
 }
 
 main().catch((err) => {

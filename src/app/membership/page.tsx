@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BecomeASponsor from "../components/BecomeASponsor";
 import JoinForm from "../components/JoinForm";
 import PageHeader from "../components/PageHeader";
 import SponsorWall from "../components/SponsorWall";
@@ -57,6 +58,7 @@ export default function MembershipPage() {
               continued support of our Tiger athletes is greatly appreciated.
             </p>
           </div>
+          <BecomeASponsor />
           <SponsorWall />
         </div>
       </section>

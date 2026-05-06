@@ -73,10 +73,5 @@
       "watchUrl": "https://fan.hudl.com/slotigers",
       "embedUrl": null
     }
-  ],
-  "nfhsPlaceholder": {
-    "question": "Include NFHS Network videos alongside Hudl?",
-    "context": "SLOHS also appears on nfhsnetwork.com. NFHS is subscription-based for most content; Hudl is our primary source. To be discussed at the next board meeting — if yes, we'll add an NFHS card row below the Hudl grid.",
-    "nfhsUrl": "https://www.nfhsnetwork.com/schools/san-luis-obispo-high-school-san-luis-obispo-ca"
-  }
+  ]
 }

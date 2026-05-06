@@ -8,13 +8,6 @@ type TeamIndexEntry = {
   gender: string;
   season: string;
   hasPage: boolean;
-  operationalSetup?: "standard" | "custom" | "none";
-};
-
-const STATUS_LABEL: Record<string, string> = {
-  standard: "Standard Kit",
-  custom: "Coach's Site",
-  none: "Not set up",
 };
 
 type Group = { season: string; teams: TeamIndexEntry[] };
@@ -81,18 +74,10 @@ export default function TeamsIndexPage() {
             </div>
             <div className="slotab-teams-grid">
               {g.teams.map((t) => {
-                const setup = t.operationalSetup ?? "none";
-                const statusLabel = STATUS_LABEL[setup] ?? "Not set up";
                 const body = (
                   <>
                     <div className="slotab-team-card-gender">{t.gender}</div>
                     <div className="slotab-team-card-name">{t.name}</div>
-                    <div
-                      className={`slotab-team-card-status ${setup}`}
-                      title={`Player/parent comms: ${statusLabel}`}
-                    >
-                      {statusLabel}
-                    </div>
                     <div className="slotab-team-card-cta">
                       {t.hasPage ? "View team →" : "Coming soon"}
                     </div>

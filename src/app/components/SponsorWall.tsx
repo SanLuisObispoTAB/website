@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SPONSOR_TIERS } from "../data/sponsors";
+import { SPONSOR_TIERS, type Sponsor } from "../data/sponsors";
 
 const TIER_SIZES = {
   Platinum: { w: 360, h: 200, className: "platinum" },
@@ -7,6 +7,44 @@ const TIER_SIZES = {
   Silver: { w: 200, h: 120, className: "silver" },
   Bronze: { w: 160, h: 90, className: "bronze" },
 } as const;
+
+function LogoTile({
+  s,
+  width,
+  height,
+}: {
+  s: Sponsor;
+  width: number;
+  height: number;
+}) {
+  const inner = (
+    <Image
+      src={s.logo}
+      alt={s.name}
+      width={width}
+      height={height}
+      style={{
+        objectFit: "contain",
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  );
+  if (s.website) {
+    return (
+      <a
+        href={s.website}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="slotab-sponsor-logo"
+        aria-label={`${s.name} (opens in a new tab)`}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return <div className="slotab-sponsor-logo">{inner}</div>;
+}
 
 export default function SponsorWall() {
   return (
@@ -18,19 +56,12 @@ export default function SponsorWall() {
             <h3>{tier} Sponsors</h3>
             <div className="slotab-sponsor-grid">
               {sponsors.map((s) => (
-                <div key={s.logo} className="slotab-sponsor-logo">
-                  <Image
-                    src={s.logo}
-                    alt={s.name}
-                    width={size.w}
-                    height={size.h}
-                    style={{
-                      objectFit: "contain",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  />
-                </div>
+                <LogoTile
+                  key={s.logo}
+                  s={s}
+                  width={size.w}
+                  height={size.h}
+                />
               ))}
             </div>
           </div>

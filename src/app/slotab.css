@@ -487,6 +487,166 @@
 
 .slotab-btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+/* "Become a Sponsor" expandable on the Membership page.
+   Sits just above the sponsor wall — collapsed by default so logos
+   stay prominent; expands to reveal tier benefits + the print button. */
+.slotab-become-sponsor {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+}
+.slotab-become-sponsor-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+  border: none;
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+.slotab-become-sponsor-toggle:hover { background: #1a1a1a; }
+.slotab-become-sponsor-chev {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.slotab-become-sponsor-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  border-top: 3px solid var(--slotab-gold);
+}
+.slotab-become-sponsor-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.25rem;
+}
+.slotab-become-sponsor-tier {
+  background: var(--slotab-bg-alt);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 0.85rem 1rem;
+}
+.slotab-become-sponsor-tier.platinum { border-top-color: #b9b9bf; }
+.slotab-become-sponsor-tier.gold { border-top-color: var(--slotab-gold); }
+.slotab-become-sponsor-tier.silver { border-top-color: #c0c0c0; }
+.slotab-become-sponsor-tier.bronze { border-top-color: #cd7f32; }
+.slotab-become-sponsor-tier-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.4rem;
+}
+.slotab-become-sponsor-tier-head h4 {
+  margin: 0;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--slotab-black);
+  font-size: 0.95rem;
+}
+.slotab-become-sponsor-range {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  color: var(--slotab-gold-dark);
+  font-size: 0.85rem;
+}
+.slotab-become-sponsor-tier ul {
+  margin: 0;
+  padding-left: 1rem;
+  font-size: 0.85rem;
+  color: var(--slotab-ink);
+}
+.slotab-become-sponsor-tier li { margin-bottom: 0.2rem; }
+.slotab-become-sponsor-cta {
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+}
+.slotab-become-sponsor-print {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--slotab-gold-dark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Print: when someone hits "print sponsor sheet" we strip nav/footer/
+   chrome and hand them just the tier benefits + sponsor wall. The
+   sponsor logos pictures themselves are skipped (they don't print
+   well) and replaced by a compact name list. */
+@media print {
+  .slotab-header,
+  .slotab-footer,
+  .slotab-preview-banner,
+  .slotab-hero-carousel,
+  .slotab-hero-arrow,
+  .slotab-hero-dots,
+  .slotab-impact-strip,
+  .slotab-feature-strip,
+  .no-print {
+    display: none !important;
+  }
+  .slotab-become-sponsor-body,
+  .slotab-become-sponsor-body[hidden] { display: block !important; }
+  .slotab-section { padding: 0.5rem 0 !important; }
+  .slotab-sponsor-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.25rem 0.75rem !important;
+  }
+  .slotab-sponsor-logo img { max-height: 40px !important; }
+}
+
+/* Hero CTA — prominent Donate Now + subtler secondary row */
+.slotab-hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.slotab-hero-cta-primary {
+  font-size: 1.05rem !important;
+  padding: 1rem 2.75rem !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 22px rgba(255, 205, 56, 0.35);
+}
+.slotab-hero-cta-primary:hover {
+  box-shadow: 0 4px 14px rgba(255, 205, 56, 0.45);
+}
+.slotab-hero-cta-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  color: #f5f5f5;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+}
+.slotab-hero-cta-secondary a {
+  color: #f5f5f5;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 205, 56, 0.6);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.slotab-hero-cta-secondary a:hover {
+  color: var(--slotab-gold);
+  text-decoration-color: var(--slotab-gold);
+}
+.slotab-hero-cta-secondary span { color: var(--slotab-gold); }
+
 /* Sections */
 .slotab-section { padding: 4rem 0; }
 .slotab-section.alt { background: var(--slotab-bg-alt); }

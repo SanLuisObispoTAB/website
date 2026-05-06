@@ -3,6 +3,9 @@ import sponsorsJson from "./sponsors.json";
 export type Sponsor = {
   name: string;
   logo: string;
+  /** Optional sponsor website. When present, the logo on the sponsor wall
+   * is wrapped in an external link. */
+  website?: string;
 };
 
 export type SponsorTier = {

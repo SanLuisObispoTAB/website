@@ -98,13 +98,20 @@ export default function HeroCarousel() {
           community to support every CIF-sanctioned team and cheer squad at
           SLOHS. Parents, alumni, and neighbors keep Tiger athletics strong.
         </p>
-        <div className="slotab-btn-row">
-          <Link href="/membership" className="slotab-btn">
-            Become a Member
+        <div className="slotab-hero-cta">
+          <Link
+            href="https://slotab-3.square.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="slotab-btn slotab-hero-cta-primary"
+          >
+            Donate Now
           </Link>
-          <Link href="/volunteer" className="slotab-btn outline">
-            Sign Up to Volunteer
-          </Link>
+          <div className="slotab-hero-cta-secondary">
+            <Link href="/volunteer">Volunteer</Link>
+            <span aria-hidden="true">·</span>
+            <Link href="/membership">Become a Sponsor</Link>
+          </div>
         </div>
       </div>
 

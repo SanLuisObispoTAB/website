@@ -274,13 +274,6 @@ collections:
                   required: false,
                   hint: "Paste the Hudl per-game iframe embed URL if you want the game to play inline.",
                 }
-          - name: nfhsPlaceholder
-            label: "NFHS placeholder (for board discussion)"
-            widget: object
-            fields:
-              - { name: question, label: "Question", widget: string }
-              - { name: context, label: "Context", widget: text }
-              - { name: nfhsUrl, label: "Reference URL", widget: string }
 
   # ---------------------------------------------------------------
   # Impact — what SLOTAB donations funded

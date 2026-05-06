@@ -54,17 +54,7 @@ const NAV: NavItem[] = [
       { href: "/teams/track-field", label: "Track & Field" },
     ],
   },
-  {
-    label: "Watch",
-    children: [
-      { href: "/watch", label: "Hudl Games" },
-      {
-        href: "https://www.youtube.com/@TNNSLOHS",
-        label: "Tiger News Network",
-        external: true,
-      },
-    ],
-  },
+  { label: "Watch", href: "/watch" },
   { label: "Hall of Fame", href: "/hall-of-fame" },
 ];
 
