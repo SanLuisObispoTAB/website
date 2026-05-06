@@ -5,7 +5,7 @@
 # redeploys automatically.
 #
 # BEFORE FIRST DEPLOY:
-#   1. Replace `YOUR-GH-ORG/slotab-website` below with the real GitHub
+#   1. Replace `eramberg/slo-tab-website` below with the real GitHub
 #      repo path once this site gets its own repo.
 #   2. Replace `https://slotab.org` with the real deploy URL (could be
 #      the Vercel preview URL during staging, then slotab.org at cutover).
@@ -16,7 +16,7 @@
 
 backend:
   name: github
-  repo: YOUR-GH-ORG/slotab-website
+  repo: eramberg/slo-tab-website
   branch: main
   # Our own Next.js API routes handle the OAuth handshake so we don't
   # depend on Netlify Identity.

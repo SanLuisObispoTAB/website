@@ -48,6 +48,7 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-04-23 | 20 | **75/25 split** (team/general): show only at point of donation | Board ✅ |
 | 2026-04-23 | 21 | **Goal model**: per-team goals + per-trimester campaign goal (overall) | Board ✅ |
 | 2026-04-23 | 22 | **ParentSquare URL**: `https://www.parentsquare.com/schools/1903/` | Board ✅ |
+| 2026-04-23 | 23 | **GitHub repo**: <https://github.com/eramberg/slo-tab-website> (personal account; can transfer to org later) | Erik ✅ |
 
 ---
 
@@ -162,7 +163,7 @@ In rough priority order. Move done items to **Built** below.
 
 ### Deploy / GitHub
 
-- [ ] Push `slotab-website` to a new GitHub repo (org name TBD)
+- [x] Push `slotab-website` to a new GitHub repo ✅ — <https://github.com/eramberg/slo-tab-website>
 - [ ] Connect to Vercel as its own project
 - [ ] Update Decap config `repo` field to the new org/repo path
 - [ ] Update GitHub OAuth App callback URL to the new deploy URL
@@ -199,7 +200,7 @@ Items likely to surface context the typed notes don't fully cover.
 | # | Decision needed | Unblocks |
 |---|---|---|
 | Q1 | **Square API vs. hosted Square site** | T1, T2 |
-| Q2 | **GitHub org name** | G1–G7 (the entire deploy track) |
+| ~~Q2~~ | ~~GitHub org name~~ ✅ — repo is at `eramberg/slo-tab-website` (transfer to org later if desired) | — |
 | Q3 | **Donation-to-tier mapping** ($X → Friend, $Y → Bronze, etc.) | T4 |
 | Q4 | **Per-team fundraising goal source** (board sets centrally vs. liaisons set their own) | T3 |
 | Q5 | **Per-trimester campaign goal source** (treasurer's planned-budget number vs. board-set rallying number) | T3 |
@@ -228,13 +229,13 @@ Items likely to surface context the typed notes don't fully cover.
 
 ### Pending the GitHub org move (7)
 
-Technically unblocked but cleanest to do once the org name (Q2) lands.
+G1 + G2 done ✅. Remaining items below.
 
 | # | Item | Notes |
 |---|---|---|
-| G1 | Push `slotab-website` to its new GitHub repo | Blocked on Q2 |
-| G2 | Update `public/admin/config.yml` `backend.repo` | Same |
-| G3 | Connect Vercel project to the new repo | Same |
+| ~~G1~~ | ~~Push to new GitHub repo~~ | ✅ <https://github.com/eramberg/slo-tab-website> |
+| ~~G2~~ | ~~Update `public/admin/config.yml` `backend.repo`~~ | ✅ `eramberg/slo-tab-website` |
+| G3 | Connect Vercel project to the new repo | Now unblocked |
 | G4 | GitHub OAuth App + `DECAP_GITHUB_CLIENT_ID` / `DECAP_GITHUB_CLIENT_SECRET` env vars | Callback URL depends on G3 |
 | G5 | DNS cutover — `slotab.org` → new Vercel project | After G3 live |
 | G6 | Drop `robots: noindex` from `src/app/layout.tsx` | At cutover |
@@ -247,7 +248,7 @@ The transcript and the two API keys (E1, E3) release the most:
 - Hudl API key → E1, E2, real Watch tab
 - Springly API key → E3, live Join form, admin portal
 
-**Total open**: 6 transcript-blocked · 7 board-blocked · 15 external-blocked · 7 deploy-blocked
+**Total open**: 6 transcript-blocked · 6 board-blocked · 15 external-blocked · 5 deploy-blocked
 
 ---
 
@@ -256,7 +257,7 @@ The transcript and the two API keys (E1, E3) release the most:
 | # | Question | Notes |
 |---|---|---|
 | Q1 | Square API vs hosted Square site? | API gives QuickBooks-friendly transaction metadata; hosted is zero-maintenance. Decision needed before donate rebuild. |
-| Q2 | New GitHub org name? | Used by `slotab-website/public/admin/config.yml` (`backend.repo`) and the README. |
+| ~~Q2~~ | ~~New GitHub org name?~~ — repo is at `eramberg/slo-tab-website` ✅ | Resolved 2026-04-23 |
 | Q3 | Donation→tier mapping | E.g. "$0–249 → Friend, $250–499 → Bronze member, $500–999 → Silver, …" — board considering. |
 | Q4 | Per-team fundraising goals | Where do they come from? Board sets centrally vs. each team liaison sets their own? |
 | Q5 | Per-trimester campaign goal source | Treasurer's planned-budget figure vs. a board-set rallying number? |
@@ -267,7 +268,7 @@ The transcript and the two API keys (E1, E3) release the most:
 
 | Item | Owner | Notes |
 |---|---|---|
-| **GitHub org name** | Board | For `slotab-website` repo move + Decap config |
+| ~~GitHub org name~~ | ~~Board~~ | ✅ Resolved — repo at `eramberg/slo-tab-website` |
 | **2–3 board editor GitHub usernames** | Board | Get Write access on the new repo for Decap CMS commits |
 | **Real Impact ledger data** | Treasurer | Fill `data/impact.json`; remove draft watermark |
 | **HOF ceremony date + venue** | HOF Committee | Update `data/hof.json` |
