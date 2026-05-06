@@ -65,6 +65,18 @@ collections:
                       widget: image,
                       hint: "Upload the sponsor's logo (PNG, JPG or SVG).",
                     }
+                  - {
+                      name: website,
+                      label: "Website URL (optional)",
+                      widget: string,
+                      required: false,
+                      pattern:
+                        [
+                          "^(https?://.+)?$",
+                          "Must start with https:// or http://, or leave blank.",
+                        ],
+                      hint: "Full URL including https://. When set, the sponsor's logo on the wall and home page becomes a clickable link to this URL.",
+                    }
 
   # ---------------------------------------------------------------
   # Board roster (shown on the Contact page)
