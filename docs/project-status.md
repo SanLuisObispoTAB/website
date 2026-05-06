@@ -49,7 +49,7 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-04-23 | 21 | **Goal model**: per-team goals + per-trimester campaign goal (overall) | Board ✅ |
 | 2026-04-23 | 22 | **ParentSquare URL**: `https://www.parentsquare.com/schools/1903/` | Board ✅ |
 | 2026-04-23 | 23 | **GitHub repo**: <https://github.com/eramberg/slo-tab-website> (personal account; can transfer to org later) | Erik ✅ |
-| 2026-04-23 | 24 | **Vercel project** created and connected to the new repo | Erik ✅ |
+| 2026-04-23 | 24 | **Vercel project** created and connected to the new repo. Stable URL: <https://slo-tab-website.vercel.app> | Erik ✅ |
 
 ---
 
@@ -57,8 +57,8 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 
 ### Live preview URLs
 
-- **Standalone repo (canonical)**: `~/slotab-website/` — not yet deployed
-- **Board review URL**: <https://www.ravens-peak-consulting.com/slotab-preview> — auto-deploys from `ravens-peak-consulting` GitHub repo on push to `main`
+- **Production-track Vercel URL**: <https://slo-tab-website.vercel.app> — auto-deploys from <https://github.com/eramberg/slo-tab-website> on push to `main`. Currently noindexed; this is the URL `slotab.org` will eventually point at.
+- **Board review URL** (deprecated path, kept until cutover): <https://www.ravens-peak-consulting.com/slotab-preview> — mirror in the Raven's Peak repo
 
 ### Pages
 

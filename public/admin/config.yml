@@ -4,15 +4,13 @@
 # commit the updated file to main. Vercel detects the push and
 # redeploys automatically.
 #
-# BEFORE FIRST DEPLOY:
-#   1. Replace `eramberg/slo-tab-website` below with the real GitHub
-#      repo path once this site gets its own repo.
-#   2. Replace `https://slotab.org` with the real deploy URL (could be
-#      the Vercel preview URL during staging, then slotab.org at cutover).
-#   3. Create a GitHub OAuth App with the callback URL
-#      `<base_url>/api/decap/callback` and add the client ID/secret as
-#      DECAP_GITHUB_CLIENT_ID / DECAP_GITHUB_CLIENT_SECRET env vars on
-#      Vercel. See docs/decap-setup.md for the full walk-through.
+# Wired to:
+#   - Repo:     https://github.com/eramberg/slo-tab-website
+#   - Vercel:   https://slo-tab-website.vercel.app
+#
+# At slotab.org cutover, swap base_url / site_url / display_url /
+# logo_url below from the Vercel URL to https://slotab.org and
+# update the GitHub OAuth App's callback URL accordingly.
 
 backend:
   name: github
@@ -20,7 +18,7 @@ backend:
   branch: main
   # Our own Next.js API routes handle the OAuth handshake so we don't
   # depend on Netlify Identity.
-  base_url: https://slotab.org
+  base_url: https://slo-tab-website.vercel.app
   auth_endpoint: /api/decap/auth
 
 # Uploaded media (sponsor logos, board photos, etc.) land here and
@@ -31,9 +29,9 @@ public_folder: "/uploads"
 # Save as drafts first; click publish to commit.
 publish_mode: editorial_workflow
 
-site_url: https://slotab.org
-display_url: https://slotab.org
-logo_url: https://slotab.org/logos/slotab-booster-club.png
+site_url: https://slo-tab-website.vercel.app
+display_url: https://slo-tab-website.vercel.app
+logo_url: https://slo-tab-website.vercel.app/logos/slotab-booster-club.png
 
 collections:
   # ---------------------------------------------------------------
