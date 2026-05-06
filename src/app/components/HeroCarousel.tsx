@@ -100,9 +100,7 @@ export default function HeroCarousel() {
         </p>
         <div className="slotab-hero-cta">
           <Link
-            href="https://slotab-3.square.site/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/donate"
             className="slotab-btn slotab-hero-cta-primary"
           >
             Donate Now
