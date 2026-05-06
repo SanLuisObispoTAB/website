@@ -4,71 +4,221 @@
     {
       "tier": "Platinum",
       "sponsors": [
-        { "name": "FiveO Coast", "logo": "/sponsors/platinum/FiveO_Coast_HorizontalBanner-pdf.jpg" },
-        { "name": "Golf and Event Center", "logo": "/sponsors/platinum/Golf-and-Event-Center.png" },
-        { "name": "SLOTAB Banner Sponsor", "logo": "/sponsors/platinum/SLOTAB-banner-1-pdf.jpg" }
+        {
+          "name": "Dairy Creek Golf Course and Event Center",
+          "logo": "/sponsors/platinum/Golf-and-Event-Center.png"
+        },
+        {
+          "name": "Five O Driving School",
+          "logo": "/sponsors/platinum/FiveO_Coast_HorizontalBanner-pdf.jpg"
+        },
+        {
+          "name": "Crew Wealth Management",
+          "logo": "/sponsors/platinum/SLOTAB-banner-1-pdf.jpg"
+        }
       ]
     },
     {
       "tier": "Gold",
       "sponsors": [
-        { "name": "Cool Cats", "logo": "/sponsors/gold/Cool-cats.jpeg" },
-        { "name": "ID", "logo": "/sponsors/gold/ID-Banner-2-pdf.jpg" },
-        { "name": "Logo Engle", "logo": "/sponsors/gold/Logo-Engle-grey.png" },
-        { "name": "Mr. Pickles", "logo": "/sponsors/gold/Mr.Pickles-Banner.jpeg" },
-        { "name": "Poor Richards", "logo": "/sponsors/gold/Poor-Richards-Banner.png" },
-        { "name": "Prime", "logo": "/sponsors/gold/Prime-Logo-2-pdf.jpg" },
-        { "name": "Quaglino", "logo": "/sponsors/gold/Quaglino-Banner.png" },
-        { "name": "Red Tail Bikes", "logo": "/sponsors/gold/Red_Tail_Bikes-1-pdf.jpg" },
-        { "name": "Respect Athletics", "logo": "/sponsors/gold/Respect-Athletics-pdf.jpg" },
-        { "name": "Tim Riley House & Number", "logo": "/sponsors/gold/Tim-Riley-House-and-Number-Logo.jpg" },
-        { "name": "Banc of California", "logo": "/sponsors/gold/banc-of-california.jpeg" },
-        { "name": "Cannon", "logo": "/sponsors/gold/cannon.png" },
-        { "name": "Ernie Ball", "logo": "/sponsors/gold/ernie-ball.png" },
-        { "name": "Obispo", "logo": "/sponsors/gold/obispo-logo-white.png" }
+        {
+          "name": "Cool Cats",
+          "logo": "/sponsors/gold/Cool-cats.jpeg"
+        },
+        {
+          "name": "ID",
+          "logo": "/sponsors/gold/ID-Banner-2-pdf.jpg"
+        },
+        {
+          "name": "Logo Engle",
+          "logo": "/sponsors/gold/Logo-Engle-grey.png"
+        },
+        {
+          "name": "Mr. Pickles",
+          "logo": "/sponsors/gold/Mr.Pickles-Banner.jpeg"
+        },
+        {
+          "name": "Poor Richards",
+          "logo": "/sponsors/gold/Poor-Richards-Banner.png"
+        },
+        {
+          "name": "Prime",
+          "logo": "/sponsors/gold/Prime-Logo-2-pdf.jpg"
+        },
+        {
+          "name": "Quaglino",
+          "logo": "/sponsors/gold/Quaglino-Banner.png"
+        },
+        {
+          "name": "Red Tail Bikes",
+          "logo": "/sponsors/gold/Red_Tail_Bikes-1-pdf.jpg"
+        },
+        {
+          "name": "Respect Athletics",
+          "logo": "/sponsors/gold/Respect-Athletics-pdf.jpg"
+        },
+        {
+          "name": "Tim Riley House & Number",
+          "logo": "/sponsors/gold/Tim-Riley-House-and-Number-Logo.jpg"
+        },
+        {
+          "name": "Banc of California",
+          "logo": "/sponsors/gold/banc-of-california.jpeg"
+        },
+        {
+          "name": "Cannon",
+          "logo": "/sponsors/gold/cannon.png"
+        },
+        {
+          "name": "Ernie Ball",
+          "logo": "/sponsors/gold/ernie-ball.png"
+        },
+        {
+          "name": "Obispo",
+          "logo": "/sponsors/gold/obispo-logo-white.png"
+        }
       ]
     },
     {
       "tier": "Silver",
       "sponsors": [
-        { "name": "Bravo", "logo": "/sponsors/silver/Bravo-Banner.jpeg" },
-        { "name": "Central Coast Pediatrics", "logo": "/sponsors/silver/Central-Coast-Pediatrics-Logo.png" },
-        { "name": "Field Day", "logo": "/sponsors/silver/Field_Day-pdf.jpg" },
-        { "name": "Hufton", "logo": "/sponsors/silver/HuftonHeaderLogo.png.webp" },
-        { "name": "Jeremy Engle", "logo": "/sponsors/silver/Jeremy-Engle-Banner.jpeg" },
-        { "name": "Moody", "logo": "/sponsors/silver/Moody-Banner.png" },
-        { "name": "Moondoggies", "logo": "/sponsors/silver/Moondoggies-Banner.jpg" },
-        { "name": "TE", "logo": "/sponsors/silver/TE-logo-1x.png" },
-        { "name": "Adventist Health", "logo": "/sponsors/silver/adventist-health-ah-global-pdf.jpg" },
-        { "name": "Central CA School of Continuing Education", "logo": "/sponsors/silver/central-ca-school-of-continuing-education.png" },
-        { "name": "Certified Auto Repair", "logo": "/sponsors/silver/certified-auto-repair-car-logo-200x92-1.webp" },
-        { "name": "General Atomics", "logo": "/sponsors/silver/general-atomics-logo-blue-background.png" },
-        { "name": "Gillett Law", "logo": "/sponsors/silver/gillettlaw-logo.webp" },
-        { "name": "Kramer Events", "logo": "/sponsors/silver/kramer-events.png" },
-        { "name": "Mercedes", "logo": "/sponsors/silver/mercedes-blk-pdf.jpg" },
-        { "name": "Primary Eyecare Center", "logo": "/sponsors/silver/primary-eyecare-center-logotop.png" }
+        {
+          "name": "Bravo",
+          "logo": "/sponsors/silver/Bravo-Banner.jpeg"
+        },
+        {
+          "name": "Central Coast Pediatrics",
+          "logo": "/sponsors/silver/Central-Coast-Pediatrics-Logo.png"
+        },
+        {
+          "name": "Field Day",
+          "logo": "/sponsors/silver/Field_Day-pdf.jpg"
+        },
+        {
+          "name": "Hufton",
+          "logo": "/sponsors/silver/HuftonHeaderLogo.png.webp"
+        },
+        {
+          "name": "Jeremy Engle",
+          "logo": "/sponsors/silver/Jeremy-Engle-Banner.jpeg"
+        },
+        {
+          "name": "Moody",
+          "logo": "/sponsors/silver/Moody-Banner.png"
+        },
+        {
+          "name": "Moondoggies",
+          "logo": "/sponsors/silver/Moondoggies-Banner.jpg"
+        },
+        {
+          "name": "TE",
+          "logo": "/sponsors/silver/TE-logo-1x.png"
+        },
+        {
+          "name": "Adventist Health",
+          "logo": "/sponsors/silver/adventist-health-ah-global-pdf.jpg"
+        },
+        {
+          "name": "Central CA School of Continuing Education",
+          "logo": "/sponsors/silver/central-ca-school-of-continuing-education.png"
+        },
+        {
+          "name": "Certified Auto Repair",
+          "logo": "/sponsors/silver/certified-auto-repair-car-logo-200x92-1.webp"
+        },
+        {
+          "name": "General Atomics",
+          "logo": "/sponsors/silver/general-atomics-logo-blue-background.png"
+        },
+        {
+          "name": "Gillett Law",
+          "logo": "/sponsors/silver/gillettlaw-logo.webp"
+        },
+        {
+          "name": "Kramer Events",
+          "logo": "/sponsors/silver/kramer-events.png"
+        },
+        {
+          "name": "Mercedes",
+          "logo": "/sponsors/silver/mercedes-blk-pdf.jpg"
+        },
+        {
+          "name": "Primary Eyecare Center",
+          "logo": "/sponsors/silver/primary-eyecare-center-logotop.png"
+        }
       ]
     },
     {
       "tier": "Bronze",
       "sponsors": [
-        { "name": "Angle", "logo": "/sponsors/bronze/Angle-logo-full-blue-1-e1535999704455.png" },
-        { "name": "April Dean", "logo": "/sponsors/bronze/AprilDean4x6-pdf.jpg" },
-        { "name": "Designing Spaces That Sell", "logo": "/sponsors/bronze/Designing-spaces-that-sell-2-pdf.jpg" },
-        { "name": "Hinson", "logo": "/sponsors/bronze/Hinson-Logo-2-1-pdf.jpg" },
-        { "name": "MG", "logo": "/sponsors/bronze/MG_Logo_Blue_Text_transparent.png" },
-        { "name": "SDG", "logo": "/sponsors/bronze/SDG-logo-reduced.png" },
-        { "name": "Stomp Interactive", "logo": "/sponsors/bronze/StompInteractive-Logo-340-156-300x138-1.jpg" },
-        { "name": "Thomson Fiduciary", "logo": "/sponsors/bronze/Thomson-Fiduciary-Bus-Card-1-pdf.jpg" },
-        { "name": "Yoga Movement", "logo": "/sponsors/bronze/YOGA-MOVEMENT-1-1.png" },
-        { "name": "Beta", "logo": "/sponsors/bronze/beta_logo_black_text-01-smaller_1696629097__65206.original.jpg" },
-        { "name": "NT", "logo": "/sponsors/bronze/cropped-NT_website_logo_2025.jpg.webp" },
-        { "name": "Energy Wise Realty", "logo": "/sponsors/bronze/energy-wise-realty.png" },
-        { "name": "JEBL Engineering", "logo": "/sponsors/bronze/jebl-engineering-Secondary-Logo-2-Ocean.jpeg" },
-        { "name": "MAS", "logo": "/sponsors/bronze/maslogo_horizontal_141121.png.webp" },
-        { "name": "Slocum", "logo": "/sponsors/bronze/slocum.png" },
-        { "name": "Untamed Petal", "logo": "/sponsors/bronze/untamed-petal.png" },
-        { "name": "Urology Associates", "logo": "/sponsors/bronze/urology-cropped-UACC_Logo_121816__2_-removebg-preview.png.webp" }
+        {
+          "name": "Angle",
+          "logo": "/sponsors/bronze/Angle-logo-full-blue-1-e1535999704455.png"
+        },
+        {
+          "name": "April Dean",
+          "logo": "/sponsors/bronze/AprilDean4x6-pdf.jpg"
+        },
+        {
+          "name": "Designing Spaces That Sell",
+          "logo": "/sponsors/bronze/Designing-spaces-that-sell-2-pdf.jpg"
+        },
+        {
+          "name": "Hinson",
+          "logo": "/sponsors/bronze/Hinson-Logo-2-1-pdf.jpg"
+        },
+        {
+          "name": "MG",
+          "logo": "/sponsors/bronze/MG_Logo_Blue_Text_transparent.png"
+        },
+        {
+          "name": "SDG",
+          "logo": "/sponsors/bronze/SDG-logo-reduced.png"
+        },
+        {
+          "name": "Stomp Interactive",
+          "logo": "/sponsors/bronze/StompInteractive-Logo-340-156-300x138-1.jpg"
+        },
+        {
+          "name": "Thomson Fiduciary",
+          "logo": "/sponsors/bronze/Thomson-Fiduciary-Bus-Card-1-pdf.jpg"
+        },
+        {
+          "name": "Yoga Movement",
+          "logo": "/sponsors/bronze/YOGA-MOVEMENT-1-1.png"
+        },
+        {
+          "name": "Beta",
+          "logo": "/sponsors/bronze/beta_logo_black_text-01-smaller_1696629097__65206.original.jpg"
+        },
+        {
+          "name": "NT",
+          "logo": "/sponsors/bronze/cropped-NT_website_logo_2025.jpg.webp"
+        },
+        {
+          "name": "Energy Wise Realty",
+          "logo": "/sponsors/bronze/energy-wise-realty.png"
+        },
+        {
+          "name": "JEBL Engineering",
+          "logo": "/sponsors/bronze/jebl-engineering-Secondary-Logo-2-Ocean.jpeg"
+        },
+        {
+          "name": "MAS",
+          "logo": "/sponsors/bronze/maslogo_horizontal_141121.png.webp"
+        },
+        {
+          "name": "Slocum",
+          "logo": "/sponsors/bronze/slocum.png"
+        },
+        {
+          "name": "Untamed Petal",
+          "logo": "/sponsors/bronze/untamed-petal.png"
+        },
+        {
+          "name": "Urology Associates",
+          "logo": "/sponsors/bronze/urology-cropped-UACC_Logo_121816__2_-removebg-preview.png.webp"
+        }
       ]
     }
   ]
