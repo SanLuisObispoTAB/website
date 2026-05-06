@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=1440"/>
+  <title>SLOTAB · Design A — Classic Collegiate</title>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>html,body{margin:0;padding:0;background:#fbf7ec}</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="design-system.jsx"></script>
+  <script type="text/babel" src="sponsor-wall.jsx"></script>
+  <script type="text/babel" src="pages.jsx"></script>
+  <script type="text/babel" src="home-classic.jsx"></script>
+  <script type="text/babel">
+    function App() {
+      const [page, setPage] = React.useState('home');
+      const ref = React.useRef(null);
+      const nav = (k) => { setPage(k); if (ref.current) ref.current.scrollTop = 0; };
+      let content;
+      if (page === 'home') content = <HomeClassic onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'teams') content = <TeamsPage onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'team-detail' || page.startsWith('team-')) content = <TeamDetailPage onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'membership') content = <MembershipPage onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'events' || page === 'spring-social' || page === 'upcoming') content = <EventsPage onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'watch') content = <WatchPage onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'hall') content = <HallPage onNavigate={nav} donateProminence="medium"/>;
+      else if (page === 'impact') content = <ImpactPage onNavigate={nav} donateProminence="medium"/>;
+      else content = <AboutPage onNavigate={nav} donateProminence="medium"/>;
+      return (
+        <div className="ds-root" ref={ref} style={{ width:'100%', minHeight:'100vh', background:'var(--bg)' }}>
+          <GlobalStyles dark={false}/>
+          {content}
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+  </script>
+</body>
+</html>
