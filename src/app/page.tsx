@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HeroCarousel from "./components/HeroCarousel";
 import HudlGrid from "./components/HudlGrid";
+import PlatinumCarousel from "./components/PlatinumCarousel";
 
 export default function SlotabHome() {
   return (
@@ -98,6 +99,8 @@ export default function SlotabHome() {
           </div>
         </div>
       </section>
+
+      <PlatinumCarousel />
 
       <section className="slotab-section">
         <div className="slotab-container">

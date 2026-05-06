@@ -2,6 +2,7 @@ import Link from "next/link";
 import BecomeASponsor from "../components/BecomeASponsor";
 import JoinForm from "../components/JoinForm";
 import PageHeader from "../components/PageHeader";
+import ProposedTiers from "../components/ProposedTiers";
 import SponsorWall from "../components/SponsorWall";
 
 export default function MembershipPage() {
@@ -11,6 +12,23 @@ export default function MembershipPage() {
         kicker="Support Tiger Athletics"
         title="Sponsors & Membership"
       />
+
+      <section className="slotab-section alt">
+        <div className="slotab-container">
+          <div className="slotab-section-title">
+            <span className="slotab-kicker">Draft for 2026-05-11 Board Demo</span>
+            <h2>Proposed Membership Tiers</h2>
+            <p style={{ maxWidth: 720, margin: "1rem auto 0" }}>
+              The board asked for a simpler structure where every donor is
+              automatically a member. This is a 5-tier draft drawn from
+              comparable HS, college, and arts non-profit ladders. Naming
+              and benefits are open for discussion.
+            </p>
+          </div>
+          <ProposedTiers />
+        </div>
+      </section>
+
       <section className="slotab-section">
         <div className="slotab-container slotab-prose">
           <h2>What is a SLOTAB Membership?</h2>

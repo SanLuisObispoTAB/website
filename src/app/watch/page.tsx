@@ -20,9 +20,10 @@ export default function WatchPage() {
           style={{ textAlign: "center" }}
         >
           <p style={{ fontSize: "1.15rem" }}>
-            SLOHS streams home games from Holt Field and the Big Gym through
-            Hudl. Can&apos;t make it in person? Share the link with out-of-
-            town family so they can cheer for the Tigers too.
+            <strong>SLOTAB pays for Hudl streaming</strong> so every Tigers
+            home game from Holt Field and the Big Gym is accessible to alumni,
+            grandparents, and out-of-town family. Your donations make this
+            possible.
           </p>
           <p>
             <Link

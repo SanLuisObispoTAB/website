@@ -127,6 +127,37 @@ export default function TeamPage({ team }: { team: Team }) {
         </div>
       </section>
 
+      {/* Support this team — Donate CTAs */}
+      <section className="slotab-section alt slotab-team-support">
+        <div className="slotab-container">
+          <div className="slotab-section-title">
+            <span className="slotab-kicker">Support the Team</span>
+            <h2>Donate to {team.sport}</h2>
+            <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
+              <strong>75%</strong> of your gift goes directly to the{" "}
+              {team.sport.toLowerCase()} program.{" "}
+              <strong>25%</strong> goes to the SLOTAB general fund that
+              pays for things every Tigers team uses — Hudl streaming,
+              senior banners, T-shirts, and more.
+            </p>
+          </div>
+          <div
+            className="slotab-btn-row"
+            style={{ justifyContent: "center", flexWrap: "wrap", gap: "0.75rem" }}
+          >
+            <Link
+              href={`/donate?team=${team.slug}`}
+              className="slotab-btn"
+            >
+              Donate to {team.sport}
+            </Link>
+            <Link href="/donate" className="slotab-btn outline">
+              Donate to SLOTAB General Fund
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Roster */}
       {rosterByYear.length > 0 && (
         <section className="slotab-section">

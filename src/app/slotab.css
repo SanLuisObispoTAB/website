@@ -1255,6 +1255,17 @@
   font-family: var(--font-slotab-heading), sans-serif;
   letter-spacing: 0.03em;
 }
+.slotab-tnn-sponsor {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--slotab-border);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slotab-gold-dark);
+}
 
 /* Join form */
 .slotab-join-form {
@@ -2106,6 +2117,370 @@
 }
 .slotab-feature-strip h2 { color: var(--slotab-black); margin-bottom: 0.5rem; }
 .slotab-feature-strip p { margin: 0 auto 1.25rem; max-width: 600px; }
+
+/* Donate page */
+.slotab-donate-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .slotab-donate-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.slotab-donate-intro h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+.slotab-donate-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.slotab-donate-bullets li {
+  padding-left: 1.4rem;
+  position: relative;
+  font-size: 0.95rem;
+  color: var(--slotab-muted);
+}
+.slotab-donate-bullets li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--slotab-gold);
+  font-weight: 700;
+}
+.slotab-donate-card {
+  background: var(--slotab-bg-alt);
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.5rem;
+}
+.slotab-donate-form { display: grid; gap: 1.25rem; }
+.slotab-donate-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--slotab-border);
+  background: #fff;
+}
+.slotab-donate-mode-btn {
+  background: transparent;
+  border: 0;
+  padding: 0.75rem 0.5rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slotab-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.slotab-donate-mode-btn.on {
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+}
+.slotab-donate-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.slotab-donate-fieldset legend {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slotab-black);
+  padding: 0;
+}
+.slotab-donate-ladder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  gap: 0.5rem;
+}
+.slotab-donate-amount {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0.6rem 0.4rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--slotab-black);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.slotab-donate-amount:hover { border-color: var(--slotab-gold); }
+.slotab-donate-amount.on {
+  background: var(--slotab-gold);
+  border-color: var(--slotab-gold);
+  color: var(--slotab-black);
+}
+.slotab-donate-mo {
+  font-size: 0.7rem;
+  font-weight: 500;
+  margin-left: 2px;
+  color: var(--slotab-muted);
+}
+.slotab-donate-amount.on .slotab-donate-mo { color: var(--slotab-black); }
+.slotab-donate-other {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+}
+.slotab-donate-other > span:first-child {
+  color: var(--slotab-muted);
+}
+.slotab-donate-other-input {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0 0.5rem;
+}
+.slotab-donate-other-input .dollar,
+.slotab-donate-other-input .suffix {
+  color: var(--slotab-muted);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.slotab-donate-other-input input {
+  border: 0;
+  padding: 0.5rem 0.4rem;
+  width: 110px;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+}
+.slotab-donate-warning {
+  margin: 0;
+  color: #b00020;
+  font-size: 0.85rem;
+}
+.slotab-donate-select {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0.6rem 0.5rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.9rem;
+  color: var(--slotab-black);
+}
+.slotab-donate-checkbox {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.slotab-donate-checkbox input { margin-top: 0.2rem; }
+.slotab-donate-preview {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-left: 4px solid var(--slotab-gold);
+  padding: 0.85rem 1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.slotab-donate-preview-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+.slotab-donate-preview-row.muted { color: var(--slotab-muted); font-size: 0.85rem; }
+.slotab-donate-tier-callout {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--slotab-border);
+  font-size: 0.95rem;
+  color: var(--slotab-black);
+}
+.slotab-donate-sustainer {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--slotab-gold-dark);
+}
+.slotab-donate-submit {
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+.slotab-donate-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.slotab-donate-note {
+  font-size: 0.75rem;
+  color: var(--slotab-muted);
+  margin: 0;
+  text-align: center;
+}
+
+/* Proposed membership tier prototype */
+.slotab-tier-prototype { display: grid; gap: 1.25rem; }
+.slotab-tier-prototype-banner {
+  background: #fff8d6;
+  border: 1px solid var(--slotab-gold);
+  border-left: 4px solid var(--slotab-gold);
+  padding: 0.85rem 1rem;
+  font-size: 0.92rem;
+  color: var(--slotab-black);
+}
+.slotab-tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.slotab-tier-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.25rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.slotab-tier-card.highlight {
+  border: 2px solid var(--slotab-gold);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+.slotab-tier-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  color: var(--slotab-black);
+}
+.slotab-tier-badge {
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+}
+.slotab-tier-amount {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--slotab-black);
+  margin-bottom: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.slotab-tier-annualized {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--slotab-muted);
+  text-transform: none;
+}
+.slotab-tier-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+}
+.slotab-tier-card li {
+  position: relative;
+  padding-left: 1.1rem;
+  line-height: 1.4;
+}
+.slotab-tier-card li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--slotab-gold-dark);
+  font-weight: 700;
+}
+.slotab-tier-foot {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.slotab-tier-foot p {
+  max-width: 720px;
+  margin: 0 auto 0.75rem;
+  color: var(--slotab-muted);
+  font-size: 0.92rem;
+}
+
+/* Platinum sponsor carousel (homepage) */
+.slotab-platinum-carousel {
+  background: var(--slotab-bg-alt);
+  border-top: 1px solid var(--slotab-border);
+  border-bottom: 1px solid var(--slotab-border);
+  padding: 3rem 1.25rem;
+}
+.slotab-platinum-head { text-align: center; margin-bottom: 1.5rem; }
+.slotab-platinum-head h2 {
+  font-size: 1.4rem;
+  margin: 0.25rem 0 0;
+  color: var(--slotab-black);
+}
+.slotab-platinum-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+.slotab-platinum-slide {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: 200px;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.25rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+a.slotab-platinum-slide:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+.slotab-platinum-name {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--slotab-black);
+}
+.slotab-platinum-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.slotab-platinum-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--slotab-gold-dark);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+.slotab-platinum-dot.on { background: var(--slotab-gold); }
+.slotab-platinum-dot:hover { background: var(--slotab-gold-dark); }
 
 /* Board roster */
 .slotab-board { list-style: none; padding: 0; margin: 0; }

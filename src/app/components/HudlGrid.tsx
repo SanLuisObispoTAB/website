@@ -114,6 +114,7 @@ export default function HudlGrid({
               </div>
               <div className="slotab-tnn-title">{v.title}</div>
               <div className="slotab-tnn-meta">{formatDate(v.date)}</div>
+              <div className="slotab-tnn-sponsor">Sponsored by SLOTAB</div>
             </div>
           </Link>
         ))}
