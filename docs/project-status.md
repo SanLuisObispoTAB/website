@@ -174,6 +174,83 @@ In rough priority order. Move done items to **Built** below.
 
 ---
 
+## Pending Snapshot — 2026-04-23
+
+Cross-cut of everything still pending, grouped by blocker. Detailed
+versions of each row appear in *Active Backlog*, *Open Questions*,
+and *External Inputs Pending* below — this section is the at-a-glance
+view to skim before each session.
+
+### Pending the transcript (6)
+
+Items likely to surface context the typed notes don't fully cover.
+
+| # | Item | Why deferred |
+|---|---|---|
+| T1 | **Square donate page rebuild** — multi-sport multi-select, $25/$50/$100/$200 + custom, monthly recurring, transaction-ID strategy for QuickBooks reconciliation, "75% team / 25% SLOTAB" framing at point of donation | Need to hear the full QB-reconciliation pain discussion |
+| T2 | **Square API vs. hosted-site decision** | Architectural decision that gates T1 |
+| T3 | **Impact page rebuild** — per-team goal thermometers, per-trimester campaign goal, large-purchases-only filter, monthly bundled-update cadence + messaging | Goal source, trimester definition, "large" threshold likely discussed |
+| T4 | **Membership tier auto-assignment from donation amount** | The simplified "everyone becomes a member when they donate" flow |
+| T5 | **Highest-tier sponsor home-page rotator** | Mechanics (auto-rotate? click? how many?) |
+| T6 | Anything else mentioned but not in the notes | Open-ended |
+
+### Pending board decisions (7)
+
+| # | Decision needed | Unblocks |
+|---|---|---|
+| Q1 | **Square API vs. hosted Square site** | T1, T2 |
+| Q2 | **GitHub org name** | G1–G7 (the entire deploy track) |
+| Q3 | **Donation-to-tier mapping** ($X → Friend, $Y → Bronze, etc.) | T4 |
+| Q4 | **Per-team fundraising goal source** (board sets centrally vs. liaisons set their own) | T3 |
+| Q5 | **Per-trimester campaign goal source** (treasurer's planned-budget number vs. board-set rallying number) | T3 |
+| Q6 | **Standard Comms Kit defaults** post-#10 evolution | Internal kit playbook update |
+| Q7 | **Real Impact ledger data** | Removes draft watermark from `/impact` |
+
+### Pending external inputs (15)
+
+| # | Input | Source | Unblocks |
+|---|---|---|---|
+| E1 | Hudl API key | Hudl admin / paid plan dashboard | Auto-population of `data/hudl.json`, real Watch tab |
+| E2 | Sample Hudl per-game embed URL | Hudl admin | Confirms iframe format for inline embeds |
+| E3 | Springly API base URL + key | Springly admin | Live Join form + admin portal |
+| E4 | HOF ceremony date + venue | HOF Committee | Removes "TBD" from HOF page |
+| E5 | Booster Bash Tickets URL | Board | Replaces `#` on HOF page |
+| E6 | HOF Fund Donate URL | Board | Replaces `#` on HOF page |
+| E7 | HOF Committee roster | HOF Committee | Replaces placeholder list |
+| E8 | Alumni Membership pricing + benefits + join URL | Board | Removes placeholder copy |
+| E9 | Real per-team rosters | Each coach/liaison | Replaces 12-player placeholder per team |
+| E10 | Real per-team wishlist line items | Each coach/liaison | Replaces fake $ amounts |
+| E11 | Real liaison names + emails per team | Board (sourced from comms kit) | Replaces "Liaison TBD" |
+| E12 | Coach bios | Each coach | School site has only name + email |
+| E13 | Sport / game photos | Board / parents | Real T&F hero + one game shot per team minimum |
+| E14 | Sponsor websites | Sponsorship Development | Logos become clickable (~50 sponsors) |
+| E15 | 2–3 board editor GitHub usernames | Board | Decap CMS write access on the new repo |
+
+### Pending the GitHub org move (7)
+
+Technically unblocked but cleanest to do once the org name (Q2) lands.
+
+| # | Item | Notes |
+|---|---|---|
+| G1 | Push `slotab-website` to its new GitHub repo | Blocked on Q2 |
+| G2 | Update `public/admin/config.yml` `backend.repo` | Same |
+| G3 | Connect Vercel project to the new repo | Same |
+| G4 | GitHub OAuth App + `DECAP_GITHUB_CLIENT_ID` / `DECAP_GITHUB_CLIENT_SECRET` env vars | Callback URL depends on G3 |
+| G5 | DNS cutover — `slotab.org` → new Vercel project | After G3 live |
+| G6 | Drop `robots: noindex` from `src/app/layout.tsx` | At cutover |
+| G7 | Cancel GoDaddy Managed WordPress | 48 hours after G5 |
+
+### Highest-leverage unblockers
+
+The transcript and the two API keys (E1, E3) release the most:
+- Transcript → T1, T2, T3, T4, T5
+- Hudl API key → E1, E2, real Watch tab
+- Springly API key → E3, live Join form, admin portal
+
+**Total open**: 6 transcript-blocked · 7 board-blocked · 15 external-blocked · 7 deploy-blocked
+
+---
+
 ## Open Questions (waiting on a decision)
 
 | # | Question | Notes |
