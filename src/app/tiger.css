@@ -778,43 +778,39 @@
 .tiger-hero-slide.active {
   opacity: 1;
 }
-/* Hero photos fit-within the container (no edge crop) so the full
-   composition is visible. Narrow-aspect photos (tunnel-runout,
-   water-polo-huddle) show natural-width centered with dark bands on
-   the sides; wide photos (football-helmets, student-section) fill
-   the width with subtle top/bottom bands.
-   The mask gradient fades the photo's left/right edges so any
-   sideband meets the dark hero bg through a soft transition rather
-   than a hard rectangle edge. The 22% solid-region anchor matches
-   the narrowest photo's natural display width (tunnel-runout ≈
-   65% of hero width) so the fade lines up across all slides. */
+/* Hero photos fill the constrained 1360×640 slide (logo→Donate
+   width) via object-fit: cover. Per-slide object-position (set
+   inline on <Image>) anchors the action — body-paint chests, player
+   faces, etc.
+   Mask gradient fades the photo's left/right edges into the dark
+   hero bands beyond the slide for a soft sidebar transition. */
 .tiger-hero-slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 14s ease-out;
   filter: contrast(1.04) saturate(1.04);
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.4) 8%,
-    #000 22%,
-    #000 78%,
-    rgba(0, 0, 0, 0.4) 92%,
+    rgba(0, 0, 0, 0.5) 4%,
+    #000 12%,
+    #000 88%,
+    rgba(0, 0, 0, 0.5) 96%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.4) 8%,
-    #000 22%,
-    #000 78%,
-    rgba(0, 0, 0, 0.4) 92%,
+    rgba(0, 0, 0, 0.5) 4%,
+    #000 12%,
+    #000 88%,
+    rgba(0, 0, 0, 0.5) 96%,
     transparent 100%
   );
 }
 .tiger-hero-slide.active img {
-  transform: scale(1.01);
+  transform: scale(1.015);
 }
 .tiger-hero-overlay-v {
   position: absolute;
