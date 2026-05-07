@@ -20,24 +20,48 @@
   min-height: 100vh;
 }
 
+/* Inner-page legacy headings now use the Tiger serif. Mixed case
+   (no auto-uppercase), lighter weight, optical sizing — keeps every
+   non-tiger-class page (`/about`, `/teams`, `/watch`, `/hall-of-fame`,
+   `/impact`, `/contact`, `/spring-social`, `/upcoming`, `/season-passes`,
+   `/merch`, `/volunteer`) visually consistent with the new design
+   without a full per-page reskin. */
 .slotab-scope h1,
 .slotab-scope h2,
 .slotab-scope h3,
 .slotab-scope h4 {
-  font-family: var(--font-slotab-heading), sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  font-weight: 600;
-  color: var(--slotab-black);
-  line-height: 1.15;
+  font-family: var(--tiger-serif);
+  font-optical-sizing: auto;
+  text-transform: none;
+  letter-spacing: -0.015em;
+  font-weight: 650;
+  color: var(--tiger-ink);
+  line-height: 1.05;
+  text-wrap: balance;
 }
 
-.slotab-scope h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
-.slotab-scope h2 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin-bottom: 0.75rem; }
-.slotab-scope h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.slotab-scope h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
+.slotab-scope h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); margin-bottom: 0.75rem; }
+.slotab-scope h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.slotab-scope h4 { font-size: 1.15rem; }
 
-.slotab-scope a { color: var(--slotab-black); text-decoration: underline; text-decoration-color: var(--slotab-gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-.slotab-scope a:hover { color: var(--slotab-gold-dark); }
+/* Default link styling — kept gold-accent on hover but no auto-
+   underline on every link. Tiger components carry their own decoration. */
+.slotab-scope a {
+  color: var(--tiger-ink);
+  text-decoration: none;
+}
+.slotab-scope a:hover {
+  color: var(--tiger-gold-deep);
+}
+/* Prose-context links (inside .slotab-prose) keep the underline so
+   in-paragraph references read as links. */
+.slotab-scope .slotab-prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--tiger-gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
 
 .slotab-scope p { margin-bottom: 1rem; }
 

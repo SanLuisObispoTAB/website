@@ -396,6 +396,18 @@ Transcript ✅ resolved most architectural questions. Remaining big levers:
 
 ---
 
+## Pre-2026-05-11 demo polish (Erik flagged 2026-05-06 evening)
+
+Items to land before the casual board cocktail at the Hub:
+
+- [ ] **Real data on home page calendar** — current section uses 5 hardcoded events (Apr 9, Apr 13, Apr 18, May 4, May 12). Apr/early-May entries are now in the past. Either wire the home calendar to `data/weekly-events.json` + `data/slotab-events.json` (real data, auto-refreshing) or refresh the hardcoded list with future-only events.
+- [ ] **Verify weekly events scraper is firing** — the GitHub Actions workflow at `.github/workflows/update-events.yml` schedules Sun 11pm + Mon 6am Pacific + Wed 14:00 UTC scrapes of the SLOHS athletic Google Sheet into `data/weekly-events.json`. The data file last updated 2026-04-23, so the cron may not have run since. Manually triggered 2026-05-06 evening — confirm it commits a refresh.
+- [ ] **Purge stale events from the home calendar** — anything before today's date should drop off automatically once the calendar reads from the JSON sources.
+- [ ] **Quickie color + font matching pass on inner pages** — `/about`, `/teams`, `/teams/<slug>`, `/watch`, `/hall-of-fame`, `/impact`, `/contact`, `/spring-social`, `/upcoming`, `/season-passes`, `/merch`, `/volunteer`. Don't fully reskin — just retune the legacy `.slotab-scope` typography to match the new Tiger design system (serif headings instead of uppercase Manrope, drop the auto-underline link styling, align colors). New chrome already wraps these pages.
+- [ ] **More real data generally** — sponsor URLs (in progress via Decap), real Impact ledger numbers (pending Trina), real team rosters (pending Adam Basch).
+
+---
+
 ## 2026-05-06 — Action Items (who owes what)
 
 | Owner | Item |

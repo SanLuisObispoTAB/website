@@ -4,6 +4,7 @@ import ClassicHero from "./components/tiger/ClassicHero";
 import PlatinumCarousel from "./components/PlatinumCarousel";
 import TeamsCarousel from "./components/tiger/TeamsCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
+import { ALL_EVENTS } from "./data/events";
 
 const STATS = [
   { num: "27", label: "CIF-sanctioned teams" },
@@ -43,44 +44,50 @@ const IMPACT_FIGURES = [
   ["$14,300", "Athlete meals & snacks"],
 ];
 
-const CALENDAR = [
-  {
-    date: "APR 9",
-    day: "THU",
-    title: "Spring Social",
-    meta: "5:30–8:00 PM · The Hub, 1701 Monterey St",
-    tag: "Featured",
-    href: "/spring-social",
-  },
-  {
-    date: "APR 13",
-    day: "MON",
-    title: "SLOTAB Monthly Meeting",
-    meta: "6:00 PM · Cannon Boardroom (Zoom available)",
-    href: "/upcoming",
-  },
-  {
-    date: "APR 18",
-    day: "SAT",
-    title: "Track & Field — Tiger Invitational",
-    meta: "9:00 AM · Holt Field",
-    href: "/upcoming",
-  },
-  {
-    date: "MAY 4",
-    day: "MON",
-    title: "Final SLOTAB Meeting of the Year",
-    meta: "6:00 PM · Cannon Boardroom",
-    href: "/upcoming",
-  },
-  {
-    date: "MAY 12",
-    day: "TUE",
-    title: "Physical Night — SLOTAB on site",
-    meta: "4:00–8:00 PM · SLOHS Gym Lobby",
-    href: "/upcoming",
-  },
-];
+// Build the home calendar from the live event sources (slotab-events.json
+// + scraped weekly-events.json + MaxPreps fallback). Filter to events from
+// today onward, sort ascending, take the first 5.
+function buildHomeCalendar(): {
+  date: string;
+  day: string;
+  title: string;
+  meta: string;
+  tag?: string;
+  href: string;
+}[] {
+  const todayMidnight = new Date();
+  todayMidnight.setHours(0, 0, 0, 0);
+  const fmtDate = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+  const fmtDay = new Intl.DateTimeFormat("en-US", { weekday: "short" });
+  const fmtTime = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  const SPRING_SOCIAL_ID = "ns-spring-social";
+
+  return ALL_EVENTS.filter((e) => new Date(e.date) >= todayMidnight)
+    .slice(0, 5)
+    .map((e) => {
+      const d = new Date(e.date);
+      const time = fmtTime.format(d);
+      const meta = e.detail ? e.detail : `${time} · ${e.categoryLabel}`;
+      const isSpringSocial = e.id === SPRING_SOCIAL_ID;
+      return {
+        date: fmtDate.format(d).toUpperCase(),
+        day: fmtDay.format(d).toUpperCase(),
+        title: e.title,
+        meta,
+        tag: isSpringSocial ? "Featured" : undefined,
+        href: isSpringSocial ? "/spring-social" : "/upcoming",
+      };
+    });
+}
+
+const CALENDAR = buildHomeCalendar();
 
 const HOF_PREVIEW = [
   { year: "2024", name: "Coach Mary Cisneros", sport: "Volleyball · 28 Years" },
