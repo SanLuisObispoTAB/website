@@ -420,8 +420,15 @@
 }
 
 @media (max-width: 720px) {
+  .tiger-banner-link {
+    padding: 16px 20px;
+    gap: 8px;
+  }
   .tiger-banner-text {
     font-size: 40px;
+  }
+  .tiger-banner-wordmark {
+    gap: 16px;
   }
   .tiger-banner-divider {
     height: 32px;
@@ -429,6 +436,31 @@
   .tiger-banner-tagline {
     font-size: 10px;
     gap: 8px;
+  }
+}
+@media (max-width: 480px) {
+  .tiger-banner-link {
+    padding: 12px 16px;
+    gap: 6px;
+  }
+  .tiger-banner-text {
+    font-size: 28px;
+    letter-spacing: 0.06em;
+  }
+  .tiger-banner-wordmark {
+    gap: 12px;
+  }
+  .tiger-banner-divider {
+    height: 22px;
+  }
+  /* Drop the dot separator in the tagline so it stays on a single line. */
+  .tiger-banner-tagline {
+    font-size: 9px;
+    gap: 6px;
+    letter-spacing: 0.18em;
+  }
+  .tiger-banner-dot {
+    display: none;
   }
 }
 
@@ -966,6 +998,45 @@
     align-items: flex-start;
     gap: 16px;
   }
+  /* Mobile: photo + overlays fill the viewport edge-to-edge.
+     Drop the side mask gradients so the image doesn't fade into
+     the dark sidebar bands (which on desktop frame the content but
+     on a narrow phone just shave usable image area). */
+  .tiger-hero-slide,
+  .tiger-hero-overlay-v,
+  .tiger-hero-overlay-h {
+    left: 0;
+    right: 0;
+  }
+  .tiger-hero-slide img {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  /* Stronger bottom darkness so headline + sub stay legible on
+     the narrower mobile crop. */
+  .tiger-hero-overlay-v {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0.2) 35%,
+      rgba(0, 0, 0, 0.92) 100%
+    );
+  }
+}
+@media (max-width: 480px) {
+  .tiger-hero {
+    height: 520px;
+  }
+  .tiger-hero-headline {
+    font-size: 44px;
+  }
+  .tiger-hero-sub {
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .tiger-hero-cta-row {
+    margin-top: 24px;
+  }
 }
 
 /* ==========================================================================
@@ -1012,8 +1083,19 @@
   }
 }
 @media (max-width: 480px) {
+  .tiger-stats {
+    padding: 28px 0;
+  }
   .tiger-stats-grid {
-    grid-template-columns: 1fr;
+    /* Keep 2x2 — going to 1-column makes the section ~4× taller for no
+       benefit. */
+    gap: 20px 16px;
+  }
+  .tiger-stat {
+    padding-left: 16px;
+  }
+  .tiger-stat-num {
+    font-size: 32px;
   }
 }
 
@@ -1235,6 +1317,27 @@
   }
   .tiger-impact-card {
     left: 24px;
+  }
+}
+@media (max-width: 720px) {
+  .tiger-impact-grid {
+    gap: 36px;
+  }
+  .tiger-impact-photo {
+    height: 360px;
+  }
+  .tiger-impact-card {
+    left: 16px;
+    right: 16px;
+    bottom: 24px;
+    max-width: none;
+    padding: 20px 22px;
+  }
+  .tiger-impact-card-num {
+    font-size: 36px;
+  }
+  .tiger-impact-fig-num {
+    font-size: 22px;
   }
 }
 
@@ -1558,6 +1661,41 @@
     gap: 56px;
   }
 }
+@media (max-width: 720px) {
+  .tiger-watch-feature {
+    height: 280px;
+  }
+  /* Stronger blackout + further-dimmed photo so the title stays
+     readable against busy game photos. */
+  .tiger-watch-feature img {
+    opacity: 0.55;
+  }
+  .tiger-watch-feature-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+  }
+  .tiger-scope .tiger-watch-feature-title {
+    font-size: 22px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  }
+  .tiger-watch-thumb {
+    height: 140px;
+  }
+  .tiger-watch-thumb img {
+    opacity: 0.5;
+  }
+  .tiger-watch-thumb-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+  }
+}
 
 /* ==========================================================================
    Sponsor wall (homepage dark variant)
@@ -1670,6 +1808,47 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .tiger-sponsors {
+    padding: 64px 0;
+  }
+  .tiger-sponsors-head h2 {
+    font-size: 36px;
+  }
+  /* Force every tier to 2-up on phones so the wall isn't a 50-tile
+     vertical scroll. Larger tiers (platinum/gold) stay larger via
+     min-height; bronze/silver shrink further. */
+  .tiger-sponsors-grid,
+  .tiger-sponsors-grid.platinum,
+  .tiger-sponsors-grid.gold,
+  .tiger-sponsors-grid.silver,
+  .tiger-sponsors-grid.bronze {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .tiger-sponsors-tier.platinum-tier .tiger-sponsor-tile {
+    min-height: 130px;
+    padding: 14px;
+  }
+  .tiger-sponsors-tier.platinum-tier .tiger-sponsor-tile img {
+    max-height: 80px;
+  }
+  .tiger-sponsors-tier.gold-tier .tiger-sponsor-tile {
+    min-height: 110px;
+    padding: 12px;
+  }
+  .tiger-sponsors-tier.gold-tier .tiger-sponsor-tile img {
+    max-height: 70px;
+  }
+  .tiger-sponsor-tile {
+    min-height: 90px;
+    padding: 12px;
+  }
+  .tiger-sponsor-tile img {
+    max-height: 56px;
+  }
 }
 
 /* ==========================================================================
@@ -2141,5 +2320,31 @@
   }
   .tiger-scope .tiger-banner-text {
     font-size: 40px;
+  }
+}
+/* Tablet+ tier: bump down legacy overrides to honor the mobile
+   re-tunes earlier in this file. The (0,2,0) overrides above set
+   font-sizes unconditionally and outrank the media-query rules
+   for .tiger-watch-feature-title etc. — re-assert them here. */
+@media (max-width: 720px) {
+  .tiger-scope .tiger-watch-feature-title {
+    font-size: 22px;
+  }
+}
+/* Phone tier: shrink the masthead wordmark + headlines so they fit
+   a ~375px viewport without dominating it. Matches the (0,2,0)
+   specificity of the legacy .tiger-scope overrides above. */
+@media (max-width: 480px) {
+  .tiger-scope .tiger-banner-text {
+    font-size: 28px;
+  }
+  .tiger-scope .tiger-hero-headline {
+    font-size: 44px;
+  }
+  .tiger-scope .tiger-cta-headline {
+    font-size: 40px;
+  }
+  .tiger-scope .tiger-page-header h1 {
+    font-size: 36px;
   }
 }
