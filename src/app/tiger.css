@@ -766,44 +766,43 @@
 .tiger-hero-slide.active {
   opacity: 1;
 }
-/* Photos zoomed OUT 33% from default cover, with horizontal mask
-   gradient fading each photo's left/right edges into the dark hero
-   bg. Per-slide object-position (set inline on <Image>) anchors the
-   action — body-paint chests, player faces, etc. */
+/* Hero photos fit-within the container (no edge crop) so the full
+   composition is visible. Narrow-aspect photos (tunnel-runout,
+   water-polo-huddle) show natural-width centered with dark bands on
+   the sides; wide photos (football-helmets, student-section) fill
+   the width with subtle top/bottom bands.
+   The mask gradient fades the photo's left/right edges so any
+   sideband meets the dark hero bg through a soft transition rather
+   than a hard rectangle edge. The 22% solid-region anchor matches
+   the narrowest photo's natural display width (tunnel-runout ≈
+   65% of hero width) so the fade lines up across all slides. */
 .tiger-hero-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  /* Default scale is 0.67 (zoomed out 33%). Active slide drifts
-     gently up to 0.685 over the duration of its visible window. */
-  transform: scale(0.67);
-  transform-origin: center center;
+  object-fit: contain;
   transition: transform 14s ease-out;
   filter: contrast(1.04) saturate(1.04);
-  /* Sidebars: fade the photo's left/right edges into the dark hero
-     bg. Gradient widths sized so the solid photo region matches the
-     narrowest photo's effective width after zoom-out. */
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.6) 14%,
-    #000 26%,
-    #000 74%,
-    rgba(0, 0, 0, 0.6) 86%,
+    rgba(0, 0, 0, 0.4) 8%,
+    #000 22%,
+    #000 78%,
+    rgba(0, 0, 0, 0.4) 92%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.6) 14%,
-    #000 26%,
-    #000 74%,
-    rgba(0, 0, 0, 0.6) 86%,
+    rgba(0, 0, 0, 0.4) 8%,
+    #000 22%,
+    #000 78%,
+    rgba(0, 0, 0, 0.4) 92%,
     transparent 100%
   );
 }
 .tiger-hero-slide.active img {
-  transform: scale(0.685);
+  transform: scale(1.01);
 }
 .tiger-hero-overlay-v {
   position: absolute;
