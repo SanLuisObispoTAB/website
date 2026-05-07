@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Source_Serif_4, Manrope, JetBrains_Mono } from "next/font/google";
 import LayoutShell from "./components/LayoutShell";
 import "./globals.css";
-import "./tiger.css";
+// Legacy stylesheet loaded FIRST so the new tiger design system wins
+// on equal-specificity rules (e.g. .slotab-scope h1 vs .tiger-hero-*).
 import "./slotab.css";
+import "./tiger.css";
 
 // Tiger design system fonts — Source Serif 4 display, Manrope UI,
 // JetBrains Mono for eyebrows/captions.
