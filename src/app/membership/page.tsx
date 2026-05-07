@@ -1,6 +1,5 @@
 import Link from "next/link";
 import BecomeASponsor from "../components/BecomeASponsor";
-import JoinForm from "../components/JoinForm";
 import ProposedTiers from "../components/ProposedTiers";
 import SponsorWall from "../components/SponsorWall";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
@@ -30,38 +29,37 @@ export default function MembershipPage() {
       </section>
 
       <section className="slotab-section">
-        <div className="slotab-container slotab-prose">
-          <h2>What is a SLOTAB Membership?</h2>
+        <div
+          className="slotab-container slotab-prose"
+          style={{ maxWidth: 760, textAlign: "center" }}
+        >
+          <h2>Joining is donating.</h2>
           <p>
-            Family and friends of SLOHS athletes looking to support SLO
-            Athletics can do so by joining SLOTAB. All proceeds raised from
-            memberships go into SLOTAB&apos;s general fund. You may also join at
-            a sponsorship level and sponsor specific team(s) at SLOHS.
+            Per the 2026 board decision, every donation enrolls you as a
+            SLOTAB member. There&apos;s no separate signup form &mdash; pick
+            an amount, designate a team (or the general fund), and your
+            membership lands at the matching tier automatically.
           </p>
-          <p>
-            The athletic director and coaches work together with SLOTAB to
-            ensure that each program&apos;s needs are met. Memberships support
-            coaches with equipment, travel expenses, tournament fees, sports
-            facility improvements and much more.
+          <p style={{ color: "var(--tiger-graphite)" }}>
+            <strong>Businesses:</strong> see the Business Sponsors section
+            below for Platinum / Gold / Silver / Bronze tiers, or contact
+            the Membership VP for the printed sponsor sheet.
           </p>
-
-          <div id="join" style={{ maxWidth: 720, margin: "2rem auto 1rem" }}>
-            <h2 style={{ textAlign: "center" }}>Join Online</h2>
-            <p style={{ textAlign: "center", color: "var(--slotab-muted)" }}>
-              Submissions create a contact record in Springly (when connected)
-              and email the membership chair.
-            </p>
-            <JoinForm />
-          </div>
-
-          <h2>How to Join</h2>
-          <p>
-            <strong>Individuals:</strong> Download and return the SLOTAB
-            General Membership form, or join online at the link above.
-          </p>
-          <p>
-            <strong>Businesses:</strong> Request the SLOTAB Business Sponsorship
-            form for tier details and benefits.
+          <p
+            style={{
+              display: "flex",
+              gap: "0.75rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              marginTop: "1.5rem",
+            }}
+          >
+            <Link
+              href="/donate"
+              className="tiger-btn tiger-btn-primary tiger-btn-arrow"
+            >
+              Donate &amp; Become a Member
+            </Link>
           </p>
         </div>
       </section>

@@ -55,6 +55,14 @@ export default function DonateForm() {
   const [other, setOther] = useState<string>("");
   const [team, setTeam] = useState<string>(initialTeam);
   const [autoRenew, setAutoRenew] = useState(false);
+  // Donor identity — any donation also enrolls the donor as a SLOTAB
+  // member (board decision 2026-05-06 #37). Captured here so the same
+  // submission creates both the donation record and the contact in
+  // Springly when wiring lands.
+  const [donorName, setDonorName] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [donorPhone, setDonorPhone] = useState("");
+  const [displayOnWall, setDisplayOnWall] = useState(true);
 
   const tiers = mode === "monthly" ? MONTHLY_TIERS : ONE_TIME_TIERS;
   const floor = mode === "monthly" ? MONTHLY_FLOOR : ONE_TIME_FLOOR;
@@ -75,7 +83,10 @@ export default function DonateForm() {
       ? "SLOTAB General Fund"
       : TEAMS.find((t) => t.slug === team)?.name ?? "your team";
 
-  const submitDisabled = tooLow || effectiveAmount <= 0;
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorEmail);
+  const donorComplete = donorName.trim().length > 0 && emailValid;
+  const submitDisabled =
+    tooLow || effectiveAmount <= 0 || !donorComplete;
 
   return (
     <div className="slotab-donate-form">
@@ -243,6 +254,66 @@ export default function DonateForm() {
         </div>
       )}
 
+      {/* Donor info — any donation also creates the SLOTAB membership
+          per board decision #37 (every donor = a member). */}
+      <fieldset className="slotab-donate-fieldset">
+        <legend>Your information</legend>
+        <p
+          style={{
+            margin: 0,
+            fontSize: "0.85rem",
+            color: "var(--slotab-muted)",
+          }}
+        >
+          Every donation enrolls you as a SLOTAB member. We&apos;ll use
+          this to add you to the donor wall and the membership roster.
+        </p>
+        <label className="slotab-donate-field">
+          <span>Name</span>
+          <input
+            type="text"
+            required
+            autoComplete="name"
+            placeholder="First Last"
+            value={donorName}
+            onChange={(e) => setDonorName(e.target.value)}
+          />
+        </label>
+        <label className="slotab-donate-field">
+          <span>Email</span>
+          <input
+            type="email"
+            required
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={donorEmail}
+            onChange={(e) => setDonorEmail(e.target.value)}
+          />
+        </label>
+        <label className="slotab-donate-field">
+          <span>Phone (optional)</span>
+          <input
+            type="tel"
+            autoComplete="tel"
+            placeholder="(805) 555-1212"
+            value={donorPhone}
+            onChange={(e) => setDonorPhone(e.target.value)}
+          />
+        </label>
+        <label className="slotab-donate-checkbox">
+          <input
+            type="checkbox"
+            checked={displayOnWall}
+            onChange={(e) => setDisplayOnWall(e.target.checked)}
+          />
+          <span>
+            <strong>Display my name on the SLOTAB Donor Wall.</strong>{" "}
+            Uncheck to give anonymously — your gift still counts toward
+            the team and your member tier.
+          </span>
+        </label>
+      </fieldset>
+
       {/* Submit (stubbed pending Square architecture decision) */}
       <button
         type="button"
@@ -251,11 +322,13 @@ export default function DonateForm() {
         onClick={() => {
           alert(
             "Demo prototype — Square integration pending board decision (Q1).\n\n" +
+              `Donor: ${donorName} <${donorEmail}>${donorPhone ? ` · ${donorPhone}` : ""}\n` +
+              `Display on wall: ${displayOnWall ? "Yes" : "No (anonymous)"}\n` +
               `Mode: ${mode}\n` +
               `Amount: ${MONEY.format(effectiveAmount)}${mode === "monthly" ? "/mo" : ""}\n` +
               `Designation: ${teamLabel}\n` +
               (mode === "monthly" ? `4-year lock-in: ${autoRenew ? "Yes" : "No"}\n` : "") +
-              (tier ? `Tier: ${tier}\n` : "")
+              (tier ? `Tier: ${tier} (membership enrolled)\n` : "")
           );
         }}
       >

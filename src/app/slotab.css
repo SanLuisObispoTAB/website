@@ -2305,6 +2305,32 @@
   line-height: 1.4;
 }
 .slotab-donate-checkbox input { margin-top: 0.2rem; }
+.slotab-donate-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+.slotab-donate-field span {
+  font-family: var(--tiger-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tiger-ink);
+}
+.slotab-donate-field input {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0.55rem 0.6rem;
+  font-family: var(--tiger-sans);
+  font-size: 0.95rem;
+  color: var(--tiger-ink);
+  outline: none;
+}
+.slotab-donate-field input:focus {
+  border-color: var(--tiger-gold);
+}
 .slotab-donate-preview {
   background: #fff;
   border: 1px solid var(--slotab-border);
