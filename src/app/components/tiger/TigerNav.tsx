@@ -69,7 +69,9 @@ function isActive(item: NavItem, path: string) {
 export default function TigerNav() {
   const pathname = usePathname() || "/";
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const closeMobile = () => setMobileOpen(false);
+  const closeDropdown = () => setOpenDropdown(null);
 
   return (
     <header className="tiger-nav">
@@ -92,12 +94,24 @@ export default function TigerNav() {
           {NAV.map((item) => {
             const active = isActive(item, pathname);
             if (item.children) {
+              const isOpen = openDropdown === item.label;
               return (
-                <div key={item.label} className="tiger-nav-item">
+                <div
+                  key={item.label}
+                  className={`tiger-nav-item${isOpen ? " open" : ""}`}
+                  onMouseEnter={() => setOpenDropdown(item.label)}
+                  onMouseLeave={() => setOpenDropdown(null)}
+                >
                   <button
                     type="button"
                     className={`tiger-nav-link${active ? " active" : ""}`}
                     aria-haspopup="true"
+                    aria-expanded={isOpen}
+                    onClick={() =>
+                      setOpenDropdown((prev) =>
+                        prev === item.label ? null : item.label,
+                      )
+                    }
                   >
                     {item.label}
                     <span className="tiger-nav-chev" aria-hidden>
@@ -106,7 +120,12 @@ export default function TigerNav() {
                   </button>
                   <div className="tiger-nav-dropdown" role="menu">
                     {item.children.map((c) => (
-                      <Link key={c.href} href={c.href} role="menuitem">
+                      <Link
+                        key={c.href}
+                        href={c.href}
+                        role="menuitem"
+                        onClick={closeDropdown}
+                      >
                         {c.label}
                       </Link>
                     ))}

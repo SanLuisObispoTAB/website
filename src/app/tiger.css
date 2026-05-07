@@ -582,8 +582,10 @@
   display: none;
   z-index: 110;
 }
-.tiger-nav-item:hover .tiger-nav-dropdown,
-.tiger-nav-item:focus-within .tiger-nav-dropdown {
+/* Dropdown visibility is JS-managed via the .open class on the
+   parent nav-item — keeps the dropdown closed after clicking a
+   menu item, even if focus stays on the button. */
+.tiger-nav-item.open .tiger-nav-dropdown {
   display: block;
 }
 .tiger-nav-dropdown a {
