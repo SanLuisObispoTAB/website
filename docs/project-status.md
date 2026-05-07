@@ -3,7 +3,7 @@
 A living document the board updates between sessions to keep
 decisions, pending work, and external inputs in one place.
 
-> **Last updated:** 2026-05-06 *(working session transcript captured)*
+> **Last updated:** 2026-05-06 *(design rebuild + 5-11 demo polish landed)*
 >
 > Update this doc after each board meeting or working session.
 
@@ -74,6 +74,8 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-05-06 | 46 | **Trina-facing operations doc** for the Square→QB workflow — covers data flow, tag schema, refund/correction path, what to do if the sidetool breaks | Erik to draft ✅ |
 | 2026-05-06 | 47 | **Open considerations from Phase 0 plan** — sponsorship-bundle splits (e1), in-kind donations (e2), restricted-vs-unrestricted gifts (e4) — Erik to surface at next board meeting before they get coded | Board — pending discussion |
 | 2026-05-06 | 48 | **Springly + Hudl integrations TABLED** until access is sorted. **Springly** (Serenity tier): no Integrations tab visible at admin level — Owner role almost certainly required, OR API access may be a paid add-on Serenity doesn't include; pending support reply. **Hudl** (Pro tier): no self-service developer portal — `developer.hudl.com` routes back to the regular admin console. API access is gated through Hudl's Partner Program (broadcast/stat partners), not exposed to individual schools. Erik to email Hudl support 2026-05-07 asking whether Pro includes any API or if a Partner agreement is required for a single-org public-data integration. Plan B options (Zapier for Springly; manual `data/hudl.json` updates via Decap) remain in place. | Erik 🔴 |
+| 2026-05-06 | 49 | **Membership Join form folded into the Donate flow** (philosophy from #37 made concrete). The standalone `/membership` "Join Online" form is gone; `/donate` now captures donor identity (Name, Email, Phone, Display-on-Wall checkbox). Submit alert shows membership tier enrollment alongside the donation. Once Springly creds land, one combined POST creates the contact record + donation in a single round-trip. | Erik ✅ |
+| 2026-05-06 | 50 | **Nav top-right CTA: Donate → Join** (links to `/membership`). Reverses an earlier swap (#27) — having two Donate CTAs in the same fold (nav + hero) was redundant. Hero keeps the primary "Donate Now" button | Erik ✅ |
 
 ---
 
@@ -393,6 +395,90 @@ Transcript ✅ resolved most architectural questions. Remaining big levers:
 | 🔴 **Existing Springly membership data** | Board | Currently in Google Docs; bulk-import after creds arrive (depends on #48) |
 | **Sponsor websites** | Sponsorship Development | Add `website` field for each sponsor in `data/sponsors.json` to make logos clickable (#35) |
 | **Shared Events Google Sheet** | Board + Adam + Phil + liaisons | Single source of truth for all events; daily auto-sync to site (#39) |
+
+---
+
+## 2026-05-06 evening session — what shipped
+
+Long working session running through the Claude Design handoff and
+~15 rounds of design fidelity. Site at `slo-tab-website.vercel.app`
+is now ready for the 2026-05-11 cocktail board demo at the Hub.
+
+### Tiger design system (new)
+- Source Serif 4 (variable font, `opsz` axis enabled) + Manrope +
+  JetBrains Mono via `next/font`. Headlines weight 650 with
+  `font-optical-sizing: auto` for the lighter editorial display cut.
+- Token system: gold `#f5b800` · black `#0a0a0a` · cream `#fbf7ec` ·
+  paper `#f3ecda` · bone `#e9e0c8` · graphite `#454340`. Square
+  everywhere, hairline borders, no shadows except dropdown menu.
+- Full design system in `src/app/tiger.css` (~2200 lines).
+
+### New chrome on every page (replaces legacy Header / Footer)
+- `SiteBanner` — black bar with serif "SLO | TAB" wordmark + cream
+  tagline, gold border-bottom.
+- `TopBar` — score-ticker marquee (5 hardcoded items for now;
+  CMS-driven post-demo).
+- `TigerNav` — sticky glassy nav with hover dropdowns, JS-managed
+  open/close so dropdowns close on link click. Top-right pill is
+  "Join" (links to `/membership`).
+- `TigerFooter` — dark four-column footer.
+
+### Classic homepage (full rebuild)
+- Hero photo carousel, 5 slides, 9.5s rotation, per-slide
+  object-position anchors, mask-gradient sidebars fading into the
+  dark hero bg. Slides constrained to nav inner width
+  (logo's left edge → Join button's right edge).
+- Stats bar (27 teams · 600+ athletes · $1.4M raised since 2012).
+- Three-ways cards.
+- Impact split with $116,800 callout.
+- **Platinum sponsor carousel** between Impact and Teams.
+- **Seasonal Teams carousel** — auto-detects current trimester
+  (Spring at the demo date), shows all 12 in-season teams in a
+  scroll-snap carousel with prev/next arrows, drag-scroll on touch.
+- Calendar + Watch split — calendar is now **live data** from
+  `slotab-events.json` + scraped `weekly-events.json` (filtered to
+  ≥ today, sorted ascending, top 5).
+- Sponsor wall (dark section) with **alpha-channel logos** —
+  pre-processed every existing logo via ImageMagick into
+  `public/sponsors/alpha/`. Tiles white, hairline border, hover
+  lift to gold.
+- Hall of Fame strip (6 inductees previewed, links to full hall).
+- Closing gold CTA — "One school. One pride."
+
+### `/donate` and `/membership` updates
+- `/donate` now captures donor identity (Name + Email required,
+  Phone optional, Donor Wall opt-out checkbox). Every donation
+  enrolls as membership at the matching tier (#37 + #49). Submit
+  is stubbed for the Square integration which is gated on Q1.
+- `/membership` "Proposed Tiers" prototype (5-tier draft from
+  `docs/membership-tiers-research.md`) + sponsor wall + sponsor
+  expandable. Old "Join Online" form removed (#49) — now links
+  to `/donate`.
+
+### Inner-page typography pass
+- Updated `.slotab-scope h1/h2/h3/h4` to render in Tiger Source Serif
+  (mixed case, weight 650). Auto-underline on every `<a>` removed —
+  only `.slotab-prose` paragraphs keep underlined links. Net effect:
+  `/about`, `/teams`, `/watch`, `/hall-of-fame`, `/impact`, `/contact`,
+  `/spring-social`, `/upcoming`, `/season-passes`, `/merch`,
+  `/volunteer` all visually align with the new design without a
+  per-page reskin.
+
+### Operations
+- Weekly events scrape workflow fixed (was failing every cron run on
+  a stale `tnn-videos.json` reference). Manual trigger 2026-05-06
+  evening confirmed the scraper itself works; cron will now actually
+  commit refreshes Sun/Mon/Wed.
+- ImageMagick installed locally; `public/sponsors/alpha/` populated
+  for all 4 tiers (~50 logos).
+
+### Known follow-ups
+- More real data (sponsor URLs in progress via Decap, real Impact
+  ledger numbers pending Trina, real team rosters pending Adam).
+- Square/QB sidetool architecture (Q1) still gating live donate.
+- Springly + Hudl integrations 🔴 blocked on access (#48).
+- Editorial design + mode-switch infrastructure deferred to
+  post-demo.
 
 ---
 
