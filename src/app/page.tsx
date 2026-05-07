@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ClassicHero from "./components/tiger/ClassicHero";
+import PlatinumCarousel from "./components/PlatinumCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
 
 const STATS = [
@@ -217,6 +218,8 @@ export default function ClassicHomePage() {
           </div>
         </div>
       </section>
+
+      <PlatinumCarousel />
 
       {/* Teams grid */}
       <section className="tiger-section">

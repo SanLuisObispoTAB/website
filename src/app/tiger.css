@@ -62,7 +62,7 @@
 /* Type primitives */
 .tiger-display {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 0.95;
   text-wrap: balance;
@@ -124,7 +124,7 @@
 }
 .tiger-page-header h1 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 72px;
   letter-spacing: -0.025em;
   line-height: 0.95;
@@ -358,7 +358,7 @@
 .tiger-banner-text {
   font-family: var(--tiger-serif);
   font-size: 56px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1;
 }
@@ -480,14 +480,19 @@
 }
 .tiger-nav-brand-text {
   line-height: 1.05;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .tiger-nav-brand-name {
+  display: block;
   font-family: var(--tiger-serif);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--tiger-ink);
 }
 .tiger-nav-brand-tag {
+  display: block;
   font-size: 9.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -643,7 +648,7 @@
 .tiger-footer-brand-name {
   font-family: var(--tiger-serif);
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 700;
 }
 .tiger-footer-brand-tag {
   font-size: 11px;
@@ -798,7 +803,7 @@
 }
 .tiger-hero-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 124px;
   margin: 0;
   color: white;
@@ -809,7 +814,7 @@
 .tiger-hero-headline em {
   color: var(--tiger-gold);
   font-style: italic;
-  font-weight: 800;
+  font-weight: 700;
 }
 .tiger-hero-sub {
   font-size: 19px;
@@ -910,7 +915,7 @@
 }
 .tiger-stat-num {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 44px;
   color: white;
   line-height: 1;
@@ -950,7 +955,7 @@
 }
 .tiger-section-head h2 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 48px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1010,7 +1015,7 @@
 }
 .tiger-three-title {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 32px;
   margin: 14px 0 14px;
   color: var(--tiger-ink);
@@ -1049,7 +1054,7 @@
 }
 .tiger-impact-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 64px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1088,7 +1093,7 @@
 }
 .tiger-impact-fig-num {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 28px;
   color: var(--tiger-ink);
 }
@@ -1132,7 +1137,7 @@
 }
 .tiger-impact-card-num {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 48px;
   margin-top: 6px;
   line-height: 1;
@@ -1210,7 +1215,7 @@
 }
 .tiger-team-name {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 22px;
   margin-top: 4px;
 }
@@ -1259,7 +1264,7 @@
 }
 .tiger-cal-date {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 24px;
   color: var(--tiger-gold);
   line-height: 1;
@@ -1335,7 +1340,7 @@
 }
 .tiger-watch-feature-title {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 28px;
   line-height: 1.1;
 }
@@ -1422,7 +1427,7 @@
 }
 .tiger-sponsors-head h2 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 56px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1459,23 +1464,35 @@
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 }
 .tiger-sponsor-tile {
-  background: var(--tiger-cream);
+  background: transparent;
+  border: 1px solid #2a2a2a;
   padding: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 96px;
+  min-height: 110px;
   text-decoration: none;
-  transition: transform 0.2s;
+  transition: transform 0.2s, border-color 0.2s;
 }
 .tiger-sponsor-tile:hover {
   transform: translateY(-2px);
+  border-color: var(--tiger-gold);
 }
+/* Logos on the dark sponsor wall: knock out the white background of
+   each PNG via mix-blend-mode and bump brightness so dark logos still
+   read as light marks against the black section. Matches the PDF
+   treatment where whites become alpha. */
 .tiger-sponsor-tile img {
   max-width: 100%;
   max-height: 64px;
   object-fit: contain;
+  mix-blend-mode: screen;
+  filter: brightness(1.15) contrast(0.95);
+  opacity: 0.92;
+}
+.tiger-sponsor-tile:hover img {
+  opacity: 1;
 }
 .tiger-sponsors-foot {
   text-align: center;
@@ -1502,7 +1519,7 @@
 }
 .tiger-hof-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 56px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1538,7 +1555,7 @@
 }
 .tiger-hof-card-name {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 19px;
   margin-top: 10px;
   line-height: 1.2;
@@ -1595,7 +1612,7 @@
 }
 .tiger-cta-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 88px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1643,7 +1660,7 @@
 
 .tiger-scope .tiger-hero-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 124px;
   color: white;
   letter-spacing: -0.025em;
@@ -1653,7 +1670,7 @@
 }
 .tiger-scope .tiger-banner-text {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 56px;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -1667,7 +1684,7 @@
 }
 .tiger-scope .tiger-section-head h2 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 48px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1680,7 +1697,7 @@
 }
 .tiger-scope .tiger-impact-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 64px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1690,7 +1707,7 @@
 }
 .tiger-scope .tiger-hof-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 56px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1700,7 +1717,7 @@
 }
 .tiger-scope .tiger-cta-headline {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 88px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1710,7 +1727,7 @@
 }
 .tiger-scope .tiger-page-header h1 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 72px;
   letter-spacing: -0.025em;
   line-height: 0.95;
@@ -1720,7 +1737,7 @@
 }
 .tiger-scope .tiger-sponsors-head h2 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 56px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1730,7 +1747,7 @@
 }
 .tiger-scope .tiger-three-title {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 32px;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -1740,7 +1757,7 @@
 }
 .tiger-scope .tiger-team-name {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 22px;
   letter-spacing: -0.01em;
   line-height: 1.05;
@@ -1750,7 +1767,7 @@
 }
 .tiger-scope .tiger-stat-num {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 44px;
   color: white;
   text-transform: none;
@@ -1758,7 +1775,7 @@
 }
 .tiger-scope .tiger-impact-card-num {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 48px;
   color: white;
   line-height: 1;
@@ -1766,7 +1783,7 @@
 }
 .tiger-scope .tiger-watch-feature-title {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 28px;
   letter-spacing: -0.01em;
   line-height: 1.1;
@@ -1774,21 +1791,21 @@
 }
 .tiger-scope .tiger-cal-date {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 24px;
   color: var(--tiger-gold);
   text-transform: none;
 }
 .tiger-scope .tiger-impact-fig-num {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 28px;
   color: var(--tiger-ink);
   text-transform: none;
 }
 .tiger-scope .tiger-hof-card-name {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 19px;
   line-height: 1.2;
   color: var(--tiger-ink);
@@ -1797,24 +1814,50 @@
 }
 .tiger-scope .tiger-footer-brand-name {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 22px;
   text-transform: none;
+  color: var(--tiger-cream);
+}
+/* Defensive footer text colors — ensure nothing inherits black from
+   .slotab-scope. */
+.tiger-scope .tiger-footer,
+.tiger-scope .tiger-footer p,
+.tiger-scope .tiger-footer .tiger-footer-blurb,
+.tiger-scope .tiger-footer .tiger-footer-brand-tag,
+.tiger-scope .tiger-footer .tiger-footer-ein,
+.tiger-scope .tiger-footer .tiger-footer-bottom,
+.tiger-scope .tiger-footer .tiger-footer-bottom div {
+  color: var(--tiger-cream);
+}
+.tiger-scope .tiger-footer .tiger-footer-brand-tag {
+  color: var(--tiger-silver);
+}
+.tiger-scope .tiger-footer .tiger-footer-blurb {
+  color: var(--tiger-silver);
+}
+.tiger-scope .tiger-footer .tiger-footer-ein,
+.tiger-scope .tiger-footer .tiger-footer-bottom,
+.tiger-scope .tiger-footer .tiger-footer-bottom div {
+  color: var(--tiger-pewter);
+}
+.tiger-scope .tiger-footer .tiger-footer-col-label {
+  color: var(--tiger-gold);
 }
 .tiger-scope .tiger-nav-brand-name {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 18px;
   text-transform: none;
   color: var(--tiger-ink);
 }
 .tiger-scope .tiger-three-grid h3 {
   font-family: var(--tiger-serif);
-  font-weight: 800;
+  font-weight: 700;
 }
 
-/* Reset legacy .slotab-scope a underline + gold-color rules inside
-   tiger components — they look wrong on dark hero / nav links. */
+/* Reset legacy .slotab-scope a underline + black-color rules inside
+   tiger components — black-on-black buttons were invisible. */
 .tiger-scope .tiger-banner-link,
 .tiger-scope .tiger-nav-link,
 .tiger-scope .tiger-nav-brand,
@@ -1827,8 +1870,86 @@
 .tiger-scope .tiger-platinum-slide,
 .tiger-scope .tiger-ulink,
 .tiger-scope .tiger-hero-cta-row a,
-.tiger-scope .tiger-cta-row a {
+.tiger-scope .tiger-cta-row a,
+.tiger-scope a.tiger-btn,
+.tiger-scope .tiger-sponsors-foot a {
   text-decoration: none;
+}
+
+/* Force tiger buttons to render their own colors instead of inheriting
+   .slotab-scope a's black. Specificity 0,2,0 beats slotab. */
+.tiger-scope a.tiger-btn-primary,
+.tiger-scope button.tiger-btn-primary {
+  color: var(--tiger-black);
+  background: var(--tiger-gold);
+}
+.tiger-scope a.tiger-btn-primary:hover,
+.tiger-scope button.tiger-btn-primary:hover {
+  color: var(--tiger-black);
+  background: var(--tiger-gold-deep);
+}
+.tiger-scope a.tiger-btn-dark,
+.tiger-scope button.tiger-btn-dark {
+  color: var(--tiger-gold);
+  background: var(--tiger-black);
+}
+.tiger-scope a.tiger-btn-dark:hover,
+.tiger-scope button.tiger-btn-dark:hover {
+  color: var(--tiger-black);
+  background: var(--tiger-gold);
+}
+.tiger-scope a.tiger-btn-ghost,
+.tiger-scope button.tiger-btn-ghost {
+  color: var(--tiger-ink);
+  background: transparent;
+}
+/* Hero buttons sit on dark photo — need light ghost variant */
+.tiger-scope .tiger-hero-cta-row a.tiger-btn-ghost {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+.tiger-scope .tiger-hero-cta-row a.tiger-btn-ghost:hover {
+  color: var(--tiger-black);
+  background: white;
+  border-color: white;
+}
+/* Closing CTA sits on gold — ghost button needs black-on-gold */
+.tiger-scope .tiger-cta-row a.tiger-btn-ghost {
+  color: var(--tiger-black);
+  border-color: var(--tiger-black);
+}
+.tiger-scope .tiger-cta-row a.tiger-btn-ghost:hover {
+  background: var(--tiger-black);
+  color: var(--tiger-gold);
+}
+
+/* Tiger ulink + nav links inherit black from slotab-scope a; reassert */
+.tiger-scope a.tiger-ulink {
+  color: var(--tiger-ink);
+  border-bottom: 1.5px solid var(--tiger-gold);
+}
+.tiger-scope a.tiger-ulink:hover {
+  color: var(--tiger-gold-deep);
+}
+.tiger-scope .tiger-nav-link {
+  color: var(--tiger-graphite);
+}
+.tiger-scope .tiger-nav-link.active,
+.tiger-scope .tiger-nav-link:hover {
+  color: var(--tiger-ink);
+}
+
+/* Footer links override legacy a color */
+.tiger-scope a.tiger-footer-link {
+  color: var(--tiger-cream);
+}
+.tiger-scope a.tiger-footer-link:hover {
+  color: var(--tiger-gold);
+}
+
+/* Sponsor wall foot link */
+.tiger-scope .tiger-sponsors-foot a {
+  color: var(--tiger-gold);
 }
 
 @media (max-width: 1024px) {
