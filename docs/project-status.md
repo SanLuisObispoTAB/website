@@ -3,7 +3,7 @@
 A living document the board updates between sessions to keep
 decisions, pending work, and external inputs in one place.
 
-> **Last updated:** 2026-05-06 *(design rebuild + 5-11 demo polish landed)*
+> **Last updated:** 2026-05-07 *(mobile pass + Raven's Peak custom domain)*
 >
 > Update this doc after each board meeting or working session.
 
@@ -76,6 +76,8 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-05-06 | 48 | **Springly + Hudl integrations TABLED** until access is sorted. **Springly** (Serenity tier): no Integrations tab visible at admin level — Owner role almost certainly required, OR API access may be a paid add-on Serenity doesn't include; pending support reply. **Hudl** (Pro tier): no self-service developer portal — `developer.hudl.com` routes back to the regular admin console. API access is gated through Hudl's Partner Program (broadcast/stat partners), not exposed to individual schools. Erik to email Hudl support 2026-05-07 asking whether Pro includes any API or if a Partner agreement is required for a single-org public-data integration. Plan B options (Zapier for Springly; manual `data/hudl.json` updates via Decap) remain in place. | Erik 🔴 |
 | 2026-05-06 | 49 | **Membership Join form folded into the Donate flow** (philosophy from #37 made concrete). The standalone `/membership` "Join Online" form is gone; `/donate` now captures donor identity (Name, Email, Phone, Display-on-Wall checkbox). Submit alert shows membership tier enrollment alongside the donation. Once Springly creds land, one combined POST creates the contact record + donation in a single round-trip. | Erik ✅ |
 | 2026-05-06 | 50 | **Nav top-right CTA: Donate → Join** (links to `/membership`). Reverses an earlier swap (#27) — having two Donate CTAs in the same fold (nav + hero) was redundant. Hero keeps the primary "Donate Now" button | Erik ✅ |
+| 2026-05-07 | 51 | **Custom domain `slotab.ravens-peak-consulting.com`** added (CNAME → Vercel) so the SLOHS district firewall (which blocks `*.vercel.app`) can reach the preview. Aliased to the `slo-tab-website` Vercel project's production deployment, no code changes needed. Domain pulls Let's Encrypt cert automatically. The old `ravens-peak-consulting.com/slotab-preview` mirror path is now obsolete — this aliases the live build instead of mirroring it into the Raven's Peak repo | Erik ✅ |
+| 2026-05-07 | 52 | **Mobile responsive pass**. The 2026-05-06 rebuild was tuned for desktop and read poorly on phones. Added two breakpoint tiers (480px phone + 720px tablet) covering masthead wordmark, hero (edge-to-edge photo, drop the desktop side mask), stats grid (stays 2×2), sponsor wall (force 2-up across all tiers), watch feature (smaller, stronger blackout, title text-shadow), and impact card (full-width, shorter photo). Required re-asserting `.tiger-scope` (0,2,0) overrides for headlines and watch-feature title to beat unscoped late rules in tiger.css | Erik ✅ |
 
 ---
 
@@ -84,7 +86,8 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 ### Live preview URLs
 
 - **Production-track Vercel URL**: <https://slo-tab-website.vercel.app> — auto-deploys from <https://github.com/eramberg/slo-tab-website> on push to `main`. Currently noindexed; this is the URL `slotab.org` will eventually point at.
-- **Board review URL** (deprecated path, kept until cutover): <https://www.ravens-peak-consulting.com/slotab-preview> — mirror in the Raven's Peak repo
+- **SLOHS-firewall-friendly URL**: <https://slotab.ravens-peak-consulting.com> — CNAME alias of the same Vercel deployment (#51). Use this when sending the preview to anyone on the school district network — `*.vercel.app` is firewalled.
+- ❌ **`ravens-peak-consulting.com/slotab-preview`** — abandoned 2026-05-07 (#51). The mirror in the Raven's Peak repo is months out of date and no longer maintained; the CNAME alias supersedes it.
 
 ### Pages
 
@@ -479,6 +482,61 @@ is now ready for the 2026-05-11 cocktail board demo at the Hub.
 - Springly + Hudl integrations 🔴 blocked on access (#48).
 - Editorial design + mode-switch infrastructure deferred to
   post-demo.
+
+---
+
+## 2026-05-07 session — what shipped
+
+Short follow-on after the 2026-05-06 rebuild, prompted by the
+SLOHS network blocking `*.vercel.app` and the user previewing
+on a phone.
+
+### Custom domain via Raven's Peak (#51)
+- Added `slotab.ravens-peak-consulting.com` as a custom domain on
+  the `slo-tab-website` Vercel project (Settings → Domains).
+- Cloudflare CNAME `slotab` → `cname.vercel-dns.com`, proxy off
+  (gray cloud) so Vercel terminates SSL.
+- Vercel auto-issued a Let's Encrypt R13 cert. Domain attached as
+  the production alias of the latest deployment so it inherits the
+  same auth posture as `slo-tab-website.vercel.app` (no SSO wall).
+- No code changes — the canonical Vercel URL still works
+  identically; this just adds an alternate hostname.
+
+### Mobile responsive pass (#52)
+Single-file CSS update to `src/app/tiger.css`. The desktop design
+rendered with several issues on a 375-400px viewport:
+- SiteBanner ate ~145px of vertical space before any content.
+- Hero photo got sandwiched between dark side bands + a mask
+  gradient that ate the photo's edges, leaving a narrow visible
+  strip in the center.
+- Stats grid collapsed to a 4-tall single column at <480px.
+- Sponsor wall rendered as 1-up giant tiles for ~50 sponsors.
+- Watch feature title vanished against busy game photos.
+
+Fixes (commit `d8f2f82`):
+- **480px tier**: SLO|TAB wordmark 40→28px, drop the dot separator
+  in the tagline so it sits on one line, scale hero / closing-CTA /
+  page-header headlines down. Stats grid stays 2×2.
+- **720px tier**: hero slide + overlays use `left: 0; right: 0`
+  (drop the desktop-only side bands) and disable the side mask
+  gradient on the photo. Strengthen the bottom darkness gradient
+  for legibility on the narrower crop. Sponsor grid forces 2-up
+  for every tier with shorter tiles. Impact card stretches full
+  viewport width with photo height 560→360. Watch feature shrinks
+  to 280px with stronger blackout + text-shadow on the title.
+- The (0,2,0) `.tiger-scope` overrides at the end of `tiger.css`
+  outranked unscoped media-query rules for hero/CTA/page-header
+  headlines + watch-feature title — re-asserted them inside the
+  mobile blocks at matching specificity.
+
+### Known follow-ups
+- Real Hudl thumbnails on the watch feature will improve title
+  contrast further once they land.
+- A few tall sponsor logos may want tier-specific tile aspect
+  ratios eventually (Crew Wealth, Adventist Health, etc. sit fine
+  at 2-up but their proportions vary).
+- iOS Safari sometimes hangs onto cached CSS — long-press refresh
+  or Private Tab if a test viewer reports the old layout.
 
 ---
 
