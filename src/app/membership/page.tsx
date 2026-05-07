@@ -1,14 +1,14 @@
 import Link from "next/link";
 import BecomeASponsor from "../components/BecomeASponsor";
 import JoinForm from "../components/JoinForm";
-import PageHeader from "../components/PageHeader";
 import ProposedTiers from "../components/ProposedTiers";
 import SponsorWall from "../components/SponsorWall";
+import TigerPageHeader from "../components/tiger/TigerPageHeader";
 
 export default function MembershipPage() {
   return (
     <>
-      <PageHeader
+      <TigerPageHeader
         kicker="Support Tiger Athletics"
         title="Sponsors & Membership"
       />

@@ -111,6 +111,36 @@
   }
 }
 
+/* Page header (used on inner pages migrated to tiger) */
+.tiger-page-header {
+  background: var(--tiger-black);
+  color: var(--tiger-cream);
+  padding: 80px 0 64px;
+  border-bottom: 3px solid var(--tiger-gold);
+}
+.tiger-page-header .tiger-eyebrow {
+  margin-bottom: 12px;
+  display: block;
+}
+.tiger-page-header h1 {
+  font-family: var(--tiger-serif);
+  font-weight: 800;
+  font-size: 72px;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  color: white;
+  margin: 0;
+  text-wrap: balance;
+}
+@media (max-width: 720px) {
+  .tiger-page-header {
+    padding: 56px 0 44px;
+  }
+  .tiger-page-header h1 {
+    font-size: 44px;
+  }
+}
+
 /* Section padding helper */
 .tiger-section {
   padding: 120px 0;

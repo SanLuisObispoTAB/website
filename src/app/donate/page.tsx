@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import DonateForm from "../components/DonateForm";
-import PageHeader from "../components/PageHeader";
+import TigerPageHeader from "../components/tiger/TigerPageHeader";
 
 export const metadata = {
   title: "Donate — SLOTAB",
@@ -9,13 +9,13 @@ export const metadata = {
 export default function DonatePage() {
   return (
     <>
-      <PageHeader
+      <TigerPageHeader
         kicker="Support SLOHS Athletics"
         title="Donate to the Tigers"
       />
 
-      <section className="slotab-section">
-        <div className="slotab-container slotab-donate-layout">
+      <section className="tiger-section">
+        <div className="tiger-container slotab-donate-layout">
           <div className="slotab-donate-intro slotab-prose">
             <h2>Every gift fuels a real Tiger.</h2>
             <p>
