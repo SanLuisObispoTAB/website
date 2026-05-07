@@ -17,15 +17,16 @@ function alphaPath(originalLogo: string): string {
 
 function Tile({ s }: { s: Sponsor }) {
   const src = alphaPath(s.logo);
+  // max-height is controlled by tier-specific CSS (.platinum-tier
+  // .tiger-sponsor-tile img, etc.) so each tier scales independently.
   const inner = (
     <Image
       src={src}
       alt={s.name}
       width={300}
-      height={120}
+      height={144}
       style={{
         maxWidth: "100%",
-        maxHeight: "72px",
         objectFit: "contain",
       }}
     />
@@ -60,7 +61,7 @@ export default function TigerSponsorWall({ mode = "full" }: Props) {
       {tiers.map(({ tier, sponsors }) => {
         const cls = tier.toLowerCase();
         return (
-          <div key={tier} className="tiger-sponsors-tier">
+          <div key={tier} className={`tiger-sponsors-tier ${cls}-tier`}>
             <div className="tiger-sponsors-tier-label">{tier}</div>
             <div className={`tiger-sponsors-grid ${cls}`}>
               {sponsors.map((s) => (

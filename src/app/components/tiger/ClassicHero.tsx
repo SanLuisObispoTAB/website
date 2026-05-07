@@ -8,6 +8,12 @@ type Slide = {
   src: string;
   sport: string;
   caption: string;
+  /**
+   * CSS object-position value applied to this slide's image.
+   * Default "center center". Use this to anchor crops on the action
+   * — e.g. body-paint chests, players' faces, ball.
+   */
+  objectPosition?: string;
 };
 
 const SLIDES: Slide[] = [
@@ -15,26 +21,34 @@ const SLIDES: Slide[] = [
     src: "/photos/tunnel-runout.jpg",
     sport: "Football",
     caption: "Friday night under the lights · Holt Field",
+    objectPosition: "center 35%",
   },
   {
     src: "/photos/football-helmets.jpg",
     sport: "Football",
     caption: "Tigers helmets up · pre-game ritual",
+    objectPosition: "center 30%",
   },
   {
     src: "/photos/water-polo-huddle.jpg",
     sport: "Water Polo",
     caption: "Girls Water Polo · the huddle",
+    objectPosition: "center 40%",
   },
   {
     src: "/photos/student-section.jpg",
     sport: "Student Section",
     caption: "GO TIGERS · the body-paint section",
+    // Top of frame at "just above the hands" — anchor 70% pushes
+    // image up so the body-paint chests sit in the middle of the
+    // visible area rather than getting cropped off the bottom.
+    objectPosition: "center 70%",
   },
   {
     src: "/photos/basketball-girls.jpg",
     sport: "Basketball",
     caption: "Girls Varsity Basketball · #22 Hartford",
+    objectPosition: "center 35%",
   },
 ];
 
@@ -66,6 +80,7 @@ export default function ClassicHero() {
             fill
             priority={i === 0}
             sizes="100vw"
+            style={{ objectPosition: slide.objectPosition ?? "center center" }}
           />
         </div>
       ))}
