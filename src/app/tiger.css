@@ -588,6 +588,13 @@
 .tiger-nav-item.open .tiger-nav-dropdown {
   display: block;
 }
+/* When the dropdown is open, hide the trigger link's narrow underline
+   so the only gold line is the dropdown's top border (full panel
+   width). Otherwise the short underline + wider panel-top read as
+   two misaligned gold lines stacked at the same Y. */
+.tiger-nav-item.open .tiger-nav-link {
+  border-bottom-color: transparent;
+}
 .tiger-nav-dropdown a {
   display: block;
   padding: 10px 18px;
