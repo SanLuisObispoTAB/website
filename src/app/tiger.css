@@ -757,9 +757,21 @@
   overflow: hidden;
   background: var(--tiger-black);
 }
-.tiger-hero-slide {
+/* Photos and gradient overlays are constrained horizontally to match
+   the nav's inner content area: from the logo's left edge to the
+   Donate button's right edge. Nav uses max-width 1440 with 40px
+   padding, so the inner content area is min(viewport - 80, 1360).
+   The dark hero bg fills the bands outside the photo. */
+.tiger-hero-slide,
+.tiger-hero-overlay-v,
+.tiger-hero-overlay-h {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: max(40px, calc((100% - 1440px) / 2 + 40px));
+  right: max(40px, calc((100% - 1440px) / 2 + 40px));
+}
+.tiger-hero-slide {
   opacity: 0;
   transition: opacity 1.4s ease;
 }
