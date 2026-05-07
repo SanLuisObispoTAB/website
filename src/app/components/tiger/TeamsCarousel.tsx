@@ -13,34 +13,38 @@ type Team = {
   hasPage: boolean;
 };
 
+// Sport-specific photos. New convention: first letter b/g/c (boys/girls/co-ed),
+// then short sport name. Sports without a real photo yet fall back to a related
+// or generic image until per-sport photos arrive — see "Missing photos" notes
+// in docs/project-status.md.
 const PHOTO_BY_SLUG: Record<string, string> = {
-  football: "/photos/football-helmets.jpg",
-  "girls-volleyball": "/photos/volleyball-set.jpg",
-  "boys-volleyball": "/photos/volleyball.jpg",
-  "beach-volleyball": "/photos/volleyball-set.jpg",
-  baseball: "/photos/athlete-portrait.jpg",
-  softball: "/photos/athlete-portrait.jpg",
-  "boys-tennis": "/photos/tennis-team.jpg",
-  "girls-tennis": "/photos/tennis.jpg",
-  "boys-water-polo": "/photos/water-polo-boys-2.jpg",
-  "girls-water-polo": "/photos/water-polo-girls.jpg",
-  "boys-basketball": "/photos/basketball-girls.jpg",
-  "girls-basketball": "/photos/basketball-girls.jpg",
-  "boys-soccer": "/photos/student-section.jpg",
-  "girls-soccer": "/photos/student-section.jpg",
-  "boys-cross-country": "/photos/cheering.jpg",
-  "girls-cross-country": "/photos/cheering.jpg",
-  "track-field": "/photos/cheering.jpg",
-  "boys-swim-dive": "/photos/water-polo-shot.jpg",
-  "girls-swim-dive": "/photos/water-polo-shot.jpg",
-  "boys-golf": "/photos/about-hero.jpg",
-  "girls-golf": "/photos/about-hero.jpg",
-  "boys-lacrosse": "/photos/student-section.jpg",
-  wrestling: "/photos/athlete-portrait.jpg",
-  "field-hockey": "/photos/student-section.jpg",
-  "flag-football": "/photos/cheering.jpg",
-  cheer: "/photos/cheering.jpg",
-  stunt: "/photos/cheering.jpg",
+  football: "/photos/bfball-fbspargo-1200x857.jpg",
+  "girls-volleyball": "/photos/gvball-ahopple.jpg",
+  "boys-volleyball": "/photos/bvball-milla.jpg",
+  "beach-volleyball": "/photos/gbvball-ruby-1200x675.png",
+  baseball: "/photos/baileyhartford-1.jpg", // pending: convention-named copy
+  softball: "/photos/gsball-1200x960.jpg",
+  "boys-tennis": "/photos/btennis-team.jpg",
+  "girls-tennis": "/photos/gtennis.jpg",
+  "boys-water-polo": "/photos/bwpolo-2.jpg",
+  "girls-water-polo": "/photos/gwpolo.jpg",
+  "boys-basketball": "/photos/bbball-riley-e1771872160503.jpg",
+  "girls-basketball": "/photos/gbball-goodwin-1200x900.jpg",
+  "boys-soccer": "/photos/bsoccer-1200x800.jpg",
+  "girls-soccer": "/photos/bsoccer-1200x800.jpg", // pending: girls-soccer photo
+  "boys-cross-country": "/photos/cXC-image-1200x900.jpeg",
+  "girls-cross-country": "/photos/cXC-image-1200x900.jpeg",
+  "track-field": "/photos/ctrack-1200x800.jpg",
+  "boys-swim-dive": "/photos/water-polo-shot.jpg", // pending: swim photo
+  "girls-swim-dive": "/photos/water-polo-shot.jpg", // pending: swim photo
+  "boys-golf": "/photos/bgolf-jonnygolf.jpg",
+  "girls-golf": "/photos/ggolf-5-1200x896.jpg",
+  "boys-lacrosse": "/photos/student-section.jpg", // pending: lacrosse photo
+  wrestling: "/photos/bwrestling-checukk.jpg",
+  "field-hockey": "/photos/student-section.jpg", // pending: field-hockey photo
+  "flag-football": "/photos/gfball-saff7-1200x900.jpg",
+  cheer: "/photos/ccheering.jpg",
+  stunt: "/photos/cstunt-CHafourd.jpg",
 };
 
 function currentSeason(): Team["season"] {
