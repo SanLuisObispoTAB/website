@@ -1635,7 +1635,7 @@
   max-height: 108px;
 }
 .tiger-sponsor-tile {
-  background: var(--tiger-paper);
+  background: #ffffff;
   border: 1px solid var(--tiger-bone);
   padding: 20px;
   display: flex;
@@ -1649,7 +1649,7 @@
 .tiger-sponsor-tile:hover {
   transform: translateY(-2px);
   border-color: var(--tiger-gold);
-  background: var(--tiger-cream);
+  background: #ffffff;
 }
 /* Logos use pre-processed alpha PNGs from /sponsors/alpha/ (whites
    removed via ImageMagick). On parchment tiles the original colors
