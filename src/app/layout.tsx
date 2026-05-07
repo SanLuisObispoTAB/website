@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
-import { Raleway, Quattrocento_Sans } from "next/font/google";
+import { Source_Serif_4, Manrope, JetBrains_Mono } from "next/font/google";
 import LayoutShell from "./components/LayoutShell";
 import "./globals.css";
+import "./tiger.css";
 import "./slotab.css";
 
-const raleway = Raleway({
+// Tiger design system fonts — Source Serif 4 display, Manrope UI,
+// JetBrains Mono for eyebrows/captions.
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-slotab-heading",
+  weight: ["400", "600", "700", "800"],
+  style: ["normal", "italic"],
+  variable: "--font-tiger-serif",
 });
 
-const quattrocento = Quattrocento_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-slotab-body",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-tiger-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-tiger-mono",
 });
 
 export const metadata: Metadata = {
@@ -42,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${raleway.variable} ${quattrocento.variable} slotab-scope`}
+        className={`${sourceSerif.variable} ${manrope.variable} ${jetbrainsMono.variable} slotab-scope tiger-scope`}
       >
         <LayoutShell>{children}</LayoutShell>
       </body>
