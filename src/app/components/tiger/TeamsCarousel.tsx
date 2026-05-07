@@ -1,0 +1,164 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import teamsData from "../../data/teams.json";
+
+type Team = {
+  slug: string;
+  name: string;
+  gender: "Boys" | "Girls" | "Co-ed";
+  season: "Fall" | "Winter" | "Spring" | "Year-round";
+  hasPage: boolean;
+};
+
+const PHOTO_BY_SLUG: Record<string, string> = {
+  football: "/photos/football-helmets.jpg",
+  "girls-volleyball": "/photos/volleyball-set.jpg",
+  "boys-volleyball": "/photos/volleyball.jpg",
+  "beach-volleyball": "/photos/volleyball-set.jpg",
+  baseball: "/photos/athlete-portrait.jpg",
+  softball: "/photos/athlete-portrait.jpg",
+  "boys-tennis": "/photos/tennis-team.jpg",
+  "girls-tennis": "/photos/tennis.jpg",
+  "boys-water-polo": "/photos/water-polo-boys-2.jpg",
+  "girls-water-polo": "/photos/water-polo-girls.jpg",
+  "boys-basketball": "/photos/basketball-girls.jpg",
+  "girls-basketball": "/photos/basketball-girls.jpg",
+  "boys-soccer": "/photos/student-section.jpg",
+  "girls-soccer": "/photos/student-section.jpg",
+  "boys-cross-country": "/photos/cheering.jpg",
+  "girls-cross-country": "/photos/cheering.jpg",
+  "track-field": "/photos/cheering.jpg",
+  "boys-swim-dive": "/photos/water-polo-shot.jpg",
+  "girls-swim-dive": "/photos/water-polo-shot.jpg",
+  "boys-golf": "/photos/about-hero.jpg",
+  "girls-golf": "/photos/about-hero.jpg",
+  "boys-lacrosse": "/photos/student-section.jpg",
+  wrestling: "/photos/athlete-portrait.jpg",
+  "field-hockey": "/photos/student-section.jpg",
+  "flag-football": "/photos/cheering.jpg",
+  cheer: "/photos/cheering.jpg",
+  stunt: "/photos/cheering.jpg",
+};
+
+function currentSeason(): Team["season"] {
+  const m = new Date().getMonth(); // 0-11
+  if (m >= 7 && m <= 9) return "Fall"; // Aug-Oct
+  if (m === 10 || m === 11 || m === 0 || m === 1) return "Winter"; // Nov-Feb
+  return "Spring"; // Mar-Jun + Jul (off-season previews Spring continuing)
+}
+
+function teamHref(t: Team): string {
+  return t.hasPage ? `/teams/${t.slug}` : "/teams";
+}
+
+function teamLabel(t: Team): string {
+  if (t.gender === "Co-ed") return t.name;
+  return `${t.gender} ${t.name}`;
+}
+
+export default function TeamsCarousel() {
+  const season = currentSeason();
+  const teams: Team[] = (teamsData.teams as Team[]).filter(
+    (t) => t.season === season || t.season === "Year-round",
+  );
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+
+  const updateButtons = () => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanPrev(el.scrollLeft > 4);
+    setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    updateButtons();
+    el.addEventListener("scroll", updateButtons, { passive: true });
+    window.addEventListener("resize", updateButtons);
+    return () => {
+      el.removeEventListener("scroll", updateButtons);
+      window.removeEventListener("resize", updateButtons);
+    };
+  }, []);
+
+  const scrollByCards = (dir: -1 | 1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.querySelector(".tiger-team-card") as HTMLElement | null;
+    const step = card ? card.offsetWidth + 16 : el.clientWidth * 0.9;
+    el.scrollBy({ left: step * dir * 1.5, behavior: "smooth" });
+  };
+
+  return (
+    <section className="tiger-section">
+      <div className="tiger-container">
+        <div className="tiger-teams-head">
+          <div className="tiger-section-head">
+            <span className="tiger-eyebrow">{season} Season · In Play Now</span>
+            <h2>Every team. Every season.</h2>
+          </div>
+          <Link href="/teams" className="tiger-ulink">
+            View all teams →
+          </Link>
+        </div>
+
+        <div className="tiger-teams-carousel">
+          <button
+            type="button"
+            className="tiger-teams-arrow prev"
+            aria-label="Previous teams"
+            onClick={() => scrollByCards(-1)}
+            disabled={!canPrev}
+          >
+            ‹
+          </button>
+          <div className="tiger-teams-track" ref={trackRef}>
+            {teams.map((t) => (
+              <Link
+                key={t.slug}
+                href={teamHref(t)}
+                className="tiger-team-card tiger-card-lift"
+              >
+                <div className="tiger-team-photo">
+                  <Image
+                    src={PHOTO_BY_SLUG[t.slug] ?? "/photos/about-hero.jpg"}
+                    alt={teamLabel(t)}
+                    width={400}
+                    height={320}
+                    sizes="(max-width: 720px) 80vw, 320px"
+                  />
+                </div>
+                <div className="tiger-team-meta">
+                  <div>
+                    <div className="tiger-team-season">
+                      {t.season === "Year-round" ? "Year-Round" : t.season}
+                    </div>
+                    <div className="tiger-team-name">{teamLabel(t)}</div>
+                  </div>
+                  <div className="tiger-team-record">
+                    {t.hasPage ? "View →" : "Soon"}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="tiger-teams-arrow next"
+            aria-label="Next teams"
+            onClick={() => scrollByCards(1)}
+            disabled={!canNext}
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}

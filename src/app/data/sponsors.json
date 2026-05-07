@@ -6,15 +6,18 @@
       "sponsors": [
         {
           "name": "Dairy Creek Golf Course and Event Center",
-          "logo": "/sponsors/platinum/Golf-and-Event-Center.png"
+          "logo": "/sponsors/platinum/Golf-and-Event-Center.png",
+          "website": "https://dairycreekslo.com/"
         },
         {
           "name": "Five O Driving School",
-          "logo": "/sponsors/platinum/FiveO_Coast_HorizontalBanner-pdf.jpg"
+          "logo": "/sponsors/platinum/FiveO_Coast_HorizontalBanner-pdf.jpg",
+          "website": "https://www.fiveods.com/services.phtml/slo_high_school?gad_source=1&gad_campaignid=23055839665&gbraid=0AAAABBePGEMYePaMf09FtG1vHxu1nUMmi&gclid=CjwKCAjwzevPBhBaEiwAplAxvqROLZCxom7WwlAfkleRkkhO2hRgLM1A2w5sqNHeiy7Lrt1oCEHCsxoC0J8QAvD_BwE"
         },
         {
           "name": "Crew Wealth Management",
-          "logo": "/sponsors/platinum/SLOTAB-banner-1-pdf.jpg"
+          "logo": "/sponsors/platinum/SLOTAB-banner-1-pdf.jpg",
+          "website": "https://www.crewwealthmgmt.com/"
         }
       ]
     },

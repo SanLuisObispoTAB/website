@@ -38,7 +38,7 @@ const SLIDES: Slide[] = [
   },
 ];
 
-const ROTATE_MS = 6000;
+const ROTATE_MS = 9500;
 
 export default function ClassicHero() {
   const [idx, setIdx] = useState(0);

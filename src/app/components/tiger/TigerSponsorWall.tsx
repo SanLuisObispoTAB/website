@@ -6,16 +6,26 @@ type Props = {
   mode?: "compact" | "full";
 };
 
+// Map original logo path to its alpha-channel PNG counterpart in
+// public/sponsors/alpha/<tier>/<name>.png. Generated via ImageMagick
+// `-fuzz 18% -transparent white -trim`.
+function alphaPath(originalLogo: string): string {
+  return originalLogo
+    .replace(/^\/sponsors\//, "/sponsors/alpha/")
+    .replace(/\.(jpe?g|png|webp)$/i, ".png");
+}
+
 function Tile({ s }: { s: Sponsor }) {
+  const src = alphaPath(s.logo);
   const inner = (
     <Image
-      src={s.logo}
+      src={src}
       alt={s.name}
       width={300}
       height={120}
       style={{
         maxWidth: "100%",
-        maxHeight: "64px",
+        maxHeight: "72px",
         objectFit: "contain",
       }}
     />

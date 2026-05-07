@@ -165,10 +165,10 @@
 .tiger-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
+  gap: 12px;
+  padding: 16px 32px;
   font-family: var(--tiger-sans);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -178,6 +178,10 @@
     border-color 0.2s ease;
   cursor: pointer;
   text-decoration: none;
+}
+/* Nav-anchored Donate CTA — extra-wide so it reads as primary */
+.tiger-nav-cta {
+  padding: 16px 36px;
 }
 .tiger-btn:hover {
   transform: translateY(-1px);
@@ -460,10 +464,10 @@
 .tiger-nav-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 14px 40px;
+  padding: 18px 40px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
 }
 .tiger-nav-brand {
   display: flex;
@@ -513,10 +517,10 @@
 .tiger-nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 10px 14px;
+  gap: 6px;
+  padding: 12px 16px;
   font-family: var(--tiger-sans);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--tiger-graphite);
   border-bottom: 2px solid transparent;
@@ -741,12 +745,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* object-position weighted toward top so faces aren't cropped */
+  object-position: center 28%;
   transform: scale(1);
-  transition: transform 7s ease-out;
+  transition: transform 11s ease-out;
   filter: contrast(1.05) saturate(1.05);
 }
 .tiger-hero-slide.active img {
-  transform: scale(1.04);
+  transform: scale(1.025);
 }
 .tiger-hero-overlay-v {
   position: absolute;
@@ -828,6 +834,10 @@
   gap: 14px;
   margin-top: 36px;
   flex-wrap: wrap;
+}
+.tiger-hero-cta-row .tiger-btn-primary {
+  padding: 18px 44px;
+  font-size: 15px;
 }
 .tiger-hero-cta-row .tiger-btn-ghost {
   color: white;
@@ -956,7 +966,7 @@
 .tiger-section-head h2 {
   font-family: var(--tiger-serif);
   font-weight: 700;
-  font-size: 48px;
+  font-size: 56px;
   letter-spacing: -0.02em;
   line-height: 0.95;
   margin: 0;
@@ -1176,6 +1186,80 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+}
+
+/* Seasonal teams carousel */
+.tiger-teams-carousel {
+  position: relative;
+}
+.tiger-teams-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 320px);
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 12px;
+  scroll-padding-left: 8px;
+}
+.tiger-teams-track::-webkit-scrollbar {
+  display: none;
+}
+.tiger-teams-track .tiger-team-card {
+  scroll-snap-align: start;
+}
+.tiger-teams-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--tiger-bone);
+  background: var(--tiger-cream);
+  color: var(--tiger-ink);
+  font-family: var(--tiger-serif);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.tiger-teams-arrow.prev {
+  left: -16px;
+}
+.tiger-teams-arrow.next {
+  right: -16px;
+}
+.tiger-teams-arrow:hover:not(:disabled) {
+  background: var(--tiger-gold);
+  border-color: var(--tiger-gold);
+  color: var(--tiger-black);
+}
+.tiger-teams-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+@media (max-width: 720px) {
+  .tiger-teams-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+  .tiger-teams-arrow.prev {
+    left: 4px;
+  }
+  .tiger-teams-arrow.next {
+    right: 4px;
+  }
+  .tiger-teams-track {
+    grid-auto-columns: minmax(240px, 280px);
+  }
 }
 .tiger-team-card {
   display: block;
@@ -1465,31 +1549,31 @@
 }
 .tiger-sponsor-tile {
   background: transparent;
-  border: 1px solid #2a2a2a;
-  padding: 18px;
+  border: 1px solid #1f1f1f;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  min-height: 110px;
+  min-height: 120px;
   text-decoration: none;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
 }
 .tiger-sponsor-tile:hover {
   transform: translateY(-2px);
   border-color: var(--tiger-gold);
+  background: rgba(245, 184, 0, 0.04);
 }
-/* Logos on the dark sponsor wall: knock out the white background of
-   each PNG via mix-blend-mode and bump brightness so dark logos still
-   read as light marks against the black section. Matches the PDF
-   treatment where whites become alpha. */
+/* Logos use pre-processed alpha PNGs from /sponsors/alpha/ (whites
+   removed via ImageMagick). Slight brightness lift keeps mid-dark
+   marks visible on the black section without nuking original color. */
 .tiger-sponsor-tile img {
   max-width: 100%;
-  max-height: 64px;
+  max-height: 72px;
   object-fit: contain;
-  mix-blend-mode: screen;
-  filter: brightness(1.15) contrast(0.95);
+  filter: brightness(1.15) contrast(1.05);
   opacity: 0.92;
+  transition: opacity 0.2s;
 }
 .tiger-sponsor-tile:hover img {
   opacity: 1;
@@ -1685,7 +1769,7 @@
 .tiger-scope .tiger-section-head h2 {
   font-family: var(--tiger-serif);
   font-weight: 700;
-  font-size: 48px;
+  font-size: 56px;
   letter-spacing: -0.02em;
   line-height: 0.95;
   color: var(--tiger-ink);
@@ -1748,7 +1832,7 @@
 .tiger-scope .tiger-three-title {
   font-family: var(--tiger-serif);
   font-weight: 700;
-  font-size: 32px;
+  font-size: 36px;
   letter-spacing: -0.02em;
   line-height: 0.95;
   color: var(--tiger-ink);
@@ -1847,9 +1931,13 @@
 .tiger-scope .tiger-nav-brand-name {
   font-family: var(--tiger-serif);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 22px;
   text-transform: none;
   color: var(--tiger-ink);
+  line-height: 1;
+}
+.tiger-scope .tiger-nav-brand-tag {
+  font-size: 10.5px;
 }
 .tiger-scope .tiger-three-grid h3 {
   font-family: var(--tiger-serif);

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ClassicHero from "./components/tiger/ClassicHero";
 import PlatinumCarousel from "./components/PlatinumCarousel";
+import TeamsCarousel from "./components/tiger/TeamsCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
 
 const STATS = [
@@ -40,37 +41,6 @@ const IMPACT_FIGURES = [
   ["$31,500", "Travel & tournaments"],
   ["$22,800", "Facility upgrades"],
   ["$14,300", "Athlete meals & snacks"],
-];
-
-const FEATURED_TEAMS = [
-  {
-    name: "Football",
-    season: "Fall",
-    img: "/photos/football-helmets.jpg",
-    record: "8–3",
-    href: "/teams/football",
-  },
-  {
-    name: "Girls Volleyball",
-    season: "Fall",
-    img: "/photos/volleyball-set.jpg",
-    record: "21–4",
-    href: "/teams/girls-volleyball",
-  },
-  {
-    name: "Boys Water Polo",
-    season: "Fall",
-    img: "/photos/water-polo-boys-2.jpg",
-    record: "14–6",
-    href: "/teams",
-  },
-  {
-    name: "Girls Tennis",
-    season: "Fall",
-    img: "/photos/tennis-team.jpg",
-    record: "12–2",
-    href: "/teams",
-  },
 ];
 
 const CALENDAR = [
@@ -221,42 +191,8 @@ export default function ClassicHomePage() {
 
       <PlatinumCarousel />
 
-      {/* Teams grid */}
-      <section className="tiger-section">
-        <div className="tiger-container">
-          <div className="tiger-teams-head">
-            <div className="tiger-section-head">
-              <span className="tiger-eyebrow">27 Teams · One Pride</span>
-              <h2>Every team. Every season.</h2>
-            </div>
-            <Link href="/teams" className="tiger-ulink">
-              View all teams →
-            </Link>
-          </div>
-          <div className="tiger-teams-grid">
-            {FEATURED_TEAMS.map((t) => (
-              <Link key={t.name} href={t.href} className="tiger-team-card tiger-card-lift">
-                <div className="tiger-team-photo">
-                  <Image
-                    src={t.img}
-                    alt={t.name}
-                    width={400}
-                    height={320}
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-                <div className="tiger-team-meta">
-                  <div>
-                    <div className="tiger-team-season">{t.season}</div>
-                    <div className="tiger-team-name">{t.name}</div>
-                  </div>
-                  <div className="tiger-team-record">{t.record}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Teams carousel — current-trimester teams. "View all" → /teams */}
+      <TeamsCarousel />
 
       {/* Calendar + Watch */}
       <section className="tiger-section tiger-cal-watch">
