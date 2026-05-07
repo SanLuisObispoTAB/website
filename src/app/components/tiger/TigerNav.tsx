@@ -127,8 +127,8 @@ export default function TigerNav() {
           })}
         </nav>
 
-        <Link href="/donate" className="tiger-btn tiger-btn-dark tiger-nav-cta">
-          Donate
+        <Link href="/membership" className="tiger-btn tiger-btn-dark tiger-nav-cta">
+          Join
         </Link>
 
         <button
@@ -162,7 +162,7 @@ export default function TigerNav() {
               : [],
         )}
         <Link
-          href="/donate"
+          href="/membership"
           onClick={closeMobile}
           className="tiger-btn tiger-btn-dark"
           style={{
@@ -170,7 +170,7 @@ export default function TigerNav() {
             justifyContent: "center",
           }}
         >
-          Donate
+          Join
         </Link>
       </div>
     </header>
