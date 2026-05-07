@@ -9,9 +9,14 @@ import "./tiger.css";
 
 // Tiger design system fonts — Source Serif 4 display, Manrope UI,
 // JetBrains Mono for eyebrows/captions.
+//
+// Source Serif 4 loaded as a variable font with the optical-sizing
+// (`opsz`) axis so large headlines render with the lighter, more
+// editorial display variant (matches the design PDF). Without
+// `axes: ["opsz"]` the font would render at a heavier static weight.
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  axes: ["opsz"],
   style: ["normal", "italic"],
   variable: "--font-tiger-serif",
 });
