@@ -30,20 +30,26 @@ const PHOTO_BY_SLUG: Record<string, string> = {
   "girls-tennis": "/photos/gtennis.jpg",
   "boys-water-polo": "/photos/bwpolo-2.jpg",
   "girls-water-polo": "/photos/gwpolo.jpg",
-  "boys-basketball": "/photos/cstudent-section.jpg", // pending: real boys-basketball photo
+  "boys-basketball": "/photos/bbball-e1765386832968.jpg",
   "girls-basketball": "/photos/gbball-goodwin-1200x900.jpg",
   "boys-soccer": "/photos/bsoccer-1200x800.jpg",
-  "girls-soccer": "/photos/cstudent-section.jpg", // pending: real girls-soccer photo
+  "girls-soccer": "/photos/gsoccer-old-addisoccerupdate.jpeg",
   "boys-cross-country": "/photos/cXC-image-1200x900.jpeg",
   "girls-cross-country": "/photos/cXC-image-1200x900.jpeg",
   "track-field": "/photos/ctrack-1200x800.jpg",
-  "boys-swim-dive": "/photos/cstudent-section.jpg", // pending: swim photo
-  "girls-swim-dive": "/photos/cstudent-section.jpg", // pending: swim photo
+  "boys-swim-dive": "/photos/bswim-image-0.jpg",
+  "girls-swim-dive": "/photos/gswim-10.jpg",
   "boys-golf": "/photos/bgolf-jonnygolf.jpg",
   "girls-golf": "/photos/ggolf-5-1200x896.jpg",
-  "boys-lacrosse": "/photos/cstudent-section.jpg", // pending: lacrosse photo
+  // Note: blacrosse photo shows Los Gatos jerseys — appears to be a stock/other-school
+  // image rather than SLO Tigers. Using as a placeholder until a real SLO lacrosse
+  // photo arrives.
+  "boys-lacrosse": "/photos/blacrosse-20250501-025-9463.jpeg",
   wrestling: "/photos/bwrestling-checukk.jpg",
-  "field-hockey": "/photos/cstudent-section.jpg", // pending: field-hockey photo
+  // Note: gfieldhockey photo shows Wilton jerseys — also appears to be a stock/other-school
+  // image rather than SLO Tigers. Using as a placeholder until a real SLO field-hockey
+  // photo arrives.
+  "field-hockey": "/photos/gfieldhockey-JRW_FH_100923_206.jpg",
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
   cheer: "/photos/ccheering-taryn.jpg",
   stunt: "/photos/cstunt-CHafourd.jpg",
