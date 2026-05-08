@@ -26,7 +26,7 @@ const PHOTO_BY_SLUG: Record<string, string> = {
   "beach-volleyball": "/photos/gbvball-ruby-1200x675.png",
   baseball: "/photos/bbaseball-team-1200x906.png",
   softball: "/photos/gsball-1200x960.jpg",
-  "boys-tennis": "/photos/btennis-team.jpg",
+  "boys-tennis": "/photos/cstudent-section.jpg", // pending: real boys-tennis photo (the old "tennis-team.jpg" was actually girls tennis — renamed → gtennis-team.jpg)
   "girls-tennis": "/photos/gtennis.jpg",
   "boys-water-polo": "/photos/bwpolo-2.jpg",
   "girls-water-polo": "/photos/gwpolo.jpg",
