@@ -11,31 +11,31 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    src: "/photos/081222SLOvPR-159.2-scaled.jpg",
+    src: "/photos/bfball-vsPR-2022.jpg",
     alt: "SLO Tigers football in action",
   },
   {
-    src: "/photos/081822SLOGV-171cropped-1-scaled.jpg",
+    src: "/photos/gvball-slogv-2022.jpg",
     alt: "SLO Girls Volleyball",
   },
   {
-    src: "/photos/03122GVWaterPolo-114-scaled.jpg",
+    src: "/photos/gwpolo-2022.jpg",
     alt: "SLO Girls Water Polo",
   },
   {
-    src: "/photos/081922SLOGVtennis-42.2-scaled.jpg",
+    src: "/photos/gtennis-2022.jpg",
     alt: "SLO Girls Tennis",
   },
   {
-    src: "/photos/083122BVwaterpolobobbyteitge-scaled.jpg",
+    src: "/photos/bwpolo-teitge-2022.jpg",
     alt: "SLO Boys Water Polo — Bobby Teitge",
   },
   {
-    src: "/photos/baileyhartford-1.jpg",
+    src: "/photos/bbaseball-baileyhartford.jpg",
     alt: "SLO Tiger student-athlete Bailey Hartford",
   },
   {
-    src: "/photos/tigers-cheering-2022-scaled.jpg",
+    src: "/photos/ccheering-2022.jpg",
     alt: "SLOHS Tigers cheering at a football game",
   },
 ];

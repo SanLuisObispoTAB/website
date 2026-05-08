@@ -18,34 +18,33 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    src: "/photos/tunnel-runout.jpg",
+    src: "/photos/bfball-tunnel.jpg",
     sport: "Football",
     caption: "Friday night under the lights · Holt Field",
     objectPosition: "center 35%",
   },
   {
-    src: "/photos/football-helmets.jpg",
+    src: "/photos/bfball-helmets.jpg",
     sport: "Football",
     caption: "Tigers helmets up · pre-game ritual",
     objectPosition: "center 30%",
   },
   {
-    src: "/photos/water-polo-huddle.jpg",
+    src: "/photos/gwpolo-huddle.jpg",
     sport: "Water Polo",
     caption: "Girls Water Polo · the huddle",
     objectPosition: "center 40%",
   },
   {
-    src: "/photos/student-section.jpg",
+    src: "/photos/cstudent-section.jpg",
     sport: "Student Section",
     caption: "GO TIGERS · the body-paint section",
-    // Top of frame at "just above the hands" — anchor 70% pushes
-    // image up so the body-paint chests sit in the middle of the
-    // visible area rather than getting cropped off the bottom.
-    objectPosition: "center 70%",
+    // Tighter crop than the original — body-paint chests are roughly
+    // centered, so default object-position needs less anchoring.
+    objectPosition: "center 50%",
   },
   {
-    src: "/photos/basketball-girls.jpg",
+    src: "/photos/gbball-hartford.jpg",
     sport: "Basketball",
     caption: "Girls Varsity Basketball · #22 Hartford",
     objectPosition: "center 35%",

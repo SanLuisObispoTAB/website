@@ -177,7 +177,7 @@ export default function ClassicHomePage() {
             <div className="tiger-impact-figure-wrap">
               <div className="tiger-impact-photo">
                 <Image
-                  src="/photos/basketball-girls.jpg"
+                  src="/photos/gbball-hartford.jpg"
                   alt="Bailey Hartford · Senior Captain"
                   width={680}
                   height={560}
@@ -235,7 +235,7 @@ export default function ClassicHomePage() {
               </div>
               <Link href="/watch" className="tiger-watch-feature tiger-card-lift">
                 <Image
-                  src="/photos/volleyball-set.jpg"
+                  src="/photos/gbvball-ruby-1200x675.png"
                   alt="Girls Beach Volleyball"
                   width={800}
                   height={380}
@@ -264,13 +264,13 @@ export default function ClassicHomePage() {
                     sport: "Basketball",
                     title: "V Girls Basketball vs Arroyo Grande",
                     date: "APR 2",
-                    img: "/photos/basketball-girls.jpg",
+                    img: "/photos/gbball-hartford.jpg",
                   },
                   {
                     sport: "Water Polo",
                     title: "Boys Water Polo @ SLO",
                     date: "APR 2",
-                    img: "/photos/water-polo-boys-2.jpg",
+                    img: "/photos/bwpolo-2.jpg",
                   },
                 ].map((v) => (
                   <Link key={v.title} href="/watch" className="tiger-watch-thumb">

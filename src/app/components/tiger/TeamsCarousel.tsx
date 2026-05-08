@@ -14,36 +14,38 @@ type Team = {
 };
 
 // Sport-specific photos. New convention: first letter b/g/c (boys/girls/co-ed),
-// then short sport name. Sports without a real photo yet fall back to a related
-// or generic image until per-sport photos arrive — see "Missing photos" notes
-// in docs/project-status.md.
+// then short sport name. Note: `bball` = basketball, `bbaseball` = baseball
+// (the latter required because `bball` would otherwise collide). Sports
+// without a real photo yet fall back to /photos/cstudent-section.jpg (a
+// generic Tigers crowd shot) — see "Missing photos" notes in
+// docs/project-status.md.
 const PHOTO_BY_SLUG: Record<string, string> = {
   football: "/photos/bfball-fbspargo-1200x857.jpg",
   "girls-volleyball": "/photos/gvball-ahopple.jpg",
   "boys-volleyball": "/photos/bvball-milla.jpg",
   "beach-volleyball": "/photos/gbvball-ruby-1200x675.png",
-  baseball: "/photos/baileyhartford-1.jpg", // pending: convention-named copy
+  baseball: "/photos/bbaseball-team-1200x906.png",
   softball: "/photos/gsball-1200x960.jpg",
   "boys-tennis": "/photos/btennis-team.jpg",
   "girls-tennis": "/photos/gtennis.jpg",
   "boys-water-polo": "/photos/bwpolo-2.jpg",
   "girls-water-polo": "/photos/gwpolo.jpg",
-  "boys-basketball": "/photos/bbball-riley-e1771872160503.jpg",
+  "boys-basketball": "/photos/cstudent-section.jpg", // pending: real boys-basketball photo
   "girls-basketball": "/photos/gbball-goodwin-1200x900.jpg",
   "boys-soccer": "/photos/bsoccer-1200x800.jpg",
-  "girls-soccer": "/photos/bsoccer-1200x800.jpg", // pending: girls-soccer photo
+  "girls-soccer": "/photos/cstudent-section.jpg", // pending: real girls-soccer photo
   "boys-cross-country": "/photos/cXC-image-1200x900.jpeg",
   "girls-cross-country": "/photos/cXC-image-1200x900.jpeg",
   "track-field": "/photos/ctrack-1200x800.jpg",
-  "boys-swim-dive": "/photos/water-polo-shot.jpg", // pending: swim photo
-  "girls-swim-dive": "/photos/water-polo-shot.jpg", // pending: swim photo
+  "boys-swim-dive": "/photos/cstudent-section.jpg", // pending: swim photo
+  "girls-swim-dive": "/photos/cstudent-section.jpg", // pending: swim photo
   "boys-golf": "/photos/bgolf-jonnygolf.jpg",
   "girls-golf": "/photos/ggolf-5-1200x896.jpg",
-  "boys-lacrosse": "/photos/student-section.jpg", // pending: lacrosse photo
+  "boys-lacrosse": "/photos/cstudent-section.jpg", // pending: lacrosse photo
   wrestling: "/photos/bwrestling-checukk.jpg",
-  "field-hockey": "/photos/student-section.jpg", // pending: field-hockey photo
+  "field-hockey": "/photos/cstudent-section.jpg", // pending: field-hockey photo
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
-  cheer: "/photos/ccheering.jpg",
+  cheer: "/photos/ccheering-taryn.jpg",
   stunt: "/photos/cstunt-CHafourd.jpg",
 };
 
