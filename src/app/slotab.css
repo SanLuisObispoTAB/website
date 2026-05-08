@@ -1717,6 +1717,11 @@
   font-weight: 600;
   margin-top: 0.2rem;
 }
+.slotab-coach-contact {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  line-height: 1.4;
+}
 .slotab-coach-bio {
   color: var(--slotab-ink);
   font-size: 0.9rem;

@@ -22,19 +22,36 @@ type ExternalLink = {
 type Coach = {
   name: string;
   email?: string;
+  /** Optional phone — free-form string (e.g. "(805) 549-1202").
+   *  Wired into a `tel:` link by `telHref()`. */
+  phone?: string;
   bio?: string;
 };
 
 type AssistantCoach = {
   name: string;
   role: string;
+  email?: string;
+  phone?: string;
   bio?: string;
 };
 
 type Liaison = {
   name: string;
   email: string;
+  phone?: string;
 };
+
+/** Convert a free-form phone string to a `tel:` URL.
+ *  Strips non-digits; prefixes `+1` if the result is exactly 10 digits
+ *  (US numbers); otherwise passes the digits through. Falls back to the
+ *  raw input if it has no digits at all. */
+function telHref(phone: string): string {
+  const digits = phone.replace(/\D/g, "");
+  if (!digits) return `tel:${phone}`;
+  if (digits.length === 10) return `tel:+1${digits}`;
+  return `tel:+${digits}`;
+}
 
 export type Team = {
   slug: string;
@@ -103,6 +120,13 @@ export default function TeamPage({ team }: { team: Team }) {
                   {team.headCoach.email}
                 </a>
               )}
+              {team.headCoach.phone && (
+                <div>
+                  <a href={telHref(team.headCoach.phone)}>
+                    {team.headCoach.phone}
+                  </a>
+                </div>
+              )}
             </div>
           )}
           {team.captains && team.captains.length > 0 && (
@@ -120,6 +144,12 @@ export default function TeamPage({ team }: { team: Team }) {
                 <div key={l.name}>
                   {l.name} ·{" "}
                   <a href={`mailto:${l.email}`}>{l.email}</a>
+                  {l.phone && (
+                    <>
+                      {" · "}
+                      <a href={telHref(l.phone)}>{l.phone}</a>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
@@ -213,6 +243,17 @@ export default function TeamPage({ team }: { team: Team }) {
                 <div key={c.name} className="slotab-coach-card">
                   <div className="slotab-coach-name">{c.name}</div>
                   <div className="slotab-coach-role">{c.role}</div>
+                  {(c.email || c.phone) && (
+                    <div className="slotab-coach-contact">
+                      {c.email && (
+                        <a href={`mailto:${c.email}`}>{c.email}</a>
+                      )}
+                      {c.email && c.phone && " · "}
+                      {c.phone && (
+                        <a href={telHref(c.phone)}>{c.phone}</a>
+                      )}
+                    </div>
+                  )}
                   {c.bio && <p className="slotab-coach-bio">{c.bio}</p>}
                 </div>
               ))}
