@@ -114,7 +114,7 @@ export default function ClassicHero() {
               Donate Now
             </Link>
             <Link href="/membership" className="tiger-btn tiger-btn-ghost">
-              Become a Member
+              Become a Sponsor
             </Link>
             <Link href="/volunteer" className="tiger-btn tiger-btn-ghost">
               Volunteer
