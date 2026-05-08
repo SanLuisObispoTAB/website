@@ -49,6 +49,12 @@ const SLIDES: Slide[] = [
     caption: "Girls Varsity Basketball · #22 Hartford",
     objectPosition: "center 35%",
   },
+  {
+    src: "/photos/ctrack-2.jpg",
+    sport: "Track & Field",
+    caption: "Tiger track · leading the pack",
+    objectPosition: "center 30%",
+  },
 ];
 
 const ROTATE_MS = 9500;

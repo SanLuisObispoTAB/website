@@ -3,7 +3,7 @@
 A living document the board updates between sessions to keep
 decisions, pending work, and external inputs in one place.
 
-> **Last updated:** 2026-05-07 *(mobile pass + Raven's Peak custom domain)*
+> **Last updated:** 2026-05-07 *(mobile pass + Raven's Peak custom domain + photo overhaul)*
 >
 > Update this doc after each board meeting or working session.
 
@@ -78,6 +78,9 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-05-06 | 50 | **Nav top-right CTA: Donate → Join** (links to `/membership`). Reverses an earlier swap (#27) — having two Donate CTAs in the same fold (nav + hero) was redundant. Hero keeps the primary "Donate Now" button | Erik ✅ |
 | 2026-05-07 | 51 | **Custom domain `slotab.ravens-peak-consulting.com`** added (CNAME → Vercel) so the SLOHS district firewall (which blocks `*.vercel.app`) can reach the preview. Aliased to the `slo-tab-website` Vercel project's production deployment, no code changes needed. Domain pulls Let's Encrypt cert automatically. The old `ravens-peak-consulting.com/slotab-preview` mirror path is now obsolete — this aliases the live build instead of mirroring it into the Raven's Peak repo | Erik ✅ |
 | 2026-05-07 | 52 | **Mobile responsive pass**. The 2026-05-06 rebuild was tuned for desktop and read poorly on phones. Added two breakpoint tiers (480px phone + 720px tablet) covering masthead wordmark, hero (edge-to-edge photo, drop the desktop side mask), stats grid (stays 2×2), sponsor wall (force 2-up across all tiers), watch feature (smaller, stronger blackout, title text-shadow), and impact card (full-width, shorter photo). Required re-asserting `.tiger-scope` (0,2,0) overrides for headlines and watch-feature title to beat unscoped late rules in tiger.css | Erik ✅ |
+| 2026-05-07 | 53 | **Team photo overhaul** — Erik provided sport-specific photos for nearly every team and adopted a new filename convention: first letter `b`/`g`/`c` (boys/girls/co-ed), then a short sport name (`fball`, `bball`, `vball`, `bvball`, `sball`, `golf`, `soccer`, `wrestling`, `XC`, `track`, `cheering`, `stunt`, `swim`, `lacrosse`, `fieldhockey`). `bball` = basketball, so `bbaseball` is the boys-baseball prefix to avoid collision. PHOTO_BY_SLUG in TeamsCarousel + the four active team-page heroPhotos (football, girls-volleyball, baseball, track-field) + ClassicHero + HeroCarousel + hudl.json + impact.json all migrated to convention names | Erik ✅ |
+| 2026-05-07 | 54 | **Originals subdirectory** — `public/photos/originals/` now holds 25 old non-conformant files (date-coded `081xxx`, generic `tennis.jpg`/`volleyball.jpg`/`water-polo-*.jpg`, etc.). Convention-named copies live alongside the new photos in `/photos/`. All in-code references migrated to the new names; the originals are kept for archival/fallback only | Erik ✅ |
+| 2026-05-07 | 55 | **`ctrack-2.jpg` (track runner #14 leading) added as a 6th slide on the homepage hero carousel** alongside football×2, water polo, student section, and basketball — gives spring-season balance | Erik ✅ |
 
 ---
 
@@ -193,7 +196,9 @@ In rough priority order. Move done items to **Built** below.
 
 - [ ] Real rosters from each coach/liaison (currently 12-player placeholder per team)
 - [ ] Real wishlist line items per team (currently plausible placeholders) — **wishlists confirmed valuable** (#40)
-- [ ] Real photos (placeholder hero on T&F is the tennis photo)
+- [x] **Sport-specific photos for every CIF team** ✅ shipped 2026-05-07 (#53). Every slug in PHOTO_BY_SLUG now points at a real sport photo; T&F hero swapped from the stray tennis placeholder to `ctrack-1200x800.jpg`. 🟡 *Remaining:* `boys-lacrosse` and `field-hockey` are using stock/other-school photos (Los Gatos, Wilton) until SLO Tiger versions arrive
+- [ ] Replace the two stock-photo placeholders (lacrosse + field-hockey) with actual SLO Tiger team photos
+- [ ] Per-team action shots (rosters / coach portraits / game-day moments) for the 27 individual team pages once each coach contributes
 - [ ] Real liaisons per team (currently "Liaison TBD")
 - [ ] Coach bios (school site has name + email only)
 - [ ] Build out the other 23 team pages once they have content
@@ -326,7 +331,7 @@ All six items previously in *Pending the transcript* now have direction. Q1 (Squ
 | E10 | Real per-team wishlist line items | Each coach/liaison | Replaces fake $ amounts |
 | E11 | Real liaison names + emails per team | Board (sourced from comms kit) | Replaces "Liaison TBD" |
 | E12 | Coach bios | Each coach | School site has only name + email |
-| E13 | Sport / game photos | Board / parents | Real T&F hero + one game shot per team minimum |
+| ~~E13~~ | ~~Sport / game photos~~ | ~~Board / parents~~ | ✅ Resolved 2026-05-07 (#53) — every slug has a sport-specific photo. Open: replace stock-photo placeholders for `boys-lacrosse` (Los Gatos) and `field-hockey` (Wilton) with SLO Tiger versions |
 | E14 | Sponsor websites | Sponsorship Development | Logos become clickable (~50 sponsors) |
 | E15 | 2–3 board editor GitHub usernames | Board | Decap CMS write access on the new repo |
 
@@ -391,7 +396,7 @@ Transcript ✅ resolved most architectural questions. Remaining big levers:
 | **Real per-team rosters** | Team coaches/liaisons | Adam Basch (outgoing AD) to drive outreach during handoff to Phil. Replace placeholder in `data/teams/<slug>.json` |
 | **Real per-team wishlists** | Team coaches/liaisons | Same files. Confirmed valuable (#40) |
 | **Real liaison names + emails per team** | Board | Sourced from comms kit; surfaced on team pages |
-| **Sport / game photos** | Board / parents | At minimum: real T&F hero, one game shot per team |
+| **SLO Tiger lacrosse + field-hockey photos** | Board / parents | Replace the two stock placeholders flagged in `PHOTO_BY_SLUG` (#53). Everything else has a real SLO photo |
 | 🔴 **Owner-level Hudl Pro credentials** | Erik (#48) | Pro tier confirmed; OAuth client_id/secret via developer.hudl.com requires Owner-role login. *Tabled 2026-05-06* until secured |
 | 🔴 **Sample Hudl per-game embed URL** | Erik (#48) | Confirms iframe format. Tabled with above |
 | 🔴 **Owner-level Springly Serenity credentials** | Erik (#48) | Serenity tier confirmed; admin login lacks Integrations tab → Owner role needed. *Tabled 2026-05-06* until secured |
@@ -537,6 +542,79 @@ Fixes (commit `d8f2f82`):
   at 2-up but their proportions vary).
 - iOS Safari sometimes hangs onto cached CSS — long-press refresh
   or Private Tab if a test viewer reports the old layout.
+
+### Photo overhaul (#53–#55)
+
+Same 2026-05-07 working session, after the mobile pass. Erik dropped
+two batches of sport-specific photos into `public/photos/` along with
+a filename convention to keep the directory navigable as it grows.
+
+**Convention.** First letter `b`/`g`/`c` (boys/girls/co-ed), then a
+short sport name. `bbaseball-` is the boys-baseball prefix because
+`bball` was already needed for basketball.
+
+| Token | Sport |
+|---|---|
+| `bball` | basketball |
+| `bbaseball` | baseball |
+| `fball` | football (boys); `gfball` is girls flag football |
+| `vball` / `bvball` | volleyball / beach volleyball |
+| `sball` | softball |
+| `wpolo` | water polo |
+| `swim` | swim & dive |
+| `XC` | cross country |
+| `track` | track & field |
+| `cheering` | cheer / fan section |
+| `stunt` | stunt |
+| `golf` · `soccer` · `wrestling` · `tennis` · `lacrosse` · `fieldhockey` · `dance` | as-is |
+
+**Coverage.** Every CIF varsity sport on `data/teams.json` now has
+a sport-specific photo on the homepage seasonal-teams carousel and
+(for the four pages with `hasPage: true`) the team-page hero.
+
+Two slugs are using **other-school stock photos** as placeholders:
+
+| Slug | Photo | Issue |
+|---|---|---|
+| `boys-lacrosse` | `blacrosse-20250501-025-9463.jpeg` | Jerseys say **LOS GATOS** |
+| `field-hockey` | `gfieldhockey-JRW_FH_100923_206.jpg` | Jersey says **WILTON** |
+
+Replace these when SLO-specific photos are available; both have
+inline `// Note:` flags in `PHOTO_BY_SLUG`.
+
+**Mid-flight corrections** (Erik review):
+
+- `bbball-riley-…jpg` was actually a *girls* basketball photo —
+  renamed to `gbball-riley.jpg` and dropped from the boys-basketball
+  slot. (boys-basketball later filled by `bbball-e1765386832968.jpg`,
+  the team celebrating with the student section.)
+- `ccheering.jpg` was actually a body-paint *student section* photo,
+  not the Cheer team — renamed to `cstudent-section.jpg`. The actual
+  Cheer team photo (originally `gdance-taryn-…`) became
+  `ccheering-taryn.jpg` and now powers the `cheer` slug.
+
+**Originals directory (#54).** 25 old non-conformant files (date-
+coded `081222SLOvPR`, `03122GVWaterPolo`, plus generics like
+`tennis.jpg` / `volleyball.jpg` / `water-polo-*.jpg`) moved to
+`public/photos/originals/`. Convention-named copies live alongside
+the new photos in `/photos/`. All in-code references — `HeroCarousel`,
+`ClassicHero`, `page.tsx` impact card + watch thumbs,
+`PHOTO_BY_SLUG`, `hudl.json`, `impact.json`, `baseball.json` —
+migrated to the new names.
+
+**Hero carousel addition (#55).** `ctrack-2.jpg` (a SLO Tiger track
+athlete, runner #14, leading a Templeton runner mid-stride) is now
+the 6th slide on the homepage hero. The carousel was football-heavy
+(tunnel + helmets + water polo + student section + basketball);
+adding track gives spring-season balance.
+
+**Bonus images not yet placed:**
+- `gswim-old-1200x727.jpg` — older girls swim group celebration
+  (gswim-10 is the primary; this is a backup)
+- `bgolf-raf-1200x1082.jpg`, `ggolf-admin-ajax.png`, `bsoccer-1200x800.jpeg`,
+  `gfball-saff{1,6,9}.jpg`, `bbball-1200x906.png` (originally mis-
+  prefixed; was actually baseball, now `bbaseball-team-1200x906.png`)
+  — alternates not in active use but available for rotation
 
 ---
 
