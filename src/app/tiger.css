@@ -1491,6 +1491,80 @@
 }
 
 /* ==========================================================================
+   Merch strip — "Wear Your Stripes" featured gear on the home page
+   ========================================================================== */
+
+.tiger-merch-strip {
+  background: var(--tiger-cream);
+}
+.tiger-merch-strip-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.tiger-merch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.tiger-merch-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--tiger-bone);
+  text-decoration: none;
+  color: inherit;
+}
+.tiger-merch-card-img {
+  background: #fff;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+.tiger-merch-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.tiger-merch-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-top: 1px solid var(--tiger-bone);
+  background: var(--tiger-cream);
+}
+.tiger-merch-card-name {
+  font-family: var(--tiger-serif);
+  font-weight: 650;
+  font-size: 18px;
+  color: var(--tiger-ink);
+}
+.tiger-merch-card-go {
+  font-family: var(--tiger-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--tiger-graphite);
+}
+
+@media (max-width: 880px) {
+  .tiger-merch-strip-head {
+    flex-direction: column;
+    align-items: start;
+  }
+  .tiger-merch-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .tiger-merch-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
    Calendar + Watch
    ========================================================================== */
 

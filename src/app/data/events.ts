@@ -7,7 +7,6 @@ export type EventCategory =
   | "softball"
   | "beach-volleyball"
   | "boys-volleyball"
-  | "boys-lacrosse"
   | "boys-tennis"
   | "boys-swim"
   | "girls-swim"
@@ -153,7 +152,6 @@ const CATEGORY_ORDER: EventCategory[] = [
   "girls-swim",
   "track-field",
   "boys-golf",
-  "boys-lacrosse",
   "stunt",
 ];
 

@@ -30,7 +30,6 @@ const NAV: NavItem[] = [
     children: [
       { href: "/membership", label: "Sponsors / Membership" },
       { href: "/season-passes", label: "Season Passes" },
-      { href: "/merch", label: "Merch" },
       { href: "/volunteer", label: "Volunteer" },
     ],
   },
@@ -52,6 +51,7 @@ const NAV: NavItem[] = [
     ],
   },
   { label: "Watch", href: "/watch" },
+  { label: "Shop", href: "/merch" },
   { label: "Hall of Fame", href: "/hall-of-fame" },
 ];
 
@@ -146,10 +146,6 @@ export default function TigerNav() {
           })}
         </nav>
 
-        <Link href="/membership" className="tiger-btn tiger-btn-dark tiger-nav-cta">
-          Join
-        </Link>
-
         <button
           type="button"
           className="tiger-nav-mobile-toggle"
@@ -180,17 +176,6 @@ export default function TigerNav() {
                 ]
               : [],
         )}
-        <Link
-          href="/membership"
-          onClick={closeMobile}
-          className="tiger-btn tiger-btn-dark"
-          style={{
-            margin: "16px 24px 24px",
-            justifyContent: "center",
-          }}
-        >
-          Join
-        </Link>
       </div>
     </header>
   );

@@ -14,7 +14,7 @@
     { "slug": "boys-swim-dive", "name": "Swim & Dive", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
     { "slug": "girls-swim-dive", "name": "Swim & Dive", "gender": "Girls", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
     { "slug": "boys-water-polo", "name": "Water Polo", "gender": "Boys", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
-    { "slug": "girls-water-polo", "name": "Water Polo", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-water-polo", "name": "Water Polo", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
     { "slug": "boys-basketball", "name": "Basketball", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
     { "slug": "girls-basketball", "name": "Basketball", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
     { "slug": "boys-soccer", "name": "Soccer", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
@@ -23,11 +23,11 @@
     { "slug": "girls-cross-country", "name": "Cross Country", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "custom" },
     { "slug": "boys-golf", "name": "Golf", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
     { "slug": "girls-golf", "name": "Golf", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
-    { "slug": "wrestling", "name": "Wrestling", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
-    { "slug": "boys-lacrosse", "name": "Lacrosse", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-wrestling", "name": "Wrestling", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "girls-wrestling", "name": "Wrestling", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
     { "slug": "flag-football", "name": "Flag Football", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
-    { "slug": "field-hockey", "name": "Field Hockey", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
     { "slug": "stunt", "name": "Stunt", "gender": "Co-ed", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
-    { "slug": "cheer", "name": "Cheer", "gender": "Co-ed", "season": "Year-round", "hasPage": false, "operationalSetup": "none" }
+    { "slug": "cheer", "name": "Cheer", "gender": "Co-ed", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "competitive-cheer", "name": "Competitive Cheer", "gender": "Co-ed", "season": "Winter", "hasPage": false, "operationalSetup": "none" }
   ]
 }

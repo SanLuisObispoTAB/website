@@ -41,17 +41,11 @@ const PHOTO_BY_SLUG: Record<string, string> = {
   "girls-swim-dive": "/photos/gswim-10.jpg",
   "boys-golf": "/photos/bgolf-jonnygolf.jpg",
   "girls-golf": "/photos/ggolf-5-1200x896.jpg",
-  // Note: blacrosse photo shows Los Gatos jerseys — appears to be a stock/other-school
-  // image rather than SLO Tigers. Using as a placeholder until a real SLO lacrosse
-  // photo arrives.
-  "boys-lacrosse": "/photos/blacrosse-20250501-025-9463.jpeg",
-  wrestling: "/photos/bwrestling-checukk.jpg",
-  // Note: gfieldhockey photo shows Wilton jerseys — also appears to be a stock/other-school
-  // image rather than SLO Tigers. Using as a placeholder until a real SLO field-hockey
-  // photo arrives.
-  "field-hockey": "/photos/gfieldhockey-JRW_FH_100923_206.jpg",
+  "boys-wrestling": "/photos/bwrestling-checukk.jpg",
+  "girls-wrestling": "/photos/bwrestling-checukk.jpg", // pending: real girls-wrestling photo
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
   cheer: "/photos/ccheering-taryn.jpg",
+  "competitive-cheer": "/photos/ccheering-taryn.jpg", // shares photo with sideline cheer until a comp-cheer-specific shot arrives
   stunt: "/photos/cstunt-CHafourd.jpg",
 };
 

@@ -89,6 +89,12 @@ function buildHomeCalendar(): {
 
 const CALENDAR = buildHomeCalendar();
 
+const FEATURED_MERCH = [
+  { name: "Tiger Baseball", src: "/merch/SLOHS_Baseball_2-1.png" },
+  { name: "Tiger Track & Field", src: "/merch/SLOHS_TrackField_2.png" },
+  { name: "Tiger Beach Volleyball", src: "/merch/SLOHS_BeachVolleyball_2-1.png" },
+];
+
 const HOF_PREVIEW = [
   { year: "2024", name: "Coach Mary Cisneros", sport: "Volleyball · 28 Years" },
   { year: "2023", name: "Marcus Hall '05", sport: "Football · NFL" },
@@ -200,6 +206,44 @@ export default function ClassicHomePage() {
 
       {/* Teams carousel — current-trimester teams. "View all" → /teams */}
       <TeamsCarousel />
+
+      {/* Featured Gear strip */}
+      <section className="tiger-section tiger-merch-strip">
+        <div className="tiger-container">
+          <div className="tiger-merch-strip-head">
+            <div className="tiger-section-head">
+              <span className="tiger-eyebrow">Wear Your Stripes</span>
+              <h2>Tiger gear, every sport.</h2>
+            </div>
+            <Link href="/merch" className="tiger-ulink">
+              Shop all designs →
+            </Link>
+          </div>
+          <div className="tiger-merch-grid">
+            {FEATURED_MERCH.map((s) => (
+              <Link
+                key={s.name}
+                href="/merch"
+                className="tiger-merch-card tiger-card-lift"
+              >
+                <div className="tiger-merch-card-img">
+                  <Image
+                    src={s.src}
+                    alt={`${s.name} shirt design`}
+                    width={480}
+                    height={480}
+                    sizes="(max-width: 480px) 90vw, (max-width: 880px) 45vw, 30vw"
+                  />
+                </div>
+                <div className="tiger-merch-card-meta">
+                  <div className="tiger-merch-card-name">{s.name}</div>
+                  <div className="tiger-merch-card-go">SHOP →</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Calendar + Watch */}
       <section className="tiger-section tiger-cal-watch">
