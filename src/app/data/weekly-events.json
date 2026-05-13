@@ -10,7 +10,7 @@
       "gid": "1412638585"
     }
   ],
-  "fetchedAt": "2026-05-11T16:28:07.324Z",
+  "fetchedAt": "2026-05-13T16:14:47.975Z",
   "events": [
     {
       "id": "weekly-2026-05-12-baseball-lompoc",
@@ -61,42 +61,6 @@
       "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
     },
     {
-      "id": "weekly-2026-05-14-boys-volleyball-tba-cif-championship-",
-      "category": "boys-volleyball",
-      "categoryLabel": "Boys Volleyball",
-      "isSport": true,
-      "date": "2026-05-14T18:00:00",
-      "title": "Boys Volleyball vs TBA (CIF Championship)",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "TBA (CIF Championship)",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-baseball-cif",
-      "category": "baseball",
-      "categoryLabel": "Baseball",
-      "isSport": true,
-      "date": "2026-05-15T12:00:00",
-      "title": "Baseball @ CIF",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-softball-cif",
-      "category": "softball",
-      "categoryLabel": "Softball",
-      "isSport": true,
-      "date": "2026-05-15T12:00:00",
-      "title": "Softball @ CIF",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
       "id": "weekly-2026-05-15-boys-swim-cif-state-prelims-finals",
       "category": "boys-swim",
       "categoryLabel": "Swim & Dive",
@@ -130,6 +94,30 @@
       "detail": "Sanger",
       "isHome": false,
       "opponent": "CIF Champs",
+      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
+    },
+    {
+      "id": "weekly-2026-05-15-baseball-cif",
+      "category": "baseball",
+      "categoryLabel": "Baseball",
+      "isSport": true,
+      "date": "2026-05-15T16:30:00",
+      "title": "Baseball @ CIF",
+      "detail": "TBA",
+      "isHome": false,
+      "opponent": "CIF",
+      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
+    },
+    {
+      "id": "weekly-2026-05-15-softball-cif",
+      "category": "softball",
+      "categoryLabel": "Softball",
+      "isSport": true,
+      "date": "2026-05-15T16:30:00",
+      "title": "Softball @ CIF",
+      "detail": "TBA",
+      "isHome": false,
+      "opponent": "CIF",
       "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
     },
     {
