@@ -62,6 +62,10 @@ export type Team = {
   season: string;
   tagline?: string;
   heroPhoto?: string;
+  /** Formal team portrait — shown on a dedicated "Team Photo" section
+   *  on the team page. Distinct from heroPhoto (which is the immersive
+   *  action shot at the top). */
+  teamPhoto?: string;
   eventCategory?: string;
   headCoach?: Coach;
   assistantCoaches?: AssistantCoach[];
@@ -155,6 +159,28 @@ export default function TeamPage({ team }: { team: Team }) {
           )}
         </div>
       </section>
+
+      {/* Team photo — formal 2025-26 portrait */}
+      {team.teamPhoto && (
+        <section className="slotab-section slotab-team-photo-section">
+          <div className="slotab-container">
+            <div className="slotab-section-title">
+              <span className="slotab-kicker">Meet the Team</span>
+              <h2>{team.name} — 2025-26</h2>
+            </div>
+            <div className="slotab-team-photo-frame">
+              <Image
+                src={team.teamPhoto}
+                alt={`${team.name} team photo`}
+                width={1200}
+                height={800}
+                sizes="(max-width: 1024px) 100vw, 1100px"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Support this team — Donate CTAs */}
       <section className="slotab-section alt slotab-team-support">

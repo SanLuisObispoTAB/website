@@ -2746,3 +2746,23 @@ a.slotab-platinum-slide:hover {
   border-top: 1px solid var(--slotab-border);
   line-height: 1.45;
 }
+
+/* ==========================================================================
+   Team Photo section on individual team pages — formal 2025-26 portrait
+   ========================================================================== */
+
+.slotab-team-photo-section {
+  background: var(--slotab-bg-alt, #fbf7ec);
+}
+.slotab-team-photo-frame {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 8px;
+}
+.slotab-team-photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

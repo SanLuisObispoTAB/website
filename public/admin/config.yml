@@ -153,7 +153,8 @@ collections:
           - { name: gender, label: "Gender", widget: string }
           - { name: season, label: "Season", widget: string }
           - { name: tagline, label: "Tagline", widget: string, required: false }
-          - { name: heroPhoto, label: "Hero photo", widget: image, required: false }
+          - { name: heroPhoto, label: "Hero photo (action shot for the top banner)", widget: image, required: false }
+          - { name: teamPhoto, label: "Team photo (formal portrait for the 'Meet the Team' section)", widget: image, required: false }
           - { name: eventCategory, label: "Event category", widget: string, required: false, hint: "Must match a category used in weekly-events.json so schedule auto-populates." }
           - name: headCoach
             label: "Head Coach"
