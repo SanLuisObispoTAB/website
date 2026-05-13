@@ -154,8 +154,6 @@ collections:
           - { name: season, label: "Season", widget: string }
           - { name: tagline, label: "Tagline", widget: string, required: false }
           - { name: heroPhoto, label: "Hero photo", widget: image, required: false }
-          - { name: hudlVideoSport, label: "Hudl sport filter", widget: string, required: false }
-          - { name: tnnVideoSport, label: "TNN sport filter", widget: string, required: false }
           - { name: eventCategory, label: "Event category", widget: string, required: false, hint: "Must match a category used in weekly-events.json so schedule auto-populates." }
           - name: headCoach
             label: "Head Coach"
@@ -206,83 +204,107 @@ collections:
   # short for the prototype.)
 
   # ---------------------------------------------------------------
-  # Watch — Hudl game streams
+  # Watch — Hudl vCloud broadcast catalog
   # ---------------------------------------------------------------
-  - name: hudl
-    label: "Watch (Hudl)"
+  - name: broadcasts
+    label: "Watch — Broadcast Catalog"
     files:
-      - name: hudl
-        label: "Hudl Game Streams"
-        file: "src/app/data/hudl.json"
-        description: "Live and on-demand Hudl game streams shown on the Watch tab and the home page teaser. Add a new entry each time a game is broadcast. When the Hudl API is wired up, this will populate automatically."
+      - name: broadcasts
+        label: "Game Broadcasts"
+        file: "src/app/data/broadcasts.json"
+        description: |
+          One entry per Hudl vCloud broadcast — surfaces on /watch + per-team pages.
+          Workflow: in vCloud, set Available = Yes on the broadcast; copy its numeric
+          Broadcast ID; add a row here. Live/upcoming/archive is auto-detected from
+          the game date — no need to flip a status flag.
         fields:
-          - { name: currentSeason, label: "Current season label", widget: string, hint: "E.g. 'Spring 2026'" }
           - name: channel
-            label: "Hudl channel info"
+            label: "Channel info"
             widget: object
             fields:
-              - { name: handle, label: "Channel handle", widget: string }
-              - { name: url, label: "Public fan page URL", widget: string }
-              - { name: archiveUrl, label: "Video archive URL", widget: string }
               - { name: name, label: "Display name", widget: string }
-          - name: seasons
-            label: "Past seasons (archive links)"
+              - { name: fanPortalUrl, label: "Hudl fan portal URL", widget: string }
+              - { name: archiveUrl, label: "Hudl video archive URL", widget: string }
+          - name: broadcasts
+            label: "Broadcasts"
             widget: list
             fields:
-              - { name: label, label: "Season label", widget: string }
-              - { name: url, label: "Link URL", widget: string }
-          - name: videos
-            label: "Games"
-            widget: list
-            fields:
-              - { name: id, label: "Unique ID", widget: string }
-              - { name: title, label: "Title", widget: string, hint: "E.g. 'Varsity Football vs Atascadero'" }
+              - {
+                  name: broadcastId,
+                  label: "vCloud Broadcast ID",
+                  widget: string,
+                  hint: "Numeric ID from vCloud Broadcast Grid (e.g. 4031110). Embed URL is derived from this.",
+                }
+              - {
+                  name: title,
+                  label: "Title",
+                  widget: string,
+                  hint: "E.g. 'Tigers Boys Volleyball — Spring League Match'",
+                }
               - {
                   name: sport,
                   label: "Sport",
                   widget: select,
+                  hint: "Must match a slug in teams.json — drives per-team page strips.",
                   options:
                     [
-                      "Football",
-                      "Volleyball",
-                      "Beach Volleyball",
-                      "Basketball",
-                      "Soccer",
-                      "Baseball",
-                      "Softball",
-                      "Water Polo",
-                      "Tennis",
-                      "Swim & Dive",
-                      "Wrestling",
-                      "Lacrosse",
-                      "Track & Field",
-                      "Cross Country",
-                      "Golf",
-                      "Stunt / Cheer",
+                      "football",
+                      "girls-volleyball",
+                      "boys-volleyball",
+                      "beach-volleyball",
+                      "baseball",
+                      "softball",
+                      "boys-tennis",
+                      "girls-tennis",
+                      "boys-water-polo",
+                      "girls-water-polo",
+                      "boys-basketball",
+                      "girls-basketball",
+                      "boys-soccer",
+                      "girls-soccer",
+                      "boys-cross-country",
+                      "girls-cross-country",
+                      "track-field",
+                      "boys-swim-dive",
+                      "girls-swim-dive",
+                      "boys-golf",
+                      "girls-golf",
+                      "boys-wrestling",
+                      "girls-wrestling",
+                      "flag-football",
+                      "stunt",
+                      "cheer",
+                      "competitive-cheer",
                     ],
                 }
-              - { name: date, label: "Game date", widget: date }
               - {
-                  name: status,
-                  label: "Status",
-                  widget: select,
-                  options: ["archive", "upcoming", "live"],
-                  default: "archive",
+                  name: date,
+                  label: "Game start (date + time)",
+                  widget: datetime,
+                  hint: "Local game start time. Live/upcoming/archive is computed from this + duration.",
                 }
               - {
-                  name: thumbnail,
-                  label: "Thumbnail (optional)",
-                  widget: image,
+                  name: durationMinutes,
+                  label: "Expected duration (minutes)",
+                  widget: number,
+                  value_type: int,
+                  default: 150,
                   required: false,
-                  hint: "A game photo. Leave blank to use the Hudl-branded placeholder.",
+                  hint: "Used to compute when the broadcast flips from LIVE to archive. Defaults to 150.",
                 }
-              - { name: watchUrl, label: "Watch URL (fan.hudl.com link)", widget: string }
+              - { name: opponent, label: "Opponent (optional)", widget: string, required: false }
               - {
-                  name: embedUrl,
-                  label: "Embed URL (optional)",
-                  widget: string,
+                  name: isHome,
+                  label: "Home game?",
+                  widget: boolean,
+                  default: true,
                   required: false,
-                  hint: "Paste the Hudl per-game iframe embed URL if you want the game to play inline.",
+                }
+              - {
+                  name: description,
+                  label: "Description (optional)",
+                  widget: text,
+                  required: false,
                 }
 
   # ---------------------------------------------------------------

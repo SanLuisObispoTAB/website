@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import HudlGrid from "./HudlGrid";
+import BroadcastGrid from "./BroadcastGrid";
+import { broadcastsForSport } from "../data/broadcasts";
 
 type RosterEntry = {
   number: number;
@@ -61,8 +62,6 @@ export type Team = {
   season: string;
   tagline?: string;
   heroPhoto?: string;
-  hudlVideoSport?: string;
-  tnnVideoSport?: string;
   eventCategory?: string;
   headCoach?: Coach;
   assistantCoaches?: AssistantCoach[];
@@ -262,23 +261,27 @@ export default function TeamPage({ team }: { team: Team }) {
         </section>
       )}
 
-      {/* Hudl videos for this sport */}
-      {team.hudlVideoSport && (
-        <section className="slotab-section">
-          <div className="slotab-container">
-            <div className="slotab-section-title">
-              <span className="slotab-kicker">Watch the Team</span>
-              <h2>{team.sport} on Hudl</h2>
+      {/* Broadcasts for this sport (vCloud catalog) */}
+      {(() => {
+        const teamBroadcasts = broadcastsForSport(team.slug);
+        if (teamBroadcasts.length === 0) return null;
+        return (
+          <section className="slotab-section">
+            <div className="slotab-container">
+              <div className="slotab-section-title">
+                <span className="slotab-kicker">Watch the Team</span>
+                <h2>{team.sport} on Hudl</h2>
+              </div>
+              <BroadcastGrid broadcasts={teamBroadcasts} limit={3} />
+              <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                <Link href="/watch" className="slotab-btn">
+                  All Tigers Broadcasts
+                </Link>
+              </div>
             </div>
-            <HudlGrid limit={3} showFilters={false} />
-            <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-              <Link href="/watch" className="slotab-btn">
-                Full Watch Tab
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })()}
 
       {/* Team wishlist */}
       {team.wishlist && team.wishlist.length > 0 && (
