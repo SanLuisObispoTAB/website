@@ -1,26 +1,49 @@
-import Link from "next/link";
-import BroadcastEmbed from "../components/BroadcastEmbed";
-import BroadcastGrid from "../components/BroadcastGrid";
+"use client";
+
+import Script from "next/script";
+import { useEffect } from "react";
 import PageHeader from "../components/PageHeader";
-import {
-  CHANNEL,
-  allBroadcasts,
-  featuredBroadcast,
-  sportLabel,
-  statusOf,
-} from "../data/broadcasts";
 
-export const metadata = {
-  title: "Watch — SLOTAB",
-};
+// React doesn't know about the <blueframe-app> custom element. Declare
+// it so JSX compiles cleanly. (Next.js 16 + React 18 use the React.JSX
+// namespace instead of the legacy global JSX.)
+declare module "react" {
+  namespace JSX {
+    interface IntrinsicElements {
+      "blueframe-app": React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLElement> & { portalconfig?: string },
+        HTMLElement
+      >;
+    }
+  }
+}
 
+/**
+ * /watch — Hudl BlueFrame portal embed for SLOHS Tigers broadcasts.
+ *
+ * Hudl Support built this custom web component for us (config keyed to
+ * vCloud site 6609). The widget auto-populates live + upcoming +
+ * archived broadcasts from the vCloud feed — no editor maintenance on
+ * the SLOTAB side. Per-broadcast availability is controlled by SLOHS
+ * coaches in vCloud (Available + Archive status), not here.
+ *
+ * Theme colors in the config (primary #333, secondary slotab gold)
+ * are set by Hudl on their end; ping support to change them.
+ */
 export default function WatchPage() {
-  const broadcasts = allBroadcasts();
-  const featured = featuredBroadcast();
-  const featuredStatus = featured ? statusOf(featured) : null;
-  const others = featured
-    ? broadcasts.filter((b) => b.broadcastId !== featured.broadcastId)
-    : broadcasts;
+  // The CSS link is normally placed in <head>. React 18+ supports
+  // hoisting <link> from any component, but to be safe in App Router
+  // we inject it client-side once. The CSS is keyed by id so repeat
+  // visits to /watch don't pile up duplicates.
+  useEffect(() => {
+    const id = "blueframe-portal-css";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = "//web-app.blueframetech.com/css/app.css";
+    document.head.appendChild(link);
+  }, []);
 
   return (
     <>
@@ -34,69 +57,22 @@ export default function WatchPage() {
           <p style={{ fontSize: "1.15rem" }}>
             <strong>SLOTAB pays for Hudl streaming</strong> so every Tigers
             home game from Holt Field and the Big Gym is accessible to alumni,
-            grandparents, and out-of-town family. Your donations make this
-            possible.
+            grandparents, and out-of-town family. Live broadcasts plus the
+            full archive below.
           </p>
         </div>
       </section>
 
-      {featured && (
-        <section className="slotab-section alt">
-          <div className="slotab-container">
-            <div className="slotab-section-title">
-              <span className="slotab-kicker">
-                {featuredStatus === "live"
-                  ? "Live Now"
-                  : featuredStatus === "upcoming"
-                    ? "Up Next"
-                    : "Latest Game"}
-              </span>
-              <h2>{featured.title}</h2>
-              <p>{sportLabel(featured.sport)}</p>
-            </div>
-            <div className="slotab-broadcast-featured">
-              <BroadcastEmbed
-                broadcastId={featured.broadcastId}
-                title={featured.title}
-                autoplay={featuredStatus === "live"}
-              />
-              <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-                <Link
-                  href={`/watch/${featured.broadcastId}`}
-                  className="slotab-btn"
-                >
-                  Game details &amp; share link →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="slotab-section">
-        <div className="slotab-container">
-          <div className="slotab-section-title">
-            <span className="slotab-kicker">Catalog</span>
-            <h2>This Season&apos;s Games</h2>
-            <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
-              Tap any card to open the game page with the full embedded
-              player. Live games stream during the broadcast and stay
-              available on-demand afterward.
-            </p>
-          </div>
-          <BroadcastGrid broadcasts={others} showFilters />
-          <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
-            <Link
-              href={CHANNEL.archiveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="slotab-btn"
-            >
-              Full Archive on Hudl Fan Portal →
-            </Link>
-          </div>
+      <section className="slotab-watch-portal-section">
+        <div className="slotab-watch-portal-wrap">
+          <blueframe-app portalconfig="//apps.blueframetech.com/api/v1/bft/slostream/config.json" />
         </div>
       </section>
+
+      <Script
+        src="//web-app.blueframetech.com/js/app.js"
+        strategy="afterInteractive"
+      />
     </>
   );
 }
