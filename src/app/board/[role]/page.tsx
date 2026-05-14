@@ -34,8 +34,10 @@ function slugifyRole(role: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-const HANDOFF_EDIT_URL =
-  "/admin/#/collections/board_handoff/entries/board_handoff";
+// See src/app/board/page.tsx for why we don't hash-deep-link into the
+// Decap collection — the OAuth flow hangs when the parent has a deep-link
+// hash route during init. Plain /admin in a new tab works reliably.
+const ADMIN_URL = "/admin";
 
 export const metadata = {
   title: "Board Handoff — SLOTAB",
@@ -140,9 +142,24 @@ export default async function BoardRolePage(props: {
                 No handoff notes for this role yet. The outgoing officer
                 writes the first one.
               </p>
-              <a href={HANDOFF_EDIT_URL} className="slotab-btn">
+              <a
+                href={ADMIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="slotab-btn"
+              >
                 ✎ Start a handoff note →
               </a>
+              <p
+                style={{
+                  marginTop: "0.75rem",
+                  fontSize: "0.85rem",
+                  color: "#666",
+                }}
+              >
+                Opens the admin in a new tab. After GitHub login,
+                click <em>Board Handoff Notes</em> in the sidebar.
+              </p>
             </div>
           ) : (
             roleNotes.map((note) => (
@@ -228,9 +245,24 @@ export default async function BoardRolePage(props: {
                 borderTop: "1px solid #d8d3c4",
               }}
             >
-              <a href={HANDOFF_EDIT_URL} className="slotab-btn outline">
+              <a
+                href={ADMIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="slotab-btn outline"
+              >
                 ✎ Add a new handoff note for this role →
               </a>
+              <p
+                style={{
+                  marginTop: "0.5rem",
+                  fontSize: "0.85rem",
+                  color: "#666",
+                }}
+              >
+                Opens admin in a new tab. After GitHub login, click{" "}
+                <em>Board Handoff Notes</em> in the sidebar.
+              </p>
             </div>
           )}
         </div>

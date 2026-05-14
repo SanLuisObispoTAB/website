@@ -28,13 +28,14 @@ function slugifyRole(role: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-// Deep link into Decap's editor for the Board Handoff Notes collection.
-// Decap routes file-collection entries under
-// /admin/#/collections/<collection_name>/entries/<file_name>. With this
-// pre-opened, an outgoing officer just clicks "+" on the Handoff entries
-// list and fills the 9 prompts.
-const HANDOFF_EDIT_URL =
-  "/admin/#/collections/board_handoff/entries/board_handoff";
+// Link to the Decap CMS admin in a new tab. We intentionally do NOT deep-link
+// to /admin/#/collections/board_handoff/entries/board_handoff: that hash
+// fragment races with Decap's OAuth init (popup-based, postMessage between
+// popup and parent), and the parent's deep-link state can swallow the auth
+// response — the login pop ups hang. Linking to plain /admin lets Decap
+// initialize cleanly; the board member clicks "Board Handoff Notes" in
+// the Decap sidebar after login.
+const ADMIN_URL = "/admin";
 
 export default function BoardHubPage() {
   const roster = (boardData.members as RosterMember[]) ?? [];
@@ -78,22 +79,35 @@ export default function BoardHubPage() {
             Trina&rdquo;) — not what they are.
           </div>
 
-          {/* Big, unmissable CTA for outgoing officers. Deep-links straight
-              into the Decap editor for the Handoff Notes collection so the
-              outgoing officer is one click from filling in their entry. */}
+          {/* Big, unmissable CTA for outgoing officers. Opens /admin in a
+              new tab; after GitHub login, click "Board Handoff Notes" in
+              the Decap sidebar. */}
           <a
-            href={HANDOFF_EDIT_URL}
+            href={ADMIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="slotab-btn"
             style={{
               display: "block",
               textAlign: "center",
               padding: "1.1rem 1.5rem",
               fontSize: "1.05rem",
-              marginBottom: "2.5rem",
+              marginBottom: "0.5rem",
             }}
           >
             ✎ Outgoing officer? Start your handoff →
           </a>
+          <p
+            style={{
+              textAlign: "center",
+              fontSize: "0.85rem",
+              color: "#666",
+              marginBottom: "2.5rem",
+            }}
+          >
+            Opens the admin in a new tab. After GitHub login, click{" "}
+            <em>Board Handoff Notes</em> in the sidebar.
+          </p>
 
           <div
             className="slotab-section-title"
@@ -134,7 +148,13 @@ export default function BoardHubPage() {
                         ) : (
                           <span style={{ color: "#999" }}>
                             none yet ·{" "}
-                            <a href={HANDOFF_EDIT_URL}>add note →</a>
+                            <a
+                              href={ADMIN_URL}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              add note →
+                            </a>
                           </span>
                         )}
                       </td>
