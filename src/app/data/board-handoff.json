@@ -1,0 +1,23 @@
+{
+  "_note": "Role-by-role exit notes for the SLOTAB Board. One entry per role per school year. New entries created via Decap CMS at /admin (Board Handoff Notes collection). Rendered at /board (password-gated). NEVER paste passwords, account numbers, or other secrets here — describe where they live instead (e.g. 'SLOTAB 1Password vault, owner: Trina').",
+  "handoffs": [
+    {
+      "id": "2025-26-president",
+      "year": "2025-26",
+      "role": "President",
+      "role_slug": "president",
+      "incumbent": "Liz Moody",
+      "successor": "—",
+      "completed_date": "",
+      "what_worked": "Sample template — outgoing officer replaces with 3-5 bullets on what's working well in this role. Things to keep doing for the next person.",
+      "what_broke": "Sample template — 3-5 bullets on what didn't work, what you'd change, what tripped you up. The single most useful section for the next officer.",
+      "who_to_call": "Sample template — names + phone/email of the people you actually called when something broke. SLOHS AD Phil ___, Activities Director Adam ___, Trina (treasurer side), vendor reps, etc.",
+      "punted_decisions": "Sample template — list anything you deferred to next year. Be honest about why (not enough time, needed board vote, etc.).",
+      "vendor_relationships": "Sample template — who's the friendly contact at each vendor, who's hard to reach, who needs to be called before email, etc. Personality notes the next person needs.",
+      "passwords_vault_pointer": "Sample template — point at where logins live, NOT the logins themselves. e.g. 'SLOTAB shared 1Password vault — current owner Trina, recovery email slotabboard@gmail.com'.",
+      "calendar_landmarks": "Sample template — the dates that snuck up on you. Booster Bash deadlines, fall fundraising drive kickoff, parent meeting prep, AD handoff window, etc.",
+      "open_todos": "Sample template — itemized list of unfinished business at handover. The next officer reads this Day 1.",
+      "anything_else": "Sample template — anything that doesn't fit above. Tribal knowledge, history of why things are the way they are, etc."
+    }
+  ]
+}

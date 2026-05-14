@@ -391,3 +391,130 @@ collections:
                   required: false,
                   hint: "Shown under the title. E.g. '6:00 PM at Cannon, 1050 Southwood Drive'",
                 }
+
+  # ---------------------------------------------------------------
+  # Board handoff notes (rendered on the password-gated /board hub).
+  # NEVER paste passwords, account numbers, or other secrets into these
+  # fields — describe where they LIVE (e.g. "1Password vault, owner Trina")
+  # instead. The repo is public; field auth only gates the rendered page.
+  # ---------------------------------------------------------------
+  - name: board_handoff
+    label: "Board Handoff Notes"
+    files:
+      - name: board_handoff
+        label: "Handoff Notes"
+        file: "src/app/data/board-handoff.json"
+        description: "Role-by-role exit notes for outgoing board officers. New officer reads last year's before Day 1. NEVER paste passwords or other secrets here — describe where they live instead."
+        fields:
+          - {
+              name: _note,
+              label: "Editorial note (do not delete)",
+              widget: string,
+              required: false,
+            }
+          - name: handoffs
+            label: "Handoff entries"
+            widget: list
+            summary: "{{fields.year}} — {{fields.role}} ({{fields.incumbent}})"
+            fields:
+              - {
+                  name: id,
+                  label: "ID",
+                  widget: string,
+                  hint: "Unique slug, e.g. '2025-26-president'. Used as the dedup key.",
+                }
+              - {
+                  name: year,
+                  label: "School year",
+                  widget: string,
+                  hint: "Format: 2025-26",
+                }
+              - { name: role, label: "Role title", widget: string }
+              - {
+                  name: role_slug,
+                  label: "Role slug (URL)",
+                  widget: string,
+                  hint: "Lowercase, hyphens. Must match the slug derived from the role on the Board Roster. E.g. 'president', 'vice-president-membership', 'treasurer'.",
+                }
+              - {
+                  name: incumbent,
+                  label: "Outgoing officer name",
+                  widget: string,
+                }
+              - {
+                  name: successor,
+                  label: "Incoming officer name (if known)",
+                  widget: string,
+                  required: false,
+                  default: "—",
+                }
+              - {
+                  name: completed_date,
+                  label: "Date handoff completed",
+                  widget: string,
+                  required: false,
+                  hint: "ISO date YYYY-MM-DD",
+                }
+              - {
+                  name: what_worked,
+                  label: "What worked this year",
+                  widget: text,
+                  required: false,
+                  hint: "3-5 bullets the next officer should keep doing.",
+                }
+              - {
+                  name: what_broke,
+                  label: "What broke / what I'd do differently",
+                  widget: text,
+                  required: false,
+                  hint: "Be specific. Most-read section.",
+                }
+              - {
+                  name: who_to_call,
+                  label: "Who to call first when something breaks",
+                  widget: text,
+                  required: false,
+                  hint: "Names + best contact method. Personality notes welcome.",
+                }
+              - {
+                  name: punted_decisions,
+                  label: "Decisions I punted to next year",
+                  widget: text,
+                  required: false,
+                  hint: "What got deferred, and why.",
+                }
+              - {
+                  name: vendor_relationships,
+                  label: "Vendor relationships",
+                  widget: text,
+                  required: false,
+                  hint: "Who's friendly, who needs handling, who to email vs. call.",
+                }
+              - {
+                  name: passwords_vault_pointer,
+                  label: "Where the logins LIVE (NOT the logins themselves)",
+                  widget: text,
+                  required: false,
+                  hint: "⚠ Never paste passwords here. Describe the vault: 'SLOTAB 1Password vault, owner Trina, recovery email ___'.",
+                }
+              - {
+                  name: calendar_landmarks,
+                  label: "Calendar landmarks that snuck up on me",
+                  widget: text,
+                  required: false,
+                  hint: "Dates the next officer needs NOW.",
+                }
+              - {
+                  name: open_todos,
+                  label: "Open TODOs at handover",
+                  widget: text,
+                  required: false,
+                  hint: "What's unfinished. Day 1 reading.",
+                }
+              - {
+                  name: anything_else,
+                  label: "Anything else the next officer needs",
+                  widget: text,
+                  required: false,
+                  hint: "History, tribal knowledge, things that don't fit above.",
+                }
