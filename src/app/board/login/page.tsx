@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import PageHeader from "../../components/PageHeader";
 
-export default function BoardLoginPage() {
+// Inner component owns the useSearchParams() call so the outer page can
+// wrap it in Suspense — required by Next.js so the rest of the route
+// stays statically renderable.
+function BoardLoginInner() {
   const search = useSearchParams();
   const router = useRouter();
   const [password, setPassword] = useState("");
@@ -51,74 +54,82 @@ export default function BoardLoginPage() {
   }
 
   return (
+    <div
+      className="slotab-container"
+      style={{ maxWidth: "32rem", margin: "0 auto" }}
+    >
+      <p style={{ marginBottom: "1.25rem" }}>
+        Private hub for the SLOTAB Board. Enter the shared board
+        password to continue. If you don&apos;t have it, ask the
+        current Board President.
+      </p>
+      <form onSubmit={onSubmit}>
+        <label
+          htmlFor="board-password"
+          style={{
+            display: "block",
+            fontWeight: 600,
+            marginBottom: "0.4rem",
+          }}
+        >
+          Board password
+        </label>
+        <input
+          id="board-password"
+          type="password"
+          autoFocus
+          required
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={submitting || notConfigured}
+          style={{
+            width: "100%",
+            padding: "0.75rem 0.9rem",
+            fontSize: "1rem",
+            border: "2px solid var(--slotab-black)",
+            borderRadius: 4,
+            background: "#fff",
+            marginBottom: "1rem",
+          }}
+        />
+        {error && (
+          <div
+            role="alert"
+            style={{
+              background: "#fff0f0",
+              border: "2px solid #c0392b",
+              color: "#9b2818",
+              padding: "0.75rem 1rem",
+              borderRadius: 4,
+              marginBottom: "1rem",
+              fontSize: "0.95rem",
+            }}
+          >
+            {error}
+          </div>
+        )}
+        <button
+          type="submit"
+          className="slotab-btn"
+          disabled={submitting || notConfigured || !password}
+          style={{ width: "100%" }}
+        >
+          {submitting ? "Checking…" : "Enter Board Hub"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default function BoardLoginPage() {
+  return (
     <>
       <PageHeader kicker="Board Only" title="Board Hub" />
       <section className="slotab-section">
-        <div
-          className="slotab-container"
-          style={{ maxWidth: "32rem", margin: "0 auto" }}
-        >
-          <p style={{ marginBottom: "1.25rem" }}>
-            Private hub for the SLOTAB Board. Enter the shared board
-            password to continue. If you don&apos;t have it, ask the
-            current Board President.
-          </p>
-          <form onSubmit={onSubmit}>
-            <label
-              htmlFor="board-password"
-              style={{
-                display: "block",
-                fontWeight: 600,
-                marginBottom: "0.4rem",
-              }}
-            >
-              Board password
-            </label>
-            <input
-              id="board-password"
-              type="password"
-              autoFocus
-              required
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={submitting || notConfigured}
-              style={{
-                width: "100%",
-                padding: "0.75rem 0.9rem",
-                fontSize: "1rem",
-                border: "2px solid var(--slotab-black)",
-                borderRadius: 4,
-                background: "#fff",
-                marginBottom: "1rem",
-              }}
-            />
-            {error && (
-              <div
-                role="alert"
-                style={{
-                  background: "#fff0f0",
-                  border: "2px solid #c0392b",
-                  color: "#9b2818",
-                  padding: "0.75rem 1rem",
-                  borderRadius: 4,
-                  marginBottom: "1rem",
-                  fontSize: "0.95rem",
-                }}
-              >
-                {error}
-              </div>
-            )}
-            <button
-              type="submit"
-              className="slotab-btn"
-              disabled={submitting || notConfigured || !password}
-              style={{ width: "100%" }}
-            >
-              {submitting ? "Checking…" : "Enter Board Hub"}
-            </button>
-          </form>
-        </div>
+        <Suspense fallback={null}>
+          <BoardLoginInner />
+        </Suspense>
       </section>
     </>
   );

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // POST handler for the Board Hub login form. Validates the submitted
 // password against BOARD_PASSWORD env var and sets a signed cookie if
-// it matches. Cookie signing is shared with src/middleware.ts: HMAC-SHA256
+// it matches. Cookie signing is shared with src/proxy.ts: HMAC-SHA256
 // over the expiry timestamp, keyed by BOARD_PASSWORD itself.
 
 const COOKIE_NAME = "slotab_board";

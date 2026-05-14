@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 // /api/board/login, which sets a signed cookie (HMAC-SHA256 over the
 // expiry timestamp, keyed by BOARD_PASSWORD itself — rotating the
 // password at board handover automatically invalidates old sessions).
+//
+// Uses the Next.js 16 "proxy" file convention (renamed from middleware).
 
 export const config = {
   matcher: ["/board/:path*"],
@@ -63,7 +65,7 @@ async function isCookieValid(
   return constantTimeEqual(sig, expectedSig);
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (PUBLIC_PATHS.has(pathname)) return NextResponse.next();
 
