@@ -3,7 +3,7 @@
 A living document the board updates between sessions to keep
 decisions, pending work, and external inputs in one place.
 
-> **Last updated:** 2026-05-07 *(mobile pass + Raven's Peak custom domain + photo overhaul)*
+> **Last updated:** 2026-05-14 *(sports cleanup, Shop nav, photo refresh, Hudl BlueFrame portal unblock, ligature fix, doc-maintenance handoff)*
 >
 > Update this doc after each board meeting or working session.
 
@@ -73,7 +73,7 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-05-06 | 45 | **Year-over-year totals visible on Impact + team pages** — "FY26 raised $X, FY25 raised $Y" so the page is useful even mid-year | Erik ✅ |
 | 2026-05-06 | 46 | **Trina-facing operations doc** for the Square→QB workflow — covers data flow, tag schema, refund/correction path, what to do if the sidetool breaks | Erik to draft ✅ |
 | 2026-05-06 | 47 | **Open considerations from Phase 0 plan** — sponsorship-bundle splits (e1), in-kind donations (e2), restricted-vs-unrestricted gifts (e4) — Erik to surface at next board meeting before they get coded | Board — pending discussion |
-| 2026-05-06 | 48 | **Springly + Hudl integrations TABLED** until access is sorted. **Springly** (Serenity tier): no Integrations tab visible at admin level — Owner role almost certainly required, OR API access may be a paid add-on Serenity doesn't include; pending support reply. **Hudl** (Pro tier): no self-service developer portal — `developer.hudl.com` routes back to the regular admin console. API access is gated through Hudl's Partner Program (broadcast/stat partners), not exposed to individual schools. Erik to email Hudl support 2026-05-07 asking whether Pro includes any API or if a Partner agreement is required for a single-org public-data integration. Plan B options (Zapier for Springly; manual `data/hudl.json` updates via Decap) remain in place. | Erik 🔴 |
+| 2026-05-06 | 48 | **Springly + Hudl integrations TABLED** until access is sorted. **Springly** (Serenity tier): no Integrations tab visible at admin level — Owner role almost certainly required, OR API access may be a paid add-on Serenity doesn't include; pending support reply. **Hudl** (Pro tier): no self-service developer portal — `developer.hudl.com` routes back to the regular admin console. API access is gated through Hudl's Partner Program (broadcast/stat partners), not exposed to individual schools. Erik to email Hudl support 2026-05-07 asking whether Pro includes any API or if a Partner agreement is required for a single-org public-data integration. Plan B options (Zapier for Springly; manual `data/hudl.json` updates via Decap) remain in place. | Erik 🟡 (Hudl portion unblocked 2026-05-13 via BlueFrame embed — see #59; Springly portion still 🔴) |
 | 2026-05-06 | 49 | **Membership Join form folded into the Donate flow** (philosophy from #37 made concrete). The standalone `/membership` "Join Online" form is gone; `/donate` now captures donor identity (Name, Email, Phone, Display-on-Wall checkbox). Submit alert shows membership tier enrollment alongside the donation. Once Springly creds land, one combined POST creates the contact record + donation in a single round-trip. | Erik ✅ |
 | 2026-05-06 | 50 | **Nav top-right CTA: Donate → Join** (links to `/membership`). Reverses an earlier swap (#27) — having two Donate CTAs in the same fold (nav + hero) was redundant. Hero keeps the primary "Donate Now" button | Erik ✅ |
 | 2026-05-07 | 51 | **Custom domain `slotab.ravens-peak-consulting.com`** added (CNAME → Vercel) so the SLOHS district firewall (which blocks `*.vercel.app`) can reach the preview. Aliased to the `slo-tab-website` Vercel project's production deployment, no code changes needed. Domain pulls Let's Encrypt cert automatically. The old `ravens-peak-consulting.com/slotab-preview` mirror path is now obsolete — this aliases the live build instead of mirroring it into the Raven's Peak repo | Erik ✅ |
@@ -81,6 +81,13 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-05-07 | 53 | **Team photo overhaul** — Erik provided sport-specific photos for nearly every team and adopted a new filename convention: first letter `b`/`g`/`c` (boys/girls/co-ed), then a short sport name (`fball`, `bball`, `vball`, `bvball`, `sball`, `golf`, `soccer`, `wrestling`, `XC`, `track`, `cheering`, `stunt`, `swim`, `lacrosse`, `fieldhockey`). `bball` = basketball, so `bbaseball` is the boys-baseball prefix to avoid collision. PHOTO_BY_SLUG in TeamsCarousel + the four active team-page heroPhotos (football, girls-volleyball, baseball, track-field) + ClassicHero + HeroCarousel + hudl.json + impact.json all migrated to convention names | Erik ✅ |
 | 2026-05-07 | 54 | **Originals subdirectory** — `public/photos/originals/` now holds 25 old non-conformant files (date-coded `081xxx`, generic `tennis.jpg`/`volleyball.jpg`/`water-polo-*.jpg`, etc.). Convention-named copies live alongside the new photos in `/photos/`. All in-code references migrated to the new names; the originals are kept for archival/fallback only | Erik ✅ |
 | 2026-05-07 | 55 | **`ctrack-2.jpg` (track runner #14 leading) added as a 6th slide on the homepage hero carousel** alongside football×2, water polo, student section, and basketball — gives spring-season balance | Erik ✅ |
+| 2026-05-13 | 56 | **Sports list aligned with the official SLOHS athletics site.** Boys Lacrosse + Field Hockey removed (club sports, not on `slohs.slcusd.org/athletics`). Girls Water Polo moved Winter → Fall (Central Section runs both in fall). Girls Wrestling added (Winter); slug `wrestling` renamed to `boys-wrestling` for parity. Cheer split into Fall sideline `cheer` and Winter `competitive-cheer`. Stat-bar count 27 → 26 → 27 (Cheer split offsets removals + Girls Wrestling). Two orphan stock-photo placeholders (`blacrosse-…`, `gfieldhockey-…`) purged. | Erik ✅ |
+| 2026-05-13 | 57 | **Shop promoted to top-level nav** between Watch and Hall of Fame (was buried in the Get Involved dropdown). **Top-right Join CTA pill retired** — Donate/Sponsor/Volunteer hero + Get Involved dropdown cover that intent without crowding the nav (reverses #50). **"Wear Your Stripes" featured-gear strip** added to the home page between Teams carousel and Calendar+Watch — 3 spring shirts on cream cards w/ hover lift and "Shop all designs →" linkout. Best-practice rationale: top-nav item for discoverability + home strip for browse-bait; no second pill that would dilute Donate. | Erik ✅ |
+| 2026-05-13 | 58 | **Photo audit + 2025-26 team-photo refresh.** Cross-referenced all team slugs vs. the new official zip. Carousel slots updated with 2025-26 SLOHS portraits where the old photo was wrong/shared/placeholder: boys-tennis (CIF 2026 D2 Champions, replaces student-section placeholder), girls-tennis (replaces shot w/ Clovis player in frame), boys + girls cross-country (replaces shared co-ed group shot), boys + girls wrestling (replaces shared dark dramatic shot), competitive-cheer (own portrait, no longer shares fall cheer). Three orphans purged: `cXC-image-1200x900`, `bwrestling-checukk`, `gtennis.jpg`. **Action shots stay on the home carousel; formal team portraits live on individual team pages** via a new "Meet the Team" section. 13 additional 2025-26 team portraits staged in `public/photos/` for the 23 team pages not yet built — just set `"teamPhoto"` in the team JSON to light up. Decap `teamPhoto` field added. | Erik ✅ |
+| 2026-05-13 | 59 | **Hudl integration partially unblocks #48 via Hudl Support-built BlueFrame web-component embed.** Path narrative: probed `fan.hudl.com` (no iframe — X-Frame-Options SAMEORIGIN) → confirmed vCloud per-broadcast iframes (`vcloud.hudl.com/broadcast/embed/<id>`) work and are CSP-clean → built a custom catalog + Decap form + per-game pages around real SLOHS broadcast 4031110 (boys volleyball, archived) → Hudl Support then handed us an official `<blueframe-app>` web-component pre-configured to vCloud site 6609 with theme colors already in SLOTAB gold. The portal auto-renders live + upcoming + archived rows with search and section filters. Custom catalog (broadcasts.json, BroadcastGrid/Card/Embed, `/watch/[broadcastId]` per-game pages, Decap "Watch — Broadcast Catalog" collection) decommissioned. `/watch` is now just an intro strip + the BlueFrame embed wrapped in a dark "broadcast surface" section. Editor workflow per game: zero on the SLOTAB side. **Open**: portal currently shows 4 archived broadcasts in an error state (Hudl Support working it) + omits recent broadcasts that are "Available" but not yet "Archived" status — pending the publish-to-viewer workflow answer from support. | Erik ✅ |
+| 2026-05-13 | 60 | **Public vs No-Scout default policy for SLOHS broadcasts** drafted. **Public by default (12 teams)** — boys/girls cross country, boys/girls swim & dive, boys/girls golf, boys/girls tennis, track-field, sideline cheer, competitive cheer, stunt: outcomes don't change based on opponent video study (measurable individual performance or judged routines). **No-Scout by default (13 teams)** — football, boys/girls/beach volleyball, boys/girls basketball, boys/girls soccer, boys/girls water polo, baseball, softball, flag football: set plays + tendencies are legit scout targets. **Borderline (2 teams)** — boys/girls wrestling default private but easy to flip per match. Per-broadcast override always available; playoffs may lock normally-public sports; Title IX symmetry preserved. Awaiting AD/coach validation. | Erik (drafted) · Adam/Phil to confirm |
+| 2026-05-13 | 61 | **Footer ligature fix.** Manrope ships typographic substitutions `(c) → ©`, `(r) → ®`, `(tm) → ™` in its `liga` (standard ligatures) feature — unusual placement, but verified by diff-test (only `liga 0` stops it; calt/clig/dlig alone don't). Six places on the site were rendering "501(c)(3)" as "501©(3)" (footer, stats bar, donate form, about page, DonateForm disclaimer, tiger-footer). Fixed at `.tiger-scope` body level via `font-feature-settings: "liga" 0, "clig" 0, "calt" 0, "dlig" 0`. Negligible visual cost on Manrope's subtle letter ligatures; IRS designation rendering correctly is non-negotiable. | Erik ✅ |
+| 2026-05-14 | 62 | **Doc maintenance handoff.** Claude (the agent doing the implementation work) is now responsible for keeping `docs/project-status.md` current — append a decisions-log row after each shipped chunk, move active-backlog items to Built, refresh External Inputs Pending, then commit alongside the work. Anchored in a new `CLAUDE.md` at repo root so future Claude sessions inherit the instruction. | Erik ✅ |
 
 ---
 
@@ -396,9 +403,12 @@ Transcript ✅ resolved most architectural questions. Remaining big levers:
 | **Real per-team rosters** | Team coaches/liaisons | Adam Basch (outgoing AD) to drive outreach during handoff to Phil. Replace placeholder in `data/teams/<slug>.json` |
 | **Real per-team wishlists** | Team coaches/liaisons | Same files. Confirmed valuable (#40) |
 | **Real liaison names + emails per team** | Board | Sourced from comms kit; surfaced on team pages |
-| **SLO Tiger lacrosse + field-hockey photos** | Board / parents | Replace the two stock placeholders flagged in `PHOTO_BY_SLUG` (#53). Everything else has a real SLO photo |
-| 🔴 **Owner-level Hudl Pro credentials** | Erik (#48) | Pro tier confirmed; OAuth client_id/secret via developer.hudl.com requires Owner-role login. *Tabled 2026-05-06* until secured |
-| 🔴 **Sample Hudl per-game embed URL** | Erik (#48) | Confirms iframe format. Tabled with above |
+| ~~**SLO Tiger lacrosse + field-hockey photos**~~ | ~~Board / parents~~ | ✅ Resolved 2026-05-13 — both sports removed (club, not on official SLOHS list — #56); placeholder photos purged |
+| ~~🔴 **Owner-level Hudl Pro credentials**~~ | ~~Erik (#48)~~ | ✅ Resolved 2026-05-13 via Hudl Support-built BlueFrame embed (#59). vCloud admin access secured; per-broadcast `<blueframe-app>` widget covers live + upcoming + archive |
+| ~~🔴 **Sample Hudl per-game embed URL**~~ | ~~Erik (#48)~~ | ✅ Resolved 2026-05-13 — confirmed `vcloud.hudl.com/broadcast/embed/<id>` iframe format with SLOHS broadcast 4031110 |
+| **Hudl Archive / Publish-to-Viewer workflow** | Erik (open Hudl support thread) | Each new broadcast must be moved into "Archived" viewer status to appear in the BlueFrame portal — the per-broadcast "Available" toggle alone embeds-by-ID but doesn't list. Need the UI control + ideally a per-account default-on (#59). |
+| **SLOHS coach decision on per-sport public-vs-No-Scout defaults** | Adam Basch + Phil Angel + sport coaches | Drafted policy in #60 — public for 12 individual/judged sports, No-Scout for 13 team-strategic sports, wrestling borderline. Coaches confirm or override per sport |
+| **2025-26 Spring team portraits** | Board / parents | Fall + Winter portraits delivered 2026-05-13; Spring (track-field, softball, beach volleyball, boys-volleyball, boys-swim-dive, boys-tennis, etc.) still pending the next batch |
 | 🔴 **Owner-level Springly Serenity credentials** | Erik (#48) | Serenity tier confirmed; admin login lacks Integrations tab → Owner role needed. *Tabled 2026-05-06* until secured |
 | 🔴 **Existing Springly membership data** | Board | Currently in Google Docs; bulk-import after creds arrive (depends on #48) |
 | **Sponsor websites** | Sponsorship Development | Add `website` field for each sponsor in `data/sponsors.json` to make logos clickable (#35) |
@@ -615,6 +625,57 @@ adding track gives spring-season balance.
   `gfball-saff{1,6,9}.jpg`, `bbball-1200x906.png` (originally mis-
   prefixed; was actually baseball, now `bbaseball-team-1200x906.png`)
   — alternates not in active use but available for rotation
+
+---
+
+## 2026-05-13 / 14 session — what shipped
+
+Long working session after the 2026-05-11 board cocktail at the Hub. The board reviewed the live preview, surfaced concrete cleanup items, and Erik came back with the official 2025-26 team-photo zip + new Hudl admin access.
+
+### Sports list cleanup (#56)
+- Removed Boys Lacrosse + Field Hockey from `teams.json`, `TeamsCarousel` `PHOTO_BY_SLUG`, and `events.ts` (boys-lacrosse was in the `EventCategory` union + `CATEGORY_ORDER`).
+- Moved Girls Water Polo Winter → Fall (Central Section runs both polos in fall, not Winter like Southern Section).
+- Added Girls Wrestling (Winter). Renamed `wrestling` slug → `boys-wrestling` for parallelism.
+- Split Cheer: `cheer` is Fall sideline; new `competitive-cheer` is Winter competition. Stunt unchanged (Spring).
+- Stat-bar count `27 → 26 → 27` after the changes net out.
+
+### Nav + home page (#57)
+- "Shop" promoted to top-level nav item between Watch and Hall of Fame; "Merch" removed from Get Involved dropdown.
+- Top-right "Join" CTA pill retired — Donate/Sponsor/Volunteer hero + Get Involved dropdown cover it (reverses #50).
+- New "Wear Your Stripes" featured-gear strip on the home page between the Teams carousel and Calendar+Watch — three Spring shirts (Baseball / Track & Field / Beach Volleyball) on cream cards w/ hover lift, "Shop all designs →" link. Single `FEATURED_MERCH` array at top of `page.tsx` for seasonal swap.
+
+### Team photo refresh (#58)
+- Visual audit of every PHOTO_BY_SLUG entry vs. the actual rendered images. Flagged: girls-tennis (Clovis player in shot), boys/girls cross country (shared co-ed photo), boys/girls wrestling (shared dark portrait), competitive-cheer (shared fall photo), boys-tennis (student-section placeholder).
+- Erik delivered a 393 MB zip with official 2025-26 team portraits for every Fall + Winter sport (plus stunt + girls swim). All photos resized to 1200px wide / 82% quality / metadata stripped → ~150–400 KB each.
+- 7 carousel slots updated with action-or-team-portrait fit; 13 additional team portraits staged in `public/photos/` for the 23 future team pages.
+- New **"Meet the Team"** section on individual team pages, sitting between Quick Facts and Donate CTAs. Renders only when a team has its `teamPhoto` field set. Decap CMS now exposes `teamPhoto` field (separate from `heroPhoto`). Wired for football, girls-volleyball, baseball (3 of 4 active team pages — track-field skipped, no Spring photo in this zip yet).
+- 3 orphan photos purged: `cXC-image-1200x900.jpeg`, `bwrestling-checukk.jpg`, `gtennis.jpg`.
+
+### Hudl integration — biggest unblock since #48 (#59)
+The narrative:
+1. Started by probing fan.hudl.com → can't iframe (X-Frame-Options SAMEORIGIN).
+2. Found that **vCloud's per-broadcast iframes** at `vcloud.hudl.com/broadcast/embed/<id>` *are* CSP-clean. Built a proof on /watch with broadcast 3864918 (public College of Marin baseball game). Worked.
+3. Erik got vCloud admin access; broadcast 4031110 (SLOHS boys volleyball, archived) plays. But "Broadcast Unavailable" overlay until Erik found the "Available" toggle.
+4. Built a full custom catalog around it: `broadcasts.json` + `broadcasts.ts` helpers + `BroadcastCard` / `BroadcastGrid` / `BroadcastEmbed` components + `/watch/[broadcastId]` per-game pages + Decap "Watch — Broadcast Catalog" collection + per-team strip on team pages. All shipped.
+5. Hudl Support then handed us an **official `<blueframe-app>` web-component embed** pre-configured to vCloud site 6609 with theme colors *already in SLOTAB gold*. The widget renders the full SLOHS portal — live + upcoming + archived rows, search, section filters — auto-populating from vCloud. Zero ongoing editor work.
+6. **Dropped the entire custom catalog.** `/watch` is now the BlueFrame embed wrapped in a dark "broadcast surface" section under a SLOTAB-branded intro strip. Per-team page strips swap to a "Open the Tigers Watch Portal →" CTA. Net 760+ lines of code deleted.
+
+**Open**: portal currently lists 4 archived broadcasts that are in error state (Hudl Support clearing them) and omits recent "Available but not Archived" broadcasts (4031110, the stunt event) — pending the publish-to-viewer workflow answer.
+
+### Public vs No-Scout policy draft (#60)
+Drafted for Adam/Phil's review:
+- **Public by default (12)**: cross country (b+g), swim & dive (b+g), golf (b+g), tennis (b+g), track-field, sideline cheer, competitive cheer, stunt — measurable individual performance + judged routines have no scout value.
+- **No-Scout by default (13)**: football, volleyball (b/g/beach), basketball (b+g), soccer (b+g), water polo (b+g), baseball, softball, flag football — set plays + tendencies legitimately scouted.
+- **Borderline (2)**: wrestling (b+g) — default private, easy to open per match.
+- All defaults overridable per-broadcast; playoffs may lock normally-public sports.
+
+### Footer ligature fix (#61)
+- Manrope ships `(c) → ©`, `(r) → ®`, `(tm) → ™` in its standard `liga` feature (verified by diff-test — `calt`/`clig`/`dlig` alone don't stop it).
+- Six places rendering "501©(3)" instead of "501(c)(3)": footer (TigerFooter + legacy Footer), home stats bar, donate form tax-deductible bullet, about page, DonateForm disclaimer.
+- Fixed at `.tiger-scope` body level via `font-feature-settings: "liga" 0, "clig" 0, "calt" 0, "dlig" 0`. Negligible visual impact (Manrope's letter ligatures are subtle).
+
+### Doc maintenance handoff (#62)
+- Added `CLAUDE.md` at repo root with a `docs/project-status.md` maintenance instruction so future Claude sessions inherit the discipline.
 
 ---
 
