@@ -47,10 +47,19 @@
   color: var(--tiger-text);
 }
 
-/* Reset / base on the body — keeps Manrope as the default */
+/* Reset / base on the body — keeps Manrope as the default.
+   Disable Manrope's typographic substitutions site-wide. Manrope ships
+   `(c)` → ©, `(r)` → ®, `(tm)` → ™ inside its `liga` (standard ligatures)
+   feature — unusual placement, but that's where it is. Verified by
+   diff-testing: turning off only calt/clig/dlig is not enough; the
+   substitution only stops with liga off. Without this fix the IRS
+   "501(c)(3)" designation in our footer, donate form, about page, and
+   stats bar all render as "501©(3)". The visual cost of disabling
+   `liga` on Manrope is negligible — its letter ligatures are subtle. */
 .tiger-scope,
 .tiger-scope body {
   font-family: var(--tiger-sans);
+  font-feature-settings: "liga" 0, "clig" 0, "calt" 0, "dlig" 0;
 }
 
 .tiger-scope *,
