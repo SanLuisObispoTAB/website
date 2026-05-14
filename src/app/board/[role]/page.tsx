@@ -34,9 +34,8 @@ function slugifyRole(role: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-// See src/app/board/page.tsx for why we don't hash-deep-link into the
-// Decap collection — the OAuth flow hangs when the parent has a deep-link
-// hash route during init. Plain /admin in a new tab works reliably.
+// See src/app/board/page.tsx for the rationale on /admin (no hash
+// deep-link) in a new tab.
 const ADMIN_URL = "/admin";
 
 export const metadata = {

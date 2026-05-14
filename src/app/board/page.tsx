@@ -28,13 +28,11 @@ function slugifyRole(role: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-// Link to the Decap CMS admin in a new tab. We intentionally do NOT deep-link
-// to /admin/#/collections/board_handoff/entries/board_handoff: that hash
-// fragment races with Decap's OAuth init (popup-based, postMessage between
-// popup and parent), and the parent's deep-link state can swallow the auth
-// response — the login pop ups hang. Linking to plain /admin lets Decap
-// initialize cleanly; the board member clicks "Board Handoff Notes" in
-// the Decap sidebar after login.
+// Link to the Decap CMS admin in a new tab. Linking to plain /admin (no
+// hash deep-link into the Handoff Notes collection) is a deliberate UX
+// choice — opening in a new tab preserves the /board reading context
+// while the outgoing officer writes their note. After GitHub login they
+// click "Board Handoff Notes" in the Decap sidebar (one extra click).
 const ADMIN_URL = "/admin";
 
 export default function BoardHubPage() {
