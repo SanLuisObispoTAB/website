@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  extractOrigin,
+  isAllowedAdminOrigin,
+} from "../origin-allowlist";
 
 // Decap CMS "github" backend OAuth handshake — step 1 of 2.
 //
@@ -7,6 +11,14 @@ import { NextRequest, NextResponse } from "next/server";
 // store it in an httpOnly cookie, forward it as the OAuth state parameter
 // to GitHub, and verify it in /api/decap/callback before exchanging the
 // authorization code.
+//
+// We also capture the *parent admin window's origin* from the Referer
+// header (this popup was just opened from the Decap admin), so the
+// callback knows which origin to postMessage the token back to. Decap's
+// base_url is hardcoded to vercel.app in config.yml, but board members
+// access /admin via the slotab.ravens-peak-consulting.com CNAME alias —
+// the callback's postMessage targetOrigin must match the parent's actual
+// origin or the browser silently drops the message and login hangs.
 
 function generateNonce(length = 32): string {
   const chars =
@@ -35,6 +47,14 @@ export async function GET(req: NextRequest) {
   const decapState = req.nextUrl.searchParams.get("state") ?? "";
   const combinedState = `${nonce}:${decapState}`;
 
+  // Capture the parent admin origin from Referer. Falls back to the
+  // request origin (vercel.app) if Referer is missing or not allowlisted.
+  const refererOrigin = extractOrigin(req.headers.get("referer"));
+  const parentOrigin =
+    refererOrigin && isAllowedAdminOrigin(refererOrigin)
+      ? refererOrigin
+      : origin;
+
   const authorizeUrl = new URL("https://github.com/login/oauth/authorize");
   authorizeUrl.searchParams.set("client_id", clientId);
   authorizeUrl.searchParams.set("redirect_uri", callback);
@@ -48,6 +68,13 @@ export async function GET(req: NextRequest) {
     sameSite: "lax",
     path: "/api/decap",
     maxAge: 600, // 10 minutes — generous for a popup login flow
+  });
+  response.cookies.set("decap_parent_origin", parentOrigin, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/api/decap",
+    maxAge: 600,
   });
   return response;
 }
