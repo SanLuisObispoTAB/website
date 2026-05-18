@@ -2,130 +2,22 @@
   "source": "https://docs.google.com/spreadsheets/d/1qWOPM3Shc6bE60kqZrPv-LxmnH89jNDPslzXVFn4AIc/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule May 11 - May 16",
-      "gid": "1179216813"
-    },
-    {
       "name": "Weekly Athletics Schedule May 18 - May 23",
       "gid": "1412638585"
+    },
+    {
+      "name": "Weekly Athletics Schedule May 25 - May 30",
+      "gid": "992812206"
     }
   ],
-  "fetchedAt": "2026-05-13T16:14:47.975Z",
+  "fetchedAt": "2026-05-18T11:10:43.918Z",
   "events": [
-    {
-      "id": "weekly-2026-05-12-baseball-lompoc",
-      "category": "baseball",
-      "categoryLabel": "Baseball",
-      "isSport": true,
-      "date": "2026-05-12T16:30:00",
-      "title": "Baseball @ Lompoc",
-      "detail": "Lompoc",
-      "isHome": false,
-      "opponent": "Lompoc",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-12-softball-templeton",
-      "category": "softball",
-      "categoryLabel": "Softball",
-      "isSport": true,
-      "date": "2026-05-12T16:30:00",
-      "title": "Softball @ Templeton",
-      "detail": "Templeton",
-      "isHome": false,
-      "opponent": "Templeton",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-12-boys-volleyball-cif-semifinals-edison-hs",
-      "category": "boys-volleyball",
-      "categoryLabel": "Boys Volleyball",
-      "isSport": true,
-      "date": "2026-05-12T18:00:00",
-      "title": "Boys Volleyball vs CIF - Semifinals, Edison HS",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "CIF - Semifinals, Edison HS",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-13-boys-tennis-bakersfield-christian-ci",
-      "category": "boys-tennis",
-      "categoryLabel": "Boys Tennis",
-      "isSport": true,
-      "date": "2026-05-13T15:00:00",
-      "title": "Boys Tennis @ Bakersfield Christian (CIF Championship)",
-      "detail": "Bakersfield Christian",
-      "isHome": false,
-      "opponent": "Bakersfield Christian (CIF Championship)",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-boys-swim-cif-state-prelims-finals",
-      "category": "boys-swim",
-      "categoryLabel": "Swim & Dive",
-      "isSport": true,
-      "date": "2026-05-15T12:00:00",
-      "title": "Swim and Dive @ CIF State Prelims / Finals",
-      "detail": "Clovis West",
-      "isHome": false,
-      "opponent": "CIF State Prelims / Finals",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-boys-tennis-cif-individuals",
-      "category": "boys-tennis",
-      "categoryLabel": "Boys Tennis",
-      "isSport": true,
-      "date": "2026-05-15T12:00:00",
-      "title": "Boys Tennis @ CIF Individuals",
-      "detail": "Clovis North",
-      "isHome": false,
-      "opponent": "CIF Individuals",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-track-field-cif-champs",
-      "category": "track-field",
-      "categoryLabel": "Track & Field",
-      "isSport": true,
-      "date": "2026-05-15T14:00:00",
-      "title": "Track and Field @ CIF Champs",
-      "detail": "Sanger",
-      "isHome": false,
-      "opponent": "CIF Champs",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-baseball-cif",
-      "category": "baseball",
-      "categoryLabel": "Baseball",
-      "isSport": true,
-      "date": "2026-05-15T16:30:00",
-      "title": "Baseball @ CIF",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
-    {
-      "id": "weekly-2026-05-15-softball-cif",
-      "category": "softball",
-      "categoryLabel": "Softball",
-      "isSport": true,
-      "date": "2026-05-15T16:30:00",
-      "title": "Softball @ CIF",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF",
-      "sourceTab": "Weekly Athletics Schedule May 11 - May 16"
-    },
     {
       "id": "weekly-2026-05-18-boys-golf-section-tournament",
       "category": "boys-golf",
       "categoryLabel": "Boys Golf",
       "isSport": true,
-      "date": "2026-05-18T12:00:00",
+      "date": "2026-05-18T09:00:00",
       "title": "Boys Golf @ Section Tournament",
       "detail": "Monarch Dunes",
       "isHome": false,
@@ -133,62 +25,27 @@
       "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
     },
     {
-      "id": "weekly-2026-05-19-baseball-cif",
-      "category": "baseball",
-      "categoryLabel": "Baseball",
-      "isSport": true,
-      "date": "2026-05-19T16:30:00",
-      "title": "Baseball @ CIF",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
-    {
-      "id": "weekly-2026-05-20-softball-cif",
+      "id": "weekly-2026-05-20-softball-south-cif-quarterfinals-",
       "category": "softball",
       "categoryLabel": "Softball",
       "isSport": true,
       "date": "2026-05-20T16:30:00",
-      "title": "Softball @ CIF",
-      "detail": "TBA",
+      "title": "Softball @ South (CIF Quarterfinals)",
+      "detail": "South HS (Baskersfield)",
       "isHome": false,
-      "opponent": "CIF",
+      "opponent": "South (CIF Quarterfinals)",
       "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
     },
     {
-      "id": "weekly-2026-05-21-baseball-cif",
-      "category": "baseball",
-      "categoryLabel": "Baseball",
-      "isSport": true,
-      "date": "2026-05-21T16:30:00",
-      "title": "Baseball @ CIF",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
-    {
-      "id": "weekly-2026-05-22-boys-tennis-regional-playoffs",
-      "category": "boys-tennis",
-      "categoryLabel": "Boys Tennis",
-      "isSport": true,
-      "date": "2026-05-22T12:00:00",
-      "title": "Boys Tennis @ Regional Playoffs",
-      "isHome": false,
-      "opponent": "Regional Playoffs",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
-    {
-      "id": "weekly-2026-05-22-softball-cif",
+      "id": "weekly-2026-05-22-softball-cif-semifinals",
       "category": "softball",
       "categoryLabel": "Softball",
       "isSport": true,
       "date": "2026-05-22T16:30:00",
-      "title": "Softball @ CIF",
+      "title": "Softball @ CIF Semifinals",
       "detail": "TBA",
       "isHome": false,
-      "opponent": "CIF",
+      "opponent": "CIF Semifinals",
       "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
     },
     {
@@ -202,6 +59,30 @@
       "isHome": false,
       "opponent": "CIF Masters",
       "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
+    },
+    {
+      "id": "weekly-2026-05-28-boys-golf-regional-tournament",
+      "category": "boys-golf",
+      "categoryLabel": "Boys Golf",
+      "isSport": true,
+      "date": "2026-05-28T12:00:00",
+      "title": "Boys Golf @ Regional Tournament",
+      "detail": "Los Serranos GC",
+      "isHome": false,
+      "opponent": "Regional Tournament",
+      "sourceTab": "Weekly Athletics Schedule May 25 - May 30"
+    },
+    {
+      "id": "weekly-2026-05-29-track-field-cif-state",
+      "category": "track-field",
+      "categoryLabel": "Track & Field",
+      "isSport": true,
+      "date": "2026-05-29T12:00:00",
+      "title": "Track and Field @ CIF State",
+      "detail": "Buchanan High",
+      "isHome": false,
+      "opponent": "CIF State",
+      "sourceTab": "Weekly Athletics Schedule May 25 - May 30"
     }
   ]
 }
