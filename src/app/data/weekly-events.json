@@ -2,64 +2,12 @@
   "source": "https://docs.google.com/spreadsheets/d/1qWOPM3Shc6bE60kqZrPv-LxmnH89jNDPslzXVFn4AIc/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule May 18 - May 23",
-      "gid": "1412638585"
-    },
-    {
       "name": "Weekly Athletics Schedule May 25 - May 30",
       "gid": "992812206"
     }
   ],
-  "fetchedAt": "2026-05-20T16:47:36.726Z",
+  "fetchedAt": "2026-05-25T11:15:17.376Z",
   "events": [
-    {
-      "id": "weekly-2026-05-18-boys-golf-section-tournament",
-      "category": "boys-golf",
-      "categoryLabel": "Boys Golf",
-      "isSport": true,
-      "date": "2026-05-18T09:00:00",
-      "title": "Boys Golf @ Section Tournament",
-      "detail": "Monarch Dunes",
-      "isHome": false,
-      "opponent": "Section Tournament",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
-    {
-      "id": "weekly-2026-05-20-softball-south-cif-quarterfinals-",
-      "category": "softball",
-      "categoryLabel": "Softball",
-      "isSport": true,
-      "date": "2026-05-20T16:30:00",
-      "title": "Softball @ South (CIF Quarterfinals)",
-      "detail": "South HS (Baskersfield)",
-      "isHome": false,
-      "opponent": "South (CIF Quarterfinals)",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
-    {
-      "id": "weekly-2026-05-22-softball-cif-semifinals",
-      "category": "softball",
-      "categoryLabel": "Softball",
-      "isSport": true,
-      "date": "2026-05-22T16:30:00",
-      "title": "Softball @ CIF Semifinals",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF Semifinals",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
-    {
-      "id": "weekly-2026-05-23-track-field-cif-masters",
-      "category": "track-field",
-      "categoryLabel": "Track & Field",
-      "isSport": true,
-      "date": "2026-05-23T17:00:00",
-      "title": "Track and Field @ CIF Masters",
-      "detail": "Buchanan High",
-      "isHome": false,
-      "opponent": "CIF Masters",
-      "sourceTab": "Weekly Athletics Schedule May 18 - May 23"
-    },
     {
       "id": "weekly-2026-05-28-boys-golf-regional-tournament",
       "category": "boys-golf",
