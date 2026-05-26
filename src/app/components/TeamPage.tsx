@@ -60,6 +60,12 @@ export type Team = {
   season: string;
   tagline?: string;
   heroPhoto?: string;
+  /** Optional CSS object-position for the hero crop (e.g. "center top",
+   *  "center 20%"). The hero band is short (min-height 360px) and uses
+   *  object-fit: cover, so without anchoring, tall photos get center-
+   *  cropped — which often lands at chest height for team shots. Set
+   *  this when faces sit above the natural center of the source image. */
+  heroPhotoPosition?: string;
   /** Formal team portrait — shown on a dedicated "Team Photo" section
    *  on the team page. Distinct from heroPhoto (which is the immersive
    *  action shot at the top). */
@@ -94,7 +100,10 @@ export default function TeamPage({ team }: { team: Team }) {
             fill
             priority
             sizes="100vw"
-            style={{ objectFit: "cover" }}
+            style={{
+              objectFit: "cover",
+              objectPosition: team.heroPhotoPosition ?? "center center",
+            }}
           />
         )}
         <div className="slotab-team-hero-overlay" />
