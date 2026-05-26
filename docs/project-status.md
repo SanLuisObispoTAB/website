@@ -3,7 +3,7 @@
 A living document the board updates between sessions to keep
 decisions, pending work, and external inputs in one place.
 
-> **Last updated:** 2026-05-14 *(sports cleanup, Shop nav, photo refresh, Hudl BlueFrame portal unblock, ligature fix, doc-maintenance handoff, Springly import research + test CSVs, Board Hub /board with password gate, Decap OAuth host-aware postMessage)*
+> **Last updated:** 2026-05-25 *(24 additional curated game photos; raw 1.7 GB dump archived in `public/photos/originals/SLOHS Sports Photographs-part-{1,2}/` + gitignored; carousel adds boys basketball + girls soccer as slides 7 + 8)*
 >
 > Update this doc after each board meeting or working session.
 
@@ -91,6 +91,7 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 | 2026-05-14 | 63 | **Springly import research + canonical CSV shape.** Public-marketing-side investigation done — Springly's Serenity tier supports Excel/spreadsheet import with field auto-detection, but the actual import wizard fields are admin-only and require Owner access (still gated by #48). New `docs/springly-import.md` captures what's known, a canonical 2-CSV column shape (`members`, `sponsors`) that maps cleanly to Springly's contacts model AND to the existing `/api/springly/*` route stubs AND to a fallback Zapier path. Two sample CSVs at `docs/springly/test-members.csv` (12 fake households/individuals across all 5 tiers + Coach + lapsed) and `docs/springly/test-sponsors.csv` (8 fake businesses across all 4 sponsor tiers + in-kind + lapsed) — dry-run targets once Owner access lands. Real source spreadsheets from Trina + sponsorship lead still pending. | Erik (research) ✅ |
 | 2026-05-14 | 64 | **Board Hub at `/board`** — password-gated organizational-memory section for handoff between board generations. Architecture: Next.js Edge middleware (`src/middleware.ts`, since renamed to `src/proxy.ts` per Next.js 16 — see #65) gates `/board/*` against a `BOARD_PASSWORD` env var, sets a signed cookie (HMAC-SHA256 over expiry, keyed by the password itself — so rotating the password at annual handover automatically kills old sessions). Content lives in `src/app/data/board-handoff.json` as structured per-role exit notes; outgoing officers fill 9 prompts (what worked / what broke / who to call / vendor relationships / where logins LIVE / calendar landmarks / open TODOs / anything else) via a new "Board Handoff Notes" Decap collection. Hub at `/board` lists the 13 roles from the current roster; per-role page at `/board/[role]` shows all years of notes for that role, newest first. Login at `/board/login`; sign-out via `/api/board/logout`. **Hard rule baked into the Decap form hints + the hub banner: never paste passwords or secrets into these fields — the repo is public, only the rendered page is gated. Describe where secrets live (vault pointers) instead.** v1 keeps scope lean on exit-notes only; "key contacts" + "annual calendar" + "process recipes" sections were explicitly deferred. | Erik ✅ |
 | 2026-05-14 | 65 | **Decap OAuth host-aware postMessage** (debugging chain for the Board Hub rollout). First Vercel build of #64 failed two ways: (a) `useSearchParams()` in `/board/login` needed a `<Suspense>` boundary even with `dynamic="force-dynamic"` and (b) Next.js 16 deprecated the `middleware.ts` file convention in favor of `proxy.ts` (renamed file + renamed exported function `middleware` → `proxy`; `config.matcher` unchanged). Build then passed but board members hit a second bug: clicking "Login with GitHub" in /admin hung forever. Initial diagnosis (hash deep-link `/admin/#/collections/.../entries/...` racing with Decap's OAuth init) was wrong — the real root cause was that `config.yml` hardcodes `base_url: https://slo-tab-website.vercel.app`, so the Decap OAuth callback always tries to postMessage the token back to the parent admin window using vercel.app as `targetOrigin`. But board members hit `/admin` via the SLOHS-firewall-friendly CNAME alias `slotab.ravens-peak-consulting.com` (#51), so the browser silently drops the postMessage and login hangs. Fix: `/api/decap/auth` now reads the parent origin from the Referer header at the start of the OAuth flow, validates it against a server-side allowlist in `src/app/api/decap/origin-allowlist.ts` (vercel.app, ravens-peak alias, slotab.org future, localhost), persists it through the GitHub round-trip via an httpOnly cookie, and `/api/decap/callback` uses it as the postMessage `targetOrigin`. GitHub OAuth App registration (single redirect_uri at vercel.app) is unchanged — only the in-callback postMessage is host-aware now. Already includes `slotab.org` so it'll keep working through the domain cutover. Also kept the new-tab CTA UX from the misdiagnosis (preserves /board reading context while writing a handoff). | Erik ✅ |
+| 2026-05-25 | 66 | **Photo library — 24 additional curated game photos** layered on top of the existing convention-renamed library (#53/#58). Filtered from a 180-photo raw dump that arrived as two folders (`SLOHS Sports Photographs-part-{1,2}/`, 1.7 GB combined). Originals moved into `public/photos/originals/SLOHS Sports Photographs-part-*/` to match the originals-dir pattern from #54, then those specific subdirs were added to `.gitignore` so the 1.7 GB doesn't track or deploy (the existing 25 archival files in `originals/` stay committed). Curation prioritized photographer-flagged variants (`copy`/`5x7`/`8x10`/letter suffixes are print versions the photographer prepared, so reliable favorites). Rejected several with baked-in text overlays ("How About Them Tigers?", "Not in Our House", "Tiger Nation"). Sport breakdown: boys basketball ×6, football ×5 (incl. `tigers-mascot.jpg` studio portrait), boys volleyball ×2, tennis ×3 (b+g), girls soccer ×3, boys soccer ×3, plus `ccheer-team.jpg` and `gwpolo-coach-huddle.jpg` (kept distinct from origin's already-shipped `gwpolo-huddle.jpg`). Carousel (`ClassicHero`) gains slides 7 + 8 — boys basketball (`bbball-shot-394.jpg`) and girls soccer (`gsoccer-huddle.jpg`); both sports were previously absent from the hero rotation despite the broader photo refresh. | Erik ✅ |
 
 ---
 
@@ -684,6 +685,85 @@ Drafted for Adam/Phil's review:
 
 ### Doc maintenance handoff (#62)
 - Added `CLAUDE.md` at repo root with a `docs/project-status.md` maintenance instruction so future Claude sessions inherit the discipline.
+
+---
+
+## 2026-05-25 session — what shipped
+
+### Photo library — 24 additional curated game photos (#66)
+
+Erik dropped two folders (`SLOHS Sports Photographs-part-{1,2}/`,
+1.7 GB combined) into `public/photos/` for filtering — a 180-photo
+raw dump from the team photographer. Worked through them
+sport-by-sport, prioritizing the photographer's own flagged
+variants first: files with `copy`/`5x7`/`8x10`/letter suffixes
+are print versions the photographer prepared themselves, so they
+tend to be their own picks.
+
+**Final keepers (24)** — all resized via the standard recipe
+(`magick … -resize 1200x\> -quality 82 -strip`) and renamed to
+the `<b|g|c><sport>-<descriptor>.jpg` convention:
+
+- **Boys basketball (6):** `bbball-shot-394.jpg` (hero — shot
+  attempt over PR #11 defender, peak action), `bbball-drive-past.jpg`,
+  `bbball-fastbreak.jpg`, `bbball-drive-portrait.jpg`,
+  `bbball-huddle.jpg` + `bbball-huddle-bw.jpg` (locker-room
+  storytelling shots)
+- **Football (5):** `football-helmets-bw.jpg` (B&W team holding
+  helmets aloft, stadium light + mountains in BG),
+  `football-four-backs-bw.jpg`, `football-team-meeting.jpg`,
+  `football-jv-helmets-bw.jpg`, `tigers-mascot.jpg` (studio
+  mascot portrait, jersey #61)
+- **Boys volleyball (2):** `bvball-net-action.jpg`, `bvball-spike.jpg`
+- **Tennis (3):** `btennis-backhand.jpg`, `btennis-serve.jpg`,
+  `gtennis-huddle.jpg` (team huddle with mountain BG)
+- **Girls soccer (3):** `gsoccer-huddle.jpg`, `gsoccer-celebration.jpg`,
+  `gsoccer-keeper-save.jpg`
+- **Boys soccer (3):** `bsoccer-huddle.jpg`, `bsoccer-keeper-save.jpg`,
+  `bsoccer-dribble.jpg`
+- **Cheer + water polo:** `ccheer-team.jpg`,
+  `gwpolo-coach-huddle.jpg` (named distinctly from the existing
+  `gwpolo-huddle.jpg` in the hero rotation to avoid collision)
+
+Rejected several photographer-flagged shots that had text overlays
+baked in ("How About Them Tigers?", "Not in Our House",
+"Tiger Nation", "3..2..1.. We have liftoff!") — unusable for the
+site without retouching.
+
+### Carousel — boys basketball + girls soccer
+
+`src/app/components/tiger/ClassicHero.tsx` gains slides 7 and 8
+for boys basketball (`bbball-shot-394.jpg`, "Boys Basketball ·
+attacking the rim") and girls soccer (`gsoccer-huddle.jpg`,
+"Girls Soccer · the huddle before kickoff"). Both sports were
+absent from the hero rotation despite the broader photo refresh
+in #53 and #58 — this fills those slots. Existing 6 slides
+untouched. `objectPosition` tuned to keep the focal action
+visible against the text overlay (basketball "center 30%" anchors
+on the players' faces; soccer "center 45%" balances huddle +
+sky). Verified live in the local dev server.
+
+### Originals archive
+
+Both source folders moved into
+`public/photos/originals/SLOHS Sports Photographs-part-{1,2}/`
+to match the originals-dir pattern from #54. Added a `.gitignore`
+rule for those specific subdirs (`/public/photos/originals/SLOHS Sports Photographs-part-*/`)
+so the 1.7 GB doesn't track or deploy — the existing 25 small
+archival files in `originals/` remain committed as before.
+
+### Coordination notes
+
+This session started against a stale local clone — the working
+checkout was 28 commits behind `origin/main`, and what looked
+like in-progress untracked photos locally turned out to be files
+already shipped on origin (#53/#54/#58). After initial commits
+that conflicted on rebase, did a `git reset --hard origin/main`
+(tagged the discarded commits as `backup/photos-2026-05-25` for
+recovery), backed the 24 new keepers to `/tmp`, and re-applied
+the work cleanly against origin's current state. **Lesson:**
+fetch + status against `origin/main` early in any session, not
+just before push.
 
 ---
 

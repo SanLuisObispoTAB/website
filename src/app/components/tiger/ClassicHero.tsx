@@ -55,6 +55,18 @@ const SLIDES: Slide[] = [
     caption: "Tiger track · leading the pack",
     objectPosition: "center 30%",
   },
+  {
+    src: "/photos/bbball-shot-394.jpg",
+    sport: "Basketball",
+    caption: "Boys Basketball · attacking the rim",
+    objectPosition: "center 30%",
+  },
+  {
+    src: "/photos/gsoccer-huddle.jpg",
+    sport: "Soccer",
+    caption: "Girls Soccer · the huddle before kickoff",
+    objectPosition: "center 45%",
+  },
 ];
 
 const ROTATE_MS = 9500;
