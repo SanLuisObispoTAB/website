@@ -6,7 +6,7 @@
   "season": "Spring",
   "tagline": "Tigers baseball at the SLOHS diamond.",
   "heroPhoto": "/photos/bbaseball-team-1200x906.png",
-  "heroPhotoPosition": "center top",
+  "heroPhotoPosition": "center 35%",
   "teamPhoto": "/photos/bbaseball-team-1200x906.png",
   "eventCategory": "baseball",
   "headCoach": {

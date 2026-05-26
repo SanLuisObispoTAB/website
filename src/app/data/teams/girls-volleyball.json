@@ -6,8 +6,8 @@
   "season": "Fall",
   "tagline": "Hard serves and long rallies in the Big Gym.",
   "heroPhoto": "/photos/gvball-ahopple.jpg",
-  "heroPhotoPosition": "center top",
-  "teamPhoto": "/photos/gvball-team-2025.jpg",
+  "heroPhotoPosition": "center 15%",
+  "_teamPhoto_note": "gvball-team-2025.jpg shows the JV team, not Varsity — title text on the image reads '2025 JV GIRLS VOLLEYBALL'. Removed teamPhoto field below until a real varsity portrait arrives. Restore by setting teamPhoto to the new file.",
   "eventCategory": "volleyball",
   "headCoach": {
     "name": "Kennedy Meaney",
