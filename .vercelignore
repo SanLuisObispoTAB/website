@@ -1,0 +1,36 @@
+# What NOT to upload to Vercel.
+#
+# Vercel's CLI (and the build's working-tree snapshot) reads this
+# first; falls back to .gitignore if absent. .gitignore alone isn't
+# reliable here because Vercel doesn't honor every nested pattern,
+# so we restate the bulky exclusions explicitly. Listing things that
+# are already in .gitignore is intentional (defense in depth).
+
+# Build artifacts & dependencies — rebuilt by Vercel on the deploy side
+node_modules
+.next
+out
+build
+
+# Local + sibling-tool metadata
+.git
+.vercel
+.claude
+
+# Editor / OS noise
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Env files (Vercel uses its own env-var system; never ship secrets in the upload)
+.env*
+
+# Repo-root scratch — these directories should never reach the deploy
+# even by accident. The Team Photos/ folder is an untracked Google Drive
+# export at the repo root; the originals subdirs are the multi-GB raw
+# photographer dumps kept on disk for re-curation (see decision #66).
+/Team Photos/
+/public/photos/originals/SLOHS Sports Photographs-part-*/
+
+# Docs — readable on GitHub; no need to ship to the runtime
+/docs
