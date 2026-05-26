@@ -5,8 +5,13 @@
 # redeploys automatically.
 #
 # Wired to:
-#   - Repo:     https://github.com/eramberg/slo-tab-website
-#   - Vercel:   https://slo-tab-website.vercel.app
+#   - Repo:     https://github.com/SanLuisObispoTAB/website
+#     (renamed from eramberg/slo-tab-website 2026-05; GitHub
+#      redirects API + git traffic from the old path)
+#   - Vercel:   https://slo-tab-website.vercel.app  (transitional;
+#     see decision #67 — new project under the Raven's Peak Vercel
+#     team is the working deploy target until the SLOTAB-org Vercel
+#     pricing question is resolved)
 #
 # At slotab.org cutover, swap base_url / site_url / display_url /
 # logo_url below from the Vercel URL to https://slotab.org and
@@ -14,7 +19,7 @@
 
 backend:
   name: github
-  repo: eramberg/slo-tab-website
+  repo: SanLuisObispoTAB/website
   branch: main
   # Our own Next.js API routes handle the OAuth handshake so we don't
   # depend on Netlify Identity.
