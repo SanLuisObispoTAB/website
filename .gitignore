@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw photographer dumps held in /public/photos/originals/ for
+# future re-curation. The committed contents of that directory
+# (per decision #54) are archival low-volume files; the SLOHS
+# Sports Photographs-part-* folders are multi-GB raw output and
+# must NOT be tracked or deployed.
+/public/photos/originals/SLOHS Sports Photographs-part-*/
