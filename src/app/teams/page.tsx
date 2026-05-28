@@ -1,5 +1,5 @@
-import Link from "next/link";
 import PageHeader from "../components/PageHeader";
+import TeamsIndexList from "../components/TeamsIndexList";
 import teamsIndex from "../data/teams.json";
 
 type TeamIndexEntry = {
@@ -46,65 +46,14 @@ export default function TeamsIndexPage() {
           style={{ textAlign: "center" }}
         >
           <p style={{ fontSize: "1.15rem" }}>
-            Every CIF-sanctioned varsity program SLOTAB supports. The three
-            teams with active pages are the prototype template — the rest get
-            pages as soon as each coach and team liaison contributes content.
+            Every CIF-sanctioned varsity program SLOTAB supports. Scroll
+            through the seasons — each section blooms with team photos as it
+            comes into focus.
           </p>
         </div>
       </section>
 
-      {groups.map((g) => (
-        <section
-          key={g.season}
-          className="slotab-section"
-          style={{
-            background:
-              g.season === "Fall" || g.season === "Spring"
-                ? "var(--slotab-bg-alt)"
-                : "#fff",
-          }}
-        >
-          <div className="slotab-container">
-            <div className="slotab-section-title">
-              <span className="slotab-kicker">{g.season} Season</span>
-              <h2>
-                {g.teams.length}{" "}
-                {g.teams.length === 1 ? "program" : "programs"}
-              </h2>
-            </div>
-            <div className="slotab-teams-grid">
-              {g.teams.map((t) => {
-                const body = (
-                  <>
-                    <div className="slotab-team-card-gender">{t.gender}</div>
-                    <div className="slotab-team-card-name">{t.name}</div>
-                    <div className="slotab-team-card-cta">
-                      {t.hasPage ? "View team →" : "Coming soon"}
-                    </div>
-                  </>
-                );
-                return t.hasPage ? (
-                  <Link
-                    key={t.slug}
-                    href={`/teams/${t.slug}`}
-                    className="slotab-team-card"
-                  >
-                    {body}
-                  </Link>
-                ) : (
-                  <div
-                    key={t.slug}
-                    className="slotab-team-card soon"
-                    aria-disabled
-                  >
-                    {body}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      ))}
+      <TeamsIndexList groups={groups} />
     </>
   );
 }

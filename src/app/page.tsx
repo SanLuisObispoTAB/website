@@ -279,7 +279,7 @@ export default function ClassicHomePage() {
               </div>
               <Link href="/watch" className="tiger-watch-feature tiger-card-lift">
                 <Image
-                  src="/photos/gbvball-ruby-1200x675.png"
+                  src="/photos/gbvball-serve-swanson.jpg"
                   alt="Girls Beach Volleyball"
                   width={800}
                   height={380}
