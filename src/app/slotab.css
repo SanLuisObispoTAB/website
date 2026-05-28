@@ -1791,6 +1791,119 @@
   color: var(--slotab-muted);
 }
 
+/* /teams index — season-in-focus photo-reveal grid.
+ * Each season <section> gets `.is-focused` when it's the most-visible
+ * section in the viewport (set by IntersectionObserver in
+ * TeamsIndexList.tsx). Cards in the focused section bloom to reveal
+ * their photo; cards in unfocused sections stay compact. Honors
+ * prefers-reduced-motion and degrades gracefully without JS by also
+ * expanding on hover/focus.
+ */
+.slotab-teams-grid-photo {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.slotab-teams-grid-photo .slotab-team-card {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  /* Keep the click target consistent — body is always rendered, photo
+   * is what grows/shrinks. */
+}
+.slotab-team-card .slotab-team-card-photo {
+  position: relative;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  background: #111;
+  transition: height 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.slotab-team-card .slotab-team-card-photo img {
+  object-fit: cover;
+  /* Faint zoom-out on collapse, settle on expand — feels like the photo
+   * "lands" into place. */
+  transform: scale(1.06);
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  opacity: 0.92;
+}
+.slotab-team-card .slotab-team-card-body {
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Focused season — cards bloom in a soft stagger. */
+.slotab-teams-season-section.is-focused
+  .slotab-team-card
+  .slotab-team-card-photo {
+  height: 170px;
+}
+.slotab-teams-season-section.is-focused
+  .slotab-team-card
+  .slotab-team-card-photo
+  img {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Stagger the bloom across the row so it feels like a wave. */
+.slotab-teams-season-section.is-focused .slotab-team-card {
+  transition-delay: calc((var(--card-index, 0)) * 30ms);
+}
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(1) { --card-index: 0; }
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(2) { --card-index: 1; }
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(3) { --card-index: 2; }
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(4) { --card-index: 3; }
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(5) { --card-index: 4; }
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(6) { --card-index: 5; }
+.slotab-teams-season-section.is-focused
+  .slotab-team-card:nth-child(n + 7) { --card-index: 6; }
+.slotab-teams-grid-photo .slotab-team-card .slotab-team-card-photo {
+  transition-delay: calc(var(--card-index, 0) * 30ms);
+}
+
+/* Per-card focus/hover — even in an unfocused season, hovering a single
+ * card reveals its photo so the page is exploreable without scrolling. */
+.slotab-teams-grid-photo .slotab-team-card:hover .slotab-team-card-photo,
+.slotab-teams-grid-photo .slotab-team-card:focus-visible .slotab-team-card-photo {
+  height: 170px;
+}
+.slotab-teams-grid-photo .slotab-team-card:hover .slotab-team-card-photo img,
+.slotab-teams-grid-photo .slotab-team-card:focus-visible .slotab-team-card-photo img {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* "Coming soon" cards — desaturate the photo so live programs read first. */
+.slotab-teams-grid-photo .slotab-team-card.soon .slotab-team-card-photo img {
+  filter: grayscale(85%) brightness(0.75);
+}
+
+/* Respect reduced motion — show photos statically at compact height,
+ * no animations. */
+@media (prefers-reduced-motion: reduce) {
+  .slotab-teams-grid-photo .slotab-team-card .slotab-team-card-photo {
+    height: 120px;
+    transition: none;
+  }
+  .slotab-teams-grid-photo .slotab-team-card .slotab-team-card-photo img {
+    transform: none;
+    transition: none;
+    opacity: 1;
+  }
+  .slotab-teams-season-section.is-focused
+    .slotab-team-card
+    .slotab-team-card-photo {
+    height: 170px;
+  }
+}
+
 /* Hall of Fame inductee grid */
 .slotab-hof-grid-wrap { max-width: 1100px; margin: 0 auto; }
 .slotab-hof-controls {
