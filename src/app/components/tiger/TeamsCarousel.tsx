@@ -23,7 +23,7 @@ const PHOTO_BY_SLUG: Record<string, string> = {
   football: "/photos/bfball-fbspargo-1200x857.jpg",
   "girls-volleyball": "/photos/gvball-ahopple.jpg",
   "boys-volleyball": "/photos/bvball-milla.jpg",
-  "beach-volleyball": "/photos/gbvball-ruby-1200x675.png",
+  "beach-volleyball": "/photos/gbvball-serve-swanson.jpg",
   baseball: "/photos/bbaseball-team-1200x906.png",
   softball: "/photos/gsball-1200x960.jpg",
   "boys-tennis": "/photos/btennis-2026champs.jpg",
