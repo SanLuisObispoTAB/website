@@ -89,26 +89,22 @@ export async function POST(req: NextRequest) {
       }),
     });
     if (!res.ok) {
+      // Log the upstream detail server-side; don't echo it to the public
+      // client (it can leak Springly internals / API structure).
       const text = await res.text();
+      console.error("Springly sponsor create rejected", res.status, text.slice(0, 400));
       return NextResponse.json(
-        {
-          ok: false,
-          error: "Springly API rejected the request.",
-          status: res.status,
-          detail: text.slice(0, 400),
-        },
+        { ok: false, error: "Sponsorship couldn't be submitted. Please try again later." },
         { status: 502 },
       );
     }
-    const springlyData = await res.json();
-    return NextResponse.json({ ok: true, springly: springlyData });
+    // Don't return the raw upstream record to the browser — the form only
+    // needs to know it succeeded.
+    return NextResponse.json({ ok: true });
   } catch (err) {
+    console.error("Springly sponsor create failed", err);
     return NextResponse.json(
-      {
-        ok: false,
-        error: "Unable to reach Springly. Please try again later.",
-        detail: err instanceof Error ? err.message : String(err),
-      },
+      { ok: false, error: "Unable to reach Springly. Please try again later." },
       { status: 502 },
     );
   }

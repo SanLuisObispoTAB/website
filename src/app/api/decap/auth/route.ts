@@ -58,7 +58,12 @@ export async function GET(req: NextRequest) {
   const authorizeUrl = new URL("https://github.com/login/oauth/authorize");
   authorizeUrl.searchParams.set("client_id", clientId);
   authorizeUrl.searchParams.set("redirect_uri", callback);
-  authorizeUrl.searchParams.set("scope", "repo,user");
+  // SanLuisObispoTAB/website is a PUBLIC repo, so public_repo is
+  // sufficient for Decap to commit content. Requesting the full "repo"
+  // scope would hand the browser-held token write access to every
+  // private repo the OAuth app can see — unnecessary blast radius if the
+  // token ever leaks. Keep this as public_repo unless the repo goes private.
+  authorizeUrl.searchParams.set("scope", "public_repo,user");
   authorizeUrl.searchParams.set("state", combinedState);
 
   const response = NextResponse.redirect(authorizeUrl.toString());
