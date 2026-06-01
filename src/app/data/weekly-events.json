@@ -2,35 +2,10 @@
   "source": "https://docs.google.com/spreadsheets/d/1qWOPM3Shc6bE60kqZrPv-LxmnH89jNDPslzXVFn4AIc/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule May 25 - May 30",
-      "gid": "992812206"
+      "name": "Weekly Athletics Schedule Aug 10 - Aug 15",
+      "gid": "1393289557"
     }
   ],
-  "fetchedAt": "2026-05-27T16:58:17.262Z",
-  "events": [
-    {
-      "id": "weekly-2026-05-28-boys-golf-regional-tournament",
-      "category": "boys-golf",
-      "categoryLabel": "Boys Golf",
-      "isSport": true,
-      "date": "2026-05-28T12:00:00",
-      "title": "Boys Golf @ Regional Tournament",
-      "detail": "Los Serranos GC",
-      "isHome": false,
-      "opponent": "Regional Tournament",
-      "sourceTab": "Weekly Athletics Schedule May 25 - May 30"
-    },
-    {
-      "id": "weekly-2026-05-29-track-field-cif-state",
-      "category": "track-field",
-      "categoryLabel": "Track & Field",
-      "isSport": true,
-      "date": "2026-05-29T12:00:00",
-      "title": "Track and Field @ CIF State",
-      "detail": "Buchanan High",
-      "isHome": false,
-      "opponent": "CIF State",
-      "sourceTab": "Weekly Athletics Schedule May 25 - May 30"
-    }
-  ]
+  "fetchedAt": "2026-06-01T12:43:43.047Z",
+  "events": []
 }
