@@ -47,10 +47,12 @@ the convention.
   stripped via `magick <src> -resize 1200x\\> -quality 82 -strip <dst>`.
 - **New photos go through `photo-inbox/`** (gitignored), not straight
   into `public/photos/`. Drop files there, then `npm run photo-intake`
-  to audit (dup-check, name-convention check, dims) and
+  to audit (dup-check, name-convention check, dims),
+  `npm run photo-intake -- --rename` to interactively rename misnamed
+  drops (suggests sport + gender), and
   `npm run photo-intake -- --process` to resize the ready ones into
   `public/photos/`. See `photo-inbox/README.md` and
-  `scripts/photo-intake.mjs` (decision #77).
+  `scripts/photo-intake.mjs` (decisions #77, #78).
 - **Decap CMS** is at `/admin` — collections in `public/admin/config.yml`.
   Any new editable data file needs a matching collection there.
 - **Custom worktrees** live under `.claude/worktrees/`. Commit from

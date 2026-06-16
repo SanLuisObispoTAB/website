@@ -19,9 +19,14 @@ decisions #74–#76 cleaned up.)
    - **RENAME** — the filename doesn't match the `<b|g|c><sport>-<descriptor>` convention.
    - **NAME EXISTS** — a different photo already uses that published name.
    - **READY** — passes all checks.
-3. Rename any flagged files to the convention
-   (`<b|g|c><sport>-<descriptor>.jpg`; `b`/`g`/`c` = boys/girls/co-ed — see
-   `CLAUDE.md`), then process the ready ones:
+3. Fix any flagged names. Let the helper suggest them interactively — it
+   infers the sport + gender (boys/girls/co-ed) from the original filename and
+   you accept or edit each:
+   ```
+   npm run photo-intake -- --rename
+   ```
+   (Or rename by hand to `<b|g|c><sport>-<descriptor>.jpg`; `b`/`g`/`c` =
+   boys/girls/co-ed — see `CLAUDE.md`.) Then process the ready ones:
    ```
    npm run photo-intake -- --process
    ```
@@ -33,6 +38,9 @@ decisions #74–#76 cleaned up.)
 
 ## Flags
 
+- `--rename` — interactively rename misnamed (non-duplicate) drops; suggests a
+  convention name from the original filename, you accept (Enter), override
+  (type one), or skip (`s`).
 - `--process` — resize READY files into `public/photos/`.
 - `--keep-originals` — also archive each full-res source to
   `public/photos/originals/<stem>-original.<ext>`. Off by default to keep the
