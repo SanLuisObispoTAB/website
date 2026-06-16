@@ -1,0 +1,14 @@
+{
+  "slug": "flag-football",
+  "name": "Varsity Girls Flag Football",
+  "sport": "Flag Football",
+  "gender": "Girls",
+  "season": "Fall",
+  "tagline": "The Tigers' newest Fall program — girls flag under the lights.",
+  "heroPhoto": "/photos/gfball-saff7-1200x900.jpg",
+  "heroPhotoPosition": "center 30%",
+  "teamPhoto": "/photos/gflag-team-2025.jpg",
+  "liaisons": [
+    { "name": "Liaison TBD", "email": "ff-liaison@slotab.org" }
+  ]
+}

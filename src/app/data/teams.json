@@ -25,7 +25,7 @@
     { "slug": "girls-golf", "name": "Golf", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
     { "slug": "boys-wrestling", "name": "Wrestling", "gender": "Boys", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
     { "slug": "girls-wrestling", "name": "Wrestling", "gender": "Girls", "season": "Winter", "hasPage": false, "operationalSetup": "none" },
-    { "slug": "flag-football", "name": "Flag Football", "gender": "Girls", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "flag-football", "name": "Flag Football", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
     { "slug": "stunt", "name": "Stunt", "gender": "Co-ed", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
     { "slug": "cheer", "name": "Cheer", "gender": "Co-ed", "season": "Fall", "hasPage": false, "operationalSetup": "none" },
     { "slug": "competitive-cheer", "name": "Competitive Cheer", "gender": "Co-ed", "season": "Winter", "hasPage": false, "operationalSetup": "none" }
