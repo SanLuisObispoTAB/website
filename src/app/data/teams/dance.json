@@ -1,0 +1,19 @@
+{
+  "slug": "dance",
+  "name": "Dance",
+  "sport": "Dance",
+  "gender": "Girls",
+  "season": "Fall",
+  "tagline": "Tiger spirit and dance on every sideline.",
+  "heroPhoto": "/photos/ccheering-taryn.jpg",
+  "teamPhoto": "/photos/gdance-team-2025.jpg",
+  "gallery": [
+    "/photos/ccheering-sideline-2025.jpg"
+  ],
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "dance-liaison@slotab.org"
+    }
+  ]
+}

@@ -150,6 +150,7 @@ const SPORT_RULES = [
   [/lacrosse|\blax\b/i, "lacrosse"],
   [/wrestl/i, "wrestling"],
   [/comp(etitive)?.?cheer/i, "compcheer"],
+  [/dance/i, "dance"],
   [/cheer/i, "cheer"],
   [/stunt/i, "stunt"],
   [/tennis|\b[bg]ten\b/i, "tennis"],
@@ -172,6 +173,7 @@ const FIXED_PREFIX = {
   stunt: "c",
   cheer: "c",
   compcheer: "c",
+  dance: "g", // SLOHS Dance Team is girls (per Erik)
   flag: "g",
   fieldhockey: "g",
   sball: "g",
