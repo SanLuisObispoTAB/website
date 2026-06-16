@@ -40,6 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Photo intake staging (see photo-inbox/README.md + scripts/photo-intake.mjs).
+# Drop raw photos here; they are never tracked. Only the README is committed,
+# so the folder + its docs exist in the repo while the drops stay local.
+/photo-inbox/*
+!/photo-inbox/README.md
+
 # Raw photographer dumps held in /public/photos/originals/ for
 # future re-curation. The committed contents of that directory
 # (per decision #54) are archival low-volume files; the SLOHS

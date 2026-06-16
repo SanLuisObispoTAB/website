@@ -45,6 +45,12 @@ the convention.
   basketball so baseball took a longer prefix), `wpolo`, `XC`, etc.
   Resize new photos to 1200px wide / 82% JPEG quality / metadata
   stripped via `magick <src> -resize 1200x\\> -quality 82 -strip <dst>`.
+- **New photos go through `photo-inbox/`** (gitignored), not straight
+  into `public/photos/`. Drop files there, then `npm run photo-intake`
+  to audit (dup-check, name-convention check, dims) and
+  `npm run photo-intake -- --process` to resize the ready ones into
+  `public/photos/`. See `photo-inbox/README.md` and
+  `scripts/photo-intake.mjs` (decision #77).
 - **Decap CMS** is at `/admin` — collections in `public/admin/config.yml`.
   Any new editable data file needs a matching collection there.
 - **Custom worktrees** live under `.claude/worktrees/`. Commit from

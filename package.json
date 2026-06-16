@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "update-events": "node scripts/update-slotab-events.mjs"
+    "update-events": "node scripts/update-slotab-events.mjs",
+    "photo-intake": "node scripts/photo-intake.mjs"
   },
   "dependencies": {
     "next": "16.1.6",
