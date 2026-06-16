@@ -1,6 +1,10 @@
 // Shared slug → photo map. Sourced from the curated team photo library
-// (#53, #58, #66, #70). Action shots, not formal portraits — the
-// portraits live on individual team pages via the `teamPhoto` field.
+// (#53, #58, #66, #70). **RULE (#72, #85): every entry here MUST be an
+// action / game shot whenever the library has one — never a formal/posed
+// team portrait. Portraits live on the team page via `teamPhoto`. A posed
+// shot is acceptable here ONLY when no action shot exists for that team
+// yet (currently: boys/girls cross-country, girls wrestling, competitive
+// cheer — swap to an action shot the moment one arrives).**
 // New convention: first letter b/g/c (boys/girls/co-ed), then short
 // sport name. Note: `bball` = basketball, `bbaseball` = baseball (the
 // latter required because `bball` would otherwise collide).
@@ -11,17 +15,17 @@
 
 export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   football: "/photos/bfball-fbspargo-1200x857.jpg",
-  "girls-volleyball": "/photos/gvball-ahopple.jpg",
-  "boys-volleyball": "/photos/bvball-milla.jpg",
+  "girls-volleyball": "/photos/gvball-slogv-2022.jpg",
+  "boys-volleyball": "/photos/bvball-spike.jpg",
   "beach-volleyball": "/photos/gbvball-serve-swanson.jpg",
   baseball: "/photos/bbaseball-baileyhartford.jpg",
   softball: "/photos/gsball-london.jpg",
-  "boys-tennis": "/photos/btennis-2026champs.jpg",
+  "boys-tennis": "/photos/btennis-serve.jpg",
   "girls-tennis": "/photos/gtennis-killenberger.jpg",
   "boys-water-polo": "/photos/bwpolo-2.jpg",
   "girls-water-polo": "/photos/gwpolo.jpg",
   "boys-basketball": "/photos/bbball-shot-394.jpg",
-  "girls-basketball": "/photos/gbball-goodwin-1200x900.jpg",
+  "girls-basketball": "/photos/gbball-hartford.jpg",
   "boys-soccer": "/photos/bsoccer-keeper-save.jpg",
   "girls-soccer": "/photos/gsoccer-celebration.jpg",
   "boys-cross-country": "/photos/bXC-team-2025.jpg",
@@ -34,7 +38,7 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "boys-wrestling": "/photos/bwrestling-action.jpg",
   "girls-wrestling": "/photos/gwrestling-team-2026.jpg",
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
-  dance: "/photos/ccheering-taryn.jpg",
+  dance: "/photos/ccheering-sideline-2025.jpg",
   "competitive-cheer": "/photos/ccompcheer-2025.jpg",
   stunt: "/photos/cstunt-CHafourd.jpg",
 };
