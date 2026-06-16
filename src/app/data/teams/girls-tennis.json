@@ -1,0 +1,20 @@
+{
+  "slug": "girls-tennis",
+  "name": "Girls Tennis",
+  "sport": "Tennis",
+  "gender": "Girls",
+  "season": "Fall",
+  "tagline": "Baseline rallies and net battles for the Lady Tigers.",
+  "heroPhoto": "/photos/gtennis-killenberger.jpg",
+  "teamPhoto": "/photos/gtennis-team-2025.jpg",
+  "gallery": [
+    "/photos/gtennis-huddle.jpg",
+    "/photos/gtennis-2022.jpg"
+  ],
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "gtennis-liaison@slotab.org"
+    }
+  ]
+}

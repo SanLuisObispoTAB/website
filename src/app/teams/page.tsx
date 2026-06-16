@@ -1,6 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import TeamsIndexList from "../components/TeamsIndexList";
 import teamsIndex from "../data/teams.json";
+import { orderedSeasons } from "../data/seasons";
 
 type TeamIndexEntry = {
   slug: string;
@@ -13,7 +14,9 @@ type TeamIndexEntry = {
 type Group = { season: string; teams: TeamIndexEntry[] };
 
 function groupBySeason(teams: TeamIndexEntry[]): Group[] {
-  const order = ["Fall", "Winter", "Spring", "Year-round"];
+  // Lead with the current/upcoming season, then the next two in calendar order
+  // (Year-round last). Computed at build from the date — see data/seasons.ts.
+  const order = orderedSeasons();
   const map = new Map<string, TeamIndexEntry[]>();
   for (const t of teams) {
     if (!map.has(t.season)) map.set(t.season, []);

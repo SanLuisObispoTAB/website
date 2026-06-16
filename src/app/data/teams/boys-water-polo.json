@@ -1,0 +1,20 @@
+{
+  "slug": "boys-water-polo",
+  "name": "Boys Water Polo",
+  "sport": "Water Polo",
+  "gender": "Boys",
+  "season": "Fall",
+  "tagline": "Grit in the pool — Tiger water polo.",
+  "heroPhoto": "/photos/bwpolo.jpg",
+  "teamPhoto": "/photos/bwpolo-team-2025.jpg",
+  "gallery": [
+    "/photos/bwpolo-2.jpg",
+    "/photos/bwpolo-teitge-2022.jpg"
+  ],
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "bwpolo-liaison@slotab.org"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "stunt",
+  "name": "Stunt",
+  "sport": "Stunt",
+  "gender": "Co-ed",
+  "season": "Spring",
+  "tagline": "Precision, power, and the Tiger STUNT squad.",
+  "heroPhoto": "/photos/cstunt-CHafourd.jpg",
+  "teamPhoto": "/photos/cstunt-team-2026.jpg",
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "stunt-liaison@slotab.org"
+    }
+  ]
+}

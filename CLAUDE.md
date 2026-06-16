@@ -64,6 +64,17 @@ the convention.
   don't force.
 - **Robots noindex** is on until the slotab.org cutover. Don't remove
   the `robots: noindex` from `src/app/layout.tsx` until then.
+- **Creating a team page** (decisions #74, #79): add
+  `src/app/data/teams/<slug>.json` (mirror an existing one — `heroPhoto`
+  = action shot, `teamPhoto` = posed portrait, `gallery` = array of extra
+  action shots, one `"Liaison TBD"` placeholder so the quick-facts band
+  isn't empty; omit roster/coach/wishlist — those sections self-hide),
+  a thin route `src/app/teams/<slug>/page.tsx`, and flip `hasPage: true`
+  in `teams.json`. The nav dropdown, home carousel, and `/teams` index
+  all pick it up **automatically** — no manual menu edit. The nav lists
+  only in-season teams (upcoming Fall during summer) via
+  `src/app/data/seasons.ts`. Convention: a team with a posed team photo
+  should have a page; show its action shots in the `gallery`.
 - **No comms-channel features on team pages** — Home Campus is the
   source of truth for game schedules and changes (decision #40).
 - **/watch is the Hudl BlueFrame portal embed**, not a custom catalog.

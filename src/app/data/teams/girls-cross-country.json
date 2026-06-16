@@ -1,0 +1,17 @@
+{
+  "slug": "girls-cross-country",
+  "name": "Girls Cross Country",
+  "sport": "Cross Country",
+  "gender": "Girls",
+  "season": "Fall",
+  "tagline": "Distance, drive, and Tiger pride on the course.",
+  "heroPhoto": "/photos/gXC-team-2025.jpg",
+  "heroPhotoPosition": "center 25%",
+  "teamPhoto": "/photos/gXC-team-2025.jpg",
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "gxc-liaison@slotab.org"
+    }
+  ]
+}

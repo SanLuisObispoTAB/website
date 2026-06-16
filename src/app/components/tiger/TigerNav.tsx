@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import teamsData from "../../data/teams.json";
+import { navSeason } from "../../data/seasons";
 
 type NavLink = {
   href: string;
@@ -15,7 +17,37 @@ type NavItem = {
   children?: NavLink[];
 };
 
-const NAV: NavItem[] = [
+type TeamEntry = {
+  slug: string;
+  name: string;
+  gender: "Boys" | "Girls" | "Co-ed";
+  season: "Fall" | "Winter" | "Spring" | "Year-round";
+  hasPage: boolean;
+};
+
+// Teams dropdown is built from teams.json so new pages appear automatically.
+// Shows only the in-season teams (or the upcoming season during summer break),
+// so the menu stays short and timely. "All Teams" always leads.
+function teamChildren(): NavLink[] {
+  const season = navSeason();
+  const teams = (teamsData.teams as TeamEntry[])
+    .filter(
+      (t) => t.hasPage && (t.season === season || t.season === "Year-round"),
+    )
+    .sort(
+      (a, b) =>
+        a.name.localeCompare(b.name) || a.gender.localeCompare(b.gender),
+    );
+  return [
+    { href: "/teams", label: "All Teams" },
+    ...teams.map((t) => ({
+      href: `/teams/${t.slug}`,
+      label: t.gender === "Co-ed" ? t.name : `${t.gender} ${t.name}`,
+    })),
+  ];
+}
+
+const BASE_NAV: NavItem[] = [
   { label: "Home", href: "/" },
   {
     label: "About",
@@ -40,16 +72,7 @@ const NAV: NavItem[] = [
       { href: "/spring-social", label: "Spring Social" },
     ],
   },
-  {
-    label: "Teams",
-    children: [
-      { href: "/teams", label: "All Teams" },
-      { href: "/teams/football", label: "Football" },
-      { href: "/teams/girls-volleyball", label: "Girls Volleyball" },
-      { href: "/teams/baseball", label: "Baseball" },
-      { href: "/teams/track-field", label: "Track & Field" },
-    ],
-  },
+  { label: "Teams" }, // children injected per-render (season-dependent) below
   { label: "Watch", href: "/watch" },
   { label: "Shop", href: "/merch" },
   { label: "Hall of Fame", href: "/hall-of-fame" },
@@ -72,6 +95,11 @@ export default function TigerNav() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const closeMobile = () => setMobileOpen(false);
   const closeDropdown = () => setOpenDropdown(null);
+
+  // Inject the season-aware Teams children; everything else is static.
+  const NAV: NavItem[] = BASE_NAV.map((item) =>
+    item.label === "Teams" ? { ...item, children: teamChildren() } : item,
+  );
 
   return (
     <header className="tiger-nav">

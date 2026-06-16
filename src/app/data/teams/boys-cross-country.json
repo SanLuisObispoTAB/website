@@ -1,0 +1,17 @@
+{
+  "slug": "boys-cross-country",
+  "name": "Boys Cross Country",
+  "sport": "Cross Country",
+  "gender": "Boys",
+  "season": "Fall",
+  "tagline": "Miles of grit through the SLO hills.",
+  "heroPhoto": "/photos/bXC-team-2025.jpg",
+  "heroPhotoPosition": "center 25%",
+  "teamPhoto": "/photos/bXC-team-2025.jpg",
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "bxc-liaison@slotab.org"
+    }
+  ]
+}

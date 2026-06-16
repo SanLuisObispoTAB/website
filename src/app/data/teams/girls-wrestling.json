@@ -1,0 +1,17 @@
+{
+  "slug": "girls-wrestling",
+  "name": "Girls Wrestling",
+  "sport": "Wrestling",
+  "gender": "Girls",
+  "season": "Winter",
+  "tagline": "Trailblazing Lady Tigers on the mat.",
+  "heroPhoto": "/photos/gwrestling-team-2026.jpg",
+  "heroPhotoPosition": "center 25%",
+  "teamPhoto": "/photos/gwrestling-team-2026.jpg",
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "gwrestling-liaison@slotab.org"
+    }
+  ]
+}

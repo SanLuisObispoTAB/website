@@ -1,0 +1,24 @@
+{
+  "slug": "boys-basketball",
+  "name": "Boys Basketball",
+  "sport": "Basketball",
+  "gender": "Boys",
+  "season": "Winter",
+  "tagline": "Run, gun, and defend the Tiger hardwood.",
+  "heroPhoto": "/photos/bbball-shot-394.jpg",
+  "teamPhoto": "/photos/bbball-team-2025.jpg",
+  "gallery": [
+    "/photos/bbball-fastbreak.jpg",
+    "/photos/bbball-drive-past.jpg",
+    "/photos/bbball-amaya.jpg",
+    "/photos/bbball-huddle.jpg",
+    "/photos/bbball-huddle-bw.jpg",
+    "/photos/bbball-drive-portrait.jpg"
+  ],
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "bbball-liaison@slotab.org"
+    }
+  ]
+}

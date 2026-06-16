@@ -70,6 +70,11 @@ export type Team = {
    *  on the team page. Distinct from heroPhoto (which is the immersive
    *  action shot at the top). */
   teamPhoto?: string;
+  /** Action-shot gallery — a responsive grid of in-game photos shown below
+   *  the portrait. Natural aspect ratios are preserved (no crop), so mix
+   *  landscape + portrait freely. Distinct from heroPhoto (the single top
+   *  action shot) and teamPhoto (the posed portrait). */
+  gallery?: string[];
   eventCategory?: string;
   headCoach?: Coach;
   assistantCoaches?: AssistantCoach[];
@@ -184,6 +189,33 @@ export default function TeamPage({ team }: { team: Team }) {
                 sizes="(max-width: 1024px) 100vw, 1100px"
                 style={{ width: "100%", height: "auto", display: "block" }}
               />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Action gallery — showcase as many in-game photos as we have */}
+      {team.gallery && team.gallery.length > 0 && (
+        <section className="slotab-section slotab-team-gallery-section">
+          <div className="slotab-container">
+            <div className="slotab-section-title">
+              <span className="slotab-kicker">In Action</span>
+              <h2>{team.name} on the field</h2>
+            </div>
+            <div className="slotab-team-gallery">
+              {team.gallery.map((src, i) => (
+                <div key={src} className="slotab-team-gallery-item">
+                  <Image
+                    src={src}
+                    alt={`${team.name} action photo ${i + 1}`}
+                    width={1200}
+                    height={800}
+                    sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 360px"
+                    loading="lazy"
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </section>

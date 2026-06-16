@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import teamsData from "../../data/teams.json";
 import { TEAM_PHOTO_BY_SLUG as PHOTO_BY_SLUG } from "../../data/team-photos";
+import { currentSeason } from "../../data/seasons";
 
 type Team = {
   slug: string;
@@ -13,13 +14,6 @@ type Team = {
   season: "Fall" | "Winter" | "Spring" | "Year-round";
   hasPage: boolean;
 };
-
-function currentSeason(): Team["season"] {
-  const m = new Date().getMonth(); // 0-11
-  if (m >= 7 && m <= 9) return "Fall"; // Aug-Oct
-  if (m === 10 || m === 11 || m === 0 || m === 1) return "Winter"; // Nov-Feb
-  return "Spring"; // Mar-Jun + Jul (off-season previews Spring continuing)
-}
 
 function teamHref(t: Team): string {
   return t.hasPage ? `/teams/${t.slug}` : "/teams";

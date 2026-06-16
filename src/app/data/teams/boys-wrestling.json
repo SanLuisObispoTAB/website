@@ -1,0 +1,16 @@
+{
+  "slug": "boys-wrestling",
+  "name": "Boys Wrestling",
+  "sport": "Wrestling",
+  "gender": "Boys",
+  "season": "Winter",
+  "tagline": "Mat strength and Tiger toughness.",
+  "heroPhoto": "/photos/bwrestling-action.jpg",
+  "teamPhoto": "/photos/bwrestling-team-2026.jpg",
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "bwrestling-liaison@slotab.org"
+    }
+  ]
+}

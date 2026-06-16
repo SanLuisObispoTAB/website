@@ -160,6 +160,7 @@ collections:
           - { name: tagline, label: "Tagline", widget: string, required: false }
           - { name: heroPhoto, label: "Hero photo (action shot for the top banner)", widget: image, required: false }
           - { name: teamPhoto, label: "Team photo (formal portrait for the 'Meet the Team' section)", widget: image, required: false }
+          - { name: gallery, label: "Action photo gallery (grid of in-game shots below the portrait)", widget: list, required: false, field: { name: photo, label: "Photo", widget: image } }
           - { name: eventCategory, label: "Event category", widget: string, required: false, hint: "Must match a category used in weekly-events.json so schedule auto-populates." }
           - name: headCoach
             label: "Head Coach"

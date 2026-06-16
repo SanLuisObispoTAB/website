@@ -1,0 +1,21 @@
+{
+  "slug": "girls-water-polo",
+  "name": "Girls Water Polo",
+  "sport": "Water Polo",
+  "gender": "Girls",
+  "season": "Fall",
+  "tagline": "Relentless in the water, every set.",
+  "heroPhoto": "/photos/gwpolo.jpg",
+  "teamPhoto": "/photos/gwpolo-team-2025.jpg",
+  "gallery": [
+    "/photos/gwpolo-huddle.jpg",
+    "/photos/gwpolo-coach-huddle.jpg",
+    "/photos/gwpolo-2022.jpg"
+  ],
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "gwpolo-liaison@slotab.org"
+    }
+  ]
+}

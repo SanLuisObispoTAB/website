@@ -1,0 +1,16 @@
+{
+  "slug": "competitive-cheer",
+  "name": "Competitive Cheer",
+  "sport": "Competitive Cheer",
+  "gender": "Co-ed",
+  "season": "Winter",
+  "tagline": "Full-out routines, championship energy.",
+  "heroPhoto": "/photos/ccompcheer-2025.jpg",
+  "teamPhoto": "/photos/ccompcheer-buchanan-2025.jpg",
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "compcheer-liaison@slotab.org"
+    }
+  ]
+}

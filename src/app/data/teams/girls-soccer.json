@@ -1,0 +1,20 @@
+{
+  "slug": "girls-soccer",
+  "name": "Girls Soccer",
+  "sport": "Soccer",
+  "gender": "Girls",
+  "season": "Winter",
+  "tagline": "The Lady Tigers play the beautiful game.",
+  "heroPhoto": "/photos/gsoccer-celebration.jpg",
+  "teamPhoto": "/photos/gsoccer-team-2025.jpg",
+  "gallery": [
+    "/photos/gsoccer-huddle.jpg",
+    "/photos/gsoccer-keeper-save.jpg"
+  ],
+  "liaisons": [
+    {
+      "name": "Liaison TBD",
+      "email": "gsoccer-liaison@slotab.org"
+    }
+  ]
+}
