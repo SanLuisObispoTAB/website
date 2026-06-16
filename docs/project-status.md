@@ -358,7 +358,7 @@ All six items previously in *Pending the transcript* now have direction. Q1 (Squ
 | Q6 | **Standard Comms Kit defaults** post-#10 evolution | Internal kit playbook update |
 | Q7 | **Wine meeting outcome** (Deneen + Ann) — final membership/sponsorship levels, naming ("Supporter / Fan / Booster"?), 4-year auto-renew structure | #37, Membership backlog, Sponsor sheet copy |
 
-### Pending external inputs (15)
+### Pending external inputs (16)
 
 | # | Input | Source | Unblocks |
 |---|---|---|---|
@@ -377,6 +377,7 @@ All six items previously in *Pending the transcript* now have direction. Q1 (Squ
 | ~~E13~~ | ~~Sport / game photos~~ | ~~Board / parents~~ | ✅ Resolved 2026-05-07 (#53) — every slug has a sport-specific photo. Open: replace stock-photo placeholders for `boys-lacrosse` (Los Gatos) and `field-hockey` (Wilton) with SLO Tiger versions |
 | E14 | Sponsor websites | Sponsorship Development | Logos become clickable (~50 sponsors) |
 | E15 | 2–3 board editor GitHub usernames | Board | Decap CMS write access on the new repo |
+| E16 | Spirit-squad structure — are Dance / Cheer / Competitive Cheer / Stunt distinct teams? Official names + genders? | AD (Erik emailed 2026-06-16) | Finalizes #82. Provisional now: "cheer" relabeled "Dance" (Girls); Competitive Cheer + Stunt still "Co-ed". Revisit once the AD replies |
 
 ### Pending the GitHub org move (7)
 
