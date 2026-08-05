@@ -1,6 +1,5 @@
 import Link from "next/link";
-import BecomeASponsor from "../components/BecomeASponsor";
-import ProposedTiers from "../components/ProposedTiers";
+import MembershipTiers from "../components/MembershipTiers";
 import SponsorWall from "../components/SponsorWall";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 
@@ -15,16 +14,17 @@ export default function MembershipPage() {
       <section className="slotab-section alt">
         <div className="slotab-container">
           <div className="slotab-section-title">
-            <span className="slotab-kicker">Draft for 2026-05-11 Board Demo</span>
-            <h2>Proposed Membership Tiers</h2>
+            <span className="slotab-kicker">2026–2027</span>
+            <h2>Memberships &amp; Sponsorships</h2>
             <p style={{ maxWidth: 720, margin: "1rem auto 0" }}>
-              The board asked for a simpler structure where every donor is
-              automatically a member. This is a 5-tier draft drawn from
-              comparable HS, college, and arts non-profit ladders. Naming
-              and benefits are open for discussion.
+              SLO Tiger Athletic Booster Club (SLOTAB) is a non-profit
+              501(c)(3) supporting student-athletes at San Luis Obispo High
+              School. We raise funds for uniforms, equipment, travel, and
+              more. Open to parents, businesses, alumni, faculty, and
+              friends — join at any level.
             </p>
           </div>
-          <ProposedTiers />
+          <MembershipTiers />
         </div>
       </section>
 
@@ -41,9 +41,9 @@ export default function MembershipPage() {
             membership lands at the matching tier automatically.
           </p>
           <p style={{ color: "var(--tiger-graphite)" }}>
-            <strong>Businesses:</strong> see the Business Sponsors section
-            below for Platinum / Gold / Silver / Bronze tiers, or contact
-            the Membership VP for the printed sponsor sheet.
+            <strong>Businesses &amp; individuals:</strong> the Sponsorship
+            Tiers above (Champion, Gold, Silver, Tiger Pride, Varsity) layer
+            game-day visibility and ad perks on top of your membership.
           </p>
           <p
             style={{
@@ -74,7 +74,6 @@ export default function MembershipPage() {
               continued support of our Tiger athletes is greatly appreciated.
             </p>
           </div>
-          <BecomeASponsor />
           <SponsorWall />
         </div>
       </section>
@@ -83,7 +82,7 @@ export default function MembershipPage() {
         <div className="slotab-container">
           <div className="slotab-section-title">
             <span className="slotab-kicker">2026–2027</span>
-            <h2>General Memberships</h2>
+            <h2>Thank You to Our Members</h2>
           </div>
           <div className="slotab-prose">
             <p style={{ textAlign: "center" }}>

@@ -3,7 +3,7 @@
 A living document the board updates between sessions to keep
 decisions, pending work, and external inputs in one place.
 
-> **Last updated:** 2026-08-04 *(Refreshed `docs/editor-onboarding.md` for the 2026-27 board CMS re-send — fixed the stale old-repo-name invite example + added the school-wifi admin URL and a returning-vs-new split — #87. Earlier today: new-school-year 2026-27 rollover kickoff — rolled the mechanical season labels to 2026-27, held the board year for the President's roster handoff, and wrote `docs/new-school-year-2026-27-handoff.md` — #86)*
+> **Last updated:** 2026-08-05 *(Shipped the official 2026-27 Memberships & Sponsorships sheet to `/membership` — resolves the wine-meeting/Q7 tier decision; new `MembershipTiers.tsx` replaces the two draft ladders (`ProposedTiers`/`BecomeASponsor`, both deleted); added a new "Tiger Friend" any-amount entry tier for CRM capture; sponsor logo-wall tiering left as-is pending board reclassification — #88. Earlier: refreshed `docs/editor-onboarding.md` for the 2026-27 board CMS re-send — fixed the stale old-repo-name invite example + added the school-wifi admin URL and a returning-vs-new split — #87. Earlier today: new-school-year 2026-27 rollover kickoff — rolled the mechanical season labels to 2026-27, held the board year for the President's roster handoff, and wrote `docs/new-school-year-2026-27-handoff.md` — #86)*
 >
 > Update this doc after each board meeting or working session.
 
@@ -25,6 +25,7 @@ Status legend: ✅ done · 🟡 in progress · 🔴 blocked · ⏳ deferred · �
 
 | Date | # | Decision | Owner |
 |---|---|---|---|
+| 2026-08-05 | 88 | **Official 2026-27 Memberships & Sponsorships sheet shipped to `/membership` — resolves the long-pending wine-meeting/Q7 tier decision (#15, #37).** The Sponsorship lead distributed the finalized printed sheet; Erik asked to implement it. This is the real offering that supersedes **both** draft ladders that had been sitting on `/membership` since May pending Q7: the *Supporter/Fan/Booster/Champion/Patron* prototype (`ProposedTiers.tsx`, the 2026-05-11 board-demo draft) **and** the *Platinum/Gold/Silver/Bronze* business tiers (`BecomeASponsor.tsx`, sourced from the old WordPress form). Both component files **deleted**; replaced by one new `MembershipTiers.tsx` (server-static data, `"use client"` only for the print button) rendering the sheet verbatim — **Sponsorship Tiers** (Champion $10,000, Gold $5,000, Silver $2,500 — all three flagged "Includes Ad Perks"; Tiger Pride $1,000/or $95 mo; Varsity $500/or $45 mo, "available to businesses & individuals") + **General Memberships** (Family $125/or $11 mo; Individual $50/or $5 mo) + a **How to Join** footer (online → `/donate`, mail check to *SLOTAB, PO Box 16025, San Luis Obispo, CA 93406*, plus the preserved board-approved print-sheet button (#34/N4) + Email-Membership-VP CTA). Page section 1 kicker/heading changed *Draft for 2026-05-11 Board Demo / Proposed Membership Tiers* → *2026–2027 / Memberships & Sponsorships* with the sheet's 501(c)(3) blurb. Reused the existing `.slotab-tier-*` card CSS; removed the now-dead `.slotab-become-sponsor-*` block (~90 lines) + its `@media print` force-show rule; added `.slotab-membership-sheet` / `.slotab-tier-group(-head)` / `.slotab-tier-per` / `.slotab-tier-join-*` / `.slotab-tier-print`. Also refreshed two bits of now-stale copy on the same page: the "Joining is donating" businesses paragraph (was "Platinum/Gold/Silver/Bronze" → the new tier names) and renamed the member-recognition section heading *General Memberships* → *Thank You to Our Members* so there aren't two "General Memberships" on one page. **Deliberately NOT touched:** the sponsor **logo wall** (`sponsors.json` / `SponsorWall` / `PlatinumCarousel` / CMS collection) still groups the ~50 real sponsors as Platinum/Gold/Silver/Bronze — re-tiering those to the new names needs the board to reclassify each sponsor (new external input, E-row added). Flagged to Erik: several prices were faint in the source photo (read Gold $5,000 / Silver $2,500 annual; recurring $95/$45/$11/$5 mo) — pending his spot-check against the file. Verified via `npm run dev` on `/membership`: tier cards render, ad-perk badges, general grid centered, print/email/donate affordances present, no console errors, `tsc` clean. **Same-session refinements from Erik** (confirmed the faint prices are correct, agreed on the two "NOT touched" calls): (a) dropped "Video" from Champion's two scoreboard-ad bullets → just "Digital ads" (unsure video will run on the current screens); (b) added a print-deadline caveat to Champion's t-shirt bullet ("submit logo + payment before a trimester starts to make that print run") since a late fall sponsor would miss the fall shirts; (c) **added a new lowest entry tier "Tiger Friend"** ("Any amount · no minimum") as a 3rd General-Memberships card — its job is frictionless CRM capture so any donor lands in the system for later upsell ("Tiger Cub" was rejected as too child-like; Erik picked "Tiger Friend" over Supporter/Tiger Fan/Booster). General grid widened 2→3 cols (760px). `MembershipTiers.tsx` `Tier` type gained an optional `anyAmount` flag; `annual` made optional. | Claude ✅ |
 | 2026-08-04 | 87 | **CMS editor-onboarding doc refreshed for the 2026-27 board re-send.** Erik wants to re-onboard the whole board to the Decap `/admin` CMS assuming nobody remembers their login and many never finished credential setup. Rather than write a new doc, refreshed the existing `docs/editor-onboarding.md` (kept Erik's voice + "— Erik" sign-off) and fixed two stale bits that would actively confuse a fresh reader: (1) the GitHub-invite email example still named the **old repo** `slo-tab-website` — updated to `SanLuisObispoTAB/website` (renamed 2026-05 per config.yml header) with a reassurance note that a renamed project is still the right invite; (2) it listed only the `slo-tab-website.vercel.app/admin/` URL, but `api/decap/auth/route.ts` + `origin-allowlist.ts` show board members are expected to reach `/admin` via the SLOHS-firewall-friendly CNAME alias `slotab.ravens-peak-consulting.com` — added that as the school-wifi fallback (both origins are allowlisted; OAuth still round-trips through vercel.app and postMessages the token back to whichever allowlisted origin loaded /admin), plus a forward note that the URL becomes `slotab.org/admin/` after the #67 cutover. Also added a top-of-doc split between **returning editors** (new "Just signing back in" two-click path) and **brand-new/unfinished** editors, and a "never got an invite → send me your email + GitHub username" prompt (feeds E15, the 2–3 board editor GitHub usernames still pending). No code/auth change — doc only; the auth flow itself is unchanged. | Claude ✅ |
 | 2026-08-04 | 86 | **New-school-year (2026-27) rollover kickoff — mechanical season-label rolls + handoff doc for the incoming President.** With Fall 2026-27 now in-season (site still pre-launch/`noindex`), rolled the pure "current-season" display labels: `TeamPage.tsx` "Meet the Team" heading `{name} — 2025-26` → `2026-27` (shows on every team page), `membership/page.tsx` both section kickers `2025–2026` → `2026–2027` (Business Sponsors + General Memberships), and `sponsors.json` `"season"` → `"2026-2027"`. **Deliberately did NOT roll the board year** (`board.json` `year` + the three hardcoded `2025-26` strings in `board/page.tsx` and `board/[role]/page.tsx`): those sit above the named officer roster and leadership is changing hands in this handoff — bumping the year while last year's officers are still listed would assert a false roster. That bump is now the incoming President's task #1 (single CMS edit alongside the new roster). Footer `© 2026` left as-is (correct calendar-year copyright until Jan 2027). Verified all three rolls render on `/membership` and `/teams/football` ("Varsity Football — 2026-27"). Also produced `docs/new-school-year-2026-27-handoff.md` — a full checklist of every placeholder + data-refresh item (rosters, liaisons, coach bios, wishlists, HOF tickets/donate/committee, Impact ledger, sponsor URLs, events, board roster) for the President to work with her team. Pre-existing duplicate-key console warning on team pages (two "Liaison TBD" placeholders share a key) noted; resolves when real liaison names land. | Claude ✅ |
 | 2026-04-07 | — | Build a refactor preview at `ravens-peak-consulting.com/slotab-preview` using Next.js + Vercel. Black/gold visual identity preserved from current WordPress site. | Erik |
@@ -191,12 +192,12 @@ In rough priority order. Move done items to **Built** below.
 ### Sponsors
 
 - [x] Sponsor logos clickable when `website` field is set ✅
-- [x] "Become a Sponsor" expandable above the wall ✅
-- [x] Print sponsor sheet button ✅
-- [x] **Confirm "Become a Sponsor" expandable is collapsed by default** ✅ verified 2026-05-06 — `BecomeASponsor.tsx` initializes `useState(false)`
+- [x] ~~"Become a Sponsor" expandable above the wall~~ ❌ removed 2026-08-05 (#88) — `BecomeASponsor.tsx` deleted; its tier content is superseded by the official sheet in `MembershipTiers.tsx`, its print-sheet button + Email-VP CTA moved into that section's How-to-Join footer
+- [x] **Print sponsor sheet button** ✅ (preserved in `MembershipTiers.tsx` footer as `.slotab-tier-print`, #88)
 - [x] **Platinum sponsor home-page carousel** (#36) — auto-rotate every 4.5s, pause-on-hover, click-through, dot navigation ✅ shipped 2026-05-06
 - [ ] Populate real `website` URLs for each sponsor (~50 sponsors) (#35)
-- [ ] Wire brochure PDF link inside the expandable
+- [ ] Wire brochure PDF link (was slated for the retired expandable; re-home in the How-to-Join footer when the PDF lands)
+- [ ] **Re-tier the sponsor logo wall to the new 2026-27 names?** (#88) — the offering is now Champion/Gold/Silver/Tiger Pride/Varsity but `sponsors.json` / `SponsorWall` / `PlatinumCarousel` / the Decap collection still group the ~50 real sponsors as Platinum/Gold/Silver/Bronze. Needs the board to decide whether to reclassify each sponsor (new external input, E-row) before any code change
 
 ### Impact page
 
@@ -220,10 +221,10 @@ In rough priority order. Move done items to **Built** below.
 
 ### Membership
 
-- [x] **5-tier ladder prototype** (Supporter / Fan / Booster / Champion / Patron) on `/membership` ✅ shipped 2026-05-06 as draft for board review at 5-11. Sourced from `docs/membership-tiers-research.md`
-- [x] **One-time vs monthly toggle** on tier cards showing both qualification paths ✅ shipped 2026-05-06
+- [x] ~~**5-tier ladder prototype** (Supporter / Fan / Booster / Champion / Patron)~~ ❌ removed 2026-08-05 (#88) — superseded by the official 2026-27 sheet; `ProposedTiers.tsx` deleted
+- [x] **One-time vs monthly toggle** on tier cards showing both qualification paths ✅ shipped 2026-05-06 (retired with `ProposedTiers`; the new sheet shows annual + recurring inline, no toggle)
 - [x] **4-year auto-renew option** in donate form (#37) ✅ UI prototype shipped 2026-05-06 (only visible when monthly is selected)
-- [ ] **Membership ↔ sponsorship merge** final naming + level decision (#37) — pending Deneen + Ann wine meeting (Q7)
+- [x] ✅ **Membership ↔ sponsorship merge** final naming + level decision (#37) — **resolved 2026-08-05 (#88)** via the Sponsorship lead's official 2026-27 sheet (Champion/Gold/Silver/Tiger Pride/Varsity sponsor tiers + Family/Individual memberships). Shipped to `/membership` as `MembershipTiers.tsx`
 - [ ] Real "Join Online" form (live Springly when API key arrives)
 
 ### Teams
@@ -255,7 +256,7 @@ In rough priority order. Move done items to **Built** below.
 - [ ] **Booster Bash ticket sales go live 2026-07-01** (#38) — fiscal-year reasons
 - [ ] Real **Booster Bash Tickets** + **HOF Fund Donate** URLs (currently `#`) — Eric to email intern re: ticketing setup
 - [ ] Real committee roster
-- [ ] Alumni Membership tier — pricing + benefits + join URL (rolls into wine-meeting outcome, Q7)
+- [ ] Alumni Membership tier — pricing + benefits + join URL (the official 2026-27 sheet / #88 did **not** cover Alumni, so this is still open but no longer gated on the now-resolved wine meeting; tracked as E8)
 
 ### Watch (Hudl)
 
@@ -333,7 +334,7 @@ All six items previously in *Pending the transcript* now have direction. Q1 (Squ
 | ~~T1~~ | Donate page details | ✅ Resolved — see #29 (ladder), #30 (recurring), #31 (transaction-ID for QB) |
 | T2 | Square API vs. hosted-site | 🟡 Erik researching mechanics (see #31); shared with Trina before commit |
 | ~~T3~~ | Impact page rebuild | ✅ Simplified — see #32, #33. One general thermometer first; per-team later |
-| ~~T4~~ | Membership tier auto-assignment | ✅ Direction set — *any donation = membership*. Final levels + naming pending Deneen + Ann wine meeting (#37) |
+| ~~T4~~ | Membership tier auto-assignment | ✅ **Fully resolved 2026-08-05 (#88)** — *any donation = membership* + final levels/naming landed via the Sponsorship lead's official 2026-27 sheet (was pending the wine meeting / Q7) |
 | ~~T5~~ | Platinum sponsor home rotator | ✅ Approved — auto-rotate, click-through (#36) |
 | ~~T6~~ | Open-ended | ✅ See "New from 2026-05-06" below |
 
@@ -361,9 +362,9 @@ All six items previously in *Pending the transcript* now have direction. Q1 (Squ
 | ~~Q4~~ | ~~Per-team goal source~~ → deferred until after first general-thermometer cut lands (#32) | — |
 | ~~Q5~~ | ~~Per-trimester goal~~ → reframed as the general SLOTAB thermometer (#32) with optional drive breakdown | — |
 | Q6 | **Standard Comms Kit defaults** post-#10 evolution | Internal kit playbook update |
-| Q7 | **Wine meeting outcome** (Deneen + Ann) — final membership/sponsorship levels, naming ("Supporter / Fan / Booster"?), 4-year auto-renew structure | #37, Membership backlog, Sponsor sheet copy |
+| ~~Q7~~ | ~~**Wine meeting outcome** (Deneen + Ann) — final membership/sponsorship levels, naming, 4-year auto-renew~~ ✅ **Resolved 2026-08-05 (#88)** — the Sponsorship lead's official 2026-27 sheet is the answer: sponsor tiers Champion/Gold/Silver/Tiger Pride/Varsity + memberships Family/Individual. Shipped to `/membership`. (The floated "Supporter/Fan/Booster" naming was not adopted.) | — |
 
-### Pending external inputs (16)
+### Pending external inputs (18)
 
 | # | Input | Source | Unblocks |
 |---|---|---|---|
@@ -383,6 +384,8 @@ All six items previously in *Pending the transcript* now have direction. Q1 (Squ
 | E14 | Sponsor websites | Sponsorship Development | Logos become clickable (~50 sponsors) |
 | E15 | 2–3 board editor GitHub usernames | Board | Decap CMS write access on the new repo |
 | ~~E16~~ | ~~Spirit-squad structure — distinct teams? official names + genders?~~ | ~~AD~~ | ✅ Resolved 2026-06-16 (#83, #84) — AD confirmed: Fall = Girls Dance + Competitive Cheer; Winter = none; Spring = STUNT (all-caps). All three squads girls-only |
+| E17 | Sponsor logo-wall re-tiering decision (#88) — keep Platinum/Gold/Silver/Bronze groupings, or reclassify the ~50 real sponsors into the new Champion/Gold/Silver/Tiger Pride/Varsity names? | Board / Sponsorship Development | Aligns the `sponsors.json` logo wall + Platinum carousel with the new offering |
+| ~~E18~~ | ~~Confirm the faint prices on the printed sheet (#88)~~ ✅ Confirmed 2026-08-05 by Erik — Gold $5,000 / Silver $2,500 annual; recurring $95 / $45 / $11 / $5 mo all correct as read | Erik / Sponsorship lead | — |
 
 ### Pending the GitHub org move (7)
 
