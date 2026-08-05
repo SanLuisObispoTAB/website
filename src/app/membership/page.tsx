@@ -67,7 +67,7 @@ export default function MembershipPage() {
       <section className="slotab-section alt">
         <div className="slotab-container">
           <div className="slotab-section-title">
-            <span className="slotab-kicker">2025–2026</span>
+            <span className="slotab-kicker">2026–2027</span>
             <h2>Business Sponsors</h2>
             <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
               Thank you to all of our generous business sponsors. Your
@@ -82,7 +82,7 @@ export default function MembershipPage() {
       <section className="slotab-section">
         <div className="slotab-container">
           <div className="slotab-section-title">
-            <span className="slotab-kicker">2025–2026</span>
+            <span className="slotab-kicker">2026–2027</span>
             <h2>General Memberships</h2>
           </div>
           <div className="slotab-prose">

@@ -178,7 +178,7 @@ export default function TeamPage({ team }: { team: Team }) {
           <div className="slotab-container">
             <div className="slotab-section-title">
               <span className="slotab-kicker">Meet the Team</span>
-              <h2>{team.name} — 2025-26</h2>
+              <h2>{team.name} — 2026-27</h2>
             </div>
             <div className="slotab-team-photo-frame">
               <Image
