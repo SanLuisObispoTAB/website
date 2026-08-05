@@ -574,6 +574,12 @@
   font-weight: 500;
   color: var(--slotab-muted);
 }
+/* Tiger Friend's "no minimum" sits on its own line below "Any amount" and
+   must never split across "no" / "minimum". */
+.slotab-tier-per-note {
+  display: block;
+  white-space: nowrap;
+}
 .slotab-tier-join-head {
   margin: 0 0 0.5rem;
   font-family: var(--font-slotab-heading), sans-serif;

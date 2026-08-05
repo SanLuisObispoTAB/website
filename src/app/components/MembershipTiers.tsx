@@ -129,7 +129,9 @@ function TierCard({ t }: { t: Tier }) {
         {t.anyAmount ? (
           <span>
             Any amount
-            <span className="slotab-tier-per"> · no minimum</span>
+            <span className="slotab-tier-per slotab-tier-per-note">
+              no minimum
+            </span>
           </span>
         ) : (
           <span>
