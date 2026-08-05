@@ -3,8 +3,8 @@
 // action / game shot whenever the library has one — never a formal/posed
 // team portrait. Portraits live on the team page via `teamPhoto`. A posed
 // shot is acceptable here ONLY when no action shot exists for that team
-// yet (currently: boys/girls cross-country, girls wrestling, competitive
-// cheer — swap to an action shot the moment one arrives).**
+// yet (currently: baseball, boys/girls cross-country, girls wrestling,
+// competitive cheer — swap to an action shot the moment one arrives).**
 // New convention: first letter b/g/c (boys/girls/co-ed), then short
 // sport name. Note: `bball` = basketball, `bbaseball` = baseball (the
 // latter required because `bball` would otherwise collide).
@@ -18,7 +18,7 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "girls-volleyball": "/photos/gvball-slogv-2022.jpg",
   "boys-volleyball": "/photos/bvball-spike.jpg",
   "beach-volleyball": "/photos/gbvball-serve-swanson.jpg",
-  baseball: "/photos/bbaseball-baileyhartford.jpg",
+  baseball: "/photos/bbaseball-team-1200x906.png",
   softball: "/photos/gsball-london.jpg",
   "boys-tennis": "/photos/btennis-serve.jpg",
   "girls-tennis": "/photos/gtennis-killenberger.jpg",

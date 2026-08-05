@@ -31,8 +31,8 @@ const SLIDES: Slide[] = [
     alt: "SLO Boys Water Polo — Bobby Teitge",
   },
   {
-    src: "/photos/bbaseball-baileyhartford.jpg",
-    alt: "SLO Tiger student-athlete Bailey Hartford",
+    src: "/photos/gbball-hartford.jpg",
+    alt: "SLO Girls Basketball — Bailey Hartford",
   },
   {
     src: "/photos/ccheering-2022.jpg",
