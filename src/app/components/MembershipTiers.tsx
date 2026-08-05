@@ -22,7 +22,8 @@ type Tier = {
   perks: string[];
 };
 
-const SPONSORSHIP_TIERS: Tier[] = [
+// The three premium, ad-perk sponsor tiers render as a 3-up top row.
+const AD_PERK_TIERS: Tier[] = [
   {
     name: "Champion Sponsor",
     annual: 10000,
@@ -59,6 +60,10 @@ const SPONSORSHIP_TIERS: Tier[] = [
       "Two SLOHS All-Sport Annual Passes",
     ],
   },
+];
+
+// Tiger Pride + Varsity share a centered second row below the ad-perk tiers.
+const SPONSOR_TIERS: Tier[] = [
   {
     name: "Tiger Pride",
     annual: 1000,
@@ -84,13 +89,17 @@ const GENERAL_MEMBERSHIPS: Tier[] = [
     name: "Family",
     annual: 125,
     monthly: 11,
-    perks: ["One Single-Season Pass", "Supports all sports"],
+    perks: [
+      "One Single-Season Pass",
+      "Tiger news & event updates",
+      "Supports all sports",
+    ],
   },
   {
     name: "Individual",
     annual: 50,
     monthly: 5,
-    perks: ["Supports all sports"],
+    perks: ["Tiger news & event updates", "Supports all sports"],
   },
   {
     name: "Tiger Friend",
@@ -151,8 +160,13 @@ export default function MembershipTiers() {
           Sponsorship Tiers
           <span>Available to businesses &amp; individuals</span>
         </h3>
-        <div className="slotab-tier-grid">
-          {SPONSORSHIP_TIERS.map((t) => (
+        <div className="slotab-tier-grid slotab-tier-grid-three">
+          {AD_PERK_TIERS.map((t) => (
+            <TierCard key={t.name} t={t} />
+          ))}
+        </div>
+        <div className="slotab-tier-grid slotab-tier-grid-pair">
+          {SPONSOR_TIERS.map((t) => (
             <TierCard key={t.name} t={t} />
           ))}
         </div>
@@ -171,7 +185,10 @@ export default function MembershipTiers() {
         <h3 className="slotab-tier-join-head">How to Join</h3>
         <p>
           Complete your membership online, or mail a check payable to{" "}
-          <strong>SLOTAB, PO Box 16025, San Luis Obispo, CA 93406</strong>.
+          <strong className="slotab-mail-address">
+            SLOTAB, PO Box 16025, San&nbsp;Luis&nbsp;Obispo,&nbsp;CA&nbsp;93406
+          </strong>
+          .
         </p>
         <p
           style={{

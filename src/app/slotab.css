@@ -514,8 +514,19 @@
 /* Membership & Sponsorship sheet on the Membership page — the official
    2026-2027 tier table (sponsorship tiers + general memberships + how to
    join). Reuses the .slotab-tier-* card styling below. */
-.slotab-membership-sheet { display: grid; gap: 2rem; }
-.slotab-tier-group { display: grid; gap: 1rem; }
+/* Single-column stacks. The explicit minmax(0, 1fr) column stops these
+   grids from expanding to the max-content width of the nested auto-fit
+   tier grids (which would force horizontal overflow on phones). */
+.slotab-membership-sheet {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+.slotab-tier-group {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
 .slotab-tier-group-head {
   text-align: center;
   margin: 0;
@@ -536,12 +547,27 @@
   font-weight: 500;
   color: var(--slotab-muted);
 }
-/* General memberships are a short row (Family / Individual / Tiger Friend) —
-   keep them centered rather than stretching across the full-width grid. */
-.slotab-tier-grid-general {
-  max-width: 760px;
-  margin: 0 auto;
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
+/* Tiger Pride + Varsity share a centered second row below the ad-perk
+   trio; General memberships (Family / Individual / Tiger Friend) are a
+   short centered row too. Both use auto-fit so they collapse to fewer
+   columns on narrow screens instead of forcing horizontal overflow. */
+/* Compound selectors so these beat the later, same-specificity base
+   `.slotab-tier-grid` rule. Center the short rows with justify-content
+   (NOT margin:auto — an auto margin makes a grid item size to its
+   max-content, i.e. all columns, which forces overflow on phones);
+   bounded columns keep the cards a sensible width while auto-fit still
+   collapses them to fewer columns as the viewport narrows. */
+.slotab-tier-grid.slotab-tier-grid-pair,
+.slotab-tier-grid.slotab-tier-grid-general {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 240px));
+  justify-content: center;
+}
+/* Keep the mailing address together (so the ZIP never dangles) and let
+   it break before "SLOTAB" as a unit; on small phones allow it to wrap,
+   with the city/state/ZIP nbsp-joined so the ZIP still can't strand. */
+.slotab-mail-address { white-space: nowrap; }
+@media (max-width: 480px) {
+  .slotab-mail-address { white-space: normal; }
 }
 .slotab-tier-per {
   font-size: 0.85rem;
