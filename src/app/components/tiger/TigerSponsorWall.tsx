@@ -2,7 +2,8 @@ import Image from "next/image";
 import { SPONSOR_TIERS, type Sponsor } from "../../data/sponsors";
 
 type Props = {
-  /** "compact" hides Bronze tier on the homepage. "full" shows everything. */
+  /** "compact" hides the lowest (Varsity) tier on the homepage.
+   * "full" shows everything. */
   mode?: "compact" | "full";
 };
 
@@ -17,7 +18,7 @@ function alphaPath(originalLogo: string): string {
 
 function Tile({ s }: { s: Sponsor }) {
   const src = alphaPath(s.logo);
-  // max-height is controlled by tier-specific CSS (.platinum-tier
+  // max-height is controlled by tier-specific CSS (.champion-tier
   // .tiger-sponsor-tile img, etc.) so each tier scales independently.
   const inner = (
     <Image
@@ -53,7 +54,7 @@ function Tile({ s }: { s: Sponsor }) {
 
 export default function TigerSponsorWall({ mode = "full" }: Props) {
   const tiers = SPONSOR_TIERS.filter(
-    (t) => mode !== "compact" || t.tier !== "Bronze",
+    (t) => mode !== "compact" || t.tier !== "Varsity",
   );
 
   return (

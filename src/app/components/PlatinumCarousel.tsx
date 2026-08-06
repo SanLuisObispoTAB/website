@@ -6,13 +6,15 @@ import { SPONSOR_TIERS, type Sponsor } from "../data/sponsors";
 
 const ROTATE_MS = 4500;
 
-function getPlatinumSponsors(): Sponsor[] {
-  const platinum = SPONSOR_TIERS.find((t) => t.tier === "Platinum");
-  return platinum?.sponsors ?? [];
+// Shows the top sponsor tier (Champion). The .slotab-platinum-* CSS class
+// names are kept as-is — they're styling hooks, not tier labels.
+function getChampionSponsors(): Sponsor[] {
+  const champion = SPONSOR_TIERS.find((t) => t.tier === "Champion");
+  return champion?.sponsors ?? [];
 }
 
 export default function PlatinumCarousel() {
-  const sponsors = getPlatinumSponsors();
+  const sponsors = getChampionSponsors();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -40,7 +42,7 @@ export default function PlatinumCarousel() {
   return (
     <section
       className="slotab-platinum-carousel"
-      aria-label="Platinum Sponsors"
+      aria-label="Champion Sponsors"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -48,7 +50,7 @@ export default function PlatinumCarousel() {
     >
       <div className="slotab-container">
         <div className="slotab-platinum-head">
-          <span className="slotab-kicker">Platinum Sponsors</span>
+          <span className="slotab-kicker">Champion Sponsors</span>
           <h2>Tigers Athletics is brought to you by</h2>
         </div>
         <div className="slotab-platinum-stage">

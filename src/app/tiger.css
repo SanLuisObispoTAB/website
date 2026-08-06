@@ -1197,6 +1197,20 @@
 .tiger-three-cta {
   margin-top: 16px;
 }
+/* Two-ways layout (Become a Member + Volunteer). Membership is primary,
+   marked with a gold top accent. */
+.tiger-two-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+.tiger-three-card-primary {
+  box-shadow: inset 0 4px 0 0 var(--tiger-gold);
+}
+.tiger-two-note {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--tiger-graphite);
+}
 
 @media (max-width: 880px) {
   .tiger-three-grid {
@@ -1823,9 +1837,9 @@
   gap: 24px;
   align-items: center;
 }
-/* Tier-scaled grids — Platinum is largest, then Gold, Silver, Bronze.
-   Doubled platinum (240→480), 1.5x gold (180→270) per Erik feedback. */
-.tiger-sponsors-grid.platinum {
+/* Tier-scaled grids — Champion is largest, then Gold, Silver, Varsity.
+   Doubled champion (240→480), 1.5x gold (180→270) per Erik feedback. */
+.tiger-sponsors-grid.champion {
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 24px;
 }
@@ -1836,16 +1850,16 @@
 .tiger-sponsors-grid.silver {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
-.tiger-sponsors-grid.bronze {
+.tiger-sponsors-grid.varsity {
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
 /* Tier-specific tile + logo sizing */
-.tiger-sponsors-tier.platinum-tier .tiger-sponsor-tile {
+.tiger-sponsors-tier.champion-tier .tiger-sponsor-tile {
   min-height: 200px;
   padding: 28px;
 }
-.tiger-sponsors-tier.platinum-tier .tiger-sponsor-tile img {
+.tiger-sponsors-tier.champion-tier .tiger-sponsor-tile img {
   max-height: 144px;
 }
 .tiger-sponsors-tier.gold-tier .tiger-sponsor-tile {
@@ -1904,18 +1918,18 @@
      vertical scroll. Larger tiers (platinum/gold) stay larger via
      min-height; bronze/silver shrink further. */
   .tiger-sponsors-grid,
-  .tiger-sponsors-grid.platinum,
+  .tiger-sponsors-grid.champion,
   .tiger-sponsors-grid.gold,
   .tiger-sponsors-grid.silver,
-  .tiger-sponsors-grid.bronze {
+  .tiger-sponsors-grid.varsity {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-  .tiger-sponsors-tier.platinum-tier .tiger-sponsor-tile {
+  .tiger-sponsors-tier.champion-tier .tiger-sponsor-tile {
     min-height: 130px;
     padding: 14px;
   }
-  .tiger-sponsors-tier.platinum-tier .tiger-sponsor-tile img {
+  .tiger-sponsors-tier.champion-tier .tiger-sponsor-tile img {
     max-height: 80px;
   }
   .tiger-sponsors-tier.gold-tier .tiger-sponsor-tile {

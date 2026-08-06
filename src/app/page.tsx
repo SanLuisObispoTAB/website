@@ -4,6 +4,7 @@ import ClassicHero from "./components/tiger/ClassicHero";
 import PlatinumCarousel from "./components/PlatinumCarousel";
 import TeamsCarousel from "./components/tiger/TeamsCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
+import { isDonateDriveActive } from "./data/campaign";
 import { ALL_EVENTS } from "./data/events";
 
 const STATS = [
@@ -13,23 +14,17 @@ const STATS = [
   { num: "501(c)(3)", label: "Non-profit · EIN 45-4897120" },
 ];
 
-const THREE_WAYS = [
+const WAYS_TO_SUPPORT = [
   {
     num: "01",
-    title: "Donate to SLOTAB",
-    body: "75% of every gift goes directly to the team you designate. 25% goes to the general fund that benefits every Tigers team — Hudl, senior banners, T-shirts.",
-    cta: "Make a Donation →",
-    href: "/donate",
+    title: "Become a Member",
+    body: "Membership is the foundation of SLOTAB. It funds uniforms, equipment, travel, and the broader needs of every Tigers team. Join at any level — from Tiger Friend to Champion Sponsor.",
+    cta: "See Membership Levels →",
+    href: "/membership",
+    primary: true,
   },
   {
     num: "02",
-    title: "Sponsor a Team",
-    body: "Local businesses sponsor SLOTAB at Platinum, Gold, Silver, or Bronze tiers — or sponsor a specific team directly.",
-    cta: "Business Sponsorship →",
-    href: "/membership",
-  },
-  {
-    num: "03",
     title: "Volunteer",
     body: "Concession stand, apparel booth, gate, or Booster Bash. Every hour goes straight to the athletes.",
     cta: "Volunteer Opportunities →",
@@ -105,9 +100,14 @@ const HOF_PREVIEW = [
 ];
 
 export default function ClassicHomePage() {
+  // Seasonal Donate drive: feature the prominent Donate CTA only while a
+  // drive is running (board direction, 2026-08). Resolved at build time
+  // here and passed to client components so hydration stays consistent.
+  const donateActive = isDonateDriveActive();
+
   return (
     <>
-      <ClassicHero />
+      <ClassicHero donateActive={donateActive} />
 
       {/* Stats bar */}
       <section className="tiger-stats">
@@ -123,20 +123,25 @@ export default function ClassicHomePage() {
         </div>
       </section>
 
-      {/* Three Ways */}
+      {/* Ways to support */}
       <section className="tiger-section tiger-three-ways">
         <div className="tiger-container">
           <div className="tiger-section-head">
             <span className="tiger-eyebrow">How You Can Help</span>
-            <h2>Three ways to support Tiger athletics.</h2>
+            <h2>Two ways to support Tiger athletics.</h2>
             <p>
-              Memberships, sponsorships, and volunteer hours fund equipment,
-              travel, facilities, and the small things that make a season.
+              Memberships and volunteer hours fund equipment, travel,
+              facilities, and the small things that make a season.
             </p>
           </div>
-          <div className="tiger-three-grid">
-            {THREE_WAYS.map((c) => (
-              <div key={c.num} className="tiger-three-card tiger-card-lift">
+          <div className="tiger-three-grid tiger-two-grid">
+            {WAYS_TO_SUPPORT.map((c) => (
+              <div
+                key={c.num}
+                className={`tiger-three-card tiger-card-lift${
+                  c.primary ? " tiger-three-card-primary" : ""
+                }`}
+              >
                 <div className="tiger-three-num">{c.num} —</div>
                 <h3 className="tiger-three-title">{c.title}</h3>
                 <p className="tiger-three-body">{c.body}</p>
@@ -146,6 +151,13 @@ export default function ClassicHomePage() {
               </div>
             ))}
           </div>
+          <p className="tiger-two-note">
+            Want to back a specific sport? You can{" "}
+            <Link href="/donate" className="tiger-ulink">
+              donate directly to any team
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
@@ -419,19 +431,35 @@ export default function ClassicHomePage() {
             One school. <em>One pride.</em>
           </h2>
           <p className="tiger-cta-sub">
-            Memberships start at $25. Recurring gifts start at $10/mo. 100% of
-            every dollar goes to SLOHS student-athletes.
+            Memberships from $50/yr ($5/mo). 100% of every dollar goes to
+            SLOHS student-athletes.
           </p>
           <div className="tiger-cta-row">
-            <Link
-              href="/donate"
-              className="tiger-btn tiger-btn-dark tiger-btn-arrow"
-            >
-              Donate Now
-            </Link>
-            <Link href="/membership" className="tiger-btn tiger-btn-ghost">
-              Become a Member
-            </Link>
+            {donateActive ? (
+              <>
+                <Link
+                  href="/donate"
+                  className="tiger-btn tiger-btn-dark tiger-btn-arrow"
+                >
+                  Donate Now
+                </Link>
+                <Link href="/membership" className="tiger-btn tiger-btn-ghost">
+                  Become a Member
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/membership"
+                  className="tiger-btn tiger-btn-dark tiger-btn-arrow"
+                >
+                  Become a Member
+                </Link>
+                <Link href="/donate" className="tiger-btn tiger-btn-ghost">
+                  Donate
+                </Link>
+              </>
+            )}
             <Link href="/contact" className="tiger-btn tiger-btn-ghost">
               Contact the Board
             </Link>

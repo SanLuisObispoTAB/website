@@ -8,8 +8,11 @@ export type Sponsor = {
   website?: string;
 };
 
+// Tier names follow the 2026-27 sponsorship offering. The wall is
+// re-tiered fresh each season; these labels replaced the prior
+// Platinum/Gold/Silver/Bronze ladder (Platinum→Champion, Bronze→Varsity).
 export type SponsorTier = {
-  tier: "Platinum" | "Gold" | "Silver" | "Bronze";
+  tier: "Champion" | "Gold" | "Silver" | "Varsity";
   sponsors: Sponsor[];
 };
 

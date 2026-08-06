@@ -48,7 +48,7 @@ collections:
       - name: sponsors
         label: "Sponsor Wall"
         file: "src/app/data/sponsors.json"
-        description: "Platinum/Gold/Silver/Bronze business sponsors shown on the Membership page."
+        description: "Champion/Gold/Silver/Varsity business sponsors shown on the Membership page. Cleared and re-tiered fresh each season."
         fields:
           - { name: season, label: "Season", widget: string }
           - name: tiers
@@ -58,7 +58,7 @@ collections:
               - name: tier
                 label: "Tier"
                 widget: select
-                options: ["Platinum", "Gold", "Silver", "Bronze"]
+                options: ["Champion", "Gold", "Silver", "Varsity"]
               - name: sponsors
                 label: "Sponsors in this tier"
                 widget: list
@@ -82,6 +82,46 @@ collections:
                         ],
                       hint: "Full URL including https://. When set, the sponsor's logo on the wall and home page becomes a clickable link to this URL.",
                     }
+
+  # ---------------------------------------------------------------
+  # Seasonal Donate drive (controls the prominent Donate CTA)
+  # ---------------------------------------------------------------
+  - name: campaign
+    label: "Donate Drive"
+    files:
+      - name: donate_drive
+        label: "Seasonal Donate Drive"
+        file: "src/app/data/campaign.json"
+        description: "Controls whether the prominent 'Donate Now' button is featured. Outside a drive, Membership is the primary call-to-action."
+        fields:
+          - name: donateDrive
+            label: "Donate Drive"
+            widget: object
+            fields:
+              - name: mode
+                label: "Mode"
+                widget: select
+                options: ["off", "on", "auto"]
+                hint: "off = Donate demoted (Membership leads). on = feature Donate now. auto = feature Donate only between the dates below."
+                default: "off"
+              - {
+                  name: startsOn,
+                  label: "Drive starts (auto mode)",
+                  widget: date,
+                  format: "YYYY-MM-DD",
+                }
+              - {
+                  name: endsOn,
+                  label: "Drive ends (auto mode)",
+                  widget: date,
+                  format: "YYYY-MM-DD",
+                }
+              - {
+                  name: label,
+                  label: "Drive name",
+                  widget: string,
+                  hint: "e.g. Fall Donation Drive (for your reference).",
+                }
 
   # ---------------------------------------------------------------
   # Board roster (shown on the Contact page)

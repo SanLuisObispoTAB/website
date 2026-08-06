@@ -775,7 +775,7 @@
   justify-items: center;
   align-items: center;
 }
-.slotab-sponsor-tier.platinum .slotab-sponsor-grid {
+.slotab-sponsor-tier.champion .slotab-sponsor-grid {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 .slotab-sponsor-tier.gold .slotab-sponsor-grid {
@@ -784,7 +784,7 @@
 .slotab-sponsor-tier.silver .slotab-sponsor-grid {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
-.slotab-sponsor-tier.bronze .slotab-sponsor-grid {
+.slotab-sponsor-tier.varsity .slotab-sponsor-grid {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 .slotab-sponsor-logo {
@@ -802,10 +802,10 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   border-color: var(--slotab-gold);
 }
-.slotab-sponsor-tier.platinum .slotab-sponsor-logo { min-height: 200px; padding: 1.25rem; }
+.slotab-sponsor-tier.champion .slotab-sponsor-logo { min-height: 200px; padding: 1.25rem; }
 .slotab-sponsor-tier.gold .slotab-sponsor-logo { min-height: 150px; }
 .slotab-sponsor-tier.silver .slotab-sponsor-logo { min-height: 120px; }
-.slotab-sponsor-tier.bronze .slotab-sponsor-logo { min-height: 95px; padding: 0.75rem; }
+.slotab-sponsor-tier.varsity .slotab-sponsor-logo { min-height: 95px; padding: 0.75rem; }
 
 /* Sport merch grid */
 .slotab-merch-grid {
@@ -1372,10 +1372,10 @@
   text-transform: uppercase;
   border-radius: 2px;
 }
-.slotab-portal-chip.tier-platinum { background: #e5e4e2; color: #111; }
+.slotab-portal-chip.tier-champion { background: #e5e4e2; color: #111; }
 .slotab-portal-chip.tier-gold { background: var(--slotab-gold); color: var(--slotab-black); }
 .slotab-portal-chip.tier-silver { background: #c0c0c0; color: #111; }
-.slotab-portal-chip.tier-bronze { background: #cd7f32; color: #fff; }
+.slotab-portal-chip.tier-varsity { background: #cd7f32; color: #fff; }
 .slotab-portal-status {
   display: inline-block;
   padding: 0.15rem 0.55rem;

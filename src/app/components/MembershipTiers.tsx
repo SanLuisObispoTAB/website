@@ -104,11 +104,7 @@ const GENERAL_MEMBERSHIPS: Tier[] = [
   {
     name: "Tiger Friend",
     anyAmount: true,
-    perks: [
-      "Any gift, any amount — you're a member",
-      "Tiger news & event updates",
-      "Supports all sports",
-    ],
+    perks: ["Tiger news & event updates", "Supports all sports"],
   },
 ];
 

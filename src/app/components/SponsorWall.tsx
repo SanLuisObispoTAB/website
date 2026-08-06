@@ -2,10 +2,10 @@ import Image from "next/image";
 import { SPONSOR_TIERS, type Sponsor } from "../data/sponsors";
 
 const TIER_SIZES = {
-  Platinum: { w: 360, h: 200, className: "platinum" },
+  Champion: { w: 360, h: 200, className: "champion" },
   Gold: { w: 260, h: 150, className: "gold" },
   Silver: { w: 200, h: 120, className: "silver" },
-  Bronze: { w: 160, h: 90, className: "bronze" },
+  Varsity: { w: 160, h: 90, className: "varsity" },
 } as const;
 
 function LogoTile({

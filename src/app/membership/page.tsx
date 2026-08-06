@@ -67,11 +67,13 @@ export default function MembershipPage() {
       <section className="slotab-section alt">
         <div className="slotab-container">
           <div className="slotab-section-title">
-            <span className="slotab-kicker">2026–2027</span>
+            <span className="slotab-kicker">2025–2026</span>
             <h2>Business Sponsors</h2>
             <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
               Thank you to all of our generous business sponsors. Your
               continued support of our Tiger athletes is greatly appreciated.
+              The wall below recognizes our 2025–26 sponsors and refreshes
+              for 2026–27 as businesses renew.
             </p>
           </div>
           <SponsorWall />

@@ -71,7 +71,12 @@ const SLIDES: Slide[] = [
 
 const ROTATE_MS = 9500;
 
-export default function ClassicHero() {
+type Props = {
+  /** Whether the seasonal Donate drive is running (resolved server-side). */
+  donateActive?: boolean;
+};
+
+export default function ClassicHero({ donateActive = false }: Props) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -119,14 +124,21 @@ export default function ClassicHero() {
             School.
           </p>
           <div className="tiger-hero-cta-row">
+            {donateActive && (
+              <Link
+                href="/donate"
+                className="tiger-btn tiger-btn-primary tiger-btn-arrow"
+              >
+                Donate Now
+              </Link>
+            )}
             <Link
-              href="/donate"
-              className="tiger-btn tiger-btn-primary tiger-btn-arrow"
+              href="/membership"
+              className={`tiger-btn tiger-btn-arrow ${
+                donateActive ? "tiger-btn-ghost" : "tiger-btn-primary"
+              }`}
             >
-              Donate Now
-            </Link>
-            <Link href="/membership" className="tiger-btn tiger-btn-ghost">
-              Become a Sponsor
+              Become a Member
             </Link>
             <Link href="/volunteer" className="tiger-btn tiger-btn-ghost">
               Volunteer
