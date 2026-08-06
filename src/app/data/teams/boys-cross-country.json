@@ -8,6 +8,10 @@
   "heroPhoto": "/photos/bXC-team-2025.jpg",
   "heroPhotoPosition": "center 25%",
   "teamPhoto": "/photos/bXC-team-2025.jpg",
+  "headCoach": {
+    "name": "Nancy Steinmaus",
+    "email": "nsteinmaus@hotmail.com"
+  },
   "liaisons": [
     {
       "name": "Liaison TBD",

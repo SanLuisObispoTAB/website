@@ -8,6 +8,10 @@
   "heroPhoto": "/photos/gXC-team-2025.jpg",
   "heroPhotoPosition": "center 25%",
   "teamPhoto": "/photos/gXC-team-2025.jpg",
+  "headCoach": {
+    "name": "Dan Berkeland",
+    "email": "danberkeland@gmail.com"
+  },
   "liaisons": [
     {
       "name": "Liaison TBD",

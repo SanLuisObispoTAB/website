@@ -8,6 +8,10 @@
   "heroPhoto": "/photos/gfball-saff7-1200x900.jpg",
   "heroPhotoPosition": "center 30%",
   "teamPhoto": "/photos/gflag-team-2025.jpg",
+  "headCoach": {
+    "name": "Dan Monroe",
+    "email": "dmonroe@slcusd.org"
+  },
   "liaisons": [
     { "name": "Liaison TBD", "email": "ff-liaison@slotab.org" }
   ]

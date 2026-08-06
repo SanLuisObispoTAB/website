@@ -11,6 +11,10 @@
     "/photos/bwpolo-2.jpg",
     "/photos/bwpolo-teitge-2022.jpg"
   ],
+  "headCoach": {
+    "name": "Bryan Traverso",
+    "email": "bryantraverso@hotmail.com"
+  },
   "liaisons": [
     {
       "name": "Liaison TBD",

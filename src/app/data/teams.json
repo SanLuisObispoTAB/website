@@ -27,7 +27,6 @@
     { "slug": "girls-wrestling", "name": "Wrestling", "gender": "Girls", "season": "Winter", "hasPage": true, "operationalSetup": "none" },
     { "slug": "flag-football", "name": "Flag Football", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
     { "slug": "stunt", "name": "STUNT", "gender": "Girls", "season": "Spring", "hasPage": true, "operationalSetup": "none" },
-    { "slug": "dance", "name": "Dance", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
-    { "slug": "competitive-cheer", "name": "Competitive Cheer", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" }
+    { "slug": "dance", "name": "Cheer", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" }
   ]
 }

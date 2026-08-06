@@ -1,19 +1,23 @@
 {
   "slug": "dance",
-  "name": "Dance",
-  "sport": "Dance",
+  "name": "Cheer",
+  "sport": "Cheer",
   "gender": "Girls",
   "season": "Fall",
-  "tagline": "Tiger spirit and dance on every sideline.",
+  "tagline": "Tiger spirit and cheer on every sideline.",
   "heroPhoto": "/photos/ccheering-taryn.jpg",
   "teamPhoto": "/photos/gdance-team-2025.jpg",
   "gallery": [
     "/photos/ccheering-sideline-2025.jpg"
   ],
+  "headCoach": {
+    "name": "Lisa McDonald",
+    "email": "lmcdonald@slcusd.org"
+  },
   "liaisons": [
     {
       "name": "Liaison TBD",
-      "email": "dance-liaison@slotab.org"
+      "email": "cheer-liaison@slotab.org"
     }
   ]
 }

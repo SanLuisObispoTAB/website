@@ -2,9 +2,9 @@ import TeamPage, { type Team } from "../../components/TeamPage";
 import teamData from "../../data/teams/dance.json";
 
 export const metadata = {
-  title: "Dance — SLOTAB",
+  title: "Cheer — SLOTAB",
 };
 
-export default function DanceTeamPage() {
+export default function CheerTeamPage() {
   return <TeamPage team={teamData as Team} />;
 }

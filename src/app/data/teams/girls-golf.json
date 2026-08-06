@@ -7,6 +7,10 @@
   "tagline": "Steady hands and Tiger focus on the fairway.",
   "heroPhoto": "/photos/ggolf-5-1200x896.jpg",
   "teamPhoto": "/photos/ggolf-team-2025.jpg",
+  "headCoach": {
+    "name": "Josh Heptig",
+    "email": "jheptig@co.slo.ca.us"
+  },
   "liaisons": [
     {
       "name": "Liaison TBD",

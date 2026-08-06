@@ -12,6 +12,10 @@
     "/photos/gwpolo-coach-huddle.jpg",
     "/photos/gwpolo-2022.jpg"
   ],
+  "headCoach": {
+    "name": "Trent Rubio",
+    "email": "trubio@slcusd.org"
+  },
   "liaisons": [
     {
       "name": "Liaison TBD",
