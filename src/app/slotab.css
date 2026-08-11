@@ -2793,3 +2793,10 @@ a.slotab-platinum-slide:hover {
 @media (max-width: 600px) {
   .slotab-camera-upgrade { padding: 1.5rem 1.25rem; }
 }
+
+/* Board meetings already held — kept in the list (it doubles as the year's
+   schedule) but dimmed so the next one reads as the next one. */
+.slotab-meeting-past {
+  color: var(--slotab-muted);
+  opacity: 0.75;
+}

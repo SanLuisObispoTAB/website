@@ -178,10 +178,9 @@ Still needed:
   (Sep 14, Oct 5, Nov 2, Dec 7, Jan 4, Feb 1, Mar 1, Apr 5, May 3). They
   show on the Upcoming page, the home calendar, the banner at the top of the
   site, and the Volunteer page — all from one entry each.
-  - Two things to confirm: the venue (Cannon, 1050 Southwood Drive, Zoom
-    available) was carried over from last year, and **was there an August
-    meeting?** August's first Monday was the 3rd, already past, so it was
-    left off.
+  - August's meeting moved to Monday the 10th and has been held — it's on
+    the list, dimmed, so the next meeting reads as the next one. Venue
+    confirmed unchanged (Cannon, 1050 Southwood Drive, Zoom available).
 - [ ] **Still needed: the rest of the 2026-27 SLOTAB events** — fall parent
   meeting, physicals night, spring fundraiser. This is a bigger lever than it looks: these entries
   now feed the Upcoming page, the home-page calendar, the scrolling banner at

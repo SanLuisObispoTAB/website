@@ -42,6 +42,11 @@ const HOME_GAMES = FOOTBALL_VOLUNTEER_DATES.map((d) =>
   GAME_FMT.format(new Date(`${d}T00:00:00Z`)),
 );
 
+// Meetings already held are dimmed rather than dropped — the list doubles as
+// the year's schedule, so a parent should still see the full cadence.
+const TODAY_MIDNIGHT = new Date();
+TODAY_MIDNIGHT.setHours(0, 0, 0, 0);
+
 const MEETINGS = (slotabEvents.events as RawEvent[])
   .filter((e) => /meeting/i.test(e.categoryLabel))
   .sort((a, b) => a.date.localeCompare(b.date))
@@ -50,7 +55,10 @@ const MEETINGS = (slotabEvents.events as RawEvent[])
     const base = /monthly slotab meeting/i.test(e.title)
       ? label
       : `${label} — ${e.title}`;
-    return e.note ? `${base} — ${e.note}` : base;
+    return {
+      text: e.note ? `${base} — ${e.note}` : base,
+      past: new Date(e.date) < TODAY_MIDNIGHT,
+    };
   });
 
 export default function VolunteerPage() {
@@ -75,7 +83,9 @@ export default function VolunteerPage() {
           {MEETINGS.length > 0 ? (
             <ul>
               {MEETINGS.map((m) => (
-                <li key={m}>{m}</li>
+                <li key={m.text} className={m.past ? "slotab-meeting-past" : undefined}>
+                  {m.text}
+                </li>
               ))}
             </ul>
           ) : (

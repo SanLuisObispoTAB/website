@@ -1,6 +1,14 @@
 {
-  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin -> 'SLOTAB Events'. Board meetings are the first Monday of the month at 6:00 PM; September moves a week because the first Monday is Labor Day. August 2026's first Monday (Aug 3) had already passed when these were entered, so the list starts in September. Entries with an `href` link through to a dedicated event page (see featured-events.json) - keep the two dates in sync. Still needed: the fall parent meeting, physicals night, and the spring fundraiser.",
+  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin -> 'SLOTAB Events'. Board meetings are the first Monday of the month at 6:00 PM; September moves a week because the first Monday is Labor Day. August 2026's meeting was pushed to Mon Aug 10 and has been held. Venue confirmed unchanged for 2026-27. Entries with an `href` link through to a dedicated event page (see featured-events.json) - keep the two dates in sync. Still needed: the fall parent meeting, physicals night, and the spring fundraiser.",
   "events": [
+    {
+      "id": "ns-mtg-2026-08-10",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2026-08-10T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)",
+      "note": "first meeting of the year — held"
+    },
     {
       "id": "ns-back-to-school-2026",
       "title": "Back to School Day",
