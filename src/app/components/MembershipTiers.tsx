@@ -35,7 +35,7 @@ const AD_PERK_TIERS: Tier[] = [
       "Featured game sponsor (sport of your choice) — designated seating + 6 tickets",
       "Banners at THREE sporting locations of your choice for TWO years",
       "Recognition on SLOTAB website and Tiger Teams App",
-      "Six SLOHS All-Sport Annual Passes",
+      "Ten SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -47,7 +47,7 @@ const AD_PERK_TIERS: Tier[] = [
       "Digital ads on gym scoreboard: basketball, stunt & volleyball",
       "Banner at sporting location of your choice for TWO years",
       "Recognition on SLOTAB website",
-      "Four SLOHS All-Sport Annual Passes",
+      "Eight SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -57,12 +57,17 @@ const AD_PERK_TIERS: Tier[] = [
     perks: [
       "Banner at sporting location of your choice for one year",
       "Recognition on SLOTAB website",
-      "Two SLOHS All-Sport Annual Passes",
+      "Six SLOHS All-Sport Annual Passes",
     ],
   },
 ];
 
 // Tiger Pride + Varsity share a centered second row below the ad-perk tiers.
+//
+// All-Sport Annual Pass counts scale with the sponsorship level, confirmed by
+// the board 2026-08-11: $500 -> 2 · $1,000 -> 4 · $2,500 -> 6 · $5,000 -> 8 ·
+// $10,000 -> 10. These supersede the counts transcribed from the printed
+// sheet in #88, which read 2/2/2/4/6 up the ladder.
 const SPONSOR_TIERS: Tier[] = [
   {
     name: "Tiger Pride",
@@ -70,7 +75,7 @@ const SPONSOR_TIERS: Tier[] = [
     monthly: 95,
     perks: [
       "Recognition on SLOTAB website",
-      "Two SLOHS All-Sport Annual Passes",
+      "Four SLOHS All-Sport Annual Passes",
     ],
   },
   {

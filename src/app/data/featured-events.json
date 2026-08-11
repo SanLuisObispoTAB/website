@@ -1,0 +1,59 @@
+{
+  "_note": "Stub pages for upcoming SLOTAB events, editable at /admin → 'Featured Event Pages'. Every field except title/kicker/slug is optional and the page hides whatever is empty — so an event can go live with just a date and fill in as the photo, copy, and signup links arrive. Keep `date` in sync with the matching entry in slotab-events.json; that file is what feeds the calendar, the ticker, and /upcoming.",
+  "events": [
+    {
+      "slug": "back-to-school",
+      "kicker": "Start of the Year",
+      "title": "Back to School Day",
+      "dateLabel": "Thursday, August 13",
+      "timeLabel": "8:00 AM – 3:00 PM",
+      "date": "2026-08-13T08:00:00",
+      "venueName": "The Big Gym, SLOHS",
+      "venueDetail": "Schedules, picture day, school ID cards, ASB stickers, and merch — with SLOTAB staffing a table all day.",
+      "photo": "/photos/tigers-helmet-tunnel.jpg",
+      "photoAlt": "The SLO Tigers inflatable helmet tunnel set up on the track at Holt Field",
+      "body": [
+        "SLOTAB runs the merch table at Back to School Day — come say hello, sign up for a membership, and grab Tiger gear before the season starts.",
+        "We need volunteers to staff the table. Grab a shift below — it's the easiest hour you'll give the Tigers all year.",
+        "The school runs staggered arrival times by grade level; check the SLOHS site for the times that apply to your student."
+      ],
+      "ctaLabel": "Sign Up to Volunteer",
+      "ctaUrl": "https://www.signupgenius.com/go/20F0C44A8AB2AA3F49-64999294-welcome#/",
+      "links": [
+        {
+          "label": "SLOHS Welcome Day details & grade-level times",
+          "url": "https://slohs.slcusd.org/"
+        }
+      ],
+      "photoWidth": 1200,
+      "photoHeight": 900
+    },
+    {
+      "slug": "booster-bash",
+      "kicker": "Our Biggest Night of the Year",
+      "title": "Booster Bash",
+      "dateLabel": "Saturday, October 10, 2026",
+      "timeLabel": "5:00 – 10:00 PM · doors at 5:00",
+      "date": "2026-10-10T17:00:00",
+      "venueName": "The Octagon Barn",
+      "venueDetail": "This year's theme: The Tiger's Den. Wear your Tiger gear or black and gold.",
+      "photo": "",
+      "photoAlt": "",
+      "body": [
+        "The Booster Bash is SLOTAB's largest fundraiser of the year — an evening of food, drinks, and both silent and live auctions — and it's the night the SLOHS Athletics Hall of Fame inducts its newest class.",
+        "Individual tickets are $100 and include admission, dinner, a no-host bar, the silent and live auctions, and drawings. Reserved tables seat 6 ($600) or 8 ($800), with reserved seating and complimentary wine. There's a cornhole tournament too — $100 per two-person team."
+      ],
+      "ctaLabel": "Buy Booster Bash Tickets",
+      "ctaUrl": "https://auctria.events/SLOHSathleticsboosterbash",
+      "links": [
+        {
+          "label": "Meet the Hall of Fame class",
+          "url": "/hall-of-fame"
+        }
+      ],
+      "contactEmail": "slotabboosterbash@gmail.com",
+      "qrImage": "/booster-bash/tag-qr.png",
+      "qrCaption": "Scan to buy Booster Bash tickets"
+    }
+  ]
+}

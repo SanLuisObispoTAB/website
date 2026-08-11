@@ -13,5 +13,11 @@
   "headCoach": {
     "name": "Lisa McDonald",
     "email": "lmcdonald@slcusd.org"
-  }
+  },
+  "liaisons": [
+    {
+      "name": "Felisha Connoly",
+      "email": "felishae@gmail.com"
+    }
+  ]
 }

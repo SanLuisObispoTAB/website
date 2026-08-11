@@ -10,5 +10,9 @@
   "gallery": [
     "/photos/gsoccer-huddle.jpg",
     "/photos/gsoccer-keeper-save.jpg"
-  ]
+  ],
+  "headCoach": {
+    "name": "Tyler Warmerdam",
+    "email": "twarmerdam@slcusd.org"
+  }
 }

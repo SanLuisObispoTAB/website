@@ -17,6 +17,28 @@ const MEETING_FMT = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
   year: "numeric",
 });
+// Home football game dates needing volunteers, from the board 2026-08-11.
+// Kept here rather than in slotab-events.json on purpose: the games themselves
+// arrive on the calendar from the SLOHS weekly sheet, and adding them again
+// would double-list every Friday night.
+const FOOTBALL_VOLUNTEER_DATES = [
+  "2026-08-21",
+  "2026-08-28",
+  "2026-09-11",
+  "2026-10-02",
+  "2026-10-09",
+  "2026-10-30",
+];
+const GAME_FMT = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+const HOME_GAMES = FOOTBALL_VOLUNTEER_DATES.map((d) =>
+  GAME_FMT.format(new Date(`${d}T00:00:00Z`)),
+);
+
 const MEETINGS = (slotabEvents.events as RawEvent[])
   .filter((e) => /meeting/i.test(e.categoryLabel))
   .sort((a, b) => a.date.localeCompare(b.date))
@@ -63,13 +85,24 @@ export default function VolunteerPage() {
           <h2>Volunteer Opportunities</h2>
           <ul>
             <li>
-              <strong>Welcome Back Day:</strong> SLOTAB staffs a table at the
-              start of the school year — volunteers needed for the day.
+              <strong>Back to School Day — Thursday, August 13:</strong> SLOTAB
+              staffs the merch table all day.{" "}
+              <Link href="/back-to-school">Grab a shift →</Link>
             </li>
             <li>
-              <strong>Booster Bash:</strong> Our largest fundraiser of the
-              year. Volunteers welcome, silent/live auction items welcome, and
-              setup/cleanup help is always needed.
+              <strong>Home football games:</strong> we need volunteers at every
+              home game this fall — concessions, gate, and the apparel booth.
+              <ul>
+                {HOME_GAMES.map((g) => (
+                  <li key={g}>{g}</li>
+                ))}
+              </ul>
+            </li>
+            <li>
+              <strong>Booster Bash — Saturday, October 10:</strong> Our largest
+              fundraiser of the year, at the Octagon Barn. Volunteers welcome,
+              silent/live auction items welcome, and setup/cleanup help is
+              always needed. <Link href="/booster-bash">Event details →</Link>
             </li>
             <li>
               <strong>Ongoing:</strong> We are in continued need of volunteers

@@ -15,5 +15,11 @@
   "headCoach": {
     "name": "Trent Rubio",
     "email": "trubio@slcusd.org"
-  }
+  },
+  "liaisons": [
+    {
+      "name": "Tanya Flushman",
+      "email": "tflushman@gmail.com"
+    }
+  ]
 }

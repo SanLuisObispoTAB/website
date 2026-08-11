@@ -308,6 +308,106 @@ collections:
                 }
 
   # ---------------------------------------------------------------
+  # Featured event pages — the standalone page for a single event
+  # (Back to School Day, Booster Bash). Every field below except
+  # slug/kicker/title is optional; the page hides whatever is blank,
+  # so an event can go live with a date and fill in as artwork and
+  # copy arrive.
+  # ---------------------------------------------------------------
+  - name: featured_events
+    label: "Featured Event Pages"
+    files:
+      - name: featured_events
+        label: "Event Pages"
+        file: "src/app/data/featured-events.json"
+        description: "Standalone pages for individual SLOTAB events. Each entry's `slug` must match an existing route (currently back-to-school and booster-bash) — adding a new slug here does NOT create a page on its own, ask the site maintainer. Keep the date in sync with the matching row in SLOTAB Events, which is what drives the calendar."
+        fields:
+          - name: events
+            label: "Event pages"
+            widget: list
+            fields:
+              - {
+                  name: slug,
+                  label: "Slug (must match the route)",
+                  widget: string,
+                  hint: "back-to-school or booster-bash",
+                }
+              - { name: kicker, label: "Kicker (small text above the title)", widget: string }
+              - { name: title, label: "Title", widget: string }
+              - {
+                  name: dateLabel,
+                  label: "Date (as displayed)",
+                  widget: string,
+                  required: false,
+                  hint: "e.g. Saturday, October 10, 2026",
+                }
+              - {
+                  name: timeLabel,
+                  label: "Time (as displayed)",
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: date,
+                  label: "Date & time (machine-readable)",
+                  widget: datetime,
+                  required: false,
+                  hint: "Keep this matching the SLOTAB Events entry for the same event.",
+                }
+              - { name: venueName, label: "Venue name", widget: string, required: false }
+              - { name: venueDetail, label: "Venue detail / one-line blurb", widget: text, required: false }
+              - {
+                  name: photo,
+                  label: "Flyer or hero image",
+                  widget: image,
+                  required: false,
+                  hint: "Leave empty until the real artwork exists — the frame is skipped rather than showing a broken image.",
+                }
+              - { name: photoAlt, label: "Image alt text", widget: string, required: false }
+              - {
+                  name: body,
+                  label: "Body paragraphs",
+                  widget: list,
+                  required: false,
+                  field: { name: paragraph, label: "Paragraph", widget: text },
+                }
+              - {
+                  name: contactEmail,
+                  label: "Event contact email",
+                  widget: string,
+                  required: false,
+                  hint: "Shown at the end of the copy. Leave empty to point people at the general contact page instead.",
+                }
+              - { name: ctaLabel, label: "Main button label", widget: string, required: false }
+              - {
+                  name: ctaUrl,
+                  label: "Main button URL",
+                  widget: string,
+                  required: false,
+                  hint: "Ticketing or signup link. Leave empty and the button is hidden — never ship a button that goes nowhere.",
+                }
+              - {
+                  name: qrImage,
+                  label: "Scannable QR tag",
+                  widget: image,
+                  required: false,
+                  hint: "Only shown when the main button has a URL. Should point at the same place as that button.",
+                }
+              - { name: qrCaption, label: "QR caption", widget: string, required: false }
+              - name: links
+                label: "Secondary links"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Label", widget: string }
+                  - {
+                      name: url,
+                      label: "URL",
+                      widget: string,
+                      hint: "Full https:// URL for outside links, or a path like /hall-of-fame for pages on this site.",
+                    }
+
+  # ---------------------------------------------------------------
   # Hall of Fame — induction ceremony, committee, mission, etc.
   # ---------------------------------------------------------------
   - name: hall_of_fame
@@ -449,6 +549,13 @@ collections:
                   label: "Category label",
                   widget: select,
                   options: ["SLOTAB Event", "SLOTAB Meeting", "Fundraiser"],
+                }
+              - {
+                  name: href,
+                  label: "Event page link",
+                  widget: string,
+                  required: false,
+                  hint: "Optional. If this event has its own page (e.g. /booster-bash), put the path here and the calendar rows link to it. Leave empty otherwise.",
                 }
               - {
                   name: detail,

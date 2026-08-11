@@ -11,5 +11,11 @@
   "headCoach": {
     "name": "Dan Berkeland",
     "email": "danberkeland@gmail.com"
-  }
+  },
+  "liaisons": [
+    {
+      "name": "Derek Folden",
+      "email": "polyreel@gmail.com"
+    }
+  ]
 }

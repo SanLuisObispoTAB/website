@@ -14,5 +14,9 @@
     "/photos/bbball-huddle.jpg",
     "/photos/bbball-huddle-bw.jpg",
     "/photos/bbball-drive-portrait.jpg"
-  ]
+  ],
+  "headCoach": {
+    "name": "David Gomes",
+    "email": "dgomes@slcusd.org"
+  }
 }

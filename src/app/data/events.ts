@@ -26,6 +26,9 @@ export type SlotabEvent = {
   isHome?: boolean;
   opponent?: string;
   location?: string;
+  /** Internal link to a dedicated event page, when one exists (see
+   *  featured-events.json). Surfaces on the home calendar and /upcoming. */
+  href?: string;
 };
 
 // ---- MaxPreps-sourced varsity sport events ----
@@ -106,6 +109,7 @@ type RawSlotabEvent = {
   date: string;
   categoryLabel: string;
   detail?: string;
+  href?: string;
 };
 const nonSportEvents: SlotabEvent[] = (
   (slotabEventsJson as { events: RawSlotabEvent[] }).events ?? []
@@ -117,6 +121,7 @@ const nonSportEvents: SlotabEvent[] = (
   date: e.date,
   title: e.title,
   detail: e.detail,
+  href: e.href,
 }));
 
 // Current-month filter: show events from the first of the current month onward

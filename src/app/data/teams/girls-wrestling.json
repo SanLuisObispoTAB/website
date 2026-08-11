@@ -7,5 +7,9 @@
   "tagline": "Trailblazing Lady Tigers on the mat.",
   "heroPhoto": "/photos/gwrestling-team-2026.jpg",
   "heroPhotoPosition": "center 25%",
-  "teamPhoto": "/photos/gwrestling-team-2026.jpg"
+  "teamPhoto": "/photos/gwrestling-team-2026.jpg",
+  "headCoach": {
+    "name": "Jason Wheeler",
+    "email": "jasonwheelermusic@gmail.com"
+  }
 }

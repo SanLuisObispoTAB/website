@@ -6,5 +6,9 @@
   "season": "Winter",
   "tagline": "Mat strength and Tiger toughness.",
   "heroPhoto": "/photos/bwrestling-action.jpg",
-  "teamPhoto": "/photos/bwrestling-team-2026.jpg"
+  "teamPhoto": "/photos/bwrestling-team-2026.jpg",
+  "headCoach": {
+    "name": "Brandon Drucker",
+    "email": "bdrucker8767@gmail.com"
+  }
 }

@@ -1,59 +1,90 @@
 {
-  "year": "2025-26",
+  "_note": "2026-27 roster, from the board's '2026-27 Board & Liaisons Coaches' sheet (2026-08-11). Convention: publish name + role, and an email ONLY where the role has a SLOTAB-owned address (slotab*@gmail.com) or a school district address (@slcusd.org). Members' personal addresses and every phone number are deliberately left out — this file renders on the public /contact page and lives in a public repo.",
+  "year": "2026-27",
   "members": [
     {
       "role": "President",
-      "name": "Liz Moody",
+      "name": "Andria McGhee",
       "email": "slotabpres@gmail.com"
     },
     {
       "role": "Vice President — Communications",
-      "name": "Kelly Isaman"
+      "name": "Bridgette Crisostomo",
+      "email": "slotabcommunications@gmail.com"
     },
     {
       "role": "Vice President — Membership",
-      "name": "Dannene Ungeheur",
+      "name": "Dannene Ungeheuer",
       "email": "slotabmembership@gmail.com"
     },
     {
       "role": "Treasurer",
-      "name": "Trina Cisneros"
+      "name": "Trina Cisneros",
+      "email": "slotabtreas@gmail.com"
     },
     {
       "role": "Secretary",
-      "name": "Dan Howes"
+      "name": "Valerie Neuschwander"
     },
     {
-      "role": "Fall Fundraiser",
-      "name": "Anne Sutcliffe"
+      "role": "Go Fan Passes & Business Sponsorships",
+      "name": "Rich Ungeheuer"
     },
     {
       "role": "Apparel",
-      "name": "Andria McGhee & Leslie Michel"
+      "name": "Wendy Morales & Leslie Michel"
     },
     {
       "role": "Concessions",
-      "name": "Lorraine Byde & Holly Maulhardt"
-    },
-    {
-      "role": "Business Sponsorship Development",
-      "name": "Nicole Adler"
+      "name": "Colby Lindeman & Megan Siems"
     },
     {
       "role": "Member at Large",
-      "name": "Heidi Gill, Tanya Flushman & Ryan Sutcliffe"
+      "name": "Amy Zakaria, Kelly Isaman & Liz Moody"
     },
     {
-      "role": "Sports-Specific Athlete Shirts",
-      "name": "Tanya Flushman & Jen Blackburn"
+      "role": "Fall Fundraiser — Booster Bash",
+      "name": "Open — volunteer needed",
+      "email": "slotabboosterbash@gmail.com"
     },
     {
-      "role": "Website & Graphic Design",
-      "name": "Kiwi Ashby"
+      "role": "Spring Fundraiser",
+      "name": "Open — volunteer needed"
+    },
+    {
+      "role": "Sponsorships Assistant",
+      "name": "Anne Ramberg"
+    },
+    {
+      "role": "Sports-Specific Apparel",
+      "name": "Sara Hegg"
+    },
+    {
+      "role": "Senior Banners",
+      "name": "Nicole MacDonald",
+      "email": "slotabseniorbanners@gmail.com"
+    },
+    {
+      "role": "BBQ Coordinator",
+      "name": "Amber Whighton"
     },
     {
       "role": "Newsletter",
-      "name": "Jen Blackburn"
+      "name": "Jennifer Blackburn"
+    },
+    {
+      "role": "Website",
+      "name": "Erik Ramberg"
+    },
+    {
+      "role": "SLOHS Athletic Director",
+      "name": "Phil Angel",
+      "email": "pangel@slcusd.org"
+    },
+    {
+      "role": "SLOHS Digital Specialist",
+      "name": "Zach Roper",
+      "email": "zroper@slcusd.org"
     }
   ]
 }

@@ -1,12 +1,21 @@
 {
-  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin → 'SLOTAB Events'. The 2025-26 spring entries were cleared at the 2026-27 rollover. The Booster Bash entry below mirrors the induction date already published on /hall-of-fame — confirm it before launch, and add the fall parent meeting, physicals night, and the board-meeting dates as they're set.",
+  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin → 'SLOTAB Events'. The 2025-26 spring entries were cleared at the 2026-27 rollover. Entries with a `href` link through to a dedicated event page (see featured-events.json) — keep the two dates in sync. Still needed: the monthly board-meeting dates, the fall parent meeting, physicals night, and the spring fundraiser.",
   "events": [
+    {
+      "id": "ns-back-to-school-2026",
+      "title": "Back to School Day",
+      "date": "2026-08-13T08:00:00",
+      "categoryLabel": "SLOTAB Event",
+      "detail": "8:00 AM – 3:00 PM at the Big Gym — SLOTAB table all day",
+      "href": "/back-to-school"
+    },
     {
       "id": "ns-booster-bash-2026",
       "title": "Booster Bash & Hall of Fame Induction",
-      "date": "2026-10-03T17:30:00",
+      "date": "2026-10-10T17:00:00",
       "categoryLabel": "SLOTAB Event",
-      "detail": "Holland Ranch — the Class of 2026 Hall of Fame induction"
+      "detail": "5:00–10:00 PM at the Octagon Barn — The Tiger's Den, with the Class of 2026 HOF induction",
+      "href": "/booster-bash"
     }
   ]
 }

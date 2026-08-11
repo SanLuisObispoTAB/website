@@ -10,7 +10,9 @@ type RosterEntry = {
 
 type WishlistEntry = {
   item: string;
-  cost: number;
+  /** Omit when the team has named a need but hasn't priced it yet — the row
+   *  renders "Pricing TBD" rather than being held back until a number exists. */
+  cost?: number;
 };
 
 type ExternalLink = {
@@ -374,7 +376,11 @@ export default function TeamPage({ team }: { team: Team }) {
                 <li key={w.item}>
                   <span className="slotab-team-wishlist-item">{w.item}</span>
                   <span className="slotab-team-wishlist-cost">
-                    {MONEY.format(w.cost)}
+                    {typeof w.cost === "number" ? (
+                      MONEY.format(w.cost)
+                    ) : (
+                      <em className="slotab-team-wishlist-tbd">Pricing TBD</em>
+                    )}
                   </span>
                 </li>
               ))}

@@ -13,6 +13,21 @@
   ],
   "headCoach": {
     "name": "Bryan Traverso",
-    "email": "bryantraverso@hotmail.com"
-  }
+    "email": "bryantraverso@hotmail.com",
+    "bio": "Has been coaching and/or playing water polo for over 30 years. Coached Varsity Boys Water Polo at SLOHS from 2017–2019 and returns for the 2026 season. Spent the last two years as Head Coach of the Central Coast Water Polo Club 12U and 14U boys teams."
+  },
+  "liaisons": [
+    {
+      "name": "Kim Kaufman",
+      "email": "kngzgirl@gmail.com"
+    }
+  ],
+  "captains": [
+    "Named week to week"
+  ],
+  "wishlist": [
+    {
+      "item": "Underwater camera to record athletes performing specific skills, so they can review their own technique"
+    }
+  ]
 }

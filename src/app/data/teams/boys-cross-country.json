@@ -11,5 +11,11 @@
   "headCoach": {
     "name": "Nancy Steinmaus",
     "email": "nsteinmaus@hotmail.com"
-  }
+  },
+  "liaisons": [
+    {
+      "name": "Derek Folden",
+      "email": "polyreel@gmail.com"
+    }
+  ]
 }

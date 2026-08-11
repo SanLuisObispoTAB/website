@@ -9,5 +9,19 @@
   "teamPhoto": "/photos/gswim-team-2026.jpg",
   "gallery": [
     "/photos/gswim-10.jpg"
+  ],
+  "headCoach": {
+    "name": "Scott Rosenblum",
+    "email": "srosenblum@slcusd.org"
+  },
+  "liaisons": [
+    {
+      "name": "Mary Irion",
+      "email": "805marivel@gmail.com"
+    },
+    {
+      "name": "Lenora Brewer Katona",
+      "email": "lbrewerh@gmail.com"
+    }
   ]
 }

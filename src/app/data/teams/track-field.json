@@ -8,7 +8,7 @@
   "heroPhoto": "/photos/ctrack-1200x800.jpg",
   "eventCategory": "track-field",
   "headCoach": {
-    "name": "Nicholas Steele",
+    "name": "Nick Steele",
     "email": "nsteele@slcusd.org",
     "bio": "Director of SLOHS Track & Field and jumps coach. Source: slohs.slcusd.org/athletics/spring-sports and the team's Google Site (sites.google.com/a/slcusd.org/slohs-track-and-field)."
   },
@@ -55,7 +55,7 @@
     },
     {
       "name": "Adam Basch",
-      "role": "Athletic Director & Meet Announcer"
+      "role": "Meet Announcer"
     }
   ],
   "operationalSetup": "custom",

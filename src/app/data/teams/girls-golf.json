@@ -10,5 +10,11 @@
   "headCoach": {
     "name": "Josh Heptig",
     "email": "jheptig@co.slo.ca.us"
-  }
+  },
+  "liaisons": [
+    {
+      "name": "Val Hopple",
+      "email": "Vhopple1979@gmail.com"
+    }
+  ]
 }

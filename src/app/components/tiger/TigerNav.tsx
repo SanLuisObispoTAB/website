@@ -65,10 +65,14 @@ const BASE_NAV: NavItem[] = [
       { href: "/volunteer", label: "Volunteer" },
     ],
   },
-  // Single link, not a dropdown: the Spring Social entry retired at the
-  // 2026-27 rollover (it's an April event, and its page still describes the
-  // 2026 edition), leaving "Upcoming" as the only child.
-  { label: "Events", href: "/upcoming" },
+  {
+    label: "Events",
+    children: [
+      { href: "/upcoming", label: "Upcoming" },
+      { href: "/back-to-school", label: "Back to School Day" },
+      { href: "/booster-bash", label: "Booster Bash" },
+    ],
+  },
   { label: "Teams" }, // children injected per-render (season-dependent) below
   { label: "Watch", href: "/watch" },
   { label: "Shop", href: "/merch" },

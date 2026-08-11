@@ -10,5 +10,9 @@
   "gallery": [
     "/photos/gtennis-huddle.jpg",
     "/photos/gtennis-2022.jpg"
-  ]
+  ],
+  "headCoach": {
+    "name": "Dennis Richardson",
+    "email": "tenniswithdennis40love@gmail.com"
+  }
 }

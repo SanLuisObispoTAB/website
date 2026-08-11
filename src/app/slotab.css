@@ -2719,3 +2719,45 @@ a.slotab-platinum-slide:hover {
     padding: 0 0.4rem;
   }
 }
+
+/* Wishlist rows where the team has named a need but hasn't priced it yet
+   (added 2026-08-11 with Boys Water Polo's underwater camera). */
+.slotab-team-wishlist-tbd {
+  font-style: italic;
+  color: var(--slotab-muted);
+  font-weight: 400;
+}
+
+/* "Event details →" link on an /upcoming row that has its own page. */
+.slotab-event-link {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* Scannable event tag beside the ticket CTA (Booster Bash). Sized for a
+   phone camera at arm's length without dominating the card. */
+.slotab-event-qr {
+  margin: 1.5rem auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.slotab-event-qr img {
+  width: 160px;
+  height: 160px;
+  background: #fff;
+  padding: 8px;
+  border-radius: 6px;
+  display: block;
+}
+.slotab-event-qr span {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Landscape event photo — the flyer frame is sized for a portrait poster,
+   so give a wide photo more room instead of shrinking it to 600px. */
+.slotab-flyer.wide { max-width: 900px; }

@@ -14,6 +14,11 @@ type Handoff = {
 
 type RosterMember = { role: string; name: string; email?: string };
 
+// Read the school year off the roster file rather than hardcoding it — the
+// year and the names it labels have to move together, or the page asserts a
+// roster that was never in office (see decision #86).
+const BOARD_YEAR: string = boardData.year;
+
 export const metadata = {
   title: "Board Hub — SLOTAB",
   robots: { index: false, follow: false },
@@ -49,7 +54,7 @@ export default function BoardHubPage() {
 
   return (
     <>
-      <PageHeader kicker="Board Only · 2025-26" title="Board Hub" />
+      <PageHeader kicker={`Board Only · ${BOARD_YEAR}`} title="Board Hub" />
       <section className="slotab-section">
         <div className="slotab-container">
           <div
@@ -123,7 +128,7 @@ export default function BoardHubPage() {
               <thead>
                 <tr>
                   <th>Role</th>
-                  <th>Current officer (2025-26)</th>
+                  <th>Current officer ({BOARD_YEAR})</th>
                   <th>Handoff notes</th>
                 </tr>
               </thead>

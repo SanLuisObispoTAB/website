@@ -25,6 +25,10 @@ type Handoff = {
 
 type RosterMember = { role: string; name: string; email?: string };
 
+// Sourced from the roster file so the year can't drift from the names — see
+// the matching note in ../page.tsx.
+const BOARD_YEAR: string = boardData.year;
+
 function slugifyRole(role: string): string {
   return role
     .toLowerCase()
@@ -121,7 +125,7 @@ export default async function BoardRolePage(props: {
               <>
                 {" · "}
                 <span>
-                  Current officer (2025-26):{" "}
+                  Current officer ({BOARD_YEAR}):{" "}
                   <strong>{rosterEntry.name}</strong>
                 </span>
               </>

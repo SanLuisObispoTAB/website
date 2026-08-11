@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   ALL_EVENTS,
@@ -139,6 +140,14 @@ export default function EventsList() {
                       {d.time}
                       {e.detail && <> · {e.detail}</>}
                       {!e.detail && <> · {e.categoryLabel}</>}
+                      {e.href && (
+                        <>
+                          {" · "}
+                          <Link href={e.href} className="slotab-event-link">
+                            Event details →
+                          </Link>
+                        </>
+                      )}
                     </div>
                   </div>
                 </li>

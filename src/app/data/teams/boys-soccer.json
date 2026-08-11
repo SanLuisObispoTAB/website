@@ -10,5 +10,9 @@
   "gallery": [
     "/photos/bsoccer-dribble.jpg",
     "/photos/bsoccer-huddle.jpg"
-  ]
+  ],
+  "headCoach": {
+    "name": "Omar Rodriguez",
+    "email": "omar@jogafc.org"
+  }
 }

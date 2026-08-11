@@ -79,7 +79,9 @@ function buildHomeCalendar(): {
         title: e.title,
         meta,
         tag: e.isSport ? undefined : "SLOTAB",
-        href: "/upcoming",
+        // Events with a dedicated page deep-link to it; everything else
+        // falls through to the full calendar.
+        href: e.href ?? "/upcoming",
       };
     });
 }

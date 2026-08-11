@@ -19,13 +19,13 @@
   },
   "ceremony": {
     "title": "Class of 2026 Induction",
-    "dateLabel": "October 3, 2026",
-    "date": "2026-10-03T17:30:00",
-    "venueName": "Holland Ranch",
-    "venueDetail": "The annual SLOTAB Booster Bash — where this year's Hall of Fame class is officially inducted.",
-    "ticketsUrl": "",
+    "dateLabel": "October 10, 2026",
+    "date": "2026-10-10T17:00:00",
+    "venueName": "The Octagon Barn",
+    "venueDetail": "The annual SLOTAB Booster Bash — where this year's Hall of Fame class is officially inducted. 2026 theme: The Tiger's Den.",
+    "ticketsUrl": "https://auctria.events/SLOHSathleticsboosterbash",
     "donateUrl": "",
-    "_note": "ticketsUrl / donateUrl / alumniMembership.joinUrl are intentionally empty — the page hides each CTA until a real URL is set. Booster Bash ticket sales were approved to open 2026-07-01 (decision #38); drop the live link in here when it exists."
+    "_note": "Date/venue corrected 2026-08-11 from Oct 3 / Holland Ranch to Oct 10 / Octagon Barn, per SLOTAB's own live Auctria event page; ticketsUrl uses SLOTAB's Auctria vanity link (auctria.events/SLOHSathleticsboosterbash), which is what the printed QR tag encodes and redirects to the same event. donateUrl and alumniMembership.joinUrl stay empty — the page hides each CTA until a real URL is set."
   },
   "committee": [],
   "alumniMembership": {

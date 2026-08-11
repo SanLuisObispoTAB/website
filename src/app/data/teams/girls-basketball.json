@@ -9,5 +9,15 @@
   "teamPhoto": "/photos/gbball-team-2025.jpg",
   "gallery": [
     "/photos/gbball-riley.jpg"
+  ],
+  "headCoach": {
+    "name": "Daniel Monroe",
+    "email": "dmonroe@slcusd.org"
+  },
+  "liaisons": [
+    {
+      "name": "Holly Maulhardt",
+      "email": "hmaulhardt@gmail.com"
+    }
   ]
 }
