@@ -2481,3 +2481,50 @@
   line-height: 1.6;
   color: var(--tiger-pewter);
 }
+
+/* Booster Bash home band (2026-08-11) — the year's biggest fundraiser, with
+   the auction-item ask the Treasurer wanted on the home page. Dark so it
+   separates the teams carousel from the gear strip without another card row. */
+.tiger-scope .tiger-bash-band {
+  background: var(--tiger-black, #111);
+  color: #fff;
+  padding: 56px 0;
+}
+.tiger-scope .tiger-bash-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+}
+.tiger-scope .tiger-bash-band .tiger-eyebrow {
+  color: var(--tiger-gold, #ffcd38);
+}
+.tiger-scope .tiger-bash-title {
+  font-family: var(--tiger-serif);
+  font-size: 42px;
+  line-height: 1.05;
+  margin: 10px 0 14px;
+  color: #fff;
+}
+.tiger-scope .tiger-bash-title em {
+  font-style: italic;
+  color: var(--tiger-gold, #ffcd38);
+}
+.tiger-scope .tiger-bash-body {
+  margin: 0;
+  max-width: 620px;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+.tiger-scope .tiger-bash-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.tiger-scope .tiger-bash-actions .tiger-ulink { color: var(--tiger-gold, #ffcd38); }
+
+@media (max-width: 860px) {
+  .tiger-scope .tiger-bash-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .tiger-scope .tiger-bash-title { font-size: 34px; }
+}

@@ -35,17 +35,31 @@
       "dateLabel": "Saturday, October 10, 2026",
       "timeLabel": "5:00 – 10:00 PM · doors at 5:00",
       "date": "2026-10-10T17:00:00",
-      "venueName": "The Octagon Barn",
+      "venueName": "The Historic Octagon Barn",
       "venueDetail": "This year's theme: The Tiger's Den. Wear your Tiger gear or black and gold.",
       "photo": "",
       "photoAlt": "",
       "body": [
         "The Booster Bash is SLOTAB's largest fundraiser of the year — an evening of food, drinks, and both silent and live auctions — and it's the night the SLOHS Athletics Hall of Fame inducts its newest class.",
-        "Individual tickets are $100 and include admission, dinner, a no-host bar, the silent and live auctions, and drawings. Reserved tables seat 6 ($600) or 8 ($800), with reserved seating and complimentary wine. There's a cornhole tournament too — $100 per two-person team."
+        "Individual tickets are $100 and include admission, dinner, a no-host bar, the silent and live auctions, and drawings. Reserved tables seat 6 ($600) or 8 ($800), with reserved seating and complimentary wine.",
+        "There's a cornhole tournament too — $100 per two-person team, and the winning team takes a prize.",
+        "Want to help make the night happen? We're looking for silent-auction coordinators, a live auctioneer, and an MC — and we'd love donations of silent and live auction items."
       ],
       "ctaLabel": "Buy Booster Bash Tickets",
       "ctaUrl": "https://auctria.events/SLOHSathleticsboosterbash",
       "links": [
+        {
+          "label": "Cornhole Tournament — $100 per 2-person team",
+          "url": "https://auctria.events/SLOHSathleticsboosterbash"
+        },
+        {
+          "label": "Donate an auction item",
+          "url": "mailto:slotabboosterbash@gmail.com?subject=Booster%20Bash%20auction%20item%20donation"
+        },
+        {
+          "label": "Volunteer at the Bash",
+          "url": "mailto:slotabboosterbash@gmail.com?subject=Booster%20Bash%20volunteering"
+        },
         {
           "label": "Meet the Hall of Fame class",
           "url": "/hall-of-fame"

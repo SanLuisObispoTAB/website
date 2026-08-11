@@ -232,6 +232,41 @@ export default function ClassicHomePage() {
       {/* Teams carousel — current-trimester teams. "View all" → /teams */}
       <TeamsCarousel />
 
+      {/* Booster Bash band — the year's biggest fundraiser. Carries the
+          auction-item ask the Treasurer wanted surfaced on the home page,
+          not just on the event page. */}
+      <section className="tiger-bash-band">
+        <div className="tiger-container">
+          <div className="tiger-bash-inner">
+            <div>
+              <span className="tiger-eyebrow">Saturday, October 10 · The Historic Octagon Barn</span>
+              <h2 className="tiger-bash-title">
+                Booster Bash <em>2026</em>
+              </h2>
+              <p className="tiger-bash-body">
+                An evening of food, drinks, and live and silent auctions — and
+                the night the Hall of Fame inducts its newest class. Donating
+                an auction item is one of the biggest ways to help.
+              </p>
+            </div>
+            <div className="tiger-bash-actions">
+              <Link
+                href="/booster-bash"
+                className="tiger-btn tiger-btn-primary tiger-btn-arrow"
+              >
+                Tickets &amp; Details
+              </Link>
+              <a
+                href="mailto:slotabboosterbash@gmail.com?subject=Booster%20Bash%20auction%20item%20donation"
+                className="tiger-ulink"
+              >
+                Donate an auction item →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Gear strip */}
       <section className="tiger-section tiger-merch-strip">
         <div className="tiger-container">

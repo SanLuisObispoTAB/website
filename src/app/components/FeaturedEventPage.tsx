@@ -153,18 +153,20 @@ export default function FeaturedEventPage({
               style={{ justifyContent: "center", marginTop: "2.5rem" }}
             >
               {event.links.map((l) => {
-                const external = l.url.startsWith("http");
+                const external =
+                  l.url.startsWith("http") || l.url.startsWith("mailto:");
+                const isMail = l.url.startsWith("mailto:");
                 return (
                   <Link
                     key={l.url}
                     href={l.url}
                     className="slotab-btn outline"
-                    {...(external
+                    {...(external && !isMail
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}
                   >
                     {l.label}
-                    {external ? " ↗" : " →"}
+                    {isMail ? " ✉" : external ? " ↗" : " →"}
                   </Link>
                 );
               })}
