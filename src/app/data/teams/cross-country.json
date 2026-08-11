@@ -21,13 +21,13 @@
       "name": "Nancy Steinmaus",
       "role": "Head Coach — Boys",
       "email": "nsteinmaus@hotmail.com",
-      "bio": "Also coaches boys distance for SLOHS Track & Field. Cross country runs as one Tiger program, led by Coach Steinmaus and Coach Berkeland together."
+      "bio": "Nancy earned her M.A. in exercise physiology with a minor in psychology in 1989 at UC Davis, where she ran cross country and track and field and earned NCAA Division II All-American honors three times. She started coaching cross country while in grad school at UC Davis before moving to San Diego to be the head women's and men's cross country and track and field coach at MiraCosta College. While living in San Diego she raced as a pro duathlete all over the world, and was a two-time Pro National Champion and fourth at the world duathlon championships. Nancy moved to San Luis Obispo in 1999 to start a family with spouse Scott. She has coached at Cuesta, the San Luis Distance Club, LAMS, and at SLOHS, coaching both cross country and track and field, and started coaching at SLOHS in 2018. She currently teaches Health, Certified Personal Training Preparation, and fitness classes at Cuesta College."
     },
     {
       "name": "Dan Berkeland",
       "role": "Head Coach — Girls",
       "email": "danberkeland@gmail.com",
-      "bio": "Three-time All-American and 1992 National Champion in the 3000m steeplechase for Cal Poly San Luis Obispo, where he graduated in 1996 with a degree in Architecture. Co-founder of The Back Porch Bakery, which serves wholesale bread to over 200 locations across the Central Coast. Began coaching at SLOHS in 2024 as a girls track distance assistant; later took on the head role for girls cross country."
+      "bio": "Dan Berkeland is a three-time All-American and the 1992 National Champion in the 3000m steeplechase for Cal Poly San Luis Obispo, where he graduated in 1996 with a degree in Architecture. Following graduation he spent a decade living and working in Italy and Sweden before returning to the Central Coast in 2008 with his wife, Caroline, and their newborn daughter, Molly. In 2011 Dan and Caroline founded The Back Porch Bakery, which has grown to serve wholesale bread to over 200 locations across the Central Coast, and they have since expanded their family to include three more children. Dan began coaching high school in the spring of 2024, assisting with the girls' track distance program. That fall he took on the head coach role for the girls' cross country team, highlighted by a CIF Championship. Dan has been an enthusiastic member of the Central Coast running community for over 30 years, with no plans of retiring."
     }
   ],
   "liaisons": [
@@ -38,12 +38,26 @@
   ],
   "externalLinks": [
     {
+      "label": "Meet the XC Coaching Staff (SLOHS)",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/cross-country/coaches"
+    },
+    {
       "label": "SLOHS T&F and XC Team Site",
       "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/"
     },
     {
       "label": "Brian Waterbury Memorial Scholarship",
       "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/cross-country/brian-waterbury-memorial-scholarship"
+    }
+  ],
+  "assistantCoaches": [
+    {
+      "name": "Kira Abercromby",
+      "role": "Assistant Coach"
+    },
+    {
+      "name": "Tera Dube",
+      "role": "Assistant Coach"
     }
   ]
 }

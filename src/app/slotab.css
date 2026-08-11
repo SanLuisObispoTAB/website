@@ -3057,8 +3057,11 @@ a.slotab-platinum-slide:hover {
   padding-top: 0.75rem;
 }
 /* Multiple head-coach bios stacked in one "Meet the Coaches" section. */
-.slotab-coach-bio + .slotab-coach-bio { margin-top: 1.75rem; }
-.slotab-coach-bio h3 {
-  font-size: 1.15rem;
+.slotab-headcoach-bio + .slotab-headcoach-bio { margin-top: 2rem; }
+/* Names each coach above their bio when a team has more than one head
+   coach. Needs to sit clearly above the 1rem prose body — 1.15rem landed
+   within half a pixel of it and read as body text. */
+.slotab-headcoach-bio h3 {
+  font-size: 1.3rem;
   margin-bottom: 0.4rem;
 }

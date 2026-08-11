@@ -351,7 +351,7 @@ export default function TeamPage({ team }: { team: Team }) {
             {headCoaches
               .filter((c) => c.bio)
               .map((c) => (
-                <div key={c.name} className="slotab-coach-bio">
+                <div key={c.name} className="slotab-headcoach-bio">
                   {headCoaches.filter((x) => x.bio).length > 1 && (
                     <h3>
                       {c.name}
