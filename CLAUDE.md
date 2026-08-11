@@ -62,8 +62,13 @@ the convention.
 - **Cron commits** to `weekly-events.json` and similar happen from the
   GitHub Actions workflow. If `git push` is rejected, fetch + rebase —
   don't force.
-- **Robots noindex** is on until the slotab.org cutover. Don't remove
-  the `robots: noindex` from `src/app/layout.tsx` until then.
+- **Indexing is host-aware** as of the 2026-08-11 cutover (decision #100).
+  The blanket `robots: noindex` is gone from `src/app/layout.tsx`; instead
+  `src/proxy.ts` sets `X-Robots-Tag: noindex` for any Host that isn't in
+  `INDEXABLE_HOSTS` (`slotab.org`, `www.slotab.org`). Keep it that way —
+  the `slotab.ravens-peak-consulting.com` alias still serves the site for
+  the SLOHS firewall and must not be indexed as a duplicate. Add any new
+  canonical host to that set.
 - **Creating a team page** (decisions #74, #79): add
   `src/app/data/teams/<slug>.json` (mirror an existing one — `heroPhoto`
   = action shot, `teamPhoto` = posed portrait, `gallery` = array of extra
