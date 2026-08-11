@@ -13,9 +13,18 @@
 #     team is the working deploy target until the SLOTAB-org Vercel
 #     pricing question is resolved)
 #
-# At slotab.org cutover, swap base_url / site_url / display_url /
-# logo_url below from the Vercel URL to https://slotab.org and
-# update the GitHub OAuth App's callback URL accordingly.
+# 2026-08-11 slotab.org cutover: site_url / display_url / logo_url are
+# swapped to slotab.org below — they are cosmetic (the "View site" link,
+# the label, and the login-screen logo).
+#
+# base_url deliberately STAYS on the Vercel URL. It is the host the OAuth
+# handshake round-trips through, and the GitHub OAuth App is registered
+# with a single callback URL pointing there. Swapping it before that
+# registration is updated would break /admin login for the whole board.
+# slotab.org is already in the postMessage allowlist (decision #65), so
+# board members can reach /admin at slotab.org/admin today and the token
+# comes back correctly. Change base_url only in the same sitting as the
+# GitHub OAuth App callback URL.
 
 backend:
   name: github
@@ -34,9 +43,9 @@ public_folder: "/uploads"
 # Save as drafts first; click publish to commit.
 publish_mode: editorial_workflow
 
-site_url: https://slo-tab-website.vercel.app
-display_url: https://slo-tab-website.vercel.app
-logo_url: https://slo-tab-website.vercel.app/logos/slotab-booster-club.png
+site_url: https://slotab.org
+display_url: https://slotab.org
+logo_url: https://slotab.org/logos/slotab-booster-club.png
 
 collections:
   # ---------------------------------------------------------------

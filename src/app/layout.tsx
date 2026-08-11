@@ -34,21 +34,27 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // Absolute base for canonical + Open Graph URLs. Every host that serves
+  // this app (vercel.app, the ravens-peak alias) points search engines and
+  // link previews back at slotab.org.
+  metadataBase: new URL("https://slotab.org"),
   title: "SLOTAB — San Luis Obispo Tiger Athletic Booster Club",
   description:
     "The SLOHS Tiger Athletic Booster Club — supporting every CIF-sanctioned team and cheer squad at San Luis Obispo High School.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/logos/slotab-booster-club.png",
     apple: "/logos/slotab-booster-club.png",
   },
-  // TODO: Drop `robots: noindex` before the final cutover to slotab.org.
-  // Keep it on while the site is deployed at the staging Vercel URL so
-  // search engines don't index the staging domain before slotab.org is
-  // pointed at it.
-  robots: {
-    index: false,
-    follow: false,
-  },
+  // The blanket `robots: noindex` came off at the 2026-08-11 slotab.org
+  // cutover. Indexing is now **host-aware** rather than all-or-nothing:
+  // `src/proxy.ts` sends `X-Robots-Tag: noindex` for every host that isn't
+  // slotab.org. That does two jobs — it removes the race between deploying
+  // this change and DNS actually propagating, and it permanently keeps the
+  // vercel.app URL and the SLOHS-firewall alias out of the index as
+  // duplicates of the real site.
 };
 
 export default function RootLayout({

@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// Two jobs:
+//   1. Password-gates the SLOTAB Board Hub at /board/*.
+//   2. Marks every non-slotab.org host `noindex` (see INDEXABLE_HOSTS).
+//
 // Password-gates the SLOTAB Board Hub at /board/*. Set BOARD_PASSWORD as a
 // Vercel env var to enable. The login form at /board/login posts to
 // /api/board/login, which sets a signed cookie (HMAC-SHA256 over the
@@ -8,9 +12,29 @@ import { NextRequest, NextResponse } from "next/server";
 //
 // Uses the Next.js 16 "proxy" file convention (renamed from middleware).
 
+// Runs on every page request (static assets and anything with a file
+// extension are excluded) so the canonical-host check below can tag
+// non-slotab.org responses. Board gating still applies only to /board/*.
 export const config = {
-  matcher: ["/board/:path*"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)"],
 };
+
+// Hosts allowed to be indexed. Everything else — the vercel.app URL, the
+// SLOHS-firewall-friendly slotab.ravens-peak-consulting.com alias, Vercel
+// preview deployments, localhost — gets `X-Robots-Tag: noindex` so it can
+// never compete with slotab.org in search results.
+const INDEXABLE_HOSTS = new Set(["slotab.org", "www.slotab.org"]);
+
+/** Adds `X-Robots-Tag: noindex, nofollow` unless this request came in on
+ *  the canonical domain. Applied to redirects too, so a gated /board hop
+ *  off a preview host stays untagged-for-indexing all the way through. */
+function withIndexPolicy(res: NextResponse, req: NextRequest): NextResponse {
+  const host = req.headers.get("host")?.split(":")[0].toLowerCase() ?? "";
+  if (!INDEXABLE_HOSTS.has(host)) {
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return res;
+}
 
 const COOKIE_NAME = "slotab_board";
 // Login route is the one /board/* path that must NOT be gated, or the
@@ -67,7 +91,15 @@ async function isCookieValid(
 
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (PUBLIC_PATHS.has(pathname)) return NextResponse.next();
+
+  // Everything outside /board/* is public — it only needs the index policy.
+  if (!pathname.startsWith("/board")) {
+    return withIndexPolicy(NextResponse.next(), req);
+  }
+
+  if (PUBLIC_PATHS.has(pathname)) {
+    return withIndexPolicy(NextResponse.next(), req);
+  }
 
   const password = process.env.BOARD_PASSWORD;
   if (!password) {
@@ -76,17 +108,17 @@ export async function proxy(req: NextRequest) {
     const url = req.nextUrl.clone();
     url.pathname = "/board/login";
     url.searchParams.set("notconfigured", "1");
-    return NextResponse.redirect(url);
+    return withIndexPolicy(NextResponse.redirect(url), req);
   }
 
   const cookie = req.cookies.get(COOKIE_NAME)?.value;
   const ok = await isCookieValid(cookie, password);
-  if (ok) return NextResponse.next();
+  if (ok) return withIndexPolicy(NextResponse.next(), req);
 
   const url = req.nextUrl.clone();
   url.pathname = "/board/login";
   if (pathname !== "/board") {
     url.searchParams.set("next", pathname);
   }
-  return NextResponse.redirect(url);
+  return withIndexPolicy(NextResponse.redirect(url), req);
 }
