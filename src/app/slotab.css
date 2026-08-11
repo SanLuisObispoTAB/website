@@ -2696,7 +2696,10 @@ a.slotab-platinum-slide:hover {
     flex-basis: 100%;
   }
   .slotab-board-contact {
+    /* Role on its own line, then name + email together on the line below,
+       indented so the pair reads as belonging to the role above it. */
     margin-left: 0;
+    padding-left: 1rem;
     text-align: left;
     white-space: normal;
     flex-wrap: wrap;
@@ -2705,6 +2708,12 @@ a.slotab-platinum-slide:hover {
   .slotab-board-contact a,
   .slotab-board-name {
     overflow-wrap: anywhere;
+  }
+  /* At the prose base size a name + address pair misses a single 375px line
+     by a few pixels. Easing the address down keeps most pairs together; the
+     longest slotab*@gmail.com addresses still wrap, and stay indented. */
+  .slotab-board-contact a {
+    font-size: 0.95rem;
   }
   .slotab-board-contact a::before { display: none; }
 }
