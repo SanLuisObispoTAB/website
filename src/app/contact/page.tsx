@@ -15,22 +15,30 @@ export default function ContactPage() {
     <>
       <PageHeader kicker="Get in Touch" title="Contact SLOTAB" />
       <section className="slotab-section">
-        <div className="slotab-container slotab-prose">
+        {/* The roster sits in its own wider wrapper rather than the 820px
+            prose column, so role (left) and name + email (right) fit on one
+            line without the longest rows wrapping. */}
+        <div className="slotab-container slotab-board-wrap">
           <h2>{YEAR} Board Members</h2>
           <ul className="slotab-board">
             {BOARD.map((m) => (
               <li key={m.role}>
-                <span>
-                  <span className="role">{m.role}:</span> {m.name}
+                <span className="role">{m.role}</span>
+                <span className="slotab-board-contact">
+                  <span className="slotab-board-name">{m.name}</span>
+                  {m.email && (
+                    <a href={`mailto:${m.email}`}>{m.email}</a>
+                  )}
                 </span>
-                {m.email && (
-                  <a href={`mailto:${m.email}`}>{m.email}</a>
-                )}
               </li>
             ))}
           </ul>
+        </div>
+      </section>
 
-          <h2 style={{ marginTop: "3rem" }}>Send Us a Message</h2>
+      <section className="slotab-section alt">
+        <div className="slotab-container slotab-prose">
+          <h2 style={{ marginTop: 0 }}>Send Us a Message</h2>
           <p>
             Have a question about membership, sponsorship, volunteering, or
             an upcoming event? Email us at{" "}

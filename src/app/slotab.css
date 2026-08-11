@@ -2636,14 +2636,21 @@ a.slotab-platinum-slide:hover {
 .slotab-platinum-dot:hover { background: var(--slotab-gold-dark); }
 
 /* Board roster */
+/* Board roster: role hard-left, name + email hard-right, one line per row.
+   Wider than the 820px prose column so the longest pairing (a two-line role
+   beside a long name and a slotab*@gmail.com address) still fits. */
+.slotab-board-wrap {
+  max-width: 1040px;
+}
 .slotab-board { list-style: none; padding: 0; margin: 0; }
 .slotab-board li {
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--slotab-border);
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 2rem;
+  flex-wrap: nowrap;
 }
 .slotab-board .role {
   font-family: var(--font-slotab-heading), sans-serif;
@@ -2652,6 +2659,54 @@ a.slotab-platinum-slide:hover {
   letter-spacing: 0.05em;
   color: var(--slotab-gold-dark);
   font-weight: 600;
+  flex: 0 1 auto;
+  text-align: left;
+}
+.slotab-board-contact {
+  margin-left: auto;
+  text-align: right;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+/* Thin divider between name and address so the two read as one right-hand
+   block rather than two stray columns. */
+.slotab-board-contact a::before {
+  content: "·";
+  color: var(--slotab-border);
+  margin-right: 0.75rem;
+}
+.slotab-board-name { font-weight: 600; }
+
+/* Phones can't hold a single line — stack, and keep each side on its own
+   edge rather than letting the address dangle mid-row. */
+@media (max-width: 720px) {
+  .slotab-board li {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .slotab-board .role,
+  .slotab-board-contact {
+    /* Flex children refuse to shrink below content width without this, and
+       an address like slotabcommunications@gmail.com is one long unbreakable
+       token — together these two rules are what stop it overflowing 375px. */
+    min-width: 0;
+    flex-basis: 100%;
+  }
+  .slotab-board-contact {
+    margin-left: 0;
+    text-align: left;
+    white-space: normal;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.5rem;
+  }
+  .slotab-board-contact a,
+  .slotab-board-name {
+    overflow-wrap: anywhere;
+  }
+  .slotab-board-contact a::before { display: none; }
 }
 
 
