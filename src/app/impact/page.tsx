@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ImpactLedger from "../components/ImpactLedger";
 import PageHeader from "../components/PageHeader";
+import impactData from "../data/impact.json";
 
 export const metadata = {
   title: "Impact — SLOTAB",
@@ -22,9 +23,18 @@ export default function ImpactPage() {
           <p style={{ fontSize: "1.15rem" }}>
             Every dollar donated to SLOTAB goes directly back to SLOHS
             student-athletes — equipment, facility improvements, team
-            travel, food on game days, and the sport-specific t-shirt every
-            athlete receives. This page lists what your contributions
-            funded, year by year and team by team.
+            travel, uniforms, and the sport-specific t-shirt every athlete
+            receives. In the {impactData.fiscalYear} school year that came
+            to{" "}
+            <strong>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: impactData.currency,
+                maximumFractionDigits: 0,
+              }).format(impactData.summary.total)}
+            </strong>{" "}
+            across {impactData.summary.programsSupported} programs. Here is
+            where it went.
           </p>
           <p style={{ fontSize: "0.95rem", color: "var(--slotab-muted)" }}>
             <em>

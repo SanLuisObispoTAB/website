@@ -268,7 +268,7 @@ collections:
       - name: impact
         label: "Donation-Funded Purchases"
         file: "src/app/data/impact.json"
-        description: "List of items SLOTAB donations have purchased. Shown on the Impact page with By Year / By Team toggle, plus totals and counts."
+        description: "What SLOTAB gave back to SLOHS athletics. Drives the headline stats, the 'Where It Went' list, and the funded-programs band on the Impact page. Figures come from the year-end Transaction Report — the line items must add up to the summary total."
         fields:
           - {
               name: note,
@@ -278,6 +278,25 @@ collections:
               required: false,
             }
           - { name: currency, label: "Currency code", widget: string, default: "USD" }
+          - {
+              name: fiscalYear,
+              label: "School year",
+              widget: string,
+              hint: "E.g. 2025-26. The booster fiscal year runs July-June.",
+            }
+          - name: summary
+            label: "Headline stats (the three gold numbers at the top)"
+            widget: object
+            fields:
+              - {
+                  name: total,
+                  label: "Total given to SLOHS athletics",
+                  widget: number,
+                  value_type: float,
+                  hint: "Must equal the sum of all line items below.",
+                }
+              - { name: programsSupported, label: "Programs supported", widget: number, value_type: int }
+              - { name: coachesFunded, label: "Coaches funded", widget: number, value_type: int }
           - name: categories
             label: "Categories (shown as colored tag on each item)"
             widget: list
@@ -304,10 +323,12 @@ collections:
                       "recognition",
                       "training",
                       "all-athletes",
+                      "allocation",
+                      "coaching",
                     ],
                 }
               - { name: description, label: "Description", widget: string }
-              - { name: cost, label: "Cost (dollars)", widget: number, value_type: int }
+              - { name: cost, label: "Cost (dollars)", widget: number, value_type: float }
               - {
                   name: photo,
                   label: "Photo (optional)",
@@ -315,6 +336,11 @@ collections:
                   required: false,
                   hint: "Upload a photo of the item or a game photo from the team.",
                 }
+          - name: programs
+            label: "Programs funded this year (name only, no dollar figures)"
+            widget: list
+            field: { name: name, label: "Program", widget: string }
+            hint: "Shown as a chip band at the bottom of the page. Per-team dollar amounts are deliberately not published — see decision #103."
 
   # ---------------------------------------------------------------
   # Featured event pages — the standalone page for a single event

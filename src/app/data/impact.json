@@ -1,39 +1,178 @@
 {
-  "note": "Awaiting the 2026-27 ledger from the Treasurer. The 24 draft line items that demonstrated this page's layout were removed at the production rollover (2026-08-11) so nothing invented ships publicly. Add real purchases at /admin -> 'Impact Ledger'; the summary bar, year/team grouping, and category filters all light up from the data with no code change.",
+  "note": "Figures come from the SLOTAB Transaction Report for July 2025–June 2026, reconciled to the year-end total. Amounts shown are what SLOTAB disbursed to SLOHS athletics; they exclude SLOTAB's own fundraising and operating costs.",
   "currency": "USD",
+  "fiscalYear": "2025-26",
+  "summary": {
+    "total": 210414.79,
+    "programsSupported": 24,
+    "coachesFunded": 26
+  },
   "categories": [
+    { "key": "equipment", "label": "Equipment" },
+    { "key": "facilities", "label": "Facilities" },
+    { "key": "travel", "label": "Travel & Tournaments" },
+    { "key": "food", "label": "Food & Hydration" },
+    { "key": "apparel", "label": "Apparel & Spirit" },
+    { "key": "recognition", "label": "Recognition & Awards" },
+    { "key": "training", "label": "Training & Medical" },
+    { "key": "all-athletes", "label": "All Athletes" },
+    { "key": "allocation", "label": "Team Allocations" },
+    { "key": "coaching", "label": "Coaching Support" }
+  ],
+  "items": [
     {
-      "key": "equipment",
-      "label": "Equipment"
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "allocation",
+      "description": "Season allocations to 24 SLOHS programs — funds sent directly to the athletic department for each team's equipment, entry fees, officials, and in-season needs",
+      "cost": 117050.97,
+      "photo": null
     },
     {
-      "key": "facilities",
-      "label": "Facilities"
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "all-athletes",
+      "description": "Hudl video platform and BlueFrame streaming for every team — game film for coaches and athletes, plus the live broadcast portal families watch from anywhere",
+      "cost": 23000,
+      "photo": null
     },
     {
-      "key": "travel",
-      "label": "Travel & Tournaments"
+      "year": "2025-26",
+      "team": "Football",
+      "category": "apparel",
+      "description": "New football uniforms",
+      "cost": 10000,
+      "photo": "/photos/bfball-vsPR-2022.jpg"
     },
     {
-      "key": "food",
-      "label": "Food & Hydration"
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "apparel",
+      "description": "Sport-specific t-shirts for every SLOHS student-athlete",
+      "cost": 8607.9,
+      "photo": "/merch/SLOHS_TrackField_2.png"
     },
     {
-      "key": "apparel",
-      "label": "Apparel & Spirit"
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "all-athletes",
+      "description": "Season start-up costs across all programs at the beginning of the school year",
+      "cost": 8000,
+      "photo": null
     },
     {
-      "key": "recognition",
-      "label": "Recognition & Awards"
+      "year": "2025-26",
+      "team": "Swim, Dive & Water Polo",
+      "category": "facilities",
+      "description": "New pool swim timing system",
+      "cost": 7000,
+      "photo": null
     },
     {
-      "key": "training",
-      "label": "Training & Medical"
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "recognition",
+      "description": "Senior banners for graduating athletes across all three seasons — fall, winter, and spring",
+      "cost": 6720,
+      "photo": null
     },
     {
-      "key": "all-athletes",
-      "label": "All Athletes"
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "coaching",
+      "description": "Misc-expense stipends for 26 coaches across the fall, winter, and spring seasons",
+      "cost": 6500,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "Cheer",
+      "category": "apparel",
+      "description": "New cheer uniforms",
+      "cost": 5000,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "apparel",
+      "description": "Team warm-ups",
+      "cost": 5000,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "Softball",
+      "category": "facilities",
+      "description": "New softball scoreboard",
+      "cost": 4855,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "facilities",
+      "description": "Approved gym and weight room equipment",
+      "cost": 3563,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "coaching",
+      "description": "Coaching clinics, conference fees, certification costs, and facility upkeep reimbursed to coaches and volunteers",
+      "cost": 2777.74,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "All Sports",
+      "category": "recognition",
+      "description": "Banner printing and event signage",
+      "cost": 1870.5,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "Softball",
+      "category": "equipment",
+      "description": "Team fundraiser earnings returned to the softball program",
+      "cost": 269.68,
+      "photo": null
+    },
+    {
+      "year": "2025-26",
+      "team": "Girls Golf",
+      "category": "recognition",
+      "description": "Girls golf charity fundraiser support (Jerry's Kids)",
+      "cost": 200,
+      "photo": null
     }
   ],
-  "items": []
+  "programs": [
+    "Baseball",
+    "Basketball — Boys",
+    "Basketball — Girls",
+    "Cheer",
+    "Cross Country",
+    "Dance",
+    "Flag Football",
+    "Football",
+    "Golf — Boys",
+    "Golf — Girls",
+    "Soccer — Boys",
+    "Soccer — Girls",
+    "Softball",
+    "Stunt",
+    "Swim — Boys",
+    "Swim — Girls",
+    "Tennis — Boys",
+    "Tennis — Girls",
+    "Track & Field",
+    "Volleyball — Boys",
+    "Volleyball — Girls",
+    "Water Polo — Boys",
+    "Water Polo — Girls",
+    "Wrestling"
+  ]
 }

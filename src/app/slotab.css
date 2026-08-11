@@ -2054,28 +2054,36 @@
   color: #d5d5d5;
 }
 
-.slotab-impact-toggle {
-  display: inline-flex;
-  background: #fff;
-  border: 2px solid var(--slotab-border);
-  margin-bottom: 1.75rem;
+/* Chip band listing every program funded this year. Names only, no
+   dollar figures — see decision #103. */
+.slotab-impact-programs {
+  border-top: 2px solid var(--slotab-border);
+  padding-top: 1.75rem;
+  margin-top: 2.5rem;
 }
-.slotab-impact-toggle-btn {
-  background: transparent;
-  border: none;
-  padding: 0.55rem 1.25rem;
+.slotab-impact-programs h3 {
   font-family: var(--font-slotab-heading), sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--slotab-muted);
-  cursor: pointer;
-  transition: all 0.15s ease;
+  letter-spacing: 0.12em;
+  font-size: 0.95rem;
+  margin: 0 0 1.1rem;
 }
-.slotab-impact-toggle-btn.on {
-  background: var(--slotab-black);
-  color: var(--slotab-gold);
+.slotab-impact-program-chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.slotab-impact-program-chip {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-left: 3px solid var(--slotab-gold);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--slotab-black);
 }
 
 .slotab-impact-group { margin-bottom: 2rem; }
