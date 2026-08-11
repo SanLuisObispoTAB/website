@@ -2003,36 +2003,24 @@
   position: relative;
 }
 
-/* Draft watermark — diagonal tiled "DRAFT · FAKE ITEMS" text over the
-   ledger so nobody mistakes the placeholder numbers for real data. */
-.slotab-impact::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='180' viewBox='0 0 420 180'><g transform='rotate(-22 210 90)'><text x='210' y='100' text-anchor='middle' font-family='Raleway, Arial, sans-serif' font-size='26' font-weight='800' letter-spacing='3' fill='%23c9302c'>DRAFT · FAKE ITEMS</text></g></svg>");
-  background-repeat: repeat;
-  background-size: 420px 180px;
-  opacity: 0.18;
-  mix-blend-mode: multiply;
-}
-.slotab-impact > * { position: relative; z-index: 1; }
-
-/* Extra red ribbon at the top of the ledger so the watermark intent is
-   reinforced even in high-contrast/dark-mode browsers where the diagonal
-   SVG might wash out. */
-.slotab-impact-draft-ribbon {
-  background: #c9302c;
-  color: #fff;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  font-family: var(--font-slotab-heading), sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  font-size: 0.8rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+/* The diagonal tiled "DRAFT · FAKE ITEMS" watermark that used to sit on
+   .slotab-impact::after was removed at the 2026-08-11 production rollover
+   (#90) along with the fake ledger items it was warning about. It was
+   painted on the ledger *container*, so it would have kept tiling over the
+   pending note — and later over the Treasurer's real numbers. */
+/* Replaced the "Draft · Fake Items — Demo Only" ribbon at the 2026-08-11
+   production rollover: the draft items themselves are gone, so the ledger
+   shows this pending note until the Treasurer's real numbers land. */
+.slotab-impact-pending {
+  border: 1px solid var(--slotab-rule, #e2ded6);
+  border-left: 4px solid var(--slotab-gold, #ffcd38);
+  background: #fff;
+  padding: 1.5rem 1.75rem;
+  margin: 0;
+  max-width: 720px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--slotab-muted);
 }
 
 

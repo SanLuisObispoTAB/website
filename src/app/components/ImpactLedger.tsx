@@ -65,11 +65,23 @@ export default function ImpactLedger() {
       .sort((a, b) => b.total - a.total); // biggest spend first
   }, [view]);
 
+  // No ledger yet — show what the page will be rather than an empty shell
+  // with three zeroes in the summary bar.
+  if (ITEMS.length === 0) {
+    return (
+      <div className="slotab-impact">
+        <p className="slotab-impact-pending">
+          The 2026-27 ledger is being compiled. Once the Treasurer closes out
+          each month, every booster purchase lands here — the item, the team it
+          went to, and what it cost — grouped by year and by team. Updates post
+          ahead of each monthly SLOTAB meeting.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="slotab-impact">
-      <div className="slotab-impact-draft-ribbon" role="note">
-        Draft · Fake Items — Demo Only
-      </div>
       <div className="slotab-impact-summary">
         <div className="slotab-impact-stat">
           <div className="slotab-impact-stat-value">

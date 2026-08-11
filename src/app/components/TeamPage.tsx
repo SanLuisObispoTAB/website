@@ -94,6 +94,14 @@ const MONEY = new Intl.NumberFormat("en-US", {
 export default function TeamPage({ team }: { team: Team }) {
   const rosterByYear = (team.roster ?? []).slice().sort((a, b) => a.number - b.number);
 
+  // The quick-facts band holds coach / captains / liaisons. Teams awaiting
+  // their 2026-27 handoff info have none of the three, so skip the band
+  // entirely rather than render an empty strip.
+  const hasQuickFacts =
+    Boolean(team.headCoach) ||
+    (team.captains?.length ?? 0) > 0 ||
+    (team.liaisons?.length ?? 0) > 0;
+
   return (
     <>
       {/* Team hero */}
@@ -124,6 +132,7 @@ export default function TeamPage({ team }: { team: Team }) {
       </section>
 
       {/* Quick facts row */}
+      {hasQuickFacts && (
       <section className="slotab-section slotab-team-quickfacts">
         <div className="slotab-container slotab-team-quickfacts-grid">
           {team.headCoach && (
@@ -171,6 +180,7 @@ export default function TeamPage({ team }: { team: Team }) {
           )}
         </div>
       </section>
+      )}
 
       {/* Team photo — formal 2025-26 portrait */}
       {team.teamPhoto && (

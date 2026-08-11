@@ -11,11 +11,5 @@
   "headCoach": {
     "name": "Nancy Steinmaus",
     "email": "nsteinmaus@hotmail.com"
-  },
-  "liaisons": [
-    {
-      "name": "Liaison TBD",
-      "email": "bxc-liaison@slotab.org"
-    }
-  ]
+  }
 }

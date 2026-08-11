@@ -29,6 +29,10 @@ export type SlotabEvent = {
 };
 
 // ---- MaxPreps-sourced varsity sport events ----
+// Emptied at the 2026-27 rollover: the file held a hand-entered spring-2026
+// slate that is now entirely in the past. The weekly SLOHS sheet below is the
+// live source; this stays wired up as a manual fallback for stretches the
+// sheet doesn't cover (it loses to the sheet on any overlapping date).
 type RawSportEvent = {
   sport: string;
   sportLabel: string;

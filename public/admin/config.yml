@@ -265,7 +265,7 @@ collections:
               name: note,
               label: "Page note (shown under the intro)",
               widget: text,
-              hint: "E.g. 'Amounts are rounded to the nearest dollar and exclude operating costs.' Set to empty to hide.",
+              hint: "Internal maintenance note — NOT shown on the site. Public copy on /impact is in the page itself.",
               required: false,
             }
           - { name: currency, label: "Currency code", widget: string, default: "USD" }
@@ -355,11 +355,25 @@ collections:
               - { name: date, label: "ISO date/time", widget: datetime }
               - { name: venueName, label: "Venue name", widget: string }
               - { name: venueDetail, label: "Venue detail / blurb", widget: text }
-              - { name: ticketsUrl, label: "Booster Bash tickets URL", widget: string }
-              - { name: donateUrl, label: "HOF Fund donate URL", widget: string }
+              - {
+                  name: ticketsUrl,
+                  label: "Booster Bash tickets URL",
+                  widget: string,
+                  required: false,
+                  hint: "Leave empty to hide the Tickets button entirely — better than a link that goes nowhere.",
+                }
+              - {
+                  name: donateUrl,
+                  label: "HOF Fund donate URL",
+                  widget: string,
+                  required: false,
+                  hint: "Leave empty and the button falls back to the general /donate page.",
+                }
           - name: committee
             label: "Committee members"
             widget: list
+            required: false
+            hint: "Leave the list empty to hide the whole Committee section."
             fields:
               - { name: name, label: "Name", widget: string }
               - { name: role, label: "Role", widget: string }
@@ -375,7 +389,13 @@ collections:
             fields:
               - { name: title, label: "Heading", widget: string }
               - { name: blurb, label: "Blurb", widget: text }
-              - { name: joinUrl, label: "Join URL", widget: string }
+              - {
+                  name: joinUrl,
+                  label: "Join URL",
+                  widget: string,
+                  required: false,
+                  hint: "The whole Alumni Membership section stays hidden until this is set — there is no Alumni tier on the 2026-27 membership sheet yet.",
+                }
 
   - name: hof_inductees
     label: "Hall of Fame — Inductees"
@@ -410,7 +430,7 @@ collections:
       - name: events
         label: "Event List"
         file: "src/app/data/slotab-events.json"
-        description: "Non-sport events shown on the Upcoming page (Spring Social, monthly meetings, Physical Night, etc.). Sport events are imported automatically from the athletic department's weekly sheet."
+        description: "Non-sport events shown on the Upcoming page, the home calendar, the top-of-site ticker, and (for 'SLOTAB Meeting' entries) the meeting list on /volunteer. Add the 2026-27 board meetings, Physical Night, parent meetings, and fundraisers here. Sport events are imported automatically from the athletic department's weekly sheet."
         fields:
           - name: events
             label: "Events"

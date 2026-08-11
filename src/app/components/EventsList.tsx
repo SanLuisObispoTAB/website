@@ -94,10 +94,18 @@ export default function EventsList() {
         </div>
       </div>
 
-      {visible.length === 0 && (
+      {ALL_EVENTS.length === 0 ? (
         <p className="slotab-events-empty">
-          No events match the current filter. Turn at least one category on.
+          No events are published yet. The SLOHS athletic department posts each
+          week&apos;s game schedule shortly before it starts, and this page
+          picks it up automatically — check back as the fall season opens.
         </p>
+      ) : (
+        visible.length === 0 && (
+          <p className="slotab-events-empty">
+            No events match the current filter. Turn at least one category on.
+          </p>
+        )
       )}
 
       {Array.from(grouped.entries()).map(([mk, events]) => (

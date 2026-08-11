@@ -2445,3 +2445,39 @@
     font-size: 36px;
   }
 }
+
+/* ---------------------------------------------------------------------
+   2026-08-11 production prep — states for surfaces whose real data hasn't
+   landed yet. Each replaces a hardcoded demo block on the home page.
+   --------------------------------------------------------------------- */
+
+/* Impact split: the four spend categories now render without dollar
+   figures (real per-category totals come from the Treasurer's ledger),
+   so the label carries the row on its own instead of sitting under a
+   number as a caption. */
+.tiger-scope .tiger-impact-fig-label:only-child {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--tiger-ink);
+  letter-spacing: 0;
+  margin-top: 0;
+}
+
+/* Home calendar: shown when no upcoming events are published yet. */
+.tiger-scope .tiger-cal-empty {
+  padding: 28px 0;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--tiger-pewter);
+  border-bottom: 1px solid var(--tiger-bone);
+}
+
+/* Home watch column: caption under the portal promo, replacing the old
+   pair of fake game thumbnails. */
+.tiger-scope .tiger-watch-note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--tiger-pewter);
+}

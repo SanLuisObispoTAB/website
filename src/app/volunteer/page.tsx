@@ -1,17 +1,31 @@
+import Link from "next/link";
 import PageHeader from "../components/PageHeader";
+import slotabEvents from "../data/slotab-events.json";
 
-const MEETINGS = [
-  "August 4, 2025 — First meeting of the year",
-  "September 8, 2025",
-  "October 6, 2025",
-  "November 3, 2025",
-  "December 8, 2025",
-  "January 12, 2026",
-  "February 2, 2026",
-  "March 9, 2026",
-  "April 13, 2026",
-  "May 4, 2026 — Last meeting",
-];
+// Meeting dates come from the same CMS-editable file that feeds /upcoming and
+// the home calendar, so the board maintains them in one place. This replaced a
+// hardcoded 2025-26 list that went stale the moment the year turned over.
+type RawEvent = {
+  id: string;
+  title: string;
+  date: string;
+  categoryLabel: string;
+  detail?: string;
+};
+const MEETING_FMT = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+const MEETINGS = (slotabEvents.events as RawEvent[])
+  .filter((e) => /meeting/i.test(e.categoryLabel))
+  .sort((a, b) => a.date.localeCompare(b.date))
+  .map((e) => {
+    const label = MEETING_FMT.format(new Date(e.date));
+    return /monthly slotab meeting/i.test(e.title)
+      ? label
+      : `${label} — ${e.title}`;
+  });
 
 export default function VolunteerPage() {
   return (
@@ -32,28 +46,41 @@ export default function VolunteerPage() {
             holiday), at Cannon, 1050 Southwood Drive. A Zoom option is
             available. All are welcome to attend.
           </p>
-          <ul>
-            {MEETINGS.map((m) => (
-              <li key={m}>{m}</li>
-            ))}
-          </ul>
+          {MEETINGS.length > 0 ? (
+            <ul>
+              {MEETINGS.map((m) => (
+                <li key={m}>{m}</li>
+              ))}
+            </ul>
+          ) : (
+            <p style={{ color: "var(--slotab-muted)" }}>
+              The 2026-27 meeting dates are being set and will be listed here
+              and on the{" "}
+              <Link href="/upcoming">events calendar</Link> once confirmed.
+            </p>
+          )}
 
           <h2>Volunteer Opportunities</h2>
           <ul>
             <li>
-              <strong>August 7, 2025 — Welcome Back Day:</strong> SLOTAB table
-              from 8:00 AM to 4:00 PM. Volunteers needed.
+              <strong>Welcome Back Day:</strong> SLOTAB staffs a table at the
+              start of the school year — volunteers needed for the day.
             </li>
             <li>
-              <strong>October 4, 2025 — Booster Bash:</strong> Volunteers
-              welcome, silent/live auction items welcome, setup/cleanup help
-              needed.
+              <strong>Booster Bash:</strong> Our largest fundraiser of the
+              year. Volunteers welcome, silent/live auction items welcome, and
+              setup/cleanup help is always needed.
             </li>
             <li>
               <strong>Ongoing:</strong> We are in continued need of volunteers
               for concession stands, gate ticketing, and the apparel booth.
             </li>
           </ul>
+          <p>
+            Dates for each are posted on the{" "}
+            <Link href="/upcoming">events calendar</Link> as they&apos;re
+            confirmed.
+          </p>
 
           <h2>Team Liaisons</h2>
           <p>

@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 
+// Online store URL. Empty until the board supplies the real storefront link —
+// the button below stays hidden rather than shipping a dead "#" CTA.
+const STORE_URL = "";
+
 const SHIRTS = [
   { name: "Baseball", src: "/merch/SLOHS_Baseball_2-1.png" },
   { name: "Beach Volleyball", src: "/merch/SLOHS_BeachVolleyball_2-1.png" },
@@ -21,16 +25,21 @@ export default function MerchPage() {
       <section className="slotab-section">
         <div className="slotab-container slotab-prose">
           <p>
-            SLOTAB Merch is available to order online. You can also find us at
-            select games and school events — home football games, sports
-            physical night, and parent sports meetings.
+            Find SLOTAB merch at select games and school events — home football
+            games, sports physical night, and parent sports meetings.
           </p>
 
-          <div style={{ textAlign: "center", margin: "2rem 0" }}>
-            <Link href="#" className="slotab-btn">
-              Shop SLOTAB Merch
-            </Link>
-          </div>
+          {STORE_URL ? (
+            <div style={{ textAlign: "center", margin: "2rem 0" }}>
+              <Link href={STORE_URL} className="slotab-btn">
+                Shop SLOTAB Merch
+              </Link>
+            </div>
+          ) : (
+            <p style={{ textAlign: "center", color: "var(--slotab-muted)" }}>
+              The online store link for 2026-27 posts here once it opens.
+            </p>
+          )}
 
           <h2 style={{ textAlign: "center" }}>Sport-Specific Apparel</h2>
           <p>
@@ -40,8 +49,9 @@ export default function MerchPage() {
             the beginning of each season.
           </p>
           <p>
-            <strong>Spring sports orders are now closed.</strong> Order pickups
-            will be available in the school office.
+            <strong>Fall ordering opens at the start of the season.</strong>{" "}
+            Watch for the order form through your team&apos;s coach and
+            ParentSquare; pickups are available in the school office.
           </p>
         </div>
       </section>
@@ -49,8 +59,14 @@ export default function MerchPage() {
       <section className="slotab-section alt">
         <div className="slotab-container">
           <div className="slotab-section-title">
-            <span className="slotab-kicker">Current Season</span>
+            {/* Kicker was "Current Season", but every design on file is from
+                the spring run. Neutral label until the fall art is printed. */}
+            <span className="slotab-kicker">Design Gallery</span>
             <h2>Team Apparel Designs</h2>
+            <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
+              A look at recent sport-specific shirt art. Fall designs are added
+              here as each season&apos;s run goes to print.
+            </p>
           </div>
           <div className="slotab-merch-grid">
             {SHIRTS.map((s) => (

@@ -58,10 +58,6 @@
       "role": "Athletic Director & Meet Announcer"
     }
   ],
-  "liaisons": [
-    { "name": "Liaison TBD", "email": "tf-liaison@slotab.org" }
-  ],
-  "captains": [],
   "operationalSetup": "custom",
   "playerParentChannels": [
     {
@@ -76,13 +72,6 @@
       "url": "https://www.parentsquare.com/schools/1903/",
       "meta": "District-wide comms; coach cross-posts team announcements here too"
     }
-  ],
-  "roster": [],
-  "wishlist": [
-    { "item": "Pole vault standards refurbishment", "cost": 1800 },
-    { "item": "Meet finish-line camera / FAT timing support", "cost": 4500 },
-    { "item": "Shot put + discus practice implements", "cost": 950 },
-    { "item": "Team travel to Arcadia Invitational 2026", "cost": 3200 }
   ],
   "externalLinks": [
     {

@@ -17,7 +17,10 @@ export default function UpcomingPage() {
             <p style={{ margin: 0 }}>
               All SLOHS varsity games and SLOTAB events for the current month
               and beyond. Use the filters below to turn each sport and the
-              booster events on or off. Schedules are sourced from MaxPreps.
+              booster events on or off. Game schedules come straight from the
+              SLOHS athletic department&apos;s weekly schedule and refresh
+              automatically; Home Campus remains the source of truth for
+              last-minute changes.
             </p>
           </div>
           <EventsList />

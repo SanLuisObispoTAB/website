@@ -46,13 +46,13 @@ export default function AdminPortalPage() {
           >
             <strong>Stub mode — Springly not connected yet.</strong>
             <br />
-            This page shows placeholder data so the board can review the
-            layout. Once <code>SPRINGLY_API_BASE</code> and{" "}
-            <code>SPRINGLY_API_KEY</code> environment variables are
-            configured on Vercel, the tables below populate from live
-            Springly contact records and the "Add new" buttons create real
-            entries via the two-way API. In production this page will also
-            be protected behind a board-member login.
+            The tables below are empty by design. Once{" "}
+            <code>SPRINGLY_API_BASE</code> and <code>SPRINGLY_API_KEY</code>{" "}
+            are configured on Vercel, they populate from live Springly contact
+            records and the &ldquo;Add new&rdquo; buttons create real entries
+            via the two-way API. This page still needs to be moved behind the
+            board-member login before it holds real member data — right now it
+            is unlisted (noindex) but publicly reachable.
           </div>
 
           {/* Members table */}
@@ -83,6 +83,13 @@ export default function AdminPortalPage() {
                 </tr>
               </thead>
               <tbody>
+                {MEMBERS.length === 0 && (
+                  <tr>
+                    <td colSpan={5} style={{ color: "var(--slotab-muted)" }}>
+                      No member records — connect Springly to populate.
+                    </td>
+                  </tr>
+                )}
                 {MEMBERS.map((m) => (
                   <tr key={m.id}>
                     <td>{m.name}</td>
@@ -139,6 +146,13 @@ export default function AdminPortalPage() {
                 </tr>
               </thead>
               <tbody>
+                {SPONSORS.length === 0 && (
+                  <tr>
+                    <td colSpan={5} style={{ color: "var(--slotab-muted)" }}>
+                      No sponsor records — connect Springly to populate.
+                    </td>
+                  </tr>
+                )}
                 {SPONSORS.map((s) => (
                   <tr key={s.id}>
                     <td>{s.name}</td>

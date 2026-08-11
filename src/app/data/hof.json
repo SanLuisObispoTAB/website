@@ -23,15 +23,14 @@
     "date": "2026-10-03T17:30:00",
     "venueName": "Holland Ranch",
     "venueDetail": "The annual SLOTAB Booster Bash — where this year's Hall of Fame class is officially inducted.",
-    "ticketsUrl": "#",
-    "donateUrl": "#"
+    "ticketsUrl": "",
+    "donateUrl": "",
+    "_note": "ticketsUrl / donateUrl / alumniMembership.joinUrl are intentionally empty — the page hides each CTA until a real URL is set. Booster Bash ticket sales were approved to open 2026-07-01 (decision #38); drop the live link in here when it exists."
   },
-  "committee": [
-    { "name": "TBD", "role": "Chair", "note": "Committee contact information coming soon." }
-  ],
+  "committee": [],
   "alumniMembership": {
     "title": "Become an Alumni Member",
     "blurb": "Former SLOHS Tigers can now support the next generation of athletes through a dedicated Alumni Membership tier. Alumni Members receive recognition at the Booster Bash, an invitation to the Hall of Fame induction, and updates on every Tiger team all year long.",
-    "joinUrl": "#"
+    "joinUrl": ""
   }
 }

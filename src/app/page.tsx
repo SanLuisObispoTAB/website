@@ -6,6 +6,7 @@ import TeamsCarousel from "./components/tiger/TeamsCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
 import { isDonateDriveActive } from "./data/campaign";
 import { ALL_EVENTS } from "./data/events";
+import hofInductees from "./data/hof-inductees.json";
 
 const STATS = [
   { num: "27", label: "CIF-sanctioned teams" },
@@ -32,11 +33,14 @@ const WAYS_TO_SUPPORT = [
   },
 ];
 
-const IMPACT_FIGURES = [
-  ["$48,200", "Equipment & gear"],
-  ["$31,500", "Travel & tournaments"],
-  ["$22,800", "Facility upgrades"],
-  ["$14,300", "Athlete meals & snacks"],
+// What the general fund and designated gifts actually pay for. Deliberately
+// categories, not dollar figures — the real per-category totals come from the
+// Treasurer's ledger (see /impact) and nothing goes on this page until then.
+const IMPACT_CATEGORIES = [
+  "Equipment & gear",
+  "Travel & tournaments",
+  "Facility upgrades",
+  "Athlete meals & snacks",
 ];
 
 // Build the home calendar from the live event sources (slotab-events.json
@@ -62,7 +66,6 @@ function buildHomeCalendar(): {
     minute: "2-digit",
     hour12: true,
   });
-  const SPRING_SOCIAL_ID = "ns-spring-social";
 
   return ALL_EVENTS.filter((e) => new Date(e.date) >= todayMidnight)
     .slice(0, 5)
@@ -70,34 +73,42 @@ function buildHomeCalendar(): {
       const d = new Date(e.date);
       const time = fmtTime.format(d);
       const meta = e.detail ? e.detail : `${time} · ${e.categoryLabel}`;
-      const isSpringSocial = e.id === SPRING_SOCIAL_ID;
       return {
         date: fmtDate.format(d).toUpperCase(),
         day: fmtDay.format(d).toUpperCase(),
         title: e.title,
         meta,
-        tag: isSpringSocial ? "Featured" : undefined,
-        href: isSpringSocial ? "/spring-social" : "/upcoming",
+        tag: e.isSport ? undefined : "SLOTAB",
+        href: "/upcoming",
       };
     });
 }
 
 const CALENDAR = buildHomeCalendar();
 
+// Fall-season designs, swapped in from the spring three (baseball, track,
+// beach volleyball) at the 2026-27 rollover. These are the fall sports we
+// currently hold shirt art for; refresh when the fall run goes to print.
 const FEATURED_MERCH = [
-  { name: "Tiger Baseball", src: "/merch/SLOHS_Baseball_2-1.png" },
-  { name: "Tiger Track & Field", src: "/merch/SLOHS_TrackField_2.png" },
-  { name: "Tiger Beach Volleyball", src: "/merch/SLOHS_BeachVolleyball_2-1.png" },
+  { name: "Tiger Volleyball", src: "/merch/SLOHS_Volleyball_2.png" },
+  { name: "Tiger Tennis", src: "/merch/SLOHS_Tennis_2-1.png" },
+  { name: "Tiger Golf", src: "/merch/SLOHS_Golf_2.png" },
 ];
 
-const HOF_PREVIEW = [
-  { year: "2024", name: "Coach Mary Cisneros", sport: "Volleyball · 28 Years" },
-  { year: "2023", name: "Marcus Hall '05", sport: "Football · NFL" },
-  { year: "2023", name: "Elena Park '12", sport: "Track · Olympic Trials" },
-  { year: "2022", name: "1994 State Champions", sport: "Boys Soccer" },
-  { year: "2022", name: "Dr. Robert Teitge", sport: "Founding Boosters" },
-  { year: "2021", name: "Sarah Whitfield '08", sport: "Tennis · D1 All-American" },
-];
+// Six real inductees from the most recent class, pulled from the same file
+// that backs /hall-of-fame so this strip can never drift from the actual roll.
+type Inductee = { name: string; yearInducted: string; sport: string };
+const HOF_PREVIEW = (() => {
+  const all = hofInductees.inductees as Inductee[];
+  const latest = all
+    .map((i) => i.yearInducted)
+    .sort()
+    .at(-1);
+  return all
+    .filter((i) => i.yearInducted === latest)
+    .slice(0, 6)
+    .map((i) => ({ year: i.yearInducted, name: i.name, sport: i.sport }));
+})();
 
 export default function ClassicHomePage() {
   // Seasonal Donate drive: feature the prominent Donate CTA only while a
@@ -174,12 +185,11 @@ export default function ClassicHomePage() {
               <p className="tiger-impact-body">
                 From sport-specific shirts for every athlete to tackle dummies,
                 scoreboard panels, tournament travel, and post-practice snacks
-                — see exactly what the booster club bought last season.
+                — booster dollars turn into equipment a coach can point at.
               </p>
               <div className="tiger-impact-figures">
-                {IMPACT_FIGURES.map(([num, label]) => (
+                {IMPACT_CATEGORIES.map((label) => (
                   <div key={label} className="tiger-impact-fig">
-                    <div className="tiger-impact-fig-num">{num}</div>
                     <div className="tiger-impact-fig-label">{label}</div>
                   </div>
                 ))}
@@ -203,10 +213,11 @@ export default function ClassicHomePage() {
                 />
               </div>
               <div className="tiger-impact-card">
-                <div className="tiger-impact-card-eyebrow">2024–25 Total</div>
-                <div className="tiger-impact-card-num">$116,800</div>
+                <div className="tiger-impact-card-eyebrow">The Split</div>
+                <div className="tiger-impact-card-num">75 / 25</div>
                 <div className="tiger-impact-card-sub">
-                  Raised &amp; deployed for Tiger athletes
+                  75% to the team you designate · 25% to the general fund
+                  every Tigers team draws on
                 </div>
               </div>
             </div>
@@ -267,6 +278,16 @@ export default function ClassicHomePage() {
                 <h2>What&apos;s on the calendar.</h2>
               </div>
               <div className="tiger-cal-list">
+                {CALENDAR.length === 0 && (
+                  <p className="tiger-cal-empty">
+                    The fall schedule posts here as soon as the SLOHS athletic
+                    department publishes it — game times update automatically
+                    every week.{" "}
+                    <Link href="/upcoming" className="tiger-ulink">
+                      See all events →
+                    </Link>
+                  </p>
+                )}
                 {CALENDAR.map((e) => (
                   <Link key={e.date + e.title} href={e.href} className="tiger-cal-row">
                     <div>
@@ -289,65 +310,34 @@ export default function ClassicHomePage() {
                 <span className="tiger-eyebrow">Watch the Tigers</span>
                 <h2>Live &amp; on-demand.</h2>
               </div>
+              {/* Promo for the Hudl BlueFrame portal on /watch. No live
+                  status or viewer counts — we have no feed for either, and
+                  the portal itself is the source of truth for what's on. */}
               <Link href="/watch" className="tiger-watch-feature tiger-card-lift">
                 <Image
-                  src="/photos/gbvball-serve-swanson.jpg"
-                  alt="Girls Beach Volleyball"
+                  src="/photos/bfball-1-1200x835.jpg"
+                  alt="SLOHS Tigers football under the lights"
                   width={800}
                   height={380}
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="tiger-watch-feature-overlay" />
                 <div className="tiger-watch-tags">
-                  <span className="tiger-live-badge">
-                    <span className="tiger-live-dot tiger-pulse" />
-                    LIVE
-                  </span>
-                  <span className="tiger-tag tiger-tag-dark">Beach Volleyball</span>
+                  <span className="tiger-tag tiger-tag-dark">Tigers Watch Portal</span>
                 </div>
                 <div className="tiger-watch-feature-body">
                   <div className="tiger-watch-feature-title">
-                    Girls Beach Volleyball vs Morro Bay
+                    Every Tiger broadcast, live and on demand
                   </div>
                   <div className="tiger-watch-feature-meta">
-                    NOW STREAMING ON HUDL · 1,247 watching
+                    ON HUDL · STREAMING SPONSORED BY SLOTAB
                   </div>
                 </div>
               </Link>
-              <div className="tiger-watch-thumbs">
-                {[
-                  {
-                    sport: "Basketball",
-                    title: "V Girls Basketball vs Arroyo Grande",
-                    date: "APR 2",
-                    img: "/photos/gbball-hartford.jpg",
-                  },
-                  {
-                    sport: "Water Polo",
-                    title: "Boys Water Polo @ SLO",
-                    date: "APR 2",
-                    img: "/photos/bwpolo-2.jpg",
-                  },
-                ].map((v) => (
-                  <Link key={v.title} href="/watch" className="tiger-watch-thumb">
-                    <Image
-                      src={v.img}
-                      alt={v.title}
-                      width={400}
-                      height={180}
-                      sizes="(max-width: 1024px) 50vw, 25vw"
-                    />
-                    <div className="tiger-watch-thumb-overlay" />
-                    <div className="tiger-watch-thumb-tag">
-                      <span className="tiger-tag tiger-tag-dark">{v.sport}</span>
-                    </div>
-                    <div className="tiger-watch-thumb-body">
-                      <div className="tiger-watch-thumb-title">{v.title}</div>
-                      <div className="tiger-watch-thumb-date">{v.date}</div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+              <p className="tiger-watch-note">
+                Home games stream from the SLOHS Hudl portal — search by sport,
+                catch a live game, or pull up the archive.
+              </p>
             </div>
           </div>
         </div>
@@ -359,7 +349,7 @@ export default function ClassicHomePage() {
           <div className="tiger-sponsors-head">
             <div className="tiger-section-head dark">
               <span className="tiger-eyebrow">Powered By Local</span>
-              <h2>Our 2025–26 sponsors.</h2>
+              <h2>Our 2026–27 sponsors.</h2>
             </div>
             <Link
               href="/membership"

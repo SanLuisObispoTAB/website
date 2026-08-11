@@ -1,7 +1,6 @@
 import Link from "next/link";
 import ImpactLedger from "../components/ImpactLedger";
 import PageHeader from "../components/PageHeader";
-import impactData from "../data/impact.json";
 
 export const metadata = {
   title: "Impact — SLOTAB",
@@ -29,7 +28,11 @@ export default function ImpactPage() {
           </p>
           <p style={{ fontSize: "0.95rem", color: "var(--slotab-muted)" }}>
             <em>
-              {impactData.note}
+              75% of a designated donation goes to the team you name — the
+              figure your coach sees in their account. The remaining 25% is the
+              SLOTAB general fund, which pays for the things every team uses:
+              Hudl streaming, senior banners, and the sport-specific shirt
+              every athlete gets.
             </em>
           </p>
         </div>
