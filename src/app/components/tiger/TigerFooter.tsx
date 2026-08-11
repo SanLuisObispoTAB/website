@@ -78,6 +78,9 @@ export default function TigerFooter() {
             <Link href="/about" className="tiger-footer-link">
               About
             </Link>
+            <Link href="/privacy" className="tiger-footer-link">
+              Privacy &amp; Cookies
+            </Link>
           </div>
         </div>
 

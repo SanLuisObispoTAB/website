@@ -5,6 +5,7 @@ import SiteBanner from "./tiger/SiteBanner";
 import TigerFooter from "./tiger/TigerFooter";
 import TigerNav from "./tiger/TigerNav";
 import TopBar from "./tiger/TopBar";
+import ConsentGate from "./ConsentGate";
 import { ALL_EVENTS } from "../data/events";
 
 // The ticker is built from the same live sources as the calendar: the SLOHS
@@ -67,6 +68,7 @@ export default function LayoutShell({
       <TigerNav />
       <main>{children}</main>
       <TigerFooter />
+      <ConsentGate />
     </>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import MembershipTiers from "../components/MembershipTiers";
 import SponsorWall from "../components/SponsorWall";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
+import { SponsorshipMarker } from "../components/ConsentGate";
 
 export default function MembershipPage() {
   return (
@@ -76,6 +77,7 @@ export default function MembershipPage() {
               for 2026–27 as businesses renew.
             </p>
           </div>
+          <SponsorshipMarker />
           <SponsorWall />
         </div>
       </section>
