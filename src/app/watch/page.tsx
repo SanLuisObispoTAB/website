@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Script from "next/script";
 import { useEffect } from "react";
 import PageHeader from "../components/PageHeader";
@@ -60,6 +61,37 @@ export default function WatchPage() {
             grandparents, and out-of-town family. Live broadcasts plus the
             full archive below.
           </p>
+          <p style={{ color: "var(--slotab-muted)" }}>
+            Not every sport is broadcast — the portal below is the source of
+            truth for what&apos;s scheduled. If a game you expect isn&apos;t
+            listed, it isn&apos;t being streamed.
+          </p>
+        </div>
+      </section>
+
+      {/* New multi-camera Hudl rig — the biggest upgrade to Tiger streaming
+          since SLOTAB started paying for it. No install date announced yet,
+          so the copy stays deliberately vague on timing. */}
+      <section className="slotab-section alt">
+        <div className="slotab-container">
+          <div className="slotab-camera-upgrade">
+            <span className="slotab-kicker">Coming to Tiger Broadcasts</span>
+            <h2>New Hudl cameras — multi-camera coverage.</h2>
+            <p>
+              SLOTAB is bringing in new Hudl cameras for{" "}
+              <strong>multi-camera coverage at Holt Field and in the Big
+              Gym</strong>. Instead of one fixed wide shot, broadcasts get real
+              angles — the kind of coverage that makes a stream worth watching
+              from three time zones away, and gives coaches and athletes far
+              better film to work from.
+            </p>
+            <p className="slotab-camera-upgrade-foot">
+              Funded by your memberships, sponsorships, and Booster Bash
+              tickets. This is exactly the kind of thing the{" "}
+              <Link href="/impact">general fund</Link> pays for on every
+              team&apos;s behalf.
+            </p>
+          </div>
         </div>
       </section>
 

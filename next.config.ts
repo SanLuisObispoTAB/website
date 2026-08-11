@@ -27,6 +27,22 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // Boys and girls cross country merged into one page 2026-08-11 — the
+      // program considers itself a single team. Keep the old slugs working.
+      {
+        source: "/teams/boys-cross-country",
+        destination: "/teams/cross-country",
+        permanent: true,
+      },
+      {
+        source: "/teams/girls-cross-country",
+        destination: "/teams/cross-country",
+        permanent: true,
+      },
+    ];
+  },
   async rewrites() {
     return [
       // Decap CMS admin is served as a pure static HTML file at

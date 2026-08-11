@@ -14,5 +14,11 @@
   "headCoach": {
     "name": "Tyler Warmerdam",
     "email": "twarmerdam@slcusd.org"
-  }
+  },
+  "liaisons": [
+    {
+      "name": "Sue Karleskint",
+      "email": "SueKarleskint@gmail.com"
+    }
+  ]
 }

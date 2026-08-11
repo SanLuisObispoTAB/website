@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "sport": "girls-volleyball",
+    "sportLabel": "Girls Volleyball",
+    "date": "2026-08-11T18:00:00",
+    "opponent": "Morro Bay",
+    "isHome": false
+  },
+  {
+    "sport": "girls-volleyball",
+    "sportLabel": "Girls Volleyball",
+    "date": "2026-08-13T18:30:00",
+    "opponent": "Stockdale",
+    "isHome": true
+  },
+  {
+    "sport": "girls-volleyball",
+    "sportLabel": "Girls Volleyball",
+    "date": "2026-08-18T18:15:00",
+    "opponent": "Frontier",
+    "isHome": false
+  },
+  {
+    "sport": "girls-volleyball",
+    "sportLabel": "Girls Volleyball",
+    "date": "2026-08-20T18:15:00",
+    "opponent": "Liberty",
+    "isHome": true
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-08-21T19:00:00",
+    "opponent": "Mt. Whitney",
+    "isHome": true
+  },
+  {
+    "sport": "girls-volleyball",
+    "sportLabel": "Girls Volleyball",
+    "date": "2026-08-25T18:00:00",
+    "opponent": "Coastal Christian",
+    "isHome": true
+  },
+  {
+    "sport": "girls-volleyball",
+    "sportLabel": "Girls Volleyball",
+    "date": "2026-08-27T18:30:00",
+    "opponent": "Buchanan",
+    "isHome": false
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-08-28T19:00:00",
+    "opponent": "Mission Oak",
+    "isHome": true
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-09-04T19:00:00",
+    "opponent": "Independence",
+    "isHome": false
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-09-11T19:00:00",
+    "opponent": "Atascadero",
+    "isHome": true
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-09-18T19:00:00",
+    "opponent": "Pioneer Valley",
+    "isHome": false
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-10-02T19:00:00",
+    "opponent": "Mission College Prep",
+    "isHome": true
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-10-09T19:00:00",
+    "opponent": "Arroyo Grande",
+    "isHome": true
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-10-16T19:15:00",
+    "opponent": "Templeton",
+    "isHome": false
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-10-23T19:00:00",
+    "opponent": "Righetti",
+    "isHome": false
+  },
+  {
+    "sport": "football",
+    "sportLabel": "Football",
+    "date": "2026-10-30T19:00:00",
+    "opponent": "St. Joseph",
+    "isHome": true
+  }
+]

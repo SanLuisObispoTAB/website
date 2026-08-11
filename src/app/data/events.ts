@@ -2,7 +2,23 @@ import sportEventsJson from "./events.json";
 import weeklyEventsJson from "./weekly-events.json";
 import slotabEventsJson from "./slotab-events.json";
 
+// Fall categories were added 2026-08-11 — the list had been spring-only, so a
+// fall game fell out of `activeCategories()` and, because /upcoming only shows
+// events whose category has a filter chip, never rendered at all.
 export type EventCategory =
+  | "football"
+  | "girls-volleyball"
+  | "girls-tennis"
+  | "boys-water-polo"
+  | "girls-water-polo"
+  | "cross-country"
+  | "girls-golf"
+  | "flag-football"
+  | "cheer"
+  | "dance"
+  | "basketball"
+  | "soccer"
+  | "wrestling"
   | "baseball"
   | "softball"
   | "beach-volleyball"
@@ -150,8 +166,23 @@ export const ALL_EVENTS: SlotabEvent[] = [
   .sort((a, b) => a.date.localeCompare(b.date));
 
 // Categories present in the filtered data, in display order
+// Fall first, then winter, then spring — matches the athletic calendar so the
+// in-season sports lead the filter row.
 const CATEGORY_ORDER: EventCategory[] = [
   "non-sport",
+  "football",
+  "girls-volleyball",
+  "girls-tennis",
+  "boys-water-polo",
+  "girls-water-polo",
+  "cross-country",
+  "girls-golf",
+  "flag-football",
+  "cheer",
+  "dance",
+  "basketball",
+  "soccer",
+  "wrestling",
   "baseball",
   "softball",
   "beach-volleyball",

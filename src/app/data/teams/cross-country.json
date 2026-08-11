@@ -1,0 +1,44 @@
+{
+  "slug": "cross-country",
+  "name": "Cross Country",
+  "sport": "Cross Country",
+  "gender": "Co-ed",
+  "season": "Fall",
+  "tagline": "Miles of grit through the SLO hills — one Tiger cross country team.",
+  "heroPhoto": "/photos/bXC-team-2025.jpg",
+  "heroPhotoPosition": "center 25%",
+  "teamPhoto": "/photos/gXC-team-2025.jpg",
+  "gallery": [
+    "/photos/bXC-team-2025.jpg"
+  ],
+  "eventCategory": "cross-country",
+  "headCoach": {
+    "name": "Nancy Steinmaus",
+    "email": "nsteinmaus@hotmail.com",
+    "bio": "Also coaches boys distance for SLOHS Track & Field. Cross country runs as one Tiger team, led by Coach Steinmaus and Coach Berkeland together."
+  },
+  "assistantCoaches": [
+    {
+      "name": "Dan Berkeland",
+      "role": "Head Coach",
+      "email": "danberkeland@gmail.com",
+      "bio": "Three-time All-American and 1992 National Champion in the 3000m steeplechase for Cal Poly San Luis Obispo, where he graduated in 1996 with a degree in Architecture. Co-founder of The Back Porch Bakery, which serves wholesale bread to over 200 locations across the Central Coast. Began coaching at SLOHS in 2024 as a girls track distance assistant; later took on the head role for girls cross country."
+    }
+  ],
+  "liaisons": [
+    {
+      "name": "Derek Folden",
+      "email": "polyreel@gmail.com"
+    }
+  ],
+  "externalLinks": [
+    {
+      "label": "SLOHS T&F and XC Team Site",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/"
+    },
+    {
+      "label": "Brian Waterbury Memorial Scholarship",
+      "url": "https://sites.google.com/a/slcusd.org/slohs-track-and-field/cross-country/brian-waterbury-memorial-scholarship"
+    }
+  ]
+}

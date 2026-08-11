@@ -46,20 +46,55 @@ async function discoverTabs() {
 
 // Map the free-text sport string from the sheet to our category keys.
 // Keep the mapping loose and forgiving — the sheet is hand-edited each week.
+// Gender-aware as of 2026-08-11: the old version sent every volleyball row to
+// "boys-volleyball" and had no fall sports at all, so this fall's girls
+// volleyball, football, water polo, and cross country would have been
+// mislabelled or dropped to non-sport the moment the school filled the sheet in.
 function categorize(rawSport) {
   const s = rawSport.toLowerCase();
+  const girls = /\b(girls?|women'?s|g)\b/.test(s);
+  const boys = /\b(boys?|men'?s|b)\b/.test(s);
+
+  // Order matters: the more specific string has to win. "Flag Football"
+  // must be tested before "football", "beach" before "volleyball", and
+  // "cross country" before anything matching "country".
+  if (s.includes("flag")) return { category: "flag-football", label: "Girls Flag Football" };
+  if (s.includes("football")) return { category: "football", label: "Football" };
+  if (s.includes("water polo") || s.includes("waterpolo"))
+    return girls
+      ? { category: "girls-water-polo", label: "Girls Water Polo" }
+      : { category: "boys-water-polo", label: "Boys Water Polo" };
+  if (s.includes("cross country") || s.includes("xc"))
+    return { category: "cross-country", label: "Cross Country" };
   if (s.includes("beach")) return { category: "beach-volleyball", label: "Beach Volleyball" };
-  if (s.includes("boys volleyball") || (s.includes("volleyball") && s.includes("boys")))
-    return { category: "boys-volleyball", label: "Boys Volleyball" };
-  if (s.includes("volleyball")) return { category: "boys-volleyball", label: "Boys Volleyball" };
+  if (s.includes("volleyball"))
+    return girls
+      ? { category: "girls-volleyball", label: "Girls Volleyball" }
+      : { category: "boys-volleyball", label: "Boys Volleyball" };
   if (s.includes("softball")) return { category: "softball", label: "Softball" };
   if (s.includes("baseball")) return { category: "baseball", label: "Baseball" };
-  if (s.includes("lacrosse")) return { category: "boys-lacrosse", label: "Boys Lacrosse" };
-  if (s.includes("tennis")) return { category: "boys-tennis", label: "Boys Tennis" };
-  if (s.includes("swim") || s.includes("dive")) return { category: "boys-swim", label: "Swim & Dive" };
+  if (s.includes("basketball")) return { category: "basketball", label: girls ? "Girls Basketball" : "Boys Basketball" };
+  if (s.includes("soccer")) return { category: "soccer", label: girls ? "Girls Soccer" : "Boys Soccer" };
+  if (s.includes("wrestl")) return { category: "wrestling", label: girls ? "Girls Wrestling" : "Boys Wrestling" };
+  if (s.includes("tennis"))
+    return girls
+      ? { category: "girls-tennis", label: "Girls Tennis" }
+      : { category: "boys-tennis", label: "Boys Tennis" };
+  if (s.includes("swim") || s.includes("dive"))
+    return girls
+      ? { category: "girls-swim", label: "Girls Swim & Dive" }
+      : { category: "boys-swim", label: "Boys Swim & Dive" };
+  if (s.includes("golf"))
+    return girls
+      ? { category: "girls-golf", label: "Girls Golf" }
+      : { category: "boys-golf", label: "Boys Golf" };
   if (s.includes("track") || s.includes("field")) return { category: "track-field", label: "Track & Field" };
-  if (s.includes("golf")) return { category: "boys-golf", label: "Boys Golf" };
-  if (s.includes("stunt") || s.includes("cheer")) return { category: "stunt", label: "Stunt / Cheer" };
+  if (s.includes("stunt")) return { category: "stunt", label: "Stunt" };
+  if (s.includes("cheer")) return { category: "cheer", label: "Cheer" };
+  if (s.includes("dance")) return { category: "dance", label: "Dance" };
+  // Unrecognized: keep it visible as a non-sport row rather than dropping it,
+  // and let the label carry whatever the sheet said.
+  if (boys || girls) { /* fallthrough — gender known but sport isn't */ }
   return { category: "non-sport", label: rawSport };
 }
 

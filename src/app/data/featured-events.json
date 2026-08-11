@@ -10,8 +10,8 @@
       "date": "2026-08-13T08:00:00",
       "venueName": "The Big Gym, SLOHS",
       "venueDetail": "Schedules, picture day, school ID cards, ASB stickers, and merch — with SLOTAB staffing a table all day.",
-      "photo": "/photos/tigers-helmet-tunnel.jpg",
-      "photoAlt": "The SLO Tigers inflatable helmet tunnel set up on the track at Holt Field",
+      "photo": "/photos/tigers-welcome-day-sign.jpg",
+      "photoAlt": "SLOHS Welcome Day sign — San Luis Obispo High School Welcome Day",
       "body": [
         "SLOTAB runs the merch table at Back to School Day — come say hello, sign up for a membership, and grab Tiger gear before the season starts.",
         "We need volunteers to staff the table. Grab a shift below — it's the easiest hour you'll give the Tigers all year.",
@@ -26,7 +26,7 @@
         }
       ],
       "photoWidth": 1200,
-      "photoHeight": 900
+      "photoHeight": 1334
     },
     {
       "slug": "booster-bash",

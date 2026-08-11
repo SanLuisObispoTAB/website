@@ -338,7 +338,8 @@ export default function ClassicHomePage() {
               </Link>
               <p className="tiger-watch-note">
                 Home games stream from the SLOHS Hudl portal — search by sport,
-                catch a live game, or pull up the archive.
+                catch a live game, or pull up the archive. New multi-camera
+                Hudl cameras are coming to Holt Field and the Big Gym.
               </p>
             </div>
           </div>

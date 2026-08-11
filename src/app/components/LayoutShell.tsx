@@ -8,26 +8,40 @@ import TopBar from "./tiger/TopBar";
 import { ALL_EVENTS } from "../data/events";
 
 // The ticker is built from the same live sources as the calendar: the SLOHS
-// athletic-department weekly sheet (scraped), plus SLOTAB's own events. It
-// carries no results/scores — we have no scoreboard feed, and inventing one
-// is exactly what this replaced. When there is nothing upcoming (e.g. before
-// the school posts the first week of a season), the bar hides itself.
+// athletic-department weekly sheet (scraped), the manual schedule fallback,
+// and SLOTAB's own events. It carries no results/scores — we have no
+// scoreboard feed, and inventing one is exactly what this replaced.
+//
+// A standing "game day updates" line always rides at the end, so the bar is
+// never empty and never repeats a single dated item three times (TopBar
+// triples its items to loop the marquee seamlessly).
 const TICKER_FMT = new Intl.DateTimeFormat("en-US", {
   weekday: "short",
   month: "short",
   day: "numeric",
 });
 
+const STANDING_ITEM = {
+  tag: "GO TIGERS",
+  text: "Watch here for game day updates",
+};
+
 function buildTickerItems() {
   const todayMidnight = new Date();
   todayMidnight.setHours(0, 0, 0, 0);
-  return ALL_EVENTS.filter((e) => new Date(e.date) >= todayMidnight)
+  const upcoming = ALL_EVENTS.filter(
+    (e) => new Date(e.date) >= todayMidnight,
+  )
     .slice(0, 6)
     .map((e, i) => ({
-      tag: i === 0 ? "NEXT UP" : TICKER_FMT.format(new Date(e.date)).toUpperCase(),
+      tag:
+        i === 0
+          ? "NEXT UP"
+          : TICKER_FMT.format(new Date(e.date)).toUpperCase(),
       text: e.title,
       score: e.isHome === true ? "HOME" : undefined,
     }));
+  return [...upcoming, STANDING_ITEM];
 }
 
 const TICKER_ITEMS = buildTickerItems();
@@ -49,9 +63,7 @@ export default function LayoutShell({
   return (
     <>
       <SiteBanner />
-      {/* TopBar triples its items to loop the marquee seamlessly, so one or
-          two entries visibly repeat. Below three, skip the bar entirely. */}
-      {TICKER_ITEMS.length >= 3 && <TopBar items={TICKER_ITEMS} />}
+      <TopBar items={TICKER_ITEMS} />
       <TigerNav />
       <main>{children}</main>
       <TigerFooter />
