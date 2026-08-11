@@ -21,6 +21,11 @@ export type FeaturedEvent = {
    *  landscape photo gets a wider frame so it isn't squeezed into 600px. */
   photoWidth?: number;
   photoHeight?: number;
+  /** Lead copy, rendered directly under the artwork and *above* the
+   *  date/venue card — for a welcome or announcement that should be the
+   *  first thing read. `body` still renders below the card as usual. The
+   *  first line is set larger, so put the headline sentence there. */
+  intro?: string[];
   body?: string[];
   /** Event-specific contact address. Falls back to a link to /contact. */
   contactEmail?: string;
@@ -72,6 +77,16 @@ export default function FeaturedEventPage({
                 sizes="(max-width: 940px) 100vw, 900px"
                 priority
               />
+            </div>
+          )}
+
+          {event.intro && event.intro.length > 0 && (
+            <div className="slotab-event-intro slotab-prose">
+              {event.intro.map((para, i) => (
+                <p key={para} className={i === 0 ? "lead" : undefined}>
+                  {para}
+                </p>
+              ))}
             </div>
           )}
 

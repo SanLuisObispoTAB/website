@@ -400,8 +400,16 @@ collections:
                 }
               - { name: photoAlt, label: "Image alt text", widget: string, required: false }
               - {
+                  name: intro,
+                  label: "Lead copy (shown at the top, above the date/venue box)",
+                  widget: list,
+                  required: false,
+                  field: { name: paragraph, label: "Paragraph", widget: text },
+                  hint: "For a welcome or announcement that should be read first. The FIRST paragraph is set larger — put the headline sentence there. Everything else belongs in Body paragraphs below.",
+                }
+              - {
                   name: body,
-                  label: "Body paragraphs",
+                  label: "Body paragraphs (shown below the date/venue box)",
                   widget: list,
                   required: false,
                   field: { name: paragraph, label: "Paragraph", widget: text },

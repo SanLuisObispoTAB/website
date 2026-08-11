@@ -36,9 +36,9 @@
       "timeLabel": "5:00 – 10:00 PM · doors at 5:00",
       "date": "2026-10-10T17:00:00",
       "venueName": "The Historic Octagon Barn",
-      "venueDetail": "This year's theme: The Tiger's Den. Wear your Tiger gear or black and gold.",
-      "photo": "",
-      "photoAlt": "",
+      "venueDetail": "This year's theme: the Tiger's Den. Wear your Tiger gear or black and gold.",
+      "photo": "/photos/booster-bash-tigers-den.png",
+      "photoAlt": "Tiger's Den — 2026 SLOHS Athletic Booster Bash logo: a roaring tiger on a black and gold crest above a banner reading Tiger's Den",
       "body": [
         "The Booster Bash is SLOTAB's largest fundraiser of the year — an evening of food, drinks, and both silent and live auctions — and it's the night the SLOHS Athletics Hall of Fame inducts its newest class.",
         "Individual tickets are $100 and include admission, dinner, a no-host bar, the silent and live auctions, and drawings. Reserved tables seat 6 ($600) or 8 ($800), with reserved seating and complimentary wine.",
@@ -67,7 +67,15 @@
       ],
       "contactEmail": "slotabboosterbash@gmail.com",
       "qrImage": "/booster-bash/tag-qr.png",
-      "qrCaption": "Scan to buy Booster Bash tickets"
+      "qrCaption": "Scan to buy Booster Bash tickets",
+      "intro": [
+        "Welcome to the 2026 Tiger's Den — the SLOHS Athletic Booster Bash is back.",
+        "It's that exciting time of year again! Come out and show your Tiger pride while supporting our incredible SLO High athletes.",
+        "Join us for an unforgettable evening of food, drinks, and both silent and live auctions at the iconic Octagon Barn on Saturday, October 10th. Doors open at 5:00 PM.",
+        "Wear your Tiger Gear or Black and Gold and help us make this a night to remember!"
+      ],
+      "photoWidth": 1024,
+      "photoHeight": 1024
     }
   ]
 }

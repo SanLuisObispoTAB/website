@@ -2834,6 +2834,26 @@ a.slotab-platinum-slide:hover {
    so give a wide photo more room instead of shrinking it to 600px. */
 .slotab-flyer.wide { max-width: 900px; }
 
+/* Lead copy on a featured event page — sits between the artwork and the
+   date/venue card, so it reads as the welcome before the logistics. */
+.slotab-event-intro {
+  max-width: 680px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+.slotab-event-intro p { margin-bottom: 1rem; }
+.slotab-event-intro p:last-child { margin-bottom: 0; }
+.slotab-event-intro .lead {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--slotab-black);
+}
+@media (max-width: 480px) {
+  .slotab-event-intro .lead { font-size: 1.15rem; }
+}
+
 /* /watch — new multi-camera Hudl rig callout (2026-08-11). Gold-edged card
    so it reads as news rather than as another paragraph of body copy. */
 .slotab-camera-upgrade {
