@@ -11,6 +11,9 @@ type RawEvent = {
   date: string;
   categoryLabel: string;
   detail?: string;
+  /** Short annotation for a meeting that breaks the usual cadence — e.g.
+   *  September, which moves a week because the first Monday is Labor Day. */
+  note?: string;
 };
 const MEETING_FMT = new Intl.DateTimeFormat("en-US", {
   month: "long",
@@ -44,9 +47,10 @@ const MEETINGS = (slotabEvents.events as RawEvent[])
   .sort((a, b) => a.date.localeCompare(b.date))
   .map((e) => {
     const label = MEETING_FMT.format(new Date(e.date));
-    return /monthly slotab meeting/i.test(e.title)
+    const base = /monthly slotab meeting/i.test(e.title)
       ? label
       : `${label} — ${e.title}`;
+    return e.note ? `${base} — ${e.note}` : base;
   });
 
 export default function VolunteerPage() {

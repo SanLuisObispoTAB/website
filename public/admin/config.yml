@@ -551,6 +551,13 @@ collections:
                   options: ["SLOTAB Event", "SLOTAB Meeting", "Fundraiser"],
                 }
               - {
+                  name: note,
+                  label: "Short note (optional)",
+                  widget: string,
+                  required: false,
+                  hint: "A brief annotation for a meeting that breaks the usual cadence, e.g. \"moved a week — the first Monday is Labor Day\". Shown next to the date on the Volunteer page.",
+                }
+              - {
                   name: href,
                   label: "Event page link",
                   widget: string,

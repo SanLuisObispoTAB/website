@@ -173,9 +173,17 @@ Still needed:
   and now have their own pages (`/back-to-school`, `/booster-bash`). The six
   home football game dates needing volunteers (Aug 21, Aug 28, Sep 11, Oct 2,
   Oct 9, Oct 30) are listed on the Volunteer page.
+- [x] ~~**Monthly board meeting dates**~~ ✅ All nine are on the calendar —
+  first Monday at 6:00 PM, with September moved a week for Labor Day
+  (Sep 14, Oct 5, Nov 2, Dec 7, Jan 4, Feb 1, Mar 1, Apr 5, May 3). They
+  show on the Upcoming page, the home calendar, the banner at the top of the
+  site, and the Volunteer page — all from one entry each.
+  - Two things to confirm: the venue (Cannon, 1050 Southwood Drive, Zoom
+    available) was carried over from last year, and **was there an August
+    meeting?** August's first Monday was the 3rd, already past, so it was
+    left off.
 - [ ] **Still needed: the rest of the 2026-27 SLOTAB events** — fall parent
-  meeting, physicals night, **monthly board meeting dates**, spring
-  fundraiser. This is a bigger lever than it looks: these entries
+  meeting, physicals night, spring fundraiser. This is a bigger lever than it looks: these entries
   now feed the Upcoming page, the home-page calendar, the scrolling banner at
   the top of the site, **and** the meeting list on the Volunteer page. Enter
   them once at slotab.org/admin → SLOTAB Events.

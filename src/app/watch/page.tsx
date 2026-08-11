@@ -62,9 +62,10 @@ export default function WatchPage() {
             full archive below.
           </p>
           <p style={{ color: "var(--slotab-muted)" }}>
-            Not every sport is broadcast — the portal below is the source of
-            truth for what&apos;s scheduled. If a game you expect isn&apos;t
-            listed, it isn&apos;t being streamed.
+            Not every sport is broadcast — each head coach decides whether
+            their team is streamed, so coverage varies by sport and by game.
+            The portal below is the source of truth: if a game you expect
+            isn&apos;t listed, it isn&apos;t being streamed.
           </p>
         </div>
       </section>
@@ -86,10 +87,10 @@ export default function WatchPage() {
               better film to work from.
             </p>
             <p className="slotab-camera-upgrade-foot">
-              Funded by your memberships, sponsorships, and Booster Bash
-              tickets. This is exactly the kind of thing the{" "}
-              <Link href="/impact">general fund</Link> pays for on every
-              team&apos;s behalf.
+              Install date to be announced. Funded by your memberships,
+              sponsorships, and Booster Bash tickets — exactly the kind of
+              thing the <Link href="/impact">general fund</Link> pays for on
+              every team&apos;s behalf.
             </p>
           </div>
         </div>

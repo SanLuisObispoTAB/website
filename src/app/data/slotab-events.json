@@ -1,5 +1,5 @@
 {
-  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin → 'SLOTAB Events'. The 2025-26 spring entries were cleared at the 2026-27 rollover. Entries with a `href` link through to a dedicated event page (see featured-events.json) — keep the two dates in sync. Still needed: the monthly board-meeting dates, the fall parent meeting, physicals night, and the spring fundraiser.",
+  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin -> 'SLOTAB Events'. Board meetings are the first Monday of the month at 6:00 PM; September moves a week because the first Monday is Labor Day. August 2026's first Monday (Aug 3) had already passed when these were entered, so the list starts in September. Entries with an `href` link through to a dedicated event page (see featured-events.json) - keep the two dates in sync. Still needed: the fall parent meeting, physicals night, and the spring fundraiser.",
   "events": [
     {
       "id": "ns-back-to-school-2026",
@@ -10,12 +10,76 @@
       "href": "/back-to-school"
     },
     {
+      "id": "ns-mtg-2026-09-14",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2026-09-14T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)",
+      "note": "moved a week for Labor Day"
+    },
+    {
+      "id": "ns-mtg-2026-10-05",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2026-10-05T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
       "id": "ns-booster-bash-2026",
       "title": "Booster Bash & Hall of Fame Induction",
       "date": "2026-10-10T17:00:00",
       "categoryLabel": "SLOTAB Event",
       "detail": "5:00–10:00 PM at the Octagon Barn — The Tiger's Den, with the Class of 2026 HOF induction",
       "href": "/booster-bash"
+    },
+    {
+      "id": "ns-mtg-2026-11-02",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2026-11-02T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-mtg-2026-12-07",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2026-12-07T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-mtg-2027-01-04",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2027-01-04T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-mtg-2027-02-01",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2027-02-01T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-mtg-2027-03-01",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2027-03-01T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-mtg-2027-04-05",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2027-04-05T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
+    },
+    {
+      "id": "ns-mtg-2027-05-03",
+      "title": "Monthly SLOTAB Meeting",
+      "date": "2027-05-03T18:00:00",
+      "categoryLabel": "SLOTAB Meeting",
+      "detail": "6:00 PM at Cannon, 1050 Southwood Drive (Zoom available)"
     }
   ]
 }
