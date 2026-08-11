@@ -5,22 +5,27 @@
   "gender": "Co-ed",
   "season": "Fall",
   "tagline": "Miles of grit through the SLO hills — one Tiger cross country team.",
-  "heroPhoto": "/photos/bXC-team-2025.jpg",
-  "heroPhotoPosition": "center 25%",
-  "teamPhoto": "/photos/gXC-team-2025.jpg",
-  "gallery": [
-    "/photos/bXC-team-2025.jpg"
+  "teamPhotos": [
+    {
+      "photo": "/photos/bXC-team-2025.jpg",
+      "label": "Boys"
+    },
+    {
+      "photo": "/photos/gXC-team-2025.jpg",
+      "label": "Girls"
+    }
   ],
   "eventCategory": "cross-country",
-  "headCoach": {
-    "name": "Nancy Steinmaus",
-    "email": "nsteinmaus@hotmail.com",
-    "bio": "Also coaches boys distance for SLOHS Track & Field. Cross country runs as one Tiger team, led by Coach Steinmaus and Coach Berkeland together."
-  },
-  "assistantCoaches": [
+  "headCoaches": [
+    {
+      "name": "Nancy Steinmaus",
+      "role": "Head Coach — Boys",
+      "email": "nsteinmaus@hotmail.com",
+      "bio": "Also coaches boys distance for SLOHS Track & Field. Cross country runs as one Tiger program, led by Coach Steinmaus and Coach Berkeland together."
+    },
     {
       "name": "Dan Berkeland",
-      "role": "Head Coach",
+      "role": "Head Coach — Girls",
       "email": "danberkeland@gmail.com",
       "bio": "Three-time All-American and 1992 National Champion in the 3000m steeplechase for Cal Poly San Luis Obispo, where he graduated in 1996 with a degree in Architecture. Co-founder of The Back Porch Bakery, which serves wholesale bread to over 200 locations across the Central Coast. Began coaching at SLOHS in 2024 as a girls track distance assistant; later took on the head role for girls cross country."
     }

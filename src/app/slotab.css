@@ -3034,3 +3034,31 @@ a.slotab-platinum-slide:hover {
 }
 .slotab-consent-data li:last-child { border-bottom: none; }
 .slotab-consent-data span { color: var(--slotab-muted); }
+
+
+/* Photoless team hero — see decision #108. The band is normally a photo with
+   a dark gradient over it, and the kicker/title/tagline are white. With no
+   photo the section is transparent over cream, so the white text vanishes.
+   Paint the brand black behind it and the same markup stays legible. */
+.slotab-team-hero.no-photo { background: var(--slotab-black); }
+
+/* Squad portrait caption — used when a team fields more than one squad
+   under a single page (cross country's boys and girls). Decision #108. */
+.slotab-team-photo-frame + .slotab-team-photo-frame { margin-top: 2rem; }
+.slotab-team-photo-frame { margin-left: 0; margin-right: 0; }
+.slotab-team-photo-caption {
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--slotab-muted);
+  text-align: center;
+  padding-top: 0.75rem;
+}
+/* Multiple head-coach bios stacked in one "Meet the Coaches" section. */
+.slotab-coach-bio + .slotab-coach-bio { margin-top: 1.75rem; }
+.slotab-coach-bio h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+}

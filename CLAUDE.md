@@ -80,6 +80,24 @@ the convention.
   only in-season teams (upcoming Fall during summer) via
   `src/app/data/seasons.ts`. Convention: a team with a posed team photo
   should have a page; show its action shots in the `gallery`.
+- **Action slots take action shots only** (decision #108). `heroPhoto`
+  and `gallery` are for real in-game photos; posed squad portraits go in
+  `teamPhoto`/`teamPhotos`. **If a team has no action shot, leave the
+  slot empty** — `gallery` empty hides the whole "In Action" section,
+  and an empty `heroPhoto` renders a plain black band (the
+  `.slotab-team-hero.no-photo` rule, needed because the hero text is
+  white and would vanish over the cream page). Never put a `-team-`
+  portrait in an action slot to fill space, and never use the same file
+  for `heroPhoto` and `teamPhoto` — that shows one photo twice. Audit
+  with: `grep -l '"heroPhoto".*-team' src/app/data/teams/*.json`.
+- **Combined teams** (cross country runs boys + girls as one program):
+  use `headCoaches: [...]` with a `role` on each ("Head Coach — Boys")
+  and `teamPhotos: [{photo, label}]` with a label per squad. Both plural
+  forms override their singular counterparts (`headCoach`, `teamPhoto`),
+  which stay in place for the 18 single-squad teams.
+- **Only `football.json` has a Decap collection.** The other 18 team
+  JSONs are code-edit-only — the board cannot edit them at `/admin`.
+  Worth fixing if a board member asks to edit a team page themselves.
 - **No comms-channel features on team pages** — Home Campus is the
   source of truth for game schedules and changes (decision #40).
 - **/watch is the Hudl BlueFrame portal embed**, not a custom catalog.

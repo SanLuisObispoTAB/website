@@ -207,15 +207,59 @@ collections:
           - { name: gender, label: "Gender", widget: string }
           - { name: season, label: "Season", widget: string }
           - { name: tagline, label: "Tagline", widget: string, required: false }
-          - { name: heroPhoto, label: "Hero photo (action shot for the top banner)", widget: image, required: false }
-          - { name: teamPhoto, label: "Team photo (formal portrait for the 'Meet the Team' section)", widget: image, required: false }
-          - { name: gallery, label: "Action photo gallery (grid of in-game shots below the portrait)", widget: list, required: false, field: { name: photo, label: "Photo", widget: image } }
+          - {
+              name: heroPhoto,
+              label: "Hero photo (action shot for the top banner)",
+              widget: image,
+              required: false,
+              hint: "ACTION SHOTS ONLY — a real in-game photo. Do NOT put a posed team portrait here; that goes in 'Team photo' below. Leave empty until a real action shot exists: the banner then renders as a plain black band, which is fine and preferred over a posed shot pretending to be action.",
+            }
+          - {
+              name: teamPhoto,
+              label: "Team photo (posed portrait for the 'Meet the Team' section)",
+              widget: image,
+              required: false,
+              hint: "Use this when the team has ONE squad photo. For a combined team with a boys and a girls squad, leave this empty and use 'Team photos' below instead.",
+            }
+          - name: teamPhotos
+            label: "Team photos — combined teams with more than one squad"
+            widget: list
+            required: false
+            hint: "Only for a team that fields separate squads on one page (e.g. cross country). Overrides the single 'Team photo' above. Give each a label so visitors can tell them apart."
+            fields:
+              - { name: photo, label: "Photo", widget: image }
+              - { name: label, label: "Squad label (e.g. Boys, Girls)", widget: string, required: false }
+          - {
+              name: gallery,
+              label: "Action photo gallery (grid of in-game shots below the portrait)",
+              widget: list,
+              required: false,
+              field: { name: photo, label: "Photo", widget: image },
+              hint: "ACTION SHOTS ONLY. This renders under an 'In Action' heading, so a posed portrait here reads as a mistake. If the team has no action shots yet, leave this empty — the whole section is hidden rather than shown with the wrong kind of photo.",
+            }
           - { name: eventCategory, label: "Event category", widget: string, required: false, hint: "Must match a category used in weekly-events.json so schedule auto-populates." }
           - name: headCoach
-            label: "Head Coach"
+            label: "Head Coach (single-coach teams)"
             widget: object
+            required: false
             fields:
               - { name: name, label: "Name", widget: string }
+              - { name: email, label: "Email", widget: string, required: false }
+              - { name: bio, label: "Bio", widget: text, required: false }
+          - name: headCoaches
+            label: "Head Coaches — combined teams with more than one"
+            widget: list
+            required: false
+            hint: "Only for a combined team run by two head coaches (e.g. cross country). Overrides the single 'Head Coach' above. Set each one's Role so visitors can tell which squad they lead."
+            fields:
+              - { name: name, label: "Name", widget: string }
+              - {
+                  name: role,
+                  label: "Role label",
+                  widget: string,
+                  required: false,
+                  hint: "Shown above the name in the facts band. E.g. 'Head Coach — Boys'. Defaults to 'Head Coach'.",
+                }
               - { name: email, label: "Email", widget: string, required: false }
               - { name: bio, label: "Bio", widget: text, required: false }
           - name: liaisons

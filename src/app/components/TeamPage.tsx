@@ -27,6 +27,16 @@ type Coach = {
    *  Wired into a `tel:` link by `telHref()`. */
   phone?: string;
   bio?: string;
+  /** Overrides the "Head Coach" label — for a team with more than one head
+   *  coach, e.g. "Head Coach — Boys". */
+  role?: string;
+};
+
+/** Posed squad portrait. `label` names the squad for teams that field
+ *  more than one (e.g. cross country's boys and girls). */
+type TeamPhoto = {
+  photo: string;
+  label?: string;
 };
 
 type AssistantCoach = {
@@ -72,6 +82,9 @@ export type Team = {
    *  on the team page. Distinct from heroPhoto (which is the immersive
    *  action shot at the top). */
   teamPhoto?: string;
+  /** Several posed portraits, for a team fielding more than one squad.
+   *  Takes precedence over `teamPhoto` when both are set. */
+  teamPhotos?: TeamPhoto[];
   /** Action-shot gallery — a responsive grid of in-game photos shown below
    *  the portrait. Natural aspect ratios are preserved (no crop), so mix
    *  landscape + portrait freely. Distinct from heroPhoto (the single top
@@ -79,6 +92,10 @@ export type Team = {
   gallery?: string[];
   eventCategory?: string;
   headCoach?: Coach;
+  /** Several head coaches, for a combined team (cross country runs boys and
+   *  girls as one program under two head coaches). Takes precedence over
+   *  `headCoach` when both are set; give each a `role` naming its squad. */
+  headCoaches?: Coach[];
   assistantCoaches?: AssistantCoach[];
   liaisons?: Liaison[];
   captains?: string[];
@@ -94,20 +111,32 @@ const MONEY = new Intl.NumberFormat("en-US", {
 });
 
 export default function TeamPage({ team }: { team: Team }) {
+  // A team may declare one head coach or several (cross country runs boys and
+  // girls under two). Normalise to a list so the markup has one shape.
+  const headCoaches: Coach[] =
+    team.headCoaches ?? (team.headCoach ? [team.headCoach] : []);
+  // Same for squad portraits.
+  const teamPhotos: TeamPhoto[] =
+    team.teamPhotos ?? (team.teamPhoto ? [{ photo: team.teamPhoto }] : []);
+
   const rosterByYear = (team.roster ?? []).slice().sort((a, b) => a.number - b.number);
 
   // The quick-facts band holds coach / captains / liaisons. Teams awaiting
   // their 2026-27 handoff info have none of the three, so skip the band
   // entirely rather than render an empty strip.
   const hasQuickFacts =
-    Boolean(team.headCoach) ||
+    headCoaches.length > 0 ||
     (team.captains?.length ?? 0) > 0 ||
     (team.liaisons?.length ?? 0) > 0;
 
   return (
     <>
-      {/* Team hero */}
-      <section className="slotab-team-hero">
+      {/* Team hero. Without a photo the band would be transparent over the
+          cream page background, leaving the white hero text unreadable — so
+          a photoless hero paints itself brand-black instead (decision #108). */}
+      <section
+        className={`slotab-team-hero${team.heroPhoto ? "" : " no-photo"}`}
+      >
         {team.heroPhoto && (
           <Image
             src={team.heroPhoto}
@@ -137,24 +166,22 @@ export default function TeamPage({ team }: { team: Team }) {
       {hasQuickFacts && (
       <section className="slotab-section slotab-team-quickfacts">
         <div className="slotab-container slotab-team-quickfacts-grid">
-          {team.headCoach && (
-            <div className="slotab-team-fact">
-              <div className="slotab-team-fact-label">Head Coach</div>
-              <div className="slotab-team-fact-value">{team.headCoach.name}</div>
-              {team.headCoach.email && (
-                <a href={`mailto:${team.headCoach.email}`}>
-                  {team.headCoach.email}
-                </a>
+          {headCoaches.map((coach) => (
+            <div className="slotab-team-fact" key={coach.name}>
+              <div className="slotab-team-fact-label">
+                {coach.role ?? "Head Coach"}
+              </div>
+              <div className="slotab-team-fact-value">{coach.name}</div>
+              {coach.email && (
+                <a href={`mailto:${coach.email}`}>{coach.email}</a>
               )}
-              {team.headCoach.phone && (
+              {coach.phone && (
                 <div>
-                  <a href={telHref(team.headCoach.phone)}>
-                    {team.headCoach.phone}
-                  </a>
+                  <a href={telHref(coach.phone)}>{coach.phone}</a>
                 </div>
               )}
             </div>
-          )}
+          ))}
           {team.captains && team.captains.length > 0 && (
             <div className="slotab-team-fact">
               <div className="slotab-team-fact-label">Team Captains</div>
@@ -185,23 +212,34 @@ export default function TeamPage({ team }: { team: Team }) {
       )}
 
       {/* Team photo — formal 2025-26 portrait */}
-      {team.teamPhoto && (
+      {teamPhotos.length > 0 && (
         <section className="slotab-section slotab-team-photo-section">
           <div className="slotab-container">
             <div className="slotab-section-title">
               <span className="slotab-kicker">Meet the Team</span>
               <h2>{team.name} — 2026-27</h2>
             </div>
-            <div className="slotab-team-photo-frame">
-              <Image
-                src={team.teamPhoto}
-                alt={`${team.name} team photo`}
-                width={1200}
-                height={800}
-                sizes="(max-width: 1024px) 100vw, 1100px"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-            </div>
+            {teamPhotos.map(({ photo, label }) => (
+              <figure className="slotab-team-photo-frame" key={photo}>
+                <Image
+                  src={photo}
+                  alt={
+                    label
+                      ? `${team.name} ${label} team photo`
+                      : `${team.name} team photo`
+                  }
+                  width={1200}
+                  height={800}
+                  sizes="(max-width: 1024px) 100vw, 1100px"
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+                {label && (
+                  <figcaption className="slotab-team-photo-caption">
+                    {label}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
           </div>
         </section>
       )}
@@ -293,15 +331,36 @@ export default function TeamPage({ team }: { team: Team }) {
         </section>
       )}
 
-      {/* Coach bio (if present) */}
-      {team.headCoach?.bio && (
+      {/* Coach bios (if present) */}
+      {headCoaches.some((c) => c.bio) && (
         <section className="slotab-section alt">
           <div className="slotab-container slotab-prose">
             <div className="slotab-section-title">
-              <span className="slotab-kicker">Meet the Coach</span>
-              <h2>{team.headCoach.name}</h2>
+              <span className="slotab-kicker">
+                {headCoaches.filter((c) => c.bio).length > 1
+                  ? "Meet the Coaches"
+                  : "Meet the Coach"}
+              </span>
+              <h2>
+                {headCoaches
+                  .filter((c) => c.bio)
+                  .map((c) => c.name)
+                  .join(" & ")}
+              </h2>
             </div>
-            <p>{team.headCoach.bio}</p>
+            {headCoaches
+              .filter((c) => c.bio)
+              .map((c) => (
+                <div key={c.name} className="slotab-coach-bio">
+                  {headCoaches.filter((x) => x.bio).length > 1 && (
+                    <h3>
+                      {c.name}
+                      {c.role ? ` — ${c.role.replace(/^Head Coach\s*—?\s*/i, "")}` : ""}
+                    </h3>
+                  )}
+                  <p>{c.bio}</p>
+                </div>
+              ))}
           </div>
         </section>
       )}
