@@ -56,10 +56,10 @@ export default function WatchPage() {
           style={{ textAlign: "center", maxWidth: 720 }}
         >
           <p style={{ fontSize: "1.15rem" }}>
-            <strong>SLOTAB pays for Hudl streaming</strong> so every Tigers
-            home game from Holt Field and the Big Gym is accessible to alumni,
-            grandparents, and out-of-town family. Live broadcasts plus the
-            full archive below.
+            <strong>SLOTAB pays for Hudl streaming</strong> so Tigers home
+            games from Holt Field, the Big Gym, and the baseball and softball
+            fields are accessible to alumni, grandparents, and out-of-town
+            family. Live broadcasts plus the full archive below.
           </p>
           <p style={{ color: "var(--slotab-muted)" }}>
             Not every sport is broadcast — each head coach decides whether

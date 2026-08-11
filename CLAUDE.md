@@ -85,3 +85,19 @@ the convention.
 - **/watch is the Hudl BlueFrame portal embed**, not a custom catalog.
   See decision #59. Don't recreate the custom catalog without the
   user explicitly asking for it back.
+- **Centered text must not end on a short line** (decision #107). A
+  centered block ending in fewer than ~4 words strands a word alone in
+  the middle of an empty line. The rule is enforced in CSS, not per
+  block: `.slotab-prose` gets `text-wrap: pretty`, and every centered
+  container gets `text-wrap: balance` — see the *LINE BALANCING* block
+  near the top of `src/app/slotab.css`. `text-wrap` inherits, so it's
+  set on the container and new copy is covered automatically.
+  **When you add a centered block, add its selector to that list**; the
+  `[style*="text-align:center"]` selector already catches inline
+  `style={{ textAlign: "center" }}`. CSS can't see phrase boundaries, so
+  when specific words must never split (a date, a name, an address),
+  join them with `&nbsp;` — `.slotab-mail-address` does this (#89).
+- **/watch Hudl venues**: streaming covers Holt Field (stadium), the Big
+  Gym, and the baseball and softball fields — **not** the pool
+  (confirmed 2026-08-11, decision #106). Coverage is also per-coach
+  opt-in, so don't write copy promising every team is streamed.

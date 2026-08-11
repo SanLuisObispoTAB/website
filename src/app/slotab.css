@@ -43,6 +43,74 @@
 .slotab-scope h1 { font-size: clamp(2.25rem, 5vw, 3.75rem); }
 .slotab-scope h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); margin-bottom: 0.75rem; }
 .slotab-scope h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+/* ==========================================================================
+   LINE BALANCING — never strand a short trailing line
+   --------------------------------------------------------------------------
+   House rule: a centered block must not end on a line of fewer than ~4
+   words. A stranded word is bad in left-aligned copy and much worse when
+   centered, where it lands alone in the middle of an empty line and reads
+   like a mistake.
+
+   `text-wrap` is inherited, so these are set on the *container* and every
+   paragraph inside picks them up — no per-element edits, and new copy is
+   covered automatically.
+
+     pretty  — keeps greedy wrapping but pulls words down from the second-
+               to-last line to avoid a widow. Right for long-form body copy.
+     balance — evens out every line in the block. Right for centered text,
+               which is short here (leads, CTAs, captions) and where even
+               line lengths read as deliberate phrasing.
+
+   Note: browsers cap `balance` at a handful of lines (~6 in Chrome) for
+   performance; past that it quietly falls back to normal wrapping. That is
+   fine for the centered blocks on this site, which are all short. If a long
+   centered block ever appears, split it or switch that one to `pretty`.
+
+   CSS cannot see phrase boundaries, so neither value knows where a clause
+   ends. When a specific pair of words must never split (a date, a name, a
+   score), join them with a non-breaking space — see `.slotab-mail-address`
+   in the membership sheet for the same technique applied to an address.
+
+   Both values are progressive enhancement: a browser that doesn't support
+   them ignores the declaration and wraps normally. Nothing breaks.
+   ========================================================================== */
+
+/* Baseline for long-form copy. */
+.slotab-prose { text-wrap: pretty; }
+
+/* Centered blocks — must come after `.slotab-prose` above, since some
+   elements carry both and these are the same specificity (0,1,0). */
+.slotab-hero-content,
+.slotab-section-title,
+.slotab-tier-group-head,
+.slotab-sponsor-tier h3,
+.slotab-merch-item,
+.slotab-events-empty,
+.slotab-footer-copy,
+.slotab-team-hero-content,
+.slotab-team-comms-head,
+.slotab-team-comms-note,
+.slotab-team-comms-none,
+.slotab-impact-stat,
+.slotab-donate-submit,
+.slotab-donate-note,
+.slotab-tier-foot,
+.slotab-platinum-head,
+.slotab-event-intro,
+.slotab-consent-actions .slotab-btn,
+/* tiger.css centered blocks — listed here so the rule lives in one place */
+.tiger-footer-bottom,
+.tiger-section-head.center,
+.tiger-two-note,
+.tiger-sponsors-foot,
+.tiger-cta-inner,
+/* Catches `style={{ textAlign: "center" }}`, which React serialises with no
+   space after the colon. Property-specific, so it can't match
+   `justify-content: center` or similar. */
+[style*="text-align:center"] {
+  text-wrap: balance;
+}
 .slotab-scope h4 { font-size: 1.15rem; }
 
 /* Default link styling — kept gold-accent on hover but no auto-

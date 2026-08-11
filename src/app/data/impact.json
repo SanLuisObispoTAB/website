@@ -8,16 +8,46 @@
     "coachesFunded": 26
   },
   "categories": [
-    { "key": "equipment", "label": "Equipment" },
-    { "key": "facilities", "label": "Facilities" },
-    { "key": "travel", "label": "Travel & Tournaments" },
-    { "key": "food", "label": "Food & Hydration" },
-    { "key": "apparel", "label": "Apparel & Spirit" },
-    { "key": "recognition", "label": "Recognition & Awards" },
-    { "key": "training", "label": "Training & Medical" },
-    { "key": "all-athletes", "label": "All Athletes" },
-    { "key": "allocation", "label": "Team Allocations" },
-    { "key": "coaching", "label": "Coaching Support" }
+    {
+      "key": "equipment",
+      "label": "Equipment"
+    },
+    {
+      "key": "facilities",
+      "label": "Facilities"
+    },
+    {
+      "key": "travel",
+      "label": "Travel & Tournaments"
+    },
+    {
+      "key": "food",
+      "label": "Food & Hydration"
+    },
+    {
+      "key": "apparel",
+      "label": "Apparel & Spirit"
+    },
+    {
+      "key": "recognition",
+      "label": "Recognition & Awards"
+    },
+    {
+      "key": "training",
+      "label": "Training & Medical"
+    },
+    {
+      "key": "all-athletes",
+      "label": "All Athletes"
+    },
+    {
+      "key": "allocation",
+      "label": "Team Allocations"
+    },
+    {
+      "key": "coaching",
+      "label": "Coaching Support"
+    }
   ],
   "items": [
     {
@@ -32,7 +62,7 @@
       "year": "2025-26",
       "team": "Home Venues",
       "category": "facilities",
-      "description": "Hudl video platform and BlueFrame streaming — game film and live broadcast from the four camera venues: the stadium, baseball field, gymnasium, and pool",
+      "description": "Hudl video platform and BlueFrame streaming — game film and live broadcast from the four camera venues: the stadium, the Big Gym, and the baseball and softball fields",
       "cost": 23000,
       "photo": null
     },
