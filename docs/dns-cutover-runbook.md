@@ -110,10 +110,16 @@ Confirmed about the live site, which narrows the search:
 
 ### Finding the real account — in order of what actually works
 
-1. **Follow the money.** Someone's card is charged annually. **Trina
-   (Treasurer)** can look for a recurring GoDaddy charge in the books. If
-   it's on a SLOTAB card, the account is organizationally ours and
-   recoverable; if it's personal, that person is the owner.
+1. **Follow the money — narrowed 2026-08-11.** The FY2025-26 Statement of
+   Activity has an expense line **`Advertising/Website — $1,295.06`**.
+   That's where a domain + hosting renewal lives. Ask **Trina** to drill
+   into that account: the vendor detail will name GoDaddy and, crucially,
+   show **which card paid it**. If it's a SLOTAB card the account is
+   organizationally ours and recoverable; if it's personal, that person is
+   the owner. Narrow further by date — the domain was registered
+   2012-09-19 and renews each **September**. (The Transaction Report Erik
+   pulled first was filtered to *Athletic Dept Donations* only, which is
+   money paid out to the school and could never contain this.)
 2. **Follow the renewal notices.** The domain expires 2026-09-19, so
    GoDaddy is emailing the account holder *right now*. Ask the thread:
    *"Who is getting GoDaddy renewal or invoice emails for slotab.org?"*
