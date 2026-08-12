@@ -89,21 +89,68 @@ Click `slotab.org` → the **DNS** tab (or "Manage DNS"). GoDaddy has
 several routes to DNS and some of them only list domains under certain
 conditions; the portfolio page is the reliable one.
 
-### If the portfolio is still empty
+### 🔴 Where this landed (2026-08-11)
 
-Then this GoDaddy account genuinely doesn't hold the domain, and one of
-these is true:
+Erik has the **SLOTABSEC@gmail.com** GoDaddy account (password from Jen
+Melton). It is **completely empty** — no Products, no Domains, no
+Renewals & Billing, and nothing under Delegate Access. So:
 
-- **There's a second GoDaddy account.** The board may hold the *hosting*
-  in one account and the *domain registration* in another. Ask whoever
-  handed you access whether there are two logins.
-- You're on the hosting account only. Check
-  <https://account.godaddy.com/products> — if you see **Managed
-  WordPress** but no **Domains** section, that's exactly what happened.
+> **The SLOTABSEC account is a dead end. slotab.org lives in a different
+> GoDaddy account and nobody currently knows whose.**
 
-To confirm which account owns it, GoDaddy support can tell you from the
-domain name and the account holder's details. The registrant contact is
-redacted in public records, so I can't look it up for you.
+Confirmed about the live site, which narrows the search:
+
+- Hosting IP `160.153.0.90` reverse-resolves to
+  `90.0.153.160.host.secureserver.net` — **secureserver.net is GoDaddy's
+  hosting infrastructure**. (The `Server: cloudflare` header is GoDaddy's
+  own CDN layer in front of Managed WordPress, not a separate Cloudflare
+  account — the nameservers are still GoDaddy's.)
+- So the **domain registration and the WordPress hosting are almost
+  certainly in the same account**. Find one and you've found both.
+
+### Finding the real account — in order of what actually works
+
+1. **Follow the money.** Someone's card is charged annually. **Trina
+   (Treasurer)** can look for a recurring GoDaddy charge in the books. If
+   it's on a SLOTAB card, the account is organizationally ours and
+   recoverable; if it's personal, that person is the owner.
+2. **Follow the renewal notices.** The domain expires 2026-09-19, so
+   GoDaddy is emailing the account holder *right now*. Ask the thread:
+   *"Who is getting GoDaddy renewal or invoice emails for slotab.org?"*
+3. **Ask Jen Melton the specific question:** did slotab.org ever live in
+   SLOTABSEC@gmail.com, or was that account always separate? An empty
+   account suggests it was created for something else, or the domain was
+   meant to be moved there and never was.
+4. **Ask who can log into the WordPress admin** of the current site. Same
+   account, most likely.
+5. **GoDaddy account recovery**, using the domain name plus proof of
+   organizational ownership. Needs a support ticket and documentation, so
+   **start this early** rather than as a last resort.
+
+### Once it's recovered — close the hole permanently
+
+1. **Renew / confirm auto-renew** on a card that belongs to SLOTAB, not
+   to whoever happens to be on the board this year.
+2. **Move the domain into a SLOTAB-owned account** using GoDaddy's
+   **Account Change** (domain → Settings → Account Change). This moves it
+   between GoDaddy accounts *without* the 60-day lock an inter-registrar
+   transfer would trigger.
+3. **Grant Delegate Access** to the sitting Website chair rather than
+   sharing a password.
+4. **Write it into `/board`** — the Board Hub's "where logins live" prompt
+   exists for exactly this (decision #64) and is still unfilled. This
+   whole search is what that section was built to prevent.
+
+### If Sept 19 gets close and it's still not found
+
+Expiry is not instant loss — .org has an auto-renew grace period and then
+a redemption window — but **the site goes down the day it expires**, and
+redemption carries a recovery fee. Don't plan around it.
+
+The fallback: the new site already runs on
+`slotab.ravens-peak-consulting.com`, so SLOTAB is not offline in that
+scenario, just off its own name. Point families there while the domain is
+sorted out.
 
 ---
 
