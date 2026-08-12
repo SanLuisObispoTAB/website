@@ -28,43 +28,82 @@ access.
 
 ---
 
-## ⛔ Before you touch anything — the one that bites people
+## What we already know about slotab.org (looked up 2026-08-11, public DNS)
 
-### 0.1 Check whether slotab.org handles email
+You don't need to discover any of this in the dashboard — here it is:
 
-If slotab.org has MX records (Google Workspace, GoDaddy email, anything),
-and you change nameservers, **email stops arriving**. Run this first:
+| Fact | Value | Why it matters |
+|---|---|---|
+| Registrar | **GoDaddy.com, LLC** (direct, not a reseller) | The domain really is in a GoDaddy account |
+| Nameservers | `ns07.domaincontrol.com`, `ns08.domaincontrol.com` | GoDaddy hosts the DNS, so the records are editable there |
+| Current A record (`@`) | `160.153.0.90` | A GoDaddy hosting IP — the old WordPress site. **This is the record you'll change.** |
+| `www` | CNAME → `slotab.org` | Fine as-is; Vercel may ask you to repoint it |
+| **MX records** | **none** | ✅ **No email on this domain.** The single biggest cutover risk does not apply |
+| TXT records | none | Nothing to preserve |
+| Registered | 2012-09-19 | — |
+| **Expires** | **2026-09-19** | ⚠️ **39 days away — see below** |
 
-```bash
-dig +short MX slotab.org
-```
+**The zone is tiny: one A record and one www CNAME.** That makes this about
+as low-risk a cutover as they come — there is nothing to accidentally
+destroy. It also means you can safely ignore the "don't touch MX/SPF"
+cautions elsewhere in this doc; there aren't any.
 
-- **Empty output** → no mail on the domain. You're clear. (Likely, since
-  the whole board uses `@gmail.com` addresses.)
-- **Any output** → mail IS configured. That's fine, but it makes Step 2's
-  "records only, never nameservers" rule non-negotiable.
+### ⚠️ Renew the domain before anything else
 
-### 0.2 Photograph the current DNS so you can roll back
+`slotab.org` **expires 2026-09-19 — about five weeks out.** If it lapses,
+the site goes down and the DNS records go with it, regardless of anything
+you or I do on the Vercel side.
 
-```bash
-dig +short A slotab.org; dig +short CNAME www.slotab.org; dig +short NS slotab.org; dig +short TXT slotab.org
-```
+Before the cutover: **Domain Portfolio → slotab.org → confirm Auto-Renew
+is ON**, and that the card on file isn't expired. Given the board just
+changed hands, a lapsed payment method is a real possibility.
 
-Paste the output into a note. If anything goes wrong, this is how you put
-it back.
+---
 
-### 0.3 Confirm the new site is actually healthy right now
+## Finding the DNS panel in GoDaddy
 
-Open <https://slo-tab-website.vercel.app> and click through Home,
-Membership, Teams, Booster Bash. If something's broken here, it will be
-broken on slotab.org too — fix first, cut over after.
+You said DNS Management lists no domains. Since the domain *is*
+GoDaddy-registered on GoDaddy nameservers, it's one of these:
 
-### 0.4 (Optional but nice) Lower the TTL
+### Most likely: you have Delegate Access and haven't switched accounts
 
-In your registrar's DNS panel, set the TTL on the existing `slotab.org` A
-record to **600 seconds** and save. Wait an hour before Step 2. This makes
-the switch propagate in minutes instead of hours, and makes a rollback
-fast too. Skip it if you'd rather just accept a slower switch.
+If someone on the board shared the account rather than giving you the
+password, you're logged into **your own** GoDaddy account — which is
+empty — and the domain lives in **theirs**.
+
+1. Go to <https://account.godaddy.com/access>
+2. Look under **"Accounts shared with me"**
+3. Click the SLOTAB account → **Sign in / Switch to account**
+4. *Now* go to the domain list — the domain will be there
+
+The account switcher is also in the top-right menu, under your name.
+
+### Next: go straight to the domain, skipping the menus
+
+Once you're in the right account, this deep link goes directly to the
+domain list, bypassing whichever "DNS Management" entry point was empty:
+
+- **<https://dcc.godaddy.com/control/portfolio>**
+
+Click `slotab.org` → the **DNS** tab (or "Manage DNS"). GoDaddy has
+several routes to DNS and some of them only list domains under certain
+conditions; the portfolio page is the reliable one.
+
+### If the portfolio is still empty
+
+Then this GoDaddy account genuinely doesn't hold the domain, and one of
+these is true:
+
+- **There's a second GoDaddy account.** The board may hold the *hosting*
+  in one account and the *domain registration* in another. Ask whoever
+  handed you access whether there are two logins.
+- You're on the hosting account only. Check
+  <https://account.godaddy.com/products> — if you see **Managed
+  WordPress** but no **Domains** section, that's exactly what happened.
+
+To confirm which account owns it, GoDaddy support can tell you from the
+domain name and the account holder's details. The registrant contact is
+redacted in public records, so I can't look it up for you.
 
 ---
 
@@ -101,9 +140,10 @@ your domain screen recommends. **Vercel's screen wins over this table.**
 
 > ### ⚠️ Change RECORDS. Do not change NAMESERVERS.
 > Vercel will offer "or, change your nameservers to ns1.vercel-dns.com…".
-> **Don't.** Moving nameservers hands Vercel your entire DNS zone and drops
-> every record you don't recreate — MX (email), TXT/SPF, and any
-> verification records. Editing two records is safer and fully reversible.
+> **Don't.** Moving nameservers hands Vercel your entire DNS zone. In this
+> case the zone is nearly empty so the blast radius is small — but keeping
+> DNS at GoDaddy means the rollback is "put two values back", and it
+> leaves room to add email on the domain later without a migration.
 
 At the registrar that controls slotab.org (almost certainly GoDaddy →
 **My Products → Domains → slotab.org → DNS → Manage Zones**):
@@ -121,8 +161,9 @@ At the registrar that controls slotab.org (almost certainly GoDaddy →
      under the Forwarding section and remove any forward on the root
      domain. This silently overrides your A record if left on.
    - Any old `CNAME` on `@` (invalid anyway, but some panels allow it)
-4. **Leave alone:** MX records, TXT/SPF/DKIM, and anything you don't
-   recognise. Those aren't yours to break today.
+4. **Leave alone:** anything you don't recognise. (We confirmed there are
+   no MX or TXT records today, so realistically there's nothing else in
+   the zone to protect — but the rule stands.)
 5. Save.
 
 ---
