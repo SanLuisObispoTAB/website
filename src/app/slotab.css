@@ -3065,3 +3065,66 @@ a.slotab-platinum-slide:hover {
   font-size: 1.3rem;
   margin-bottom: 0.4rem;
 }
+
+/* Co-ed program card — boys/girls crossfade (decision #110).
+   Both squads are stacked in the same frame; the trailing one sits at
+   opacity 0 until the card is hovered or keyboard-focused. Which squad
+   leads is randomised on mount in TeamsIndexList, not here.
+
+   SPECIFICITY, deliberately: two existing rules set `opacity: 1` on every
+   card image and would otherwise defeat the crossfade entirely —
+   the focus-bloom rule
+     `.slotab-teams-season-section.is-focused .slotab-team-card
+      .slotab-team-card-photo img`                              (0,4,1)
+   which is live whenever a season section is in view (so, always), and the
+   reduced-motion rule
+     `.slotab-teams-grid-photo .slotab-team-card
+      .slotab-team-card-photo img`                              (0,3,1).
+   These selectors are long so they outrank both. Shortening them will
+   silently break the flip — the trailing squad simply covers the leading
+   one and the card never changes on hover. */
+.slotab-teams-season-section .slotab-teams-grid-photo .slotab-team-card
+  .slotab-team-card-photo.is-pair img {
+  transition: opacity 0.45s ease;
+}
+.slotab-teams-season-section .slotab-teams-grid-photo .slotab-team-card
+  .slotab-team-card-photo.is-pair img.slotab-team-card-photo-trail {
+  opacity: 0;
+}
+.slotab-teams-season-section .slotab-teams-grid-photo
+  .slotab-team-card:hover .slotab-team-card-photo.is-pair img.slotab-team-card-photo-trail,
+.slotab-teams-season-section .slotab-teams-grid-photo
+  .slotab-team-card:focus-within .slotab-team-card-photo.is-pair img.slotab-team-card-photo-trail {
+  opacity: 1;
+}
+.slotab-teams-season-section .slotab-teams-grid-photo
+  .slotab-team-card:hover .slotab-team-card-photo.is-pair img.slotab-team-card-photo-lead,
+.slotab-teams-season-section .slotab-teams-grid-photo
+  .slotab-team-card:focus-within .slotab-team-card-photo.is-pair img.slotab-team-card-photo-lead {
+  opacity: 0;
+}
+/* Touch devices never hover, so the second squad would be unreachable.
+   Cycle the two on a slow loop instead so both still get seen. */
+@media (hover: none) {
+  .slotab-teams-season-section .slotab-teams-grid-photo .slotab-team-card
+    .slotab-team-card-photo.is-pair img.slotab-team-card-photo-trail {
+    animation: slotab-squad-cycle 9s steps(1, end) infinite;
+  }
+  @keyframes slotab-squad-cycle {
+    0%, 50% { opacity: 0; }
+    50.01%, 100% { opacity: 1; }
+  }
+}
+/* Reduced motion: keep the swap, drop the fade. The base rule above already
+   holds the trailing squad at 0, so hover still reveals it instantly. */
+@media (prefers-reduced-motion: reduce) {
+  .slotab-teams-season-section .slotab-teams-grid-photo .slotab-team-card
+    .slotab-team-card-photo.is-pair img {
+    transition: none;
+    animation: none;
+  }
+  .slotab-teams-season-section .slotab-teams-grid-photo .slotab-team-card
+    .slotab-team-card-photo.is-pair img.slotab-team-card-photo-trail {
+    opacity: 0;
+  }
+}

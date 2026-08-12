@@ -46,3 +46,27 @@ export const FALLBACK_TEAM_PHOTO = "/photos/cstudent-section.jpg";
 export function teamPhotoFor(slug: string): string {
   return TEAM_PHOTO_BY_SLUG[slug] ?? FALLBACK_TEAM_PHOTO;
 }
+
+/** Co-ed programs that run boys and girls as one team (decision #110).
+ *  Their index card shows one squad at random and flips to the other on
+ *  hover, so neither squad is permanently the face of the program.
+ *
+ *  A slug belongs here only when BOTH squads have a photo. Track & field
+ *  is co-ed too but has no per-squad photos yet — it falls back to the
+ *  single co-ed shot in TEAM_PHOTO_BY_SLUG until they arrive. Adding its
+ *  two photos here is the only step needed to switch it on. */
+export const TEAM_PHOTO_PAIR_BY_SLUG: Record<
+  string,
+  { boys: string; girls: string }
+> = {
+  "cross-country": {
+    boys: "/photos/bXC-team-2025.jpg",
+    girls: "/photos/gXC-team-2025.jpg",
+  },
+};
+
+export function teamPhotoPairFor(
+  slug: string,
+): { boys: string; girls: string } | null {
+  return TEAM_PHOTO_PAIR_BY_SLUG[slug] ?? null;
+}

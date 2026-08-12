@@ -1,6 +1,6 @@
 {
   "slug": "girls-volleyball",
-  "name": "Varsity Girls Volleyball",
+  "name": "Girls Volleyball",
   "sport": "Volleyball",
   "gender": "Girls",
   "season": "Fall",
@@ -40,6 +40,20 @@
     {
       "name": "Nicole Katona",
       "email": "nkatona@yahoo.com"
+    }
+  ],
+  "teamPhotos": [
+    {
+      "photo": "/photos/gvball-varsity-team-2025.jpg",
+      "label": "Varsity"
+    },
+    {
+      "photo": "/photos/gvball-jv-team-2025-unlabeled.jpg",
+      "label": "JV"
+    },
+    {
+      "photo": "/photos/gvball-frosh-team-2025-unlabeled.jpg",
+      "label": "Frosh"
     }
   ]
 }

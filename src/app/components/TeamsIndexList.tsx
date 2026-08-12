@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { teamPhotoFor } from "../data/team-photos";
+import { teamPhotoFor, teamPhotoPairFor } from "../data/team-photos";
 
 type TeamIndexEntry = {
   slug: string;
@@ -14,6 +14,52 @@ type TeamIndexEntry = {
 };
 
 type Group = { season: string; teams: TeamIndexEntry[] };
+
+/** Index card photo for a co-ed program that runs boys and girls as one team.
+ *  Both squads are rendered stacked; CSS crossfades to the other on hover or
+ *  keyboard focus, so neither is permanently the face of the program.
+ *
+ *  Which one leads is random *per page load*, but the randomness has to wait
+ *  for mount: picking during render would make the server and client disagree
+ *  and blow up hydration. So the server always emits boys-first, and the coin
+ *  flip happens in an effect. The swap is a class toggle on markup that is
+ *  already identical on both sides, so nothing re-renders visibly. */
+function CoedCardPhoto({
+  pair,
+  name,
+}: {
+  pair: { boys: string; girls: string };
+  name: string;
+}) {
+  const [girlsLead, setGirlsLead] = useState(false);
+  useEffect(() => {
+    setGirlsLead(Math.random() < 0.5);
+  }, []);
+
+  const lead = girlsLead ? pair.girls : pair.boys;
+  const trail = girlsLead ? pair.boys : pair.girls;
+  const leadLabel = girlsLead ? "girls" : "boys";
+  const trailLabel = girlsLead ? "boys" : "girls";
+
+  return (
+    <div className="slotab-team-card-photo is-pair">
+      <Image
+        src={lead}
+        alt={`${name} ${leadLabel} team`}
+        fill
+        sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 270px"
+        className="slotab-team-card-photo-lead"
+      />
+      <Image
+        src={trail}
+        alt={`${name} ${trailLabel} team`}
+        fill
+        sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 270px"
+        className="slotab-team-card-photo-trail"
+      />
+    </div>
+  );
+}
 
 export default function TeamsIndexList({ groups }: { groups: Group[] }) {
   const sectionRefs = useRef<Array<HTMLElement | null>>([]);
@@ -88,17 +134,21 @@ export default function TeamsIndexList({ groups }: { groups: Group[] }) {
               </div>
               <div className="slotab-teams-grid slotab-teams-grid-photo">
                 {g.teams.map((t) => {
-                  const photo = teamPhotoFor(t.slug);
+                  const pair = teamPhotoPairFor(t.slug);
                   const inner = (
                     <>
-                      <div className="slotab-team-card-photo">
-                        <Image
-                          src={photo}
-                          alt=""
-                          fill
-                          sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 270px"
-                        />
-                      </div>
+                      {pair ? (
+                        <CoedCardPhoto pair={pair} name={t.name} />
+                      ) : (
+                        <div className="slotab-team-card-photo">
+                          <Image
+                            src={teamPhotoFor(t.slug)}
+                            alt=""
+                            fill
+                            sizes="(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 270px"
+                          />
+                        </div>
+                      )}
                       <div className="slotab-team-card-body">
                         <div className="slotab-team-card-gender">
                           {t.gender}

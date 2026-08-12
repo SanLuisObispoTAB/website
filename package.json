@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "update-events": "node scripts/update-slotab-events.mjs",
-    "photo-intake": "node scripts/photo-intake.mjs"
+    "photo-intake": "node scripts/photo-intake.mjs",
+    "team-audit": "node scripts/team-audit.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

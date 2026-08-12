@@ -90,6 +90,17 @@ the convention.
   portrait in an action slot to fill space, and never use the same file
   for `heroPhoto` and `teamPhoto` — that shows one photo twice. Audit
   with: `grep -l '"heroPhoto".*-team' src/app/data/teams/*.json`.
+- **`npm run team-audit`** reports what every team page is still missing
+  (coach bios, squad portraits, action shots, liaisons) and flags posed
+  portraits sitting in action slots. Run it with `-- --write` to
+  regenerate `docs/team-page-gaps.md`, and **re-run it after adding any
+  team photo or coach info** — the doc is generated, never hand-edited.
+  `/teams/cross-country` is the reference page. Football and track &
+  field are held to a lower bar (`LARGE_PROGRAMS` in the script): a
+  three-level program and an ~18-event program don't fit the
+  single-squad template. Multi-squad expectations live in
+  `EXPECTED_SQUADS` — add a slug there and the missing squads get
+  tracked automatically.
 - **Combined teams** (cross country runs boys + girls as one program):
   use `headCoaches: [...]` with a `role` on each ("Head Coach — Boys")
   and `teamPhotos: [{photo, label}]` with a label per squad. Both plural

@@ -1,12 +1,11 @@
 {
   "slug": "football",
-  "name": "Varsity Football",
+  "name": "Football",
   "sport": "Football",
   "gender": "Boys",
   "season": "Fall",
   "tagline": "Friday nights on Holt Field.",
   "heroPhoto": "/photos/bfball-1-1200x835.jpg",
-  "teamPhoto": "/photos/bfball-team-2025.jpg",
   "eventCategory": "football",
   "headCoach": {
     "name": "Pat Johnston",
@@ -35,6 +34,20 @@
     {
       "name": "Sara Hegg",
       "email": "heggmama@gmail.com"
+    }
+  ],
+  "teamPhotos": [
+    {
+      "photo": "/photos/bfball-varsity-team-2025.jpg",
+      "label": "Varsity"
+    },
+    {
+      "photo": "/photos/bfball-jv-team-2025.jpg",
+      "label": "JV"
+    },
+    {
+      "photo": "/photos/bfball-frosh-team-2025.jpg",
+      "label": "Frosh"
     }
   ]
 }
