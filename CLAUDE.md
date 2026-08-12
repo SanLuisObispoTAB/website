@@ -101,6 +101,17 @@ the convention.
   single-squad template. Multi-squad expectations live in
   `EXPECTED_SQUADS` — add a slug there and the missing squads get
   tracked automatically.
+- **`npm run photo-usage`** audits `public/photos` as a library: which
+  photos nothing references, which are **the same image under two
+  filenames** (16x16 grayscale signature, so it catches re-crops and
+  re-exports), and whether any one page shows a photo twice. **Run it
+  after every photo import** — `photo-intake`'s duplicate check is
+  byte-based and will happily let a re-export of an existing photo in
+  under a new name. That is exactly how six pages ended up showing the
+  same shot twice in #111, and how a *basketball* huddle got imported as
+  `ctrack-action-2023.jpg` (decision #112). Photos already in the library
+  but unused are common — check the unused list before importing
+  anything new.
 - **Combined teams** (cross country runs boys + girls as one program):
   use `headCoaches: [...]` with a `role` on each ("Head Coach — Boys")
   and `teamPhotos: [{photo, label}]` with a label per squad. Both plural

@@ -9,9 +9,7 @@
   "teamPhoto": "/photos/bsoccer-team-2026.jpg",
   "gallery": [
     "/photos/bsoccer-dribble.jpg",
-    "/photos/bsoccer-huddle.jpg",
-    "/photos/bsoccer-challenge.jpg",
-    "/photos/bsoccer-celebration.jpg"
+    "/photos/bsoccer-huddle.jpg"
   ],
   "headCoach": {
     "name": "Omar Rodriguez",

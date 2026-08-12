@@ -11,5 +11,11 @@
   "headCoach": {
     "name": "Daniel Monroe",
     "email": "dmonroe@slcusd.org"
-  }
+  },
+  "gallery": [
+    "/photos/gfball-saff6-1200x800.jpg",
+    "/photos/gfball-saff9-1200x900.jpg",
+    "/photos/gfball-saff1.jpg",
+    "/photos/gfball-cushing.jpg"
+  ]
 }
