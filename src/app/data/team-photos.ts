@@ -3,8 +3,9 @@
 // action / game shot whenever the library has one — never a formal/posed
 // team portrait. Portraits live on the team page via `teamPhoto`. A posed
 // shot is acceptable here ONLY when no action shot exists for that team
-// yet (currently: baseball, cross country, girls wrestling — swap to an
-// action shot the moment one arrives).**
+// yet (currently: baseball and girls wrestling — swap to an action shot
+// the moment one arrives. Cross country was retired from this list on
+// 2026-08-11 when the CIF Championship photo landed — decision #111).**
 // New convention: first letter b/g/c (boys/girls/co-ed), then short
 // sport name. Note: `bball` = basketball, `bbaseball` = baseball (the
 // latter required because `bball` would otherwise collide).
@@ -28,7 +29,7 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "girls-basketball": "/photos/gbball-hartford.jpg",
   "boys-soccer": "/photos/bsoccer-keeper-save.jpg",
   "girls-soccer": "/photos/gsoccer-celebration.jpg",
-  "cross-country": "/photos/bXC-team-2025.jpg",
+  "cross-country": "/photos/cXC-cif-champions-2025.jpg",
   "track-field": "/photos/ctrack-1200x800.jpg",
   "boys-swim-dive": "/photos/bswim-image-0.jpg",
   "girls-swim-dive": "/photos/gswim-stroke.jpg",

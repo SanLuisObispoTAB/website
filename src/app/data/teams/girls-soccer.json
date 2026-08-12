@@ -9,7 +9,9 @@
   "teamPhoto": "/photos/gsoccer-team-2025.jpg",
   "gallery": [
     "/photos/gsoccer-huddle.jpg",
-    "/photos/gsoccer-keeper-save.jpg"
+    "/photos/gsoccer-keeper-save.jpg",
+    "/photos/gsoccer-keeper-punt.jpg",
+    "/photos/gsoccer-keeper-catch.jpg"
   ],
   "headCoach": {
     "name": "Tyler Warmerdam",
