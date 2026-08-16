@@ -52,3 +52,14 @@ next-env.d.ts
 # Sports Photographs-part-* folders are multi-GB raw output and
 # must NOT be tracked or deployed.
 /public/photos/originals/SLOHS Sports Photographs-part-*/
+
+# Raw team-portrait drops from the school photographer. Same rule as
+# photo-inbox: originals stay local, only the resized 1200px versions
+# in /public/photos/ are ever committed. Untracked and un-ignored, this
+# folder got swept into a commit once (765 MB, incl. a 375 MB zip that
+# GitHub would have rejected outright) — hence the explicit entry.
+/Team Photos/
+
+# Microsoft Word lock/owner files (~$foo.docx) left behind by the Word
+# versions of the CMS guides in docs/.
+~$*
