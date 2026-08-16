@@ -133,6 +133,42 @@ Confirmed about the live site, which narrows the search:
    organizational ownership. Needs a support ticket and documentation, so
    **start this early** rather than as a last resort.
 
+### Ruled out (don't re-tread these)
+
+- **wp-admin credentials are not GoDaddy credentials.** Tried on
+  `sso.godaddy.com` they return "account doesn't exist" — expected, since
+  WordPress users and GoDaddy shopper accounts are separate systems. Don't
+  try variants; repeated failures risk lockouts on the account you're
+  trying to recover.
+- **The GoDaddy menu item in wp-admin** links to
+  `/wp-admin/admin.php?page=wp-dashboard` — an internal WordPress page
+  rendered by GoDaddy's system plugin. No account context in it.
+- **The SLOTABSEC@gmail.com account** is empty (no products, domains,
+  renewals, or delegate access).
+- Any GoDaddy link clicked while a SLOTABSEC session is live lands back in
+  that empty account. Use a private window when testing.
+
+### Recovery pack — what to bring to GoDaddy support
+
+| Evidence | Value |
+|---|---|
+| Domain | `slotab.org` |
+| Proof of site control | Working WordPress admin credentials |
+| Organizational ownership | SLO Tiger Athletic Boosters, 501(c)(3), **EIN 45-4897120** |
+| Account identifiers | WP admin handle **`sausbox`** (user id 1, site built ~May 2014); second admin **Kathy Schwanitz** (`kschwanitz`) |
+| Registration facts | Registered 2012-09-19, transferred 2017-10-15, expires **2026-09-19**; NS `ns07/ns08.domaincontrol.com` |
+| Board continuity | Trina Cisneros (Treasurer, continuing), Liz Moody (outgoing President, still on the board) |
+
+**The ask:** *"Please look up the account that holds slotab.org and confirm
+the masked email on file."* Support can disclose a masked address (e.g.
+`k***z@g***.com`) without breaching the holder's privacy — usually enough
+to identify who it is. If that person is unreachable, ask for the
+**account recovery / domain ownership** process for an organization
+recovering its own asset.
+
+**Say early in the call that the domain expires 2026-09-19** — an
+imminent expiry is a legitimate reason to escalate.
+
 ### Once it's recovered — close the hole permanently
 
 1. **Renew / confirm auto-renew** on a card that belongs to SLOTAB, not
