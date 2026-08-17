@@ -3,6 +3,11 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import teamsData from "../data/teams.json";
+import {
+  squareDonateUrl,
+  hasOwnSquareItem,
+  squareItemLabel,
+} from "../data/square-donate";
 
 type Team = {
   slug: string;
@@ -69,6 +74,9 @@ export default function DonateForm() {
   const [donorEmail, setDonorEmail] = useState("");
   const [donorPhone, setDonorPhone] = useState("");
   const [displayOnWall, setDisplayOnWall] = useState(true);
+  // Set once the donor has been handed off to Square, so the follow-up
+  // panel appears instead of pre-cluttering the form with caveats.
+  const [handedOff, setHandedOff] = useState(false);
 
   const tiers = mode === "monthly" ? MONTHLY_TIERS : ONE_TIME_TIERS;
   const floor = mode === "monthly" ? MONTHLY_FLOOR : ONE_TIME_FLOOR;
@@ -93,6 +101,52 @@ export default function DonateForm() {
   const donorComplete = donorName.trim().length > 0 && emailValid;
   const submitDisabled =
     tooLow || effectiveAmount <= 0 || !donorComplete;
+
+  // Square's hosted items are one-time purchases that collect a name, an
+  // email and an amount. Everything else the form asks for has nowhere to go
+  // in that checkout, so it is gathered into a pre-written email the donor
+  // sends to the membership address. Not elegant, but it is durable — an
+  // email in an inbox — and needs no backend, which is the constraint until
+  // Q1 is decided.
+  const unrecordedIntent: string[] = [];
+  if (mode === "monthly") {
+    unrecordedIntent.push(
+      `Wants to give ${MONEY.format(effectiveAmount)}/month, not a one-time gift` +
+        (autoRenew ? ", with the 4-year lock-in" : ""),
+    );
+  }
+  if (!displayOnWall) {
+    unrecordedIntent.push("Asked to stay anonymous — do not list on the donor wall");
+  }
+  if (tier) {
+    unrecordedIntent.push(`Qualifies for the ${tier} membership tier`);
+  }
+  if (!isGeneral) {
+    unrecordedIntent.push(
+      `Designated ${teamLabel} — recorded on Square as "${squareItemLabel(team)}"`,
+    );
+  }
+
+  const intentMailto = (() => {
+    const body = [
+      "I've just donated through the SLOTAB Square store. Here are the details the checkout couldn't capture:",
+      "",
+      `Name: ${donorName}`,
+      `Email: ${donorEmail}`,
+      donorPhone ? `Phone: ${donorPhone}` : null,
+      `Amount: ${MONEY.format(effectiveAmount)}${mode === "monthly" ? " per month" : " one-time"}`,
+      `Designation: ${teamLabel}`,
+      "",
+      ...unrecordedIntent.map((l) => `- ${l}`),
+    ]
+      .filter((l) => l !== null)
+      .join("\n");
+    return (
+      "mailto:slotabmembership@gmail.com" +
+      `?subject=${encodeURIComponent("Donation details — " + (donorName || "SLOTAB donor"))}` +
+      `&body=${encodeURIComponent(body)}`
+    );
+  })();
 
   return (
     <div className="slotab-donate-form">
@@ -328,22 +382,50 @@ export default function DonateForm() {
         className="slotab-btn slotab-donate-submit"
         disabled={submitDisabled}
         onClick={() => {
-          alert(
-            "Demo prototype — Square integration pending board decision (Q1).\n\n" +
-              `Donor: ${donorName} <${donorEmail}>${donorPhone ? ` · ${donorPhone}` : ""}\n` +
-              `Display on wall: ${displayOnWall ? "Yes" : "No (anonymous)"}\n` +
-              `Mode: ${mode}\n` +
-              `Amount: ${MONEY.format(effectiveAmount)}${mode === "monthly" ? "/mo" : ""}\n` +
-              `Designation: ${teamLabel}\n` +
-              (mode === "monthly" ? `4-year lock-in: ${autoRenew ? "Yes" : "No"}\n` : "") +
-              (tier ? `Tier: ${tier} (membership enrolled)\n` : "")
-          );
+          setHandedOff(true);
+          window.open(squareDonateUrl(team), "_blank", "noopener,noreferrer");
         }}
       >
         {mode === "monthly"
           ? `Start ${MONEY.format(effectiveAmount || floor)}/mo recurring`
           : `Donate ${MONEY.format(effectiveAmount || floor)}`}
       </button>
+      {handedOff && (
+        <div className="slotab-donate-handoff" role="status">
+          <p className="slotab-donate-handoff-lead">
+            Checkout opened in a new tab
+            {hasOwnSquareItem(team)
+              ? ` — your gift will be recorded as “${squareItemLabel(team)}”.`
+              : " under “GENERAL ATHLETICS”."}
+          </p>
+          <p>
+            Enter your amount there — pick <strong>$0.00</strong> if you want a
+            figure the buttons don&apos;t offer. Nothing has been charged yet.
+          </p>
+          {unrecordedIntent.length > 0 && (
+            <>
+              <p>
+                A few of your choices can&apos;t travel through that checkout:
+              </p>
+              <ul className="slotab-donate-handoff-list">
+                {unrecordedIntent.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+              <p>
+                <a className="slotab-btn outline" href={intentMailto}>
+                  Send us these details →
+                </a>
+              </p>
+              <p className="slotab-donate-note">
+                Opens a pre-written email to our membership team so your gift
+                gets credited the way you asked. Takes a few seconds and saves
+                us chasing you later.
+              </p>
+            </>
+          )}
+        </div>
+      )}
       <p className="slotab-donate-note">
         SLOTAB is a 501(c)(3) charitable organization. Gifts are tax-
         deductible to the extent allowed by law.

@@ -3065,6 +3065,25 @@ a.slotab-platinum-slide:hover {
    uppercase with wide tracking — fine for "VARSITY", unreadable for a
    sentence — so this resets case, tracking and weight, and holds a
    comfortable measure rather than running the full photo width. */
+/* Post-handoff panel on /donate. Appears only after the donor has been sent
+   to Square, so the form isn't pre-loaded with caveats nobody needs to read
+   until they've committed. Gold left edge matches the sponsor-tile treatment. */
+.slotab-donate-handoff {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--slotab-bg-alt);
+  border: 1px solid var(--slotab-border);
+  border-left: 3px solid var(--slotab-gold);
+}
+.slotab-donate-handoff p { margin: 0 0 0.7rem; }
+.slotab-donate-handoff p:last-child { margin-bottom: 0; }
+.slotab-donate-handoff-lead { font-weight: 650; }
+.slotab-donate-handoff-list {
+  margin: 0 0 0.9rem;
+  padding-left: 1.15rem;
+}
+.slotab-donate-handoff-list li { margin-bottom: 0.3rem; }
+
 .slotab-team-photo-note {
   display: block;
   max-width: 52ch;
