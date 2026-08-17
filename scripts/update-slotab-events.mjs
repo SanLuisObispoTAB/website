@@ -187,7 +187,18 @@ async function fetchTabEvents({ name, gid }) {
   const headerIdx = rows.findIndex(
     (r) => r && r[0] && r[0].trim() === "Sport",
   );
-  if (headerIdx < 0) return [];
+  // No "Sport" header means the sheet's shape changed (or we were served
+  // something that isn't the sheet at all). That is a broken scraper, not an
+  // empty week, and it must not be mistaken for one — returning [] here used
+  // to make a structural break indistinguishable from "no games scheduled",
+  // so the job would go green while silently publishing nothing.
+  if (headerIdx < 0) {
+    throw new Error(
+      `Tab "${name}" (gid=${gid}) has no "Sport" header row — ` +
+        `the sheet layout or the export format has changed. ` +
+        `Fetched ${rows.length} row(s) from ${csvUrlFor(gid)}`,
+    );
+  }
 
   const events = [];
   for (const row of rows.slice(headerIdx + 1)) {
@@ -231,6 +242,22 @@ async function main() {
     const events = await fetchTabEvents(tab);
     process.stdout.write(`  + ${events.length} events\n`);
     allEvents.push(...events);
+  }
+
+  // A legitimately empty week happens — the department clears the tab once the
+  // week is over and fills the next one in its own time. So this is a warning,
+  // not a failure. But it is worth shouting about, because the alternative
+  // explanation is that the site is quietly serving no schedule at all, and a
+  // silent green run is how that goes unnoticed for weeks.
+  if (allEvents.length === 0) {
+    process.stdout.write(
+      `\n⚠️  Every tab parsed cleanly but produced ZERO events.\n` +
+        `    The sheet's header row was found, so the scraper is working —\n` +
+        `    the source tab(s) have no data rows. Either the week is over and\n` +
+        `    the department has not posted the next one, or the tab is stale.\n` +
+        `    /upcoming will fall back to the static schedule import.\n` +
+        `    Tabs seen: ${tabs.map((t) => `"${t.name}"`).join(", ")}\n\n`,
+    );
   }
 
   // Deduplicate: same iso date + category + opponent
