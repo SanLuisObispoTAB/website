@@ -234,7 +234,13 @@ function publishedName(filename) {
 
 function resizeInto(src, dest) {
   const isJpeg = /\.jpe?g$/i.test(dest);
-  const argv = [src, "-resize", `${TARGET_WIDTH}x>`];
+  // -auto-orient MUST come before -strip. Phone and mirrorless cameras often
+  // record a landscape sensor read plus an EXIF Orientation flag rather than
+  // rotating the pixels; -strip then discards that flag, and the image ships
+  // sideways with nothing in the file left to say so. Baking the rotation into
+  // the pixels first makes the strip safe. Caught on a state-meet coaches
+  // photo that arrived 4000x3000 tagged RightTop (decision #127).
+  const argv = [src, "-auto-orient", "-resize", `${TARGET_WIDTH}x>`];
   if (isJpeg) argv.push("-quality", String(JPEG_QUALITY));
   argv.push("-strip", dest);
   execFileSync("magick", argv, { stdio: ["ignore", "ignore", "inherit"] });

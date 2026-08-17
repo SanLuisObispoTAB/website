@@ -13,6 +13,10 @@
     {
       "photo": "/photos/gXC-team-2025.jpg",
       "label": "Girls"
+    },
+    {
+      "photo": "/photos/cXC-state-coaches-2025.jpg",
+      "label": "Coaching staff — State Championships"
     }
   ],
   "eventCategory": "cross-country",
@@ -75,6 +79,24 @@
   "captains": [
     "Boys: Will Woffinden, Thad Hough, Kai Liwanag",
     "Girls: Kasey Abercromby, Eloise Barnickle, Claire Folden, Leah Siciliano"
+  ],
+  "gallery": [
+    "/photos/bXC-state-start-2025.jpg",
+    "/photos/gXC-state-start-2025.jpg",
+    "/photos/bXC-state-pack-grass-2025.jpg",
+    "/photos/gXC-state-road-pack-2025.jpg",
+    "/photos/bXC-state-field-battle-2025.jpg",
+    "/photos/gXC-state-duel-2025.jpg",
+    "/photos/bXC-state-road-pair-2025.jpg",
+    "/photos/gXC-state-road-pair-2025.jpg",
+    "/photos/bXC-state-road-chase-2025.jpg",
+    "/photos/gXC-state-dirt-pack-2025.jpg",
+    "/photos/bXC-state-grass-stride-2025.jpg",
+    "/photos/gXC-state-stride-2025.jpg",
+    "/photos/bXC-state-road-solo-2025.jpg",
+    "/photos/gXC-state-solo-2025.jpg",
+    "/photos/bXC-state-straight-2025.jpg",
+    "/photos/bXC-state-fenceline-2025.jpg"
   ],
   "heroPhoto": "/photos/cXC-cif-champions-2025.jpg"
 }
