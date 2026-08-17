@@ -4,8 +4,26 @@
   "sport": "Cheer",
   "season": "Fall",
   "tagline": "Be part of the Hype. Spirit. Tradition.",
-  "teamPhoto": "/photos/ccheer-team-2025.jpg",
+  "heroPhoto": "/photos/ccheer-fall-stunts-2025.jpg",
+  "heroPhotoPosition": "center 35%",
+  "teamPhotos": [
+    {
+      "photo": "/photos/ccheer-varsity-team-2025.jpg",
+      "label": "Varsity"
+    },
+    {
+      "photo": "/photos/ccheer-jv-team-2025.jpg",
+      "label": "Junior Varsity"
+    },
+    {
+      "photo": "/photos/ccheer-frosh-team-2025.jpg",
+      "label": "Frosh"
+    }
+  ],
   "gallery": [
+    "/photos/ccheer-fall-megaphone-2025.jpg",
+    "/photos/ccheer-fall-sideline-2025.jpg",
+    "/photos/ccheer-fall-night-2025.jpg",
     "/photos/ccheering-sideline-2025.jpg"
   ],
   "headCoach": {

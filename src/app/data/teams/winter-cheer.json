@@ -4,14 +4,25 @@
   "sport": "Cheer",
   "season": "Winter",
   "tagline": "Courtside all winter — Tiger Cheer's own Varsity sideline squad.",
-  "teamPhoto": "/photos/ccheer-team.jpg",
+  "heroPhoto": "/photos/ccheer-winter-tigers-2026.jpg",
+  "teamPhoto": "/photos/ccheer-winter-varsity-team-2026.jpg",
+  "gallery": [
+    "/photos/ccheer-winter-lift-2026.jpg",
+    "/photos/ccheer-winter-stunt-2026.jpg"
+  ],
   "headCoach": {
     "name": "Lisa McDonald",
     "email": "lmcdonald@slcusd.org"
   },
   "externalLinks": [
-    { "label": "Tiger Cheer team site", "url": "https://slohighcheer.com/" },
-    { "label": "Tiger Cheer on Instagram", "url": "https://www.instagram.com/slohighcheer/" }
+    {
+      "label": "Tiger Cheer team site",
+      "url": "https://slohighcheer.com/"
+    },
+    {
+      "label": "Tiger Cheer on Instagram",
+      "url": "https://www.instagram.com/slohighcheer/"
+    }
   ],
   "liaisons": [
     {

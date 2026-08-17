@@ -38,19 +38,16 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "boys-wrestling": "/photos/bwrestling-action.jpg",
   "girls-wrestling": "/photos/gwrestling-team-2026.jpg",
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
-  cheer: "/photos/ccheering-sideline-2025.jpg",
-  // Posed, under the same no-action-shot exception as the two below. Which
-  // of the squad portraits belongs to WINTER is unconfirmed: this one shows a
-  // single ~13-athlete squad, consistent with the separate Varsity sideline
-  // team the coach describes for winter, where ccheer-team-2025 is a ~25+
-  // group photographed on the football field. Worth confirming with her.
-  "winter-cheer": "/photos/ccheer-team.jpg",
-  // Posed, and deliberately so: the library has no competitive-cheer ACTION
-  // shot — every `ccheering-*` file is sideline cheer, a different program.
-  // Falls under the same exception as baseball and girls wrestling above;
-  // swap to an action shot the moment one arrives. Previously the slug had no
-  // entry at all, so it fell through to the generic student-section fallback.
-  "competitive-cheer": "/photos/ccompcheer-2025.jpg",
+  cheer: "/photos/ccheer-fall-stunts-2025.jpg",
+  // Real winter action, supplied by the coach 2026-08-17 — supersedes the
+  // squad-portrait guess this entry previously carried.
+  "winter-cheer": "/photos/ccheer-winter-tigers-2026.jpg",
+  // Still posed, and still the exception rather than the rule: the coach's
+  // 2026-08-17 drop included plenty of cheer action, but all of it is
+  // *sideline* — fall on the football field, winter in the gym. TCC competes
+  // on a mat and none of its competition was photographed, so this is the
+  // official squad portrait. Swap it the moment a competition shot arrives.
+  "competitive-cheer": "/photos/ccompcheer-team-2026.jpg",
   stunt: "/photos/cstunt-CHafourd.jpg",
 };
 
