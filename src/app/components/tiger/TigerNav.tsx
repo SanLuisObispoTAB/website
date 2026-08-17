@@ -20,7 +20,9 @@ type NavItem = {
 type TeamEntry = {
   slug: string;
   name: string;
-  gender: "Boys" | "Girls" | "Co-ed";
+  // Optional: a team with no gender designation (Tiger Cheer) omits it
+  // entirely rather than being labelled, so it reads as just its name.
+  gender?: "Boys" | "Girls" | "Co-ed";
   season: "Fall" | "Winter" | "Spring" | "Year-round";
   hasPage: boolean;
 };
@@ -36,13 +38,15 @@ function teamChildren(): NavLink[] {
     )
     .sort(
       (a, b) =>
-        a.name.localeCompare(b.name) || a.gender.localeCompare(b.gender),
+        a.name.localeCompare(b.name) ||
+        (a.gender ?? "").localeCompare(b.gender ?? ""),
     );
   return [
     { href: "/teams", label: "All Teams" },
     ...teams.map((t) => ({
       href: `/teams/${t.slug}`,
-      label: t.gender === "Co-ed" ? t.name : `${t.gender} ${t.name}`,
+      label:
+        !t.gender || t.gender === "Co-ed" ? t.name : `${t.gender} ${t.name}`,
     })),
   ];
 }

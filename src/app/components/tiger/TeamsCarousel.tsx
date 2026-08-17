@@ -10,7 +10,9 @@ import { currentSeason } from "../../data/seasons";
 type Team = {
   slug: string;
   name: string;
-  gender: "Boys" | "Girls" | "Co-ed";
+  // Optional — see TigerNav: a team with no gender designation shows as
+  // just its name.
+  gender?: "Boys" | "Girls" | "Co-ed";
   season: "Fall" | "Winter" | "Spring" | "Year-round";
   hasPage: boolean;
 };
@@ -20,7 +22,7 @@ function teamHref(t: Team): string {
 }
 
 function teamLabel(t: Team): string {
-  if (t.gender === "Co-ed") return t.name;
+  if (!t.gender || t.gender === "Co-ed") return t.name;
   return `${t.gender} ${t.name}`;
 }
 

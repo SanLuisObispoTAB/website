@@ -1,8 +1,7 @@
 {
   "slug": "dance",
-  "name": "Cheer",
+  "name": "Tiger Cheer",
   "sport": "Cheer",
-  "gender": "Girls",
   "season": "Fall",
   "tagline": "Tiger spirit and cheer on every sideline.",
   "heroPhoto": "/photos/ccheering-taryn.jpg",
@@ -16,8 +15,12 @@
   },
   "liaisons": [
     {
-      "name": "Felisha Connoly",
-      "email": "felishae@gmail.com"
+      "name": "Belinda Rollins",
+      "email": "belinda@therollins.family"
+    },
+    {
+      "name": "Sally Ross",
+      "email": "sally.ross@parable.com"
     }
   ]
 }

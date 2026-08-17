@@ -2,7 +2,7 @@ import TeamPage, { type Team } from "../../components/TeamPage";
 import teamData from "../../data/teams/dance.json";
 
 export const metadata = {
-  title: "Cheer — SLOTAB",
+  title: "Tiger Cheer — SLOTAB",
 };
 
 export default function CheerTeamPage() {

@@ -7,13 +7,19 @@ import teamsData from "../data/teams.json";
 type Team = {
   slug: string;
   name: string;
-  gender: string;
+  /** Absent for a team with no gender designation — the option shows the
+   *  bare name, with no empty parenthetical. */
+  gender?: string;
   season: string;
 };
 
 const TEAMS = (teamsData.teams as Team[])
   .slice()
-  .sort((a, b) => a.name.localeCompare(b.name) || a.gender.localeCompare(b.gender));
+  .sort(
+    (a, b) =>
+      a.name.localeCompare(b.name) ||
+      (a.gender ?? "").localeCompare(b.gender ?? ""),
+  );
 
 const ONE_TIME_TIERS = [25, 50, 100, 200, 500, 1000, 5000];
 const MONTHLY_TIERS = [10, 25, 50, 100, 200, 500];
@@ -186,7 +192,9 @@ export default function DonateForm() {
           <option value="general">SLOTAB General Fund (all teams)</option>
           {TEAMS.map((t) => (
             <option key={t.slug} value={t.slug}>
-              {t.gender === "Co-ed" ? t.name : `${t.name} (${t.gender})`}
+              {!t.gender || t.gender === "Co-ed"
+                ? t.name
+                : `${t.name} (${t.gender})`}
             </option>
           ))}
         </select>

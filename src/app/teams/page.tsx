@@ -6,7 +6,8 @@ import { orderedSeasons } from "../data/seasons";
 type TeamIndexEntry = {
   slug: string;
   name: string;
-  gender: string;
+  /** Absent for a team with no gender designation. */
+  gender?: string;
   season: string;
   hasPage: boolean;
 };
@@ -29,7 +30,11 @@ function groupBySeason(teams: TeamIndexEntry[]): Group[] {
       ...g,
       teams: g.teams
         .slice()
-        .sort((a, b) => a.name.localeCompare(b.name) || a.gender.localeCompare(b.gender)),
+        .sort(
+          (a, b) =>
+            a.name.localeCompare(b.name) ||
+            (a.gender ?? "").localeCompare(b.gender ?? ""),
+        ),
     }));
 }
 

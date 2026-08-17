@@ -68,7 +68,9 @@ export type Team = {
   slug: string;
   name: string;
   sport: string;
-  gender: string;
+  /** Absent for a team with no gender designation — the hero kicker drops
+   *  the segment rather than rendering "SLOHS · · Fall". */
+  gender?: string;
   season: string;
   tagline?: string;
   heroPhoto?: string;
@@ -153,7 +155,7 @@ export default function TeamPage({ team }: { team: Team }) {
         <div className="slotab-team-hero-overlay" />
         <div className="slotab-team-hero-content">
           <div className="slotab-kicker">
-            SLOHS · {team.gender} · {team.season}
+            {["SLOHS", team.gender, team.season].filter(Boolean).join(" · ")}
           </div>
           <h1>{team.name}</h1>
           {team.tagline && (

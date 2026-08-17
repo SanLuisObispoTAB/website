@@ -180,6 +180,8 @@ collections:
                   label: "Gender",
                   widget: select,
                   options: ["Boys", "Girls", "Co-ed"],
+                  required: false,
+                  hint: "Leave blank for a team with no gender designation (Tiger Cheer). Blank shows the team as just its name everywhere — nav, carousel, /teams cards, donate dropdown — with no gender label.",
                 }
               - {
                   name: season,
@@ -204,7 +206,7 @@ collections:
           - { name: slug, label: "Slug", widget: string }
           - { name: name, label: "Team name", widget: string }
           - { name: sport, label: "Sport", widget: string }
-          - { name: gender, label: "Gender", widget: string }
+          - { name: gender, label: "Gender", widget: string, required: false, hint: "Leave blank for a team with no gender designation (Tiger Cheer)." }
           - { name: season, label: "Season", widget: string }
           - { name: tagline, label: "Tagline", widget: string, required: false }
           - {

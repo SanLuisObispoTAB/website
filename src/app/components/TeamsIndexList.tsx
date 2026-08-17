@@ -8,7 +8,9 @@ import { teamPhotoFor, teamPhotoPairFor } from "../data/team-photos";
 type TeamIndexEntry = {
   slug: string;
   name: string;
-  gender: string;
+  /** Absent for a team with no gender designation — the card omits the
+   *  label rather than printing an empty chip. */
+  gender?: string;
   season: string;
   hasPage: boolean;
 };
@@ -150,9 +152,11 @@ export default function TeamsIndexList({ groups }: { groups: Group[] }) {
                         </div>
                       )}
                       <div className="slotab-team-card-body">
-                        <div className="slotab-team-card-gender">
-                          {t.gender}
-                        </div>
+                        {t.gender && (
+                          <div className="slotab-team-card-gender">
+                            {t.gender}
+                          </div>
+                        )}
                         <div className="slotab-team-card-name">{t.name}</div>
                         <div className="slotab-team-card-cta">
                           {t.hasPage ? "View team →" : "Coming soon"}
