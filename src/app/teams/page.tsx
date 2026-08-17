@@ -1,7 +1,7 @@
 import PageHeader from "../components/PageHeader";
 import TeamsIndexList from "../components/TeamsIndexList";
 import teamsIndex from "../data/teams.json";
-import { orderedSeasons } from "../data/seasons";
+import { orderedSeasons, teamSeasons } from "../data/seasons";
 
 type TeamIndexEntry = {
   slug: string;
@@ -9,6 +9,8 @@ type TeamIndexEntry = {
   /** Absent for a team with no gender designation. */
   gender?: string;
   season: string;
+  /** Set when a team runs across more than one season — see seasons.ts. */
+  seasons?: string[];
   hasPage: boolean;
 };
 
@@ -20,8 +22,12 @@ function groupBySeason(teams: TeamIndexEntry[]): Group[] {
   const order = orderedSeasons();
   const map = new Map<string, TeamIndexEntry[]>();
   for (const t of teams) {
-    if (!map.has(t.season)) map.set(t.season, []);
-    map.get(t.season)!.push(t);
+    // A multi-season team is listed under each season it competes in, so a
+    // parent scanning the Winter block still finds Tiger Cheer there.
+    for (const s of teamSeasons(t)) {
+      if (!map.has(s)) map.set(s, []);
+      map.get(s)!.push(t);
+    }
   }
   return order
     .filter((s) => map.has(s))

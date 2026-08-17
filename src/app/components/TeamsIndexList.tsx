@@ -12,6 +12,8 @@ type TeamIndexEntry = {
    *  label rather than printing an empty chip. */
   gender?: string;
   season: string;
+  /** Set when a team runs across more than one season — see seasons.ts. */
+  seasons?: string[];
   hasPage: boolean;
 };
 

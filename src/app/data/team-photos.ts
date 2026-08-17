@@ -38,7 +38,7 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "boys-wrestling": "/photos/bwrestling-action.jpg",
   "girls-wrestling": "/photos/gwrestling-team-2026.jpg",
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
-  dance: "/photos/ccheering-sideline-2025.jpg",
+  cheer: "/photos/ccheering-sideline-2025.jpg",
   stunt: "/photos/cstunt-CHafourd.jpg",
 };
 

@@ -7,6 +7,28 @@
 
 export type Season = "Fall" | "Winter" | "Spring" | "Year-round";
 
+/** A team that competes across more than one season, which "Year-round" does
+ *  not describe. Tiger Cheer is the case that forced this: it fields Varsity,
+ *  JV Black, JV Gold and Frosh sideline teams in Fall and a *separate* Varsity
+ *  sideline team in Winter, but nothing in Spring — so a single `season` made
+ *  it vanish from the nav every December, and "Year-round" would have wrongly
+ *  claimed a Spring season too.
+ *
+ *  `seasons` wins over `season` when present, mirroring the singular/plural
+ *  pattern already used for headCoach→headCoaches and teamPhoto→teamPhotos. */
+export type SeasonedTeam = { season: string; seasons?: string[] };
+
+export function teamSeasons(t: SeasonedTeam): string[] {
+  return t.seasons && t.seasons.length > 0 ? t.seasons : [t.season];
+}
+
+/** True when the team is in play during `season`. "Year-round" in the list
+ *  matches every season, preserving the previous single-field behaviour. */
+export function teamInSeason(t: SeasonedTeam, season: string): boolean {
+  const list = teamSeasons(t);
+  return list.includes(season) || list.includes("Year-round");
+}
+
 /** Athletic season for "in play now" surfaces (e.g. the home carousel).
  *  Summer (Jul) keeps showing Spring as the most-recent season in play. */
 export function currentSeason(): Exclude<Season, "Year-round"> {

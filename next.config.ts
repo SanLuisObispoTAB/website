@@ -41,6 +41,16 @@ const nextConfig: NextConfig = {
         destination: "/teams/cross-country",
         permanent: true,
       },
+      // Cheer was living on the Dance team's slug — Coach McDonald flagged it
+      // directly ("the current URL & photos on the page are actually for our
+      // Dance team"). Moved to /teams/cheer 2026-08-16. The old URL was live
+      // and public, so it keeps working; it also frees /teams/dance for the
+      // actual Dance team if that page ever gets built.
+      {
+        source: "/teams/dance",
+        destination: "/teams/cheer",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import teamsData from "../../data/teams.json";
 import { TEAM_PHOTO_BY_SLUG as PHOTO_BY_SLUG } from "../../data/team-photos";
-import { currentSeason } from "../../data/seasons";
+import { currentSeason, teamInSeason, teamSeasons } from "../../data/seasons";
 
 type Team = {
   slug: string;
@@ -14,6 +14,8 @@ type Team = {
   // just its name.
   gender?: "Boys" | "Girls" | "Co-ed";
   season: "Fall" | "Winter" | "Spring" | "Year-round";
+  /** Set when a team runs across more than one season — see seasons.ts. */
+  seasons?: string[];
   hasPage: boolean;
 };
 
@@ -29,7 +31,7 @@ function teamLabel(t: Team): string {
 export default function TeamsCarousel() {
   const season = currentSeason();
   const teams: Team[] = (teamsData.teams as Team[]).filter(
-    (t) => t.season === season || t.season === "Year-round",
+    (t) => teamInSeason(t, season),
   );
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
@@ -104,7 +106,9 @@ export default function TeamsCarousel() {
                 <div className="tiger-team-meta">
                   <div>
                     <div className="tiger-team-season">
-                      {t.season === "Year-round" ? "Year-Round" : t.season}
+                      {teamSeasons(t)
+                        .map((s) => (s === "Year-round" ? "Year-Round" : s))
+                        .join(" · ")}
                     </div>
                     <div className="tiger-team-name">{teamLabel(t)}</div>
                   </div>

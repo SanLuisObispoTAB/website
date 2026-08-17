@@ -1,8 +1,12 @@
 {
-  "slug": "dance",
+  "slug": "cheer",
   "name": "Tiger Cheer",
   "sport": "Cheer",
   "season": "Fall",
+  "seasons": [
+    "Fall",
+    "Winter"
+  ],
   "tagline": "Be part of the Hype. Spirit. Tradition.",
   "gallery": [
     "/photos/ccheering-sideline-2025.jpg"
@@ -48,15 +52,36 @@
     "Jillian Davis"
   ],
   "wishlist": [
-    { "item": "TumblTrak Air Barrel Cradles", "cost": 300 },
-    { "item": "Spirit Signs", "cost": 500 },
-    { "item": "AirTrack", "cost": 1000 },
-    { "item": "New Uniforms", "cost": 8000 },
-    { "item": "Cheer Camp", "cost": 15000 }
+    {
+      "item": "TumblTrak Air Barrel Cradles",
+      "cost": 300
+    },
+    {
+      "item": "Spirit Signs",
+      "cost": 500
+    },
+    {
+      "item": "AirTrack",
+      "cost": 1000
+    },
+    {
+      "item": "New Uniforms",
+      "cost": 8000
+    },
+    {
+      "item": "Cheer Camp",
+      "cost": 15000
+    }
   ],
   "externalLinks": [
-    { "label": "Tiger Cheer team site", "url": "https://slohighcheer.com/" },
-    { "label": "Tiger Cheer on Instagram", "url": "https://www.instagram.com/slohighcheer/" }
+    {
+      "label": "Tiger Cheer team site",
+      "url": "https://slohighcheer.com/"
+    },
+    {
+      "label": "Tiger Cheer on Instagram",
+      "url": "https://www.instagram.com/slohighcheer/"
+    }
   ],
   "liaisons": [
     {

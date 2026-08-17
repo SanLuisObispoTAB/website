@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import teamsData from "../../data/teams.json";
-import { navSeason } from "../../data/seasons";
+import { navSeason, teamInSeason } from "../../data/seasons";
 
 type NavLink = {
   href: string;
@@ -24,6 +24,8 @@ type TeamEntry = {
   // entirely rather than being labelled, so it reads as just its name.
   gender?: "Boys" | "Girls" | "Co-ed";
   season: "Fall" | "Winter" | "Spring" | "Year-round";
+  /** Set when a team runs across more than one season — see seasons.ts. */
+  seasons?: string[];
   hasPage: boolean;
 };
 
@@ -34,7 +36,7 @@ function teamChildren(): NavLink[] {
   const season = navSeason();
   const teams = (teamsData.teams as TeamEntry[])
     .filter(
-      (t) => t.hasPage && (t.season === season || t.season === "Year-round"),
+      (t) => t.hasPage && teamInSeason(t, season),
     )
     .sort(
       (a, b) =>

@@ -1,5 +1,5 @@
 import TeamPage, { type Team } from "../../components/TeamPage";
-import teamData from "../../data/teams/dance.json";
+import teamData from "../../data/teams/cheer.json";
 
 export const metadata = {
   title: "Tiger Cheer — SLOTAB",

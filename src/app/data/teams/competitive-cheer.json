@@ -1,0 +1,30 @@
+{
+  "slug": "competitive-cheer",
+  "name": "Traditional Competitive Cheer",
+  "sport": "Competitive Cheer",
+  "season": "Winter",
+  "tagline": "CIF-sanctioned competitive cheer — State qualifiers in their first season.",
+  "headCoach": {
+    "name": "Lisa McDonald",
+    "email": "lmcdonald@slcusd.org"
+  },
+  "wishlist": [
+    { "item": "Competition entry fees" },
+    { "item": "Choreography" },
+    { "item": "Competitive uniforms" }
+  ],
+  "externalLinks": [
+    { "label": "Tiger Cheer team site", "url": "https://slohighcheer.com/" },
+    { "label": "Tiger Cheer on Instagram", "url": "https://www.instagram.com/slohighcheer/" }
+  ],
+  "liaisons": [
+    {
+      "name": "Belinda Rollins",
+      "email": "belinda@therollins.family"
+    },
+    {
+      "name": "Sally Ross",
+      "email": "sally.ross@parable.com"
+    }
+  ]
+}
