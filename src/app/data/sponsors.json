@@ -79,6 +79,11 @@
         {
           "name": "Obispo",
           "logo": "/sponsors/gold/obispo-logo-white.png"
+        },
+        {
+          "name": "SLO Credit Union",
+          "logo": "/sponsors/gold/SLO-Credit-Union.png",
+          "website": "https://slocu.com/"
         }
       ]
     },
