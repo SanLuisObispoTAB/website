@@ -47,6 +47,13 @@ const HOME_GAMES = FOOTBALL_VOLUNTEER_DATES.map((d) =>
 const TODAY_MIDNIGHT = new Date();
 TODAY_MIDNIGHT.setHours(0, 0, 0, 0);
 
+// One-off dated calls to action drop off once they're past. Unlike the meeting
+// list there's no reason to keep showing them: "Grab a shift" for an event that
+// already happened is worse than silence. Evaluated at build time, so it clears
+// on the next deploy after the date — the same basis the meeting dimming uses.
+const BACK_TO_SCHOOL_DATE = new Date("2026-08-13T00:00:00");
+const SHOW_BACK_TO_SCHOOL = BACK_TO_SCHOOL_DATE >= TODAY_MIDNIGHT;
+
 const MEETINGS = (slotabEvents.events as RawEvent[])
   .filter((e) => /meeting/i.test(e.categoryLabel))
   .sort((a, b) => a.date.localeCompare(b.date))
@@ -98,11 +105,13 @@ export default function VolunteerPage() {
 
           <h2>Volunteer Opportunities</h2>
           <ul>
-            <li>
-              <strong>Back to School Day — Thursday, August 13:</strong> SLOTAB
-              staffs the merch table all day.{" "}
-              <Link href="/back-to-school">Grab a shift →</Link>
-            </li>
+            {SHOW_BACK_TO_SCHOOL && (
+              <li>
+                <strong>Back to School Day — Thursday, August 13:</strong>{" "}
+                SLOTAB staffs the merch table all day.{" "}
+                <Link href="/back-to-school">Grab a shift →</Link>
+              </li>
+            )}
             <li>
               <strong>Home football games:</strong> we need volunteers at every
               home game this fall — concessions, gate, and the apparel booth.
@@ -114,9 +123,31 @@ export default function VolunteerPage() {
             </li>
             <li>
               <strong>Booster Bash — Saturday, October 10:</strong> Our largest
-              fundraiser of the year, at the Octagon Barn. Volunteers welcome,
-              silent/live auction items welcome, and setup/cleanup help is
-              always needed. <Link href="/booster-bash">Event details →</Link>
+              fundraiser of the year, at the Octagon Barn. The night is made up
+              of many small jobs, so an hour of help goes a long way. Silent and
+              live auction donations are welcome too — VRBO stays, professional
+              sports tickets, and larger items especially. For either, email{" "}
+              <a href="mailto:slotabboosterbash@gmail.com">
+                slotabboosterbash@gmail.com
+              </a>
+              . <Link href="/booster-bash">Event details →</Link>
+            </li>
+            <li>
+              <strong>Tiger Bites concessions:</strong> open at every home
+              football game, now with a brand-new BBQ. This season SLOTAB
+              partners with a team each game night, and that team earns{" "}
+              <strong>25% of all non-BBQ concession sales</strong> from the
+              evening for their program. Flag Football works the first home game
+              on August 21 at Holt Stadium.
+            </li>
+            <li>
+              <strong>Tiger Den merch trailer:</strong> we need help selling
+              swag at home football games — an hour or two makes a difference.
+              Email{" "}
+              <a href="mailto:slotab.tigerapparel@gmail.com">
+                slotab.tigerapparel@gmail.com
+              </a>
+              . <Link href="/merch">See the merch →</Link>
             </li>
             <li>
               <strong>Ongoing:</strong> We are in continued need of volunteers

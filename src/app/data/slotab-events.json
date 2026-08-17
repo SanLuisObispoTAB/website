@@ -1,5 +1,5 @@
 {
-  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin -> 'SLOTAB Events'. Board meetings are the first Monday of the month at 6:00 PM; September moves a week because the first Monday is Labor Day. August 2026's meeting was pushed to Mon Aug 10 and has been held. Venue confirmed unchanged for 2026-27. Entries with an `href` link through to a dedicated event page (see featured-events.json) - keep the two dates in sync. Still needed: the fall parent meeting, physicals night, and the spring fundraiser.",
+  "note": "SLOTAB's own events (meetings, fundraisers, booster events) for the 2026-27 year. Editable at /admin -> 'SLOTAB Events'. Board meetings are the first Monday of the month at 6:00 PM; September moves a week because the first Monday is Labor Day. August 2026's meeting was pushed to Mon Aug 10 and has been held. Venue confirmed unchanged for 2026-27. Entries with an `href` link through to a dedicated event page (see featured-events.json) - keep the two dates in sync. The Fall Sports Parent Meeting (Mon Aug 17) is a SLOHS Athletics event rather than a SLOTAB one, carried here because SLOTAB presents at it and parents look for it on this calendar; hence the 'Athletics Event' label. Still needed: physicals night and the spring fundraiser.",
   "events": [
     {
       "id": "ns-mtg-2026-08-10",
@@ -16,6 +16,14 @@
       "categoryLabel": "SLOTAB Event",
       "detail": "8:00 AM – 3:00 PM at the Big Gym — SLOTAB table all day",
       "href": "/back-to-school"
+    },
+    {
+      "id": "ns-fall-parent-meeting-2026",
+      "title": "Fall Sports Parent Meeting",
+      "date": "2026-08-17T18:00:00",
+      "categoryLabel": "Athletics Event",
+      "detail": "6:00 – 8:00 PM, starting in the Theater — mandatory for at least one parent/guardian per athlete",
+      "note": "SLOHS Athletics event, not a SLOTAB one: the Athletic Director and SLOTAB Boosters present in the Theater, then parents move to a designated space for their coach's presentation"
     },
     {
       "id": "ns-mtg-2026-09-14",
