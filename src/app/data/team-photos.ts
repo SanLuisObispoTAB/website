@@ -39,6 +39,12 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "girls-wrestling": "/photos/gwrestling-team-2026.jpg",
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
   cheer: "/photos/ccheering-sideline-2025.jpg",
+  // Posed, and deliberately so: the library has no competitive-cheer ACTION
+  // shot — every `ccheering-*` file is sideline cheer, a different program.
+  // Falls under the same exception as baseball and girls wrestling above;
+  // swap to an action shot the moment one arrives. Previously the slug had no
+  // entry at all, so it fell through to the generic student-section fallback.
+  "competitive-cheer": "/photos/ccompcheer-2025.jpg",
   stunt: "/photos/cstunt-CHafourd.jpg",
 };
 
