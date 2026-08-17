@@ -169,6 +169,22 @@ export default function BoardHubPage() {
           </div>
 
           <div
+            className="slotab-section-title"
+            style={{ textAlign: "left", marginTop: "2.5rem" }}
+          >
+            <h2>Operations</h2>
+          </div>
+          <ul style={{ marginBottom: "2rem", lineHeight: 1.7 }}>
+            <li>
+              <Link href="/board/cms-access">CMS access →</Link>{" "}
+              <span style={{ color: "#666", fontSize: "0.9rem" }}>
+                — how to invite a new editor; how a new editor gets into
+                /admin.
+              </span>
+            </li>
+          </ul>
+
+          <div
             className="slotab-btn-row"
             style={{
               justifyContent: "flex-end",

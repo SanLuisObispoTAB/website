@@ -38,7 +38,7 @@ by the weekly GitHub Actions cron:
 
 Hosted on Vercel; auto-deploys on push to `main`.
 
-**GitHub repo:** <https://github.com/eramberg/slo-tab-website>
+**GitHub repo:** <https://github.com/SanLuisObispoTAB/website>
 
 ### First-deploy checklist
 
@@ -46,9 +46,8 @@ When this repo first gets pointed at a Vercel project (and later when
 the domain cuts over to slotab.org), a few things need to be filled in:
 
 1. **`public/admin/config.yml`** — already wired to
-   `eramberg/slo-tab-website`. If/when the repo is transferred to an
-   org, update `backend.repo` here. Also swap `https://slotab.org`
-   for the actual deploy URL if different during staging.
+   `SanLuisObispoTAB/website`. Swap `https://slotab.org` for the
+   actual deploy URL if different during staging.
 2. **GitHub OAuth App** — create one at <https://github.com/settings/developers>
    with callback URL `<deploy-url>/api/decap/callback`. Then add the
    client ID + secret as `DECAP_GITHUB_CLIENT_ID` and
