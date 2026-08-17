@@ -40,6 +40,12 @@ type Coach = {
 type TeamPhoto = {
   photo: string;
   label?: string;
+  /** A sentence under the label, for when the picture needs explaining —
+   *  a squad that has since split, a photo from a prior season, a group
+   *  that isn't what its label implies. The label itself is set in small
+   *  uppercase with wide tracking, which a sentence reads badly in, so
+   *  this renders separately in normal case. */
+  note?: string;
 };
 
 type AssistantCoach = {
@@ -238,7 +244,7 @@ export default function TeamPage({ team }: { team: Team }) {
               <span className="slotab-kicker">Meet the Team</span>
               <h2>{team.name} — 2026-27</h2>
             </div>
-            {teamPhotos.map(({ photo, label }) => (
+            {teamPhotos.map(({ photo, label, note }) => (
               <figure className="slotab-team-photo-frame" key={photo}>
                 <Image
                   src={photo}
@@ -252,9 +258,12 @@ export default function TeamPage({ team }: { team: Team }) {
                   sizes="(max-width: 1024px) 100vw, 1100px"
                   style={{ width: "100%", height: "auto", display: "block" }}
                 />
-                {label && (
+                {(label || note) && (
                   <figcaption className="slotab-team-photo-caption">
                     {label}
+                    {note && (
+                      <span className="slotab-team-photo-note">{note}</span>
+                    )}
                   </figcaption>
                 )}
               </figure>

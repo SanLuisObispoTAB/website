@@ -231,6 +231,7 @@ collections:
             fields:
               - { name: photo, label: "Photo", widget: image }
               - { name: label, label: "Squad label (e.g. Boys, Girls)", widget: string, required: false }
+              - { name: note, label: "Note under the label", widget: text, required: false, hint: "Optional sentence for when the photo needs explaining — a squad that has since split, a photo from a previous season, a group that isn't quite what the label says. Keep the label itself to one or two words; this is where the explanation goes." }
           - {
               name: gallery,
               label: "Action photo gallery (grid of in-game shots below the portrait)",

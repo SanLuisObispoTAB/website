@@ -3061,6 +3061,21 @@ a.slotab-platinum-slide:hover {
   text-align: center;
   padding-top: 0.75rem;
 }
+/* Explanatory sentence under a squad label. The label above it is small
+   uppercase with wide tracking — fine for "VARSITY", unreadable for a
+   sentence — so this resets case, tracking and weight, and holds a
+   comfortable measure rather than running the full photo width. */
+.slotab-team-photo-note {
+  display: block;
+  max-width: 52ch;
+  margin: 0.4rem auto 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--slotab-muted);
+}
 /* Multiple head-coach bios stacked in one "Meet the Coaches" section. */
 .slotab-headcoach-bio + .slotab-headcoach-bio { margin-top: 2rem; }
 /* Names each coach above their bio when a team has more than one head
