@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SPONSOR_TIERS, type Sponsor } from "../../data/sponsors";
+import { SPONSOR_TIERS, tierSlug, type Sponsor } from "../../data/sponsors";
 
 type Props = {
   /** "compact" hides the lowest (Varsity) tier on the homepage.
@@ -60,7 +60,7 @@ export default function TigerSponsorWall({ mode = "full" }: Props) {
   return (
     <div>
       {tiers.map(({ tier, sponsors }) => {
-        const cls = tier.toLowerCase();
+        const cls = tierSlug(tier);
         return (
           <div key={tier} className={`tiger-sponsors-tier ${cls}-tier`}>
             <div className="tiger-sponsors-tier-label">{tier}</div>

@@ -57,7 +57,7 @@ collections:
       - name: sponsors
         label: "Sponsor Wall"
         file: "src/app/data/sponsors.json"
-        description: "Champion/Gold/Silver/Varsity business sponsors shown on the Membership page. Cleared and re-tiered fresh each season."
+        description: "Business sponsors shown on the Membership page, cleared and re-tiered fresh each season. Tiers, top down: Champion $10,000 · Gold $5,000 · Silver $2,500 · Tiger Pride $1,000 · Varsity $500. Spell tier names exactly — the wall derives its CSS class from the name. Every logo also needs a matching transparent version at the same path under /sponsors/alpha/, or the homepage wall shows a broken image."
         fields:
           - { name: season, label: "Season", widget: string }
           - name: tiers

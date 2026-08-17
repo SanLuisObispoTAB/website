@@ -852,6 +852,9 @@
 .slotab-sponsor-tier.silver .slotab-sponsor-grid {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
+.slotab-sponsor-tier.tigerpride .slotab-sponsor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+}
 .slotab-sponsor-tier.varsity .slotab-sponsor-grid {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
@@ -873,6 +876,8 @@
 .slotab-sponsor-tier.champion .slotab-sponsor-logo { min-height: 200px; padding: 1.25rem; }
 .slotab-sponsor-tier.gold .slotab-sponsor-logo { min-height: 150px; }
 .slotab-sponsor-tier.silver .slotab-sponsor-logo { min-height: 120px; }
+/* Tiger Pride ($1,000) sits between Silver and Varsity on the ladder. */
+.slotab-sponsor-tier.tigerpride .slotab-sponsor-logo { min-height: 108px; padding: 0.85rem; }
 .slotab-sponsor-tier.varsity .slotab-sponsor-logo { min-height: 95px; padding: 0.75rem; }
 
 /* Sport merch grid */

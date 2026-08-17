@@ -84,6 +84,11 @@
           "name": "SLO Credit Union",
           "logo": "/sponsors/gold/SLO-Credit-Union.png",
           "website": "https://slocu.com/"
+        },
+        {
+          "name": "SLO Safe Ride",
+          "logo": "/sponsors/gold/SLO-Safe-Ride.png",
+          "website": "https://slosaferide.com/"
         }
       ]
     },
@@ -151,8 +156,21 @@
           "logo": "/sponsors/silver/mercedes-blk-pdf.jpg"
         },
         {
+          "name": "Crocker Coastal Construction",
+          "logo": "/sponsors/silver/Crocker-Coastal-Construction-pdf.jpg"
+        }
+      ]
+    },
+    {
+      "tier": "Tiger Pride",
+      "sponsors": [
+        {
           "name": "Primary Eyecare Center",
           "logo": "/sponsors/silver/primary-eyecare-center-logotop.png"
+        },
+        {
+          "name": "San Luis Obispo Heart",
+          "logo": "/sponsors/tigerpride/San-Luis-Obispo-Heart.jpg"
         }
       ]
     },
