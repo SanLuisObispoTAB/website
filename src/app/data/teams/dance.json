@@ -3,14 +3,61 @@
   "name": "Tiger Cheer",
   "sport": "Cheer",
   "season": "Fall",
-  "tagline": "Tiger spirit and cheer on every sideline.",
+  "tagline": "Be part of the Hype. Spirit. Tradition.",
   "gallery": [
     "/photos/ccheering-sideline-2025.jpg"
   ],
   "headCoach": {
     "name": "Lisa McDonald",
-    "email": "lmcdonald@slcusd.org"
+    "email": "lmcdonald@slcusd.org",
+    "bio": "Coach Lisa McDonald brings nearly 25 years of cheer coaching experience to Tiger Cheer, with deep roots in high school sideline & competitive and all-star cheer. Now in her 7th fall season as head coach at SLOHS, she has grown the program from a single varsity team to five thriving teams. Last year she launched the Traditional Competitive Cheer (TCC) team, which qualified for State in their very first season. Her coaching philosophy is rooted in developing the whole athlete — building the skills & confidence that carry them to success on the mat, on the sideline, & beyond."
   },
+  "assistantCoaches": [
+    {
+      "name": "Alexis Aguirre",
+      "role": "Varsity Cheer Head Coach",
+      "email": "aaguirre@slcusd.org"
+    },
+    {
+      "name": "Paytyn Franco",
+      "role": "Varsity Cheer Asst Coach"
+    },
+    {
+      "name": "Ellie Mendoza",
+      "role": "Varsity Cheer Asst Coach"
+    },
+    {
+      "name": "Sheena Hopkins",
+      "role": "JV Black Cheer Head Coach"
+    },
+    {
+      "name": "Rebecca Rodriguez",
+      "role": "JV Black Cheer Asst Coach"
+    },
+    {
+      "name": "Zyanna Ayala",
+      "role": "JV Gold Coach"
+    },
+    {
+      "name": "Sadie Fischer",
+      "role": "JV Gold Coach"
+    }
+  ],
+  "captains": [
+    "Jazmine Patton",
+    "Jillian Davis"
+  ],
+  "wishlist": [
+    { "item": "TumblTrak Air Barrel Cradles", "cost": 300 },
+    { "item": "Spirit Signs", "cost": 500 },
+    { "item": "AirTrack", "cost": 1000 },
+    { "item": "New Uniforms", "cost": 8000 },
+    { "item": "Cheer Camp", "cost": 15000 }
+  ],
+  "externalLinks": [
+    { "label": "Tiger Cheer team site", "url": "https://slohighcheer.com/" },
+    { "label": "Tiger Cheer on Instagram", "url": "https://www.instagram.com/slohighcheer/" }
+  ],
   "liaisons": [
     {
       "name": "Belinda Rollins",
