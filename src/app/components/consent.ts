@@ -146,6 +146,20 @@ function writeEngagement(e: Engagement) {
   notify();
 }
 
+/** Today's date in the VISITOR's timezone, as YYYY-MM-DD.
+ *
+ *  Not `toISOString().slice(0, 10)` — that is the UTC date, so for anyone
+ *  west of Greenwich an evening visit stamps tomorrow. In California
+ *  (UTC-7/-8) every visit from 4-5pm onwards recorded the wrong day, and
+ *  that date is shown straight back to the visitor on /privacy as "First
+ *  visit" — a page whose entire job is telling people accurately what we
+ *  hold about them. */
+function todayLocal(): string {
+  const d = new Date();
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 /** Bumps the visit counter once per browser session. Returns the record,
  *  or null when consent hasn't been granted. */
 export function recordVisit(): Engagement | null {
@@ -161,7 +175,7 @@ export function recordVisit(): Engagement | null {
   }
   if (!alreadyCounted) {
     e.visits += 1;
-    if (!e.first) e.first = new Date().toISOString().slice(0, 10);
+    if (!e.first) e.first = todayLocal();
     writeEngagement(e);
   }
   return e;
@@ -174,7 +188,7 @@ export function recordSection(section: TrackedSection): boolean {
   const e = readEngagement();
   if (e.sections.includes(section)) return false;
   e.sections.push(section);
-  if (!e.first) e.first = new Date().toISOString().slice(0, 10);
+  if (!e.first) e.first = todayLocal();
   writeEngagement(e);
   return true;
 }
