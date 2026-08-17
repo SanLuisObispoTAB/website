@@ -292,7 +292,7 @@ collections:
             widget: list
             fields:
               - { name: item, label: "Item", widget: string }
-              - { name: cost, label: "Cost (dollars)", widget: number, value_type: int }
+              - { name: cost, label: "Cost", widget: string, required: false, hint: "A plain number (1000) is formatted as $1,000. For a range or per-unit price, type it exactly as you want it shown — \"$3,000–4,000\", \"$50–100 each\". Leave blank for \"Pricing TBD\"." }
           - name: externalLinks
             label: "External links"
             widget: list

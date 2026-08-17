@@ -10,9 +10,12 @@ type RosterEntry = {
 
 type WishlistEntry = {
   item: string;
-  /** Omit when the team has named a need but hasn't priced it yet — the row
-   *  renders "Pricing TBD" rather than being held back until a number exists. */
-  cost?: number;
+  /** A number is formatted as currency. A string renders verbatim, which is
+   *  what coaches actually give us — ranges ("$3,000–4,000") and per-unit
+   *  prices ("$50–100 each") rather than one figure. Flattening those to a
+   *  single number would invent precision the team didn't quote.
+   *  Omit when the need is named but unpriced — renders "Pricing TBD". */
+  cost?: number | string;
 };
 
 type ExternalLink = {
@@ -111,6 +114,20 @@ const MONEY = new Intl.NumberFormat("en-US", {
   currency: "USD",
   maximumFractionDigits: 0,
 });
+
+/** Wishlist costs arrive three ways: a number from the JSON, a bare numeric
+ *  string from the CMS (its cost field is a text input so ranges are typeable),
+ *  or free text like "$3,000–4,000" / "$50–100 each". Numbers and numeric
+ *  strings get currency formatting; anything else is shown exactly as typed.
+ *  Returns null when there's nothing to show, so the caller renders "Pricing
+ *  TBD". */
+function formatCost(cost: number | string | undefined): string | null {
+  if (typeof cost === "number") return MONEY.format(cost);
+  if (typeof cost !== "string") return null;
+  const trimmed = cost.trim();
+  if (!trimmed) return null;
+  return /^\d+(\.\d+)?$/.test(trimmed) ? MONEY.format(Number(trimmed)) : trimmed;
+}
 
 export default function TeamPage({ team }: { team: Team }) {
   // A team may declare one head coach or several (cross country runs boys and
@@ -437,9 +454,7 @@ export default function TeamPage({ team }: { team: Team }) {
                 <li key={w.item}>
                   <span className="slotab-team-wishlist-item">{w.item}</span>
                   <span className="slotab-team-wishlist-cost">
-                    {typeof w.cost === "number" ? (
-                      MONEY.format(w.cost)
-                    ) : (
+                    {formatCost(w.cost) ?? (
                       <em className="slotab-team-wishlist-tbd">Pricing TBD</em>
                     )}
                   </span>

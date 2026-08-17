@@ -10,8 +10,37 @@
   "teamPhoto": "/photos/gflag-team-2025.jpg",
   "headCoach": {
     "name": "Daniel Monroe",
-    "email": "dmonroe@slcusd.org"
+    "email": "dmonroe@slcusd.org",
+    "bio": "Coach Monroe is in his first season as the head coach of the girls flag football program and his 24th season as a head coach at SLOHS. Monroe will also begin his 17th season as the girls basketball coach, and also teaches Health and AVID at SLOHS."
   },
+  "assistantCoaches": [
+    {
+      "name": "Gabe Rodriguez",
+      "role": "Varsity Associate Head Coach / Defensive Coordinator"
+    },
+    {
+      "name": "Jason Wheeler",
+      "role": "Co-JV Head Coach / Defensive Coordinator"
+    },
+    {
+      "name": "Jonny Garcia",
+      "role": "Co-JV Head Coach / Offensive Coordinator"
+    },
+    {
+      "name": "Jayden Marshall",
+      "role": "JV Assistant Coach"
+    },
+    {
+      "name": "Mike Robinson",
+      "role": "Strength and Injury Prevention Coach"
+    }
+  ],
+  "wishlist": [
+    { "item": "Yearly Hudl subscription", "cost": 1000 },
+    { "item": "Football catching machine", "cost": "$3,000–4,000" },
+    { "item": "Football throwing targets", "cost": "$50–100 each" },
+    { "item": "Out-of-town tournament travel", "cost": 5000 }
+  ],
   "gallery": [
     "/photos/gfball-saff6-1200x800.jpg",
     "/photos/gfball-saff9-1200x900.jpg",
