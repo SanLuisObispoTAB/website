@@ -1,0 +1,26 @@
+{
+  "slug": "winter-cheer",
+  "name": "Tiger Winter Cheer",
+  "sport": "Cheer",
+  "season": "Winter",
+  "tagline": "Courtside all winter — Tiger Cheer's own Varsity sideline squad.",
+  "teamPhoto": "/photos/ccheer-team.jpg",
+  "headCoach": {
+    "name": "Lisa McDonald",
+    "email": "lmcdonald@slcusd.org"
+  },
+  "externalLinks": [
+    { "label": "Tiger Cheer team site", "url": "https://slohighcheer.com/" },
+    { "label": "Tiger Cheer on Instagram", "url": "https://www.instagram.com/slohighcheer/" }
+  ],
+  "liaisons": [
+    {
+      "name": "Belinda Rollins",
+      "email": "belinda@therollins.family"
+    },
+    {
+      "name": "Sally Ross",
+      "email": "sally.ross@parable.com"
+    }
+  ]
+}

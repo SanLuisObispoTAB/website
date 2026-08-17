@@ -3,11 +3,8 @@
   "name": "Tiger Cheer",
   "sport": "Cheer",
   "season": "Fall",
-  "seasons": [
-    "Fall",
-    "Winter"
-  ],
   "tagline": "Be part of the Hype. Spirit. Tradition.",
+  "teamPhoto": "/photos/ccheer-team-2025.jpg",
   "gallery": [
     "/photos/ccheering-sideline-2025.jpg"
   ],
