@@ -39,6 +39,18 @@ const LEGACY_HTM_URLS: Array<[source: string, destination: string]> = [
   ["/2014/:path*", "/"],
 ];
 
+// Routes a business is likely to *guess* rather than be given. The Sponsorship
+// lead directs businesses to "the website" verbally, so /sponsors is a very
+// plausible first try — and it 404'd. Unlike LEGACY_HTM_URLS above these were
+// never live URLs; they are here because sponsorship enrolment is an active
+// campaign and a guessed URL should land on the page that serves it.
+const GUESSED_URLS: Array<[source: string, destination: string]> = [
+  ["/sponsors", "/membership"],
+  ["/sponsor", "/membership"],
+  ["/sponsorship", "/membership"],
+  ["/sponsorships", "/membership"],
+];
+
 const nextConfig: NextConfig = {
   async headers() {
     return [
@@ -96,6 +108,14 @@ const nextConfig: NextConfig = {
         source,
         destination,
         permanent: true,
+      })),
+      // Not permanent: these are conveniences for a live campaign, not a
+      // migration, so they should stay cheap to change if /sponsors ever
+      // becomes a real page of its own.
+      ...GUESSED_URLS.map(([source, destination]) => ({
+        source,
+        destination,
+        permanent: false,
       })),
     ];
   },

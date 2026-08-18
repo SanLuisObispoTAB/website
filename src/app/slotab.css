@@ -3261,3 +3261,119 @@ a.slotab-platinum-slide:hover {
   border-top: 1px solid var(--slotab-border);
   padding-top: 1.25rem;
 }
+
+/* --------------------------------------------------------------------------
+   BUSINESS SPONSOR ENTRY POINT (/membership)
+
+   The Sponsorship lead sends businesses straight to this page, so their route
+   has to be the first thing on it and has to look nothing like the
+   parent-facing membership copy underneath. Black band, gold rules — the same
+   treatment the page header uses, so it reads as a second masthead aimed at a
+   different reader rather than as one more section.
+   -------------------------------------------------------------------------- */
+.slotab-biz-sponsor {
+  background: var(--slotab-black);
+  color: #fff;
+  border-bottom: 3px solid var(--slotab-gold);
+  padding: 2.75rem 0 3rem;
+}
+
+.slotab-biz-sponsor-inner {
+  max-width: 780px;
+  text-align: center;
+  /* Centered, so it needs the house line-balancing rule (#107). */
+  text-wrap: balance;
+}
+
+.slotab-biz-sponsor h2 {
+  color: #fff;
+  margin: 0.35rem 0 0;
+}
+
+.slotab-biz-sponsor .slotab-kicker { color: var(--slotab-gold); }
+
+.slotab-biz-sponsor-lead {
+  margin: 0.9rem auto 0;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.slotab-biz-sponsor-lead strong { color: var(--slotab-gold); }
+
+/* Three steps, left-aligned inside a centered block: a numbered process is a
+   sequence to follow, and centering the text would fight the reading order. */
+.slotab-biz-steps {
+  list-style: none;
+  margin: 1.75rem auto 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+  max-width: 620px;
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.slotab-biz-steps li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.slotab-biz-steps strong { color: #fff; }
+
+.slotab-biz-steps a {
+  color: var(--slotab-gold);
+  text-underline-offset: 2px;
+}
+
+.slotab-biz-step-n {
+  flex: 0 0 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: grid;
+  place-items: center;
+}
+
+.slotab-biz-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.9rem;
+}
+
+/* The outline button is defined against the cream page, so it needs its own
+   light-on-dark treatment here. */
+.slotab-biz-actions .slotab-btn.outline {
+  color: var(--slotab-gold);
+  border-color: var(--slotab-gold);
+}
+
+.slotab-biz-actions .slotab-btn.outline:hover {
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+}
+
+.slotab-biz-note {
+  margin: 1.5rem auto 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.slotab-biz-note a { color: var(--slotab-gold); }
+
+@media (max-width: 640px) {
+  .slotab-biz-sponsor { padding: 2rem 0 2.25rem; }
+  .slotab-biz-actions .tiger-btn,
+  .slotab-biz-actions .slotab-btn { width: 100%; text-align: center; }
+}

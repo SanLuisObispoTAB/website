@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MembershipTiers from "../components/MembershipTiers";
+import BusinessSponsorCTA from "../components/BusinessSponsorCTA";
 import SponsorWall from "../components/SponsorWall";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
@@ -12,7 +13,11 @@ export default function MembershipPage() {
         title="Sponsors & Membership"
       />
 
-      <section className="slotab-section alt">
+      {/* Businesses arrive here on the Sponsorship lead's say-so, so their
+          path comes before the general membership copy rather than after it. */}
+      <BusinessSponsorCTA />
+
+      <section className="slotab-section alt" id="sponsorship-tiers">
         <div className="slotab-container">
           <div className="slotab-section-title">
             <span className="slotab-kicker">2026–2027</span>
