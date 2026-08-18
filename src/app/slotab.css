@@ -105,6 +105,7 @@
 .tiger-two-note,
 .tiger-sponsors-foot,
 .tiger-cta-inner,
+.slotab-notfound,
 /* Catches `style={{ textAlign: "center" }}`, which React serialises with no
    space after the colon. Property-specific, so it can't match
    `justify-content: center` or similar. */
@@ -3166,4 +3167,44 @@ a.slotab-platinum-slide:hover {
     .slotab-team-card-photo.is-pair img.slotab-team-card-photo-trail {
     opacity: 0;
   }
+}
+
+/* --------------------------------------------------------------------------
+   404 / not-found
+   Centered, so it's in the balance list above. Deliberately narrow: the copy
+   is three short lines and a row of buttons, and full-width centred text at
+   this length reads as unmoored.
+   -------------------------------------------------------------------------- */
+.slotab-notfound {
+  max-width: 42rem;
+  text-align: center;
+}
+
+/* A 3-across grid rather than the usual flex row. Six buttons flexing freely
+   wrap 5 + 1 at this container width, stranding "Contact" alone on its own
+   line — the button-row version of the stranded-word problem the LINE
+   BALANCING rule exists to prevent. A fixed column count splits them evenly
+   whatever the labels say, so it can't regress if a label is ever reworded. */
+.slotab-notfound .slotab-btn-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  max-width: 30rem;
+  margin: 2rem auto 2.5rem;
+}
+
+@media (max-width: 30rem) {
+  .slotab-notfound .slotab-btn-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* The cache note is aimed at a minority of visitors — the ones still being
+   served the pre-cutover site out of their browser cache. Set quieter than
+   the body copy so it reads as a footnote rather than as the main message. */
+.slotab-notfound-note {
+  font-size: 0.95rem;
+  color: var(--slotab-muted);
+  border-top: 1px solid var(--slotab-border);
+  padding-top: 1.25rem;
 }
