@@ -2482,6 +2482,59 @@
   font-size: 0.9rem;
   color: var(--slotab-black);
 }
+
+/* --------------------------------------------------------------------------
+   DESIGNATION — the one control donors were skimming past
+
+   Donors were reaching the Square storefront without having chosen a sport,
+   because this select sat in the same visual weight as everything else in the
+   form and read as an optional refinement. It isn't: the designation is the
+   part that rides into the Square transaction and the part the Treasurer
+   reconciles against, and once the donor has left for Square there is no way
+   to ask again. So it gets pulled out of the flow — gold border, gold wash,
+   its own box — while every other fieldset stays borderless.
+   -------------------------------------------------------------------------- */
+.slotab-donate-designate {
+  border: 2px solid var(--slotab-gold);
+  border-radius: 6px;
+  background: rgba(255, 205, 56, 0.09);
+  padding: 0.9rem 1rem 1rem;
+  /* The fieldset grid sets a 0.6rem gap; keep it and just inset the box. */
+  margin: 0.2rem 0;
+}
+
+.slotab-donate-designate legend {
+  /* Sit the legend on the gold rule rather than above it, so the box reads as
+     one labelled unit instead of a heading with a panel under it. */
+  padding: 0 0.4rem;
+  margin-left: -0.4rem;
+  background: var(--slotab-bg);
+}
+
+.slotab-donate-designate .slotab-donate-select {
+  border: 2px solid var(--slotab-gold-dark);
+  font-weight: 600;
+  width: 100%;
+}
+
+.slotab-donate-designate .slotab-donate-select:focus-visible {
+  outline: 2px solid var(--slotab-black);
+  outline-offset: 1px;
+}
+
+/* Error state, set only after a submit attempt with nothing chosen. The
+   native `:invalid` is deliberately not used: it would need `required` on the
+   select, which would paint the box red the moment the page loads — scolding
+   the donor for not yet having done something they haven't been asked to do. */
+.slotab-donate-designate .slotab-donate-select.invalid {
+  border-color: #b00020;
+}
+
+.slotab-donate-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--slotab-muted);
+}
 .slotab-donate-checkbox {
   display: flex;
   gap: 0.6rem;
