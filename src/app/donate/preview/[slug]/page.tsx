@@ -67,7 +67,11 @@ export default async function DonatePreviewPage({
               <strong>Test page — no money moves here.</strong>
               <p>
                 Checkout runs against Square&apos;s <strong>sandbox</strong>, so
-                nothing is charged and no card is accepted.
+                nothing is charged and a real card will be refused. Use
+                Square&apos;s test Visa <code>4111 1111 1111 1111</code>, CVV{" "}
+                <code>111</code>, any future expiry, and any valid US ZIP —{" "}
+                <code>94103</code> works. Avoid <code>99999</code>: Square
+                reserves it to force a postal-code failure.
               </p>
               <p className="slotab-preview-heads-up">
                 <strong>Expect one extra screen that donors will never see.</strong>{" "}
@@ -78,10 +82,10 @@ export default async function DonatePreviewPage({
                 production the Donate button goes straight to checkout.
               </p>
               <p>
-                Square won&apos;t let you finish a payment in test mode
-                (&ldquo;this preview cannot be used to complete a payment&rdquo;)
-                — that&apos;s their limitation, not a fault in our flow. To see
-                where donors land afterwards, open the{" "}
+                Square won&apos;t let you finish a payment from its preview
+                page (&ldquo;this preview cannot be used to complete a
+                payment&rdquo;) — that&apos;s their limitation, not a fault in
+                our flow. To see where donors land afterwards, open the{" "}
                 <a href="/thank-you?kind=donation&amp;designation=girls-volleyball">
                   thank-you page
                 </a>{" "}
