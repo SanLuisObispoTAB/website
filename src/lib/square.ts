@@ -285,12 +285,20 @@ export type SquareLocationInfo = {
   id: string;
   name: string;
   status: string;
-  /** Square only takes card payments at a location whose capabilities include
-   *  CREDIT_CARD_PROCESSING. A location can be ACTIVE and still lack it, which
-   *  is what produces the checkout page reading "This business is currently
-   *  not accepting payments" — the link is created happily, and only the buyer
-   *  ever sees the refusal. */
+  /** Whether Square will actually take a card here. BOTH conditions are
+   *  required and the first cost us a wrong diagnosis: the location must be
+   *  **ACTIVE**, and its capabilities must include CREDIT_CARD_PROCESSING.
+   *
+   *  An INACTIVE location keeps its capabilities — SLOTAB's own account has
+   *  one listing CREDIT_CARD_PROCESSING while INACTIVE — so checking
+   *  capabilities alone reports a healthy location that Square refuses at the
+   *  checkout page with "This business is currently not accepting payments".
+   *  Either fault produces that same message, and neither is visible until a
+   *  buyer hits it. */
   canTakePayments: boolean;
+  /** Kept separate so the panel can distinguish "deactivated" (reactivate it)
+   *  from "never had card processing" (an account-level problem). */
+  hasCardCapability: boolean;
 };
 
 export type SquareCredentialCheck = {
@@ -365,12 +373,19 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
       };
     }
 
-    const locations: SquareLocationInfo[] = (json.locations ?? []).map((l) => ({
-      id: l.id,
-      name: l.name ?? "(unnamed)",
-      status: l.status ?? "UNKNOWN",
-      canTakePayments: (l.capabilities ?? []).includes("CREDIT_CARD_PROCESSING"),
-    }));
+    const locations: SquareLocationInfo[] = (json.locations ?? []).map((l) => {
+      const hasCardCapability = (l.capabilities ?? []).includes(
+        "CREDIT_CARD_PROCESSING",
+      );
+      const status = l.status ?? "UNKNOWN";
+      return {
+        id: l.id,
+        name: l.name ?? "(unnamed)",
+        status,
+        hasCardCapability,
+        canTakePayments: hasCardCapability && status === "ACTIVE",
+      };
+    });
 
     const raw = (json.locations ?? []).find((l) => l.id === locationId);
     const match = locations.find((l) => l.id === locationId);
@@ -397,7 +412,9 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
       locations,
       error: match.canTakePayments
         ? undefined
-        : `Location "${match.name}" cannot process card payments (status ${match.status}). This is the cause of "This business is currently not accepting payments" — the payment link is created fine and Square refuses at the checkout page.`,
+        : match.hasCardCapability
+          ? `Location "${match.name}" is ${match.status}, not ACTIVE. It has card processing but Square will not take payments at a deactivated location — this is the cause of "This business is currently not accepting payments". Reactivate it in the Square dashboard (Account & Settings → Business → Locations), or point SQUARE_LOCATION_ID at an ACTIVE location below.`
+          : `Location "${match.name}" has no CREDIT_CARD_PROCESSING capability, so Square will not take cards there.`,
     };
   } catch (err) {
     return {

@@ -139,8 +139,10 @@ export default async function DonatePreviewPage({
               <dt>Can take payments</dt>
               <dd>
                 {creds.locationCanTakePayments
-                  ? "✅ yes — CREDIT_CARD_PROCESSING enabled"
-                  : "❌ no — this is what blocks checkout"}
+                  ? "✅ yes — ACTIVE with card processing"
+                  : creds.locationStatus !== "ACTIVE"
+                    ? `❌ no — location is ${creds.locationStatus}, not ACTIVE`
+                    : "❌ no — card processing not enabled here"}
               </dd>
             </dl>
 
@@ -159,16 +161,18 @@ export default async function DonatePreviewPage({
                       <code>{l.id}</code> — {l.name} · {l.status} ·{" "}
                       {l.canTakePayments
                         ? "can take payments"
-                        : "CANNOT take payments"}
+                        : l.hasCardCapability
+                          ? "CANNOT — deactivated"
+                          : "CANNOT — no card processing"}
                     </li>
                   ))}
                 </ul>
                 <p className="slotab-cred-hint">
-                  If one of these can take payments and it isn&apos;t the one
-                  matched above, set <code>SQUARE_LOCATION_ID</code> to that id
-                  and redeploy. If <em>none</em> can, the Square account itself
-                  hasn&apos;t finished activation — that is settled in the
-                  Square dashboard, not here.
+                  A location marked <em>deactivated</em> still lists card
+                  processing but Square refuses payments there — reactivate it
+                  in the Square dashboard (Account &amp; Settings → Business →
+                  Locations). Otherwise point <code>SQUARE_LOCATION_ID</code> at
+                  an ACTIVE one and redeploy.
                 </p>
               </>
             )}
