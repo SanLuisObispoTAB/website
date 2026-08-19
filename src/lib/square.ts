@@ -259,3 +259,107 @@ export class SquareError extends Error {
     this.status = status;
   }
 }
+
+
+// ---------------------------------------------------------------------------
+// CREDENTIAL SELF-CHECK
+//
+// Swapping in a production token is a three-variable change, and getting one
+// of the three wrong fails in ways the donate page cannot report: the public
+// endpoint answers a flat 503 whether the credentials are perfect, absent, or
+// mismatched, because the launch flag gates it either way. That leaves no way
+// to tell "correctly configured and waiting" from "quietly broken".
+//
+// The two mistakes this is built to catch, because they are the ones the swap
+// invites:
+//   1. SQUARE_ENVIRONMENT left on "sandbox" — a production token sent to the
+//      sandbox host, which returns UNAUTHORIZED.
+//   2. SQUARE_LOCATION_ID left as the sandbox location — the token
+//      authenticates fine, and every payment link then fails because that
+//      location does not exist in the production account.
+//
+// Deliberately reports names and ids only, never the token. Rendered on the
+// slug-gated preview page, and it goes when that route goes.
+
+export type SquareCredentialCheck = {
+  ok: boolean;
+  environment: string;
+  /** Whether SQUARE_LOCATION_ID was found in the account the token belongs to. */
+  locationMatches: boolean;
+  locationName?: string;
+  accountLocations: string[];
+  error?: string;
+};
+
+export async function verifySquareCredentials(): Promise<SquareCredentialCheck> {
+  const token = process.env.SQUARE_ACCESS_TOKEN;
+  const locationId = process.env.SQUARE_LOCATION_ID;
+  const environment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
+  const base =
+    environment === "production"
+      ? "https://connect.squareup.com"
+      : "https://connect.squareupsandbox.com";
+
+  if (!token || !locationId) {
+    return {
+      ok: false,
+      environment,
+      locationMatches: false,
+      accountLocations: [],
+      error: "SQUARE_ACCESS_TOKEN or SQUARE_LOCATION_ID is not set",
+    };
+  }
+
+  try {
+    const res = await fetch(`${base}/v2/locations`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Square-Version": SQUARE_VERSION,
+      },
+      cache: "no-store",
+    });
+    const json = (await res.json()) as {
+      locations?: Array<{ id: string; name?: string }>;
+      errors?: Array<{ code?: string; detail?: string }>;
+    };
+
+    if (!res.ok) {
+      const detail =
+        json.errors?.map((e) => `${e.code}: ${e.detail ?? ""}`).join("; ") ??
+        `HTTP ${res.status}`;
+      return {
+        ok: false,
+        environment,
+        locationMatches: false,
+        accountLocations: [],
+        // The overwhelmingly likely cause of a 401 here is a token/host
+        // mismatch, so say so rather than leaving them to decode it.
+        error:
+          res.status === 401
+            ? `${detail} — this usually means SQUARE_ENVIRONMENT ("${environment}") doesn't match the token you set.`
+            : detail,
+      };
+    }
+
+    const locations = json.locations ?? [];
+    const match = locations.find((l) => l.id === locationId);
+    return {
+      ok: Boolean(match),
+      environment,
+      locationMatches: Boolean(match),
+      locationName: match?.name,
+      accountLocations: locations.map((l) => `${l.name ?? "(unnamed)"} — ${l.id}`),
+      error: match
+        ? undefined
+        : "SQUARE_LOCATION_ID is not a location in this account — you're probably still using the sandbox Location ID.",
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      environment,
+      locationMatches: false,
+      accountLocations: [],
+      error: err instanceof Error ? err.message : "Could not reach Square",
+    };
+  }
+}

@@ -3506,3 +3506,28 @@ a.slotab-platinum-slide:hover {
   padding: 0.6rem 0;
   margin: 0.7rem 0 !important;
 }
+
+/* Configuration read-out on the slug-gated preview page. Green or red at a
+   glance, because its whole job is to answer "is this actually wired up?"
+   without anyone reading a log. */
+.slotab-cred-check {
+  max-width: 46rem;
+  margin: 0 auto;
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  border: 2px solid var(--slotab-border);
+  background: var(--slotab-bg-alt);
+  font-size: 0.9rem;
+}
+.slotab-cred-check.ok  { border-color: #1a7f37; background: #f2fbf4; }
+.slotab-cred-check.bad { border-color: #b00020; background: #fff4f4; }
+.slotab-cred-check h2 { margin: 0 0 0.6rem; font-size: 1rem; }
+.slotab-cred-check dl { display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.9rem; margin: 0; }
+.slotab-cred-check dt { font-weight: 700; }
+.slotab-cred-check dd { margin: 0; }
+.slotab-cred-check ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+.slotab-cred-check code {
+  background: #fff; border: 1px solid var(--slotab-border);
+  padding: 0.05rem 0.3rem; border-radius: 3px; font-size: 0.85em;
+}
+.slotab-cred-hint { margin: 0.7rem 0 0; font-size: 0.85rem; }

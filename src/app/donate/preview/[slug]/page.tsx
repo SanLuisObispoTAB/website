@@ -2,7 +2,11 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import DonateForm from "../../../components/DonateForm";
 import TigerPageHeader from "../../../components/tiger/TigerPageHeader";
-import { squarePreviewSlug, isSquareConfigured } from "../../../../lib/square";
+import {
+  squarePreviewSlug,
+  isSquareConfigured,
+  verifySquareCredentials,
+} from "../../../../lib/square";
 
 // A staging copy of /donate that exercises the NEW Square checkout while the
 // public /donate keeps using the old storefront.
@@ -23,6 +27,10 @@ import { squarePreviewSlug, isSquareConfigured } from "../../../../lib/square";
 // DELETE THIS ROUTE once the production token lands and /donate runs the real
 // flow. It has no purpose after that, and a forgotten test checkout on a
 // fundraising site is a liability.
+
+// Re-checks the credentials on every load rather than baking a stale verdict
+// into a build — the whole point is to reflect what Vercel holds right now.
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Donate (test) — SLOTAB",
@@ -46,6 +54,7 @@ export default async function DonatePreviewPage({
   // true only when the credentials are production-grade, so this doubles as
   // "are we pointed at real money?".
   const sandbox = !isSquareConfigured();
+  const creds = await verifySquareCredentials();
 
   return (
     <>
@@ -97,6 +106,56 @@ export default async function DonatePreviewPage({
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="slotab-section" style={{ paddingTop: 0 }}>
+        <div className="slotab-container">
+          <div
+            className={`slotab-cred-check ${creds.ok ? "ok" : "bad"}`}
+            role="status"
+          >
+            <h2>Square configuration</h2>
+            <dl>
+              <dt>Mode</dt>
+              <dd>
+                <strong>{creds.environment}</strong>
+                {creds.environment === "production"
+                  ? " — real charges"
+                  : " — test only, no money moves"}
+              </dd>
+              <dt>Credentials</dt>
+              <dd>
+                {creds.ok
+                  ? `✅ authenticated — location "${creds.locationName}"`
+                  : `❌ ${creds.error}`}
+              </dd>
+            </dl>
+            {!creds.ok && creds.accountLocations.length > 0 && (
+              <>
+                <p>
+                  Locations this token can actually see — set{" "}
+                  <code>SQUARE_LOCATION_ID</code> to one of these:
+                </p>
+                <ul>
+                  {creds.accountLocations.map((l) => (
+                    <li key={l}>
+                      <code>{l}</code>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {!creds.ok && (
+              <p className="slotab-cred-hint">
+                Remember all three must agree:{" "}
+                <code>SQUARE_ACCESS_TOKEN</code>,{" "}
+                <code>SQUARE_LOCATION_ID</code> and{" "}
+                <code>SQUARE_ENVIRONMENT</code> — and Vercel needs a{" "}
+                <strong>redeploy</strong> after changing them.
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
