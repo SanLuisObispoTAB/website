@@ -28,6 +28,22 @@ const TEAMS = (teamsData.teams as Team[])
 const ONE_TIME_TIERS = [25, 50, 100, 200, 500, 1000, 5000];
 const MONTHLY_TIERS = [10, 25, 50, 100, 200, 500];
 
+// Monthly giving is OFF in the UI.
+//
+// It was never wired to anything that could take a recurring payment — the
+// prototype gathered the donor's intent and sent it to the membership address
+// by email, which was the honest stopgap while the checkout was the Square
+// storefront. It stays off now for a sharper reason: since #145 the button
+// really does take money, so leaving a "Monthly recurring" tab on a form whose
+// checkout can only charge once would take a monthly pledge and silently bill
+// it a single time. Worse than not offering it.
+//
+// Real recurring needs the Subscriptions API — a Catalog plan with a variation
+// per price point, a Customer record, and a card on file via the Web Payments
+// SDK (#144). Flip this to `true` when that lands: every monthly branch below
+// is intact and gated on it, so nothing has to be rebuilt from memory.
+const RECURRING_ENABLED = false;
+
 const ONE_TIME_FLOOR = 25;
 const MONTHLY_FLOOR = 10;
 
@@ -179,45 +195,53 @@ export default function DonateForm({
 
   return (
     <div className="slotab-donate-form">
-      {/* Mode toggle */}
-      <div
-        className="slotab-donate-mode"
-        role="tablist"
-        aria-label="Donation type"
-      >
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mode === "one-time"}
-          className={`slotab-donate-mode-btn ${mode === "one-time" ? "on" : ""}`}
-          onClick={() => {
-            setMode("one-time");
-            setOther("");
-            setAmount(50);
-            setAutoRenew(false);
-          }}
-        >
-          One-time
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={mode === "monthly"}
-          className={`slotab-donate-mode-btn ${mode === "monthly" ? "on" : ""}`}
-          onClick={() => {
-            setMode("monthly");
-            setOther("");
-            setAmount(25);
-          }}
-        >
-          Monthly recurring
-        </button>
-      </div>
+      {/* Mode toggle — hidden until recurring is real; see RECURRING_ENABLED */}
+      {RECURRING_ENABLED && (
+    <div
+            className="slotab-donate-mode"
+            role="tablist"
+            aria-label="Donation type"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "one-time"}
+              className={`slotab-donate-mode-btn ${mode === "one-time" ? "on" : ""}`}
+              onClick={() => {
+                setMode("one-time");
+                setOther("");
+                setAmount(50);
+                setAutoRenew(false);
+              }}
+            >
+              One-time
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "monthly"}
+              className={`slotab-donate-mode-btn ${mode === "monthly" ? "on" : ""}`}
+              onClick={() => {
+                setMode("monthly");
+                setOther("");
+                setAmount(25);
+              }}
+            >
+              Monthly recurring
+            </button>
+          </div>
+      )}
 
       {/* Tier ladder */}
       <fieldset className="slotab-donate-fieldset">
         <legend>
-          {mode === "monthly" ? "Monthly amount" : "One-time amount"}
+          {/* "One-time amount" only earns its qualifier when there is
+              something to contrast it with. */}
+          {!RECURRING_ENABLED
+            ? "Amount"
+            : mode === "monthly"
+              ? "Monthly amount"
+              : "One-time amount"}
         </legend>
         <div className="slotab-donate-ladder">
           {tiers.map((v) => (
@@ -259,7 +283,7 @@ export default function DonateForm({
           <p className="slotab-donate-warning">
             {mode === "monthly"
               ? `Monthly recurring donations must be at least ${MONEY.format(floor)}/mo.`
-              : `One-time donations must be at least ${MONEY.format(floor)}.`}
+              : `Donations must be at least ${MONEY.format(floor)}.`}
           </p>
         )}
       </fieldset>

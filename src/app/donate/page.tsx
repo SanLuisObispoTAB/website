@@ -28,15 +28,13 @@ export default function DonatePage() {
             </p>
             <p>
               Any donation makes you a SLOTAB member. Pick a tier on the
-              right, or enter your own amount &mdash; recurring monthly
-              gifts start at $10/mo and unlock the same tiers as a one-
-              time annual gift.
+              right, or enter your own amount &mdash; every gift is
+              tax-deductible and goes straight to the sport you choose.
             </p>
             <ul className="slotab-donate-bullets">
-              <li>One-time minimum: $25</li>
-              <li>Monthly recurring minimum: $10</li>
+              <li>Minimum gift: $25</li>
               <li>Tax-deductible 501(c)(3)</li>
-              <li>Cancel recurring any time</li>
+              <li>75% to your sport, 25% to shared programs</li>
             </ul>
           </div>
 
