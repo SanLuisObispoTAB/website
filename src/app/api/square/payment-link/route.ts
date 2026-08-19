@@ -75,6 +75,38 @@ function siteOrigin(req: Request): string {
   }
 }
 
+/** Square requires a country code on `buyer_phone_number` and rejects anything
+ *  else outright — tested against the sandbox: `+18055551212` and
+ *  `18055551212` are accepted (both normalised to `+1…`), while
+ *  `8055551212`, `805-555-1212` and `(805) 555-1212` all fail with
+ *  `INVALID_PHONE_NUMBER`. Our field is free text, so the format a parent
+ *  actually types is exactly the one Square refuses.
+ *
+ *  A rejection costs the *whole* prefill — Square fails the request and the
+ *  retry drops every prefilled field — so the donor would lose their prefilled
+ *  email too, over a phone number. Hence normalising here rather than relying
+ *  on that safety net.
+ *
+ *  Deliberately conservative: US/Canada 10-digit numbers get +1, an explicit
+ *  international number is passed through, and anything we cannot confidently
+ *  assign a country code to is dropped. A missing prefill is a small loss; a
+ *  guessed country code on someone's phone number is a wrong one. */
+function normalisePhone(raw: string): string | undefined {
+  const trimmed = raw.trim();
+  if (!trimmed) return undefined;
+  const digits = trimmed.replace(/\D/g, "");
+  if (!digits) return undefined;
+
+  let e164: string | undefined;
+  if (trimmed.startsWith("+")) e164 = `+${digits}`;
+  else if (digits.length === 10) e164 = `+1${digits}`;
+  else if (digits.length === 11 && digits.startsWith("1")) e164 = `+${digits}`;
+
+  if (!e164) return undefined;
+  // Square's cap, and a sanity floor — no real number is under 8 digits.
+  return e164.length <= 17 && digits.length >= 8 ? e164 : undefined;
+}
+
 function bad(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
 }
@@ -118,14 +150,30 @@ export async function POST(req: Request) {
   const body = parsed;
 
   const kind = body.kind;
+
+  // Donor details, carried across so nobody retypes on Square what they just
+  // typed on our page. Only shape checks here: Square does its own validation
+  // and is stricter than we could usefully be, and a rejection there degrades
+  // to no prefill rather than failing the gift.
   const rawEmail = typeof body.email === "string" ? body.email.trim() : "";
-  // Only a shape check. Square does its own validation and is stricter than we
-  // could usefully be — a rejection there degrades to no prefill, it does not
-  // fail the gift.
   const buyerEmail =
     rawEmail.length <= 256 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail)
       ? rawEmail
       : undefined;
+
+  const buyerPhone = normalisePhone(
+    typeof body.phone === "string" ? body.phone : "",
+  );
+
+  // Square has no single name field; the name rides in buyer_address. Split on
+  // the last space so "Mary Anne Ramberg" keeps "Mary Anne" as the given name,
+  // and a mononym still fills something rather than nothing.
+  const rawName = typeof body.name === "string" ? body.name.trim() : "";
+  const nameParts = rawName.split(/\s+/).filter(Boolean);
+  const buyerLastName = nameParts.length > 1 ? nameParts[nameParts.length - 1] : undefined;
+  const buyerFirstName = nameParts.length
+    ? nameParts.slice(0, nameParts.length > 1 ? -1 : undefined).join(" ")
+    : undefined;
 
   let lineItemName: string;
   let amountCents: number;
@@ -204,6 +252,9 @@ export async function POST(req: Request) {
         note,
         metadata,
         buyerEmail,
+        buyerPhone,
+        buyerFirstName,
+        buyerLastName,
         redirectUrl: redirectUrl.toString(),
       },
       { previewUnlock },

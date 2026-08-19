@@ -507,6 +507,9 @@ export default function DonateForm({
                 // quietly become $49.99. The server re-checks the bounds.
                 amountCents: Math.round(effectiveAmount * 100),
                 email: donorEmail,
+                // Carried so Square's form arrives filled in, not blank.
+                name: donorName,
+                phone: donorPhone,
               }),
             });
             const data = (await res.json()) as { url?: string; error?: string };

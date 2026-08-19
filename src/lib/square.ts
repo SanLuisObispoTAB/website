@@ -31,9 +31,18 @@ export type PaymentLinkInput = {
   /** Our own bookkeeping. Max 10 keys, values max 255 chars — Square rejects
    *  the whole request if either is exceeded, so both are enforced here. */
   metadata?: Record<string, string>;
-  /** Prefills the buyer's email on the checkout form. Optional and defensive —
-   *  see `createPaymentLink`. */
+  /** Prefills the buyer's details on the checkout form. All optional and all
+   *  defensive — see `createPaymentLink`. The donor has already typed these on
+   *  our page; making them type them again on Square's is friction we control
+   *  and should not be spending. */
   buyerEmail?: string;
+  buyerPhone?: string;
+  /** Carried in `buyer_address.first_name` / `last_name` — Square has no
+   *  top-level name field, and the Address object is where it documents the
+   *  recipient's name. No street address is sent; `ask_for_shipping_address`
+   *  is off and a donation has nothing to ship. */
+  buyerFirstName?: string;
+  buyerLastName?: string;
   /** Where Square returns the buyer after payment. */
   redirectUrl: string;
 };
@@ -206,12 +215,8 @@ function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: 
 /** Creates a Square-hosted checkout link with the amount and designation
  *  already baked in.
  *
- *  The buyer email is prefilled on a best-effort basis. Square validates it
- *  server-side and rejects addresses it dislikes with a hard `400` — a real
- *  `INVALID_EMAIL_ADDRESS` on `test.parent@example.com` is what surfaced this.
- *  A donor whose address Square won't accept must still be able to give, so a
- *  rejection retries once without the prefill instead of failing the donation.
- *  Losing a prefilled field is a far smaller harm than losing the gift. */
+ *  Buyer details are prefilled on a best-effort basis — see the retry below
+ *  for why "best-effort" is doing real work in that sentence. */
 export async function createPaymentLink(
   input: PaymentLinkInput,
   options: PaymentLinkOptions = {},
@@ -219,10 +224,19 @@ export async function createPaymentLink(
   const { token, locationId, base } = config(options.previewUnlock ?? false);
   const idempotencyKey = crypto.randomUUID();
 
-  const post = async (withEmail: boolean) => {
+  const post = async (withPrefill: boolean) => {
     const body = buildBody(input, locationId, idempotencyKey) as Record<string, unknown>;
-    if (withEmail && input.buyerEmail) {
-      body.pre_populated_data = { buyer_email: input.buyerEmail };
+    if (withPrefill) {
+      const prefill: Record<string, unknown> = {};
+      if (input.buyerEmail) prefill.buyer_email = input.buyerEmail;
+      if (input.buyerPhone) prefill.buyer_phone_number = input.buyerPhone;
+      if (input.buyerFirstName || input.buyerLastName) {
+        prefill.buyer_address = {
+          ...(input.buyerFirstName ? { first_name: input.buyerFirstName } : {}),
+          ...(input.buyerLastName ? { last_name: input.buyerLastName } : {}),
+        };
+      }
+      if (Object.keys(prefill).length > 0) body.pre_populated_data = prefill;
     }
     const res = await fetch(`${base}/v2/online-checkout/payment-links`, {
       method: "POST",
@@ -239,7 +253,13 @@ export async function createPaymentLink(
 
   let { res, json } = await post(true);
 
-  if (!res.ok && isEmailRejection(json)) {
+  if (!res.ok && isPrefillRejection(json)) {
+    // Square validates these server-side and is stricter than we can usefully
+    // be — a real INVALID_EMAIL_ADDRESS on an example.com address is what
+    // surfaced this. Any prefill field it dislikes takes down the whole
+    // request, so the retry drops the prefill entirely rather than trying to
+    // guess which field offended. Losing prefilled fields is a far smaller
+    // harm than losing the gift.
     // Same idempotency key on purpose: the first attempt created nothing.
     ({ res, json } = await post(false));
   }
@@ -263,12 +283,13 @@ type SquareResponse = {
   errors?: Array<{ code?: string; detail?: string; field?: string }>;
 };
 
-function isEmailRejection(json: SquareResponse): boolean {
+function isPrefillRejection(json: SquareResponse): boolean {
   return Boolean(
     json.errors?.some(
       (e) =>
         e.code === "INVALID_EMAIL_ADDRESS" ||
-        e.field === "pre_populated_data.buyer_email",
+        e.code === "INVALID_PHONE_NUMBER" ||
+        e.field?.startsWith("pre_populated_data"),
     ),
   );
 }
