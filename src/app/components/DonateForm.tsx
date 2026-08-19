@@ -56,7 +56,15 @@ const MONEY = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
-export default function DonateForm() {
+export default function DonateForm({
+  previewToken,
+}: {
+  /** Set only by the secret preview page. Proves to the API that this request
+   *  may use sandbox credentials on the live site. Absent everywhere else, so
+   *  the public /donate keeps falling back to the storefront until the
+   *  production token lands. */
+  previewToken?: string;
+} = {}) {
   const params = useSearchParams();
   // Empty means "not chosen yet", which is the point: donors were skimming
   // past this control and letting it sit on its old General Fund default,
@@ -90,6 +98,11 @@ export default function DonateForm() {
   // fail. Both states are surfaced rather than swallowed — a donor staring at
   // a dead button is a lost gift.
   const [starting, setStarting] = useState(false);
+  // Which route the donor actually took. The two need different instructions:
+  // a minted link has the amount already set, the storefront fallback does not
+  // and the donor must key it in. Telling a storefront donor "the amount is
+  // already set" would send them through a checkout they'd underpay.
+  const [handoffMode, setHandoffMode] = useState<"link" | "storefront">("link");
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const tiers = mode === "monthly" ? MONTHLY_TIERS : ONE_TIME_TIERS;
@@ -464,6 +477,7 @@ export default function DonateForm() {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 kind: "donation",
+                ...(previewToken ? { previewToken } : {}),
                 designation: team,
                 // Cents, rounded rather than truncated so 49.995 doesn't
                 // quietly become $49.99. The server re-checks the bounds.
@@ -473,13 +487,17 @@ export default function DonateForm() {
             });
             const data = (await res.json()) as { url?: string; error?: string };
             if (res.ok && data.url) {
+              setHandoffMode("link");
               setHandedOff(true);
               window.location.href = data.url;
               return;
             }
             if (res.status === 503) {
-              // Square not configured — fall back to the #140 storefront
-              // handoff rather than blocking the donation entirely.
+              // Square not configured for this environment — fall back to the
+              // #140 storefront handoff rather than blocking the donation.
+              // This is the live site's normal path until the production token
+              // lands, so it must stay correct, not just present.
+              setHandoffMode("storefront");
               setHandedOff(true);
               window.open(
                 squareDonateUrl(team),
@@ -513,14 +531,31 @@ export default function DonateForm() {
       )}
       {handedOff && (
         <div className="slotab-donate-handoff" role="status">
-          <p className="slotab-donate-handoff-lead">
-            Taking you to secure checkout for{" "}
-            <strong>{MONEY.format(effectiveAmount)}</strong> to {teamLabel}.
-          </p>
-          <p>
-            The amount and designation are already set — you only need your card
-            details. Nothing has been charged yet.
-          </p>
+          {handoffMode === "link" ? (
+            <>
+              <p className="slotab-donate-handoff-lead">
+                Taking you to secure checkout for{" "}
+                <strong>{MONEY.format(effectiveAmount)}</strong> to {teamLabel}.
+              </p>
+              <p>
+                The amount and designation are already set — you only need your
+                card details. Nothing has been charged yet.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="slotab-donate-handoff-lead">
+                Checkout opened in a new tab for {teamLabel}.
+              </p>
+              <p>
+                <strong>
+                  Please enter {MONEY.format(effectiveAmount)} yourself
+                </strong>{" "}
+                — pick <strong>$0.00</strong> if the buttons don&apos;t offer
+                your figure. Nothing has been charged yet.
+              </p>
+            </>
+          )}
           {unrecordedIntent.length > 0 && (
             <>
               <p>

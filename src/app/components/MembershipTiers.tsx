@@ -120,7 +120,11 @@ function TierCard({
   );
 }
 
-export default function MembershipTiers() {
+export default function MembershipTiers({
+  checkoutEnabled = false,
+}: {
+  checkoutEnabled?: boolean;
+} = {}) {
   return (
     <div className="slotab-membership-sheet">
       <div className="slotab-tier-group">
@@ -130,12 +134,12 @@ export default function MembershipTiers() {
         </h3>
         <div className="slotab-tier-grid slotab-tier-grid-three">
           {AD_PERK_TIERS.map((t) => (
-            <TierCard key={t.id} t={t} sponsor={t} />
+            <TierCard key={t.id} t={t} sponsor={checkoutEnabled ? t : undefined} />
           ))}
         </div>
         <div className="slotab-tier-grid slotab-tier-grid-pair">
           {PAIR_TIERS.map((t) => (
-            <TierCard key={t.id} t={t} sponsor={t} />
+            <TierCard key={t.id} t={t} sponsor={checkoutEnabled ? t : undefined} />
           ))}
         </div>
       </div>
@@ -152,7 +156,9 @@ export default function MembershipTiers() {
       <div className="slotab-tier-foot">
         <h3 className="slotab-tier-join-head">How to Join</h3>
         <p>
-          Sponsors can pay online using the button on any tier above.
+          {checkoutEnabled
+            ? "Sponsors can pay online using the button on any tier above. "
+            : ""}
           Complete your membership online, or mail a check payable to{" "}
           <strong className="slotab-mail-address">
             SLOTAB, PO Box 16025, San&nbsp;Luis&nbsp;Obispo,&nbsp;CA&nbsp;93406

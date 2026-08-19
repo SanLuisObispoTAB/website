@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
+import SponsorEnquiry from "../components/SponsorEnquiry";
 import { sponsorTierById } from "../data/sponsor-tiers";
 import teamsData from "../data/teams.json";
 
@@ -45,9 +46,6 @@ function ThankYouBody({
     ]
       .filter((l) => l !== null)
       .join("\n");
-    const mailto =
-      "mailto:slotabmembership@gmail.com" +
-      `?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     return (
       <>
@@ -62,17 +60,17 @@ function ThankYouBody({
           anyone — the checkout had nowhere to ask.
         </p>
         <div className="slotab-btn-row">
-          <a href={mailto} className="slotab-btn">
-            Send us your logo &amp; details
-          </a>
+          <SponsorEnquiry
+            email="slotabmembership@gmail.com"
+            subject={subject}
+            body={body}
+            buttonLabel="Send us your logo & details"
+            buttonClassName="slotab-btn"
+          />
           <Link href="/membership" className="slotab-btn outline">
             Back to sponsorships
           </Link>
         </div>
-        <p className="slotab-thanks-note">
-          Opens a pre-written email to our membership team. Attach your logo and
-          we&apos;ll take it from there.
-        </p>
       </>
     );
   }

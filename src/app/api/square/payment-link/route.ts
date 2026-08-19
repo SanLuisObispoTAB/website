@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import teamsData from "../../../data/teams.json";
 import { sponsorTierById } from "../../../data/sponsor-tiers";
-import { createPaymentLink, SquareError, isSquareConfigured } from "../../../../lib/square";
+import {
+  createPaymentLink,
+  SquareError,
+  isSquareConfigured,
+  isPreviewUnlock,
+} from "../../../../lib/square";
 import { rateLimit, clientKey } from "../../../../lib/rate-limit";
 
 // Mints a Square-hosted checkout link with the amount and the designation
@@ -74,9 +79,24 @@ function bad(message: string, status = 400) {
 }
 
 export async function POST(req: Request) {
-  if (!isSquareConfigured()) {
+  // Peeked before the main parse so the configured-check can account for it.
+  // A request carrying the correct preview slug may use sandbox credentials on
+  // the live site; nothing else may.
+  let previewUnlock = false;
+  let parsed: Record<string, unknown> | null = null;
+  try {
+    parsed = (await req.json()) as Record<string, unknown>;
+    previewUnlock = isPreviewUnlock(parsed.previewToken);
+  } catch {
+    parsed = null;
+  }
+
+  if (!isSquareConfigured(previewUnlock)) {
     // Explicit and distinguishable, so the client can fall back to the old
-    // storefront rather than showing a donor a dead button.
+    // storefront rather than showing a donor a dead button. This also fires
+    // when the live site is holding *sandbox* credentials, which is the case
+    // between shipping this and the production token arriving — see the guard
+    // in lib/square.ts for why that must never mint a link.
     return bad("Square is not configured", 503);
   }
 
@@ -88,12 +108,8 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: Record<string, unknown>;
-  try {
-    body = (await req.json()) as Record<string, unknown>;
-  } catch {
-    return bad("Malformed request body");
-  }
+  if (!parsed) return bad("Malformed request body");
+  const body = parsed;
 
   const kind = body.kind;
   const rawEmail = typeof body.email === "string" ? body.email.trim() : "";
@@ -160,14 +176,17 @@ export async function POST(req: Request) {
   }
 
   try {
-    const link = await createPaymentLink({
-      lineItemName,
-      amountCents,
-      note,
-      metadata,
-      buyerEmail,
-      redirectUrl: redirectUrl.toString(),
-    });
+    const link = await createPaymentLink(
+      {
+        lineItemName,
+        amountCents,
+        note,
+        metadata,
+        buyerEmail,
+        redirectUrl: redirectUrl.toString(),
+      },
+      { previewUnlock },
+    );
     return NextResponse.json({ url: link.url }, { status: 200 });
   } catch (err) {
     // Square's message can name the offending field; that is useful in a log

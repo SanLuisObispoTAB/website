@@ -3413,3 +3413,87 @@ a.slotab-platinum-slide:hover {
   border-top: 1px solid var(--slotab-border);
   padding-top: 1.25rem;
 }
+
+/* --------------------------------------------------------------------------
+   SPONSOR ENQUIRY PANEL
+   Replaces a bare `mailto:` link, which fails silently on any machine with no
+   registered mail handler — a dead button on the enrolment path for a $10,000
+   sponsorship. Lives on the black business band and on the cream thank-you
+   page, so it takes its colours from the surrounding text rather than
+   assuming either ground.
+   -------------------------------------------------------------------------- */
+.slotab-enquiry {
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.slotab-enquiry-lead {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+}
+
+.slotab-enquiry-lead a { color: inherit; font-weight: 600; }
+
+.slotab-enquiry-text {
+  width: 100%;
+  font-family: var(--font-tiger-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--slotab-border);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--slotab-ink);
+  resize: vertical;
+}
+
+.slotab-enquiry-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.slotab-enquiry-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  opacity: 0.75;
+}
+
+/* On the black band the outline button and lead text need light-on-dark. */
+.slotab-biz-sponsor .slotab-enquiry-lead,
+.slotab-biz-sponsor .slotab-enquiry-note { color: rgba(255, 255, 255, 0.8); }
+.slotab-biz-sponsor .slotab-enquiry .slotab-btn.outline {
+  color: var(--slotab-gold);
+  border-color: var(--slotab-gold);
+}
+.slotab-biz-sponsor .slotab-enquiry .slotab-btn.outline:hover {
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+}
+
+/* --------------------------------------------------------------------------
+   TEST-PAGE BANNER (/donate/preview/<slug>)
+   Deliberately alarming. Anyone landing here must not mistake it for the real
+   donate page, and must not report a sandbox payment as a real one.
+   -------------------------------------------------------------------------- */
+.slotab-preview-banner {
+  border: 3px solid #b00020;
+  background: #fff4f4;
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.slotab-preview-banner strong { color: #b00020; font-size: 1.05rem; }
+.slotab-preview-banner p { margin: 0.5rem 0 0; font-size: 0.9rem; line-height: 1.5; }
+.slotab-preview-banner code {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.85em;
+}

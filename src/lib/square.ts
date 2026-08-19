@@ -35,13 +35,83 @@ export type PaymentLinkInput = {
 
 export type PaymentLinkResult = { url: string; orderId: string };
 
-function config() {
+/** Set only by the secret preview page — see `credentialsUsableHere`. */
+export type PaymentLinkOptions = { previewUnlock?: boolean };
+
+/** The live public site, as opposed to a preview deployment or a local run.
+ *  `VERCEL_ENV` is injected by the platform and is the only signal that
+ *  distinguishes these — `NODE_ENV` is "production" for preview builds too. */
+function isLiveSite(): boolean {
+  return process.env.VERCEL_ENV === "production";
+}
+
+/** THE GUARD THIS FILE MOST NEEDS.
+ *
+ *  Sandbox credentials on the live site are more dangerous than no credentials
+ *  at all. Nothing would error: the code would happily mint a link against
+ *  `connect.squareupsandbox.com`, and a real parent would be handed a
+ *  sandbox checkout that accepts only test cards and moves no money. They would
+ *  reasonably believe they had donated. A silent failure on a fundraising
+ *  site's primary conversion path is the worst outcome available, and it is
+ *  exactly what a deploy made before the production token arrives would do.
+ *
+ *  So the live site refuses to run on sandbox credentials. `isSquareConfigured`
+ *  reports false, the route answers 503, and the client falls back to the #140
+ *  storefront handoff — which is unglamorous but takes real money. Shipping
+ *  this ahead of the production token is therefore a no-op for donors rather
+ *  than a trap, and the new flow switches itself on the moment the real
+ *  credentials land. */
+function credentialsUsableHere(previewUnlock = false): boolean {
+  if (!process.env.SQUARE_ACCESS_TOKEN || !process.env.SQUARE_LOCATION_ID) {
+    return false;
+  }
+  if (!isLiveSite()) return true;
+  if (process.env.SQUARE_ENVIRONMENT === "production") return true;
+  // The one sanctioned exception: a request that proved it came from the
+  // secret preview page. Sandbox on the live site is safe there because the
+  // page says so in the loudest terms available and only someone holding the
+  // slug can reach it.
+  return previewUnlock;
+}
+
+/** The secret path segment that unlocks the preview checkout, or undefined
+ *  when the feature is switched off. Deliberately env-driven and absent from
+ *  the repo: a slug committed to source control is not a secret. Unset means
+ *  the preview route 404s, which is the correct default. */
+export function squarePreviewSlug(): string | undefined {
+  const slug = process.env.SQUARE_PREVIEW_SLUG?.trim();
+  return slug && slug.length >= 8 ? slug : undefined;
+}
+
+/** Constant-time-ish comparison. The slug is a nuisance barrier rather than a
+ *  credential — nothing behind it moves money — but there is no reason to leak
+ *  its length or prefix through early-exit timing. */
+export function isPreviewUnlock(token: unknown): boolean {
+  const slug = squarePreviewSlug();
+  if (!slug || typeof token !== "string" || token.length !== slug.length) {
+    return false;
+  }
+  let diff = 0;
+  for (let i = 0; i < slug.length; i++) {
+    diff |= slug.charCodeAt(i) ^ token.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+function config(previewUnlock = false) {
   const token = process.env.SQUARE_ACCESS_TOKEN;
   const locationId = process.env.SQUARE_LOCATION_ID;
   const environment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
   if (!token || !locationId) {
     throw new Error(
       "Square is not configured — SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID must be set",
+    );
+  }
+  // Defence in depth: the route gates on `isSquareConfigured`, but this is the
+  // function that actually chooses which Square to talk to, so it refuses too.
+  if (!credentialsUsableHere(previewUnlock)) {
+    throw new Error(
+      "Refusing to use sandbox Square credentials on the live site — set SQUARE_ENVIRONMENT=production with a production token",
     );
   }
   const base =
@@ -51,12 +121,11 @@ function config() {
   return { token, locationId, base };
 }
 
-/** True when Square is configured at all. Lets callers degrade to the old
- *  storefront handoff rather than showing a donor an error. */
-export function isSquareConfigured(): boolean {
-  return Boolean(
-    process.env.SQUARE_ACCESS_TOKEN && process.env.SQUARE_LOCATION_ID,
-  );
+/** True when Square is configured *and* those credentials are safe to use in
+ *  this environment. Callers degrade to the old storefront handoff rather than
+ *  showing a donor an error — see `credentialsUsableHere`. */
+export function isSquareConfigured(previewUnlock = false): boolean {
+  return credentialsUsableHere(previewUnlock);
 }
 
 function sanitizeMetadata(md: Record<string, string>): Record<string, string> {
@@ -102,8 +171,9 @@ function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: 
  *  Losing a prefilled field is a far smaller harm than losing the gift. */
 export async function createPaymentLink(
   input: PaymentLinkInput,
+  options: PaymentLinkOptions = {},
 ): Promise<PaymentLinkResult> {
-  const { token, locationId, base } = config();
+  const { token, locationId, base } = config(options.previewUnlock ?? false);
   const idempotencyKey = crypto.randomUUID();
 
   const post = async (withEmail: boolean) => {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SponsorEnquiry from "./SponsorEnquiry";
 
 // The Sponsorship lead sends businesses to the website to enrol, and until now
 // they landed on a page that opens with parent-facing membership copy, shows a
@@ -34,12 +35,15 @@ const ENQUIRY_BODY = [
   "Anything else we should know:",
 ].join("\n");
 
-const ENQUIRY_MAILTO =
-  `mailto:${SPONSOR_EMAIL}` +
-  `?subject=${encodeURIComponent("Business sponsorship enquiry")}` +
-  `&body=${encodeURIComponent(ENQUIRY_BODY)}`;
+const ENQUIRY_SUBJECT = "Business sponsorship enquiry";
 
-export default function BusinessSponsorCTA() {
+export default function BusinessSponsorCTA({
+  checkoutEnabled = false,
+}: {
+  /** False until Square is live, so step three doesn't promise a
+   *  pay-online button that isn't rendered. */
+  checkoutEnabled?: boolean;
+} = {}) {
   return (
     <section className="slotab-biz-sponsor" aria-labelledby="biz-sponsor-head">
       <div className="slotab-container slotab-biz-sponsor-inner">
@@ -72,22 +76,31 @@ export default function BusinessSponsorCTA() {
           <li>
             <span className="slotab-biz-step-n">3</span>
             <span>
-              <strong>Pay online, or by check.</strong> Every tier has a
-              secure-checkout button — the price is set for you, nothing to
-              enter. Prefer a check? The address is on the sheet below.
+              {checkoutEnabled ? (
+                <>
+                  <strong>Pay online, or by check.</strong> Every tier has a
+                  secure-checkout button — the price is set for you, nothing
+                  to enter. Prefer a check? The address is on the sheet below.
+                </>
+              ) : (
+                <>
+                  <strong>We confirm and invoice you.</strong> A board member
+                  confirms your package and arranges payment — by invoice, or
+                  by check to the address on the sheet below.
+                </>
+              )}
             </span>
           </li>
         </ol>
 
         <div className="slotab-biz-actions">
-          <a
-            href={ENQUIRY_MAILTO}
-            className="tiger-btn tiger-btn-primary tiger-btn-arrow"
-          >
-            Start your sponsorship
-          </a>
+          <SponsorEnquiry
+            email={SPONSOR_EMAIL}
+            subject={ENQUIRY_SUBJECT}
+            body={ENQUIRY_BODY}
+          />
           <Link href="#sponsorship-tiers" className="slotab-btn outline">
-            See the tiers &amp; pay online
+            {checkoutEnabled ? "See the tiers & pay online" : "See the tiers & perks"}
           </Link>
         </div>
 

@@ -4,8 +4,14 @@ import BusinessSponsorCTA from "../components/BusinessSponsorCTA";
 import SponsorWall from "../components/SponsorWall";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
+import { isSquareConfigured } from "../../lib/square";
 
 export default function MembershipPage() {
+  // Resolved on the server so the page never promises a checkout that would
+  // answer 503. Until the production token lands this is false on the live
+  // site, and both the panel copy and the tier buttons say so.
+  const checkoutEnabled = isSquareConfigured();
+
   return (
     <>
       <TigerPageHeader
@@ -15,7 +21,7 @@ export default function MembershipPage() {
 
       {/* Businesses arrive here on the Sponsorship lead's say-so, so their
           path comes before the general membership copy rather than after it. */}
-      <BusinessSponsorCTA />
+      <BusinessSponsorCTA checkoutEnabled={checkoutEnabled} />
 
       <section className="slotab-section alt" id="sponsorship-tiers">
         <div className="slotab-container">
@@ -30,7 +36,7 @@ export default function MembershipPage() {
               friends — join at any level.
             </p>
           </div>
-          <MembershipTiers />
+          <MembershipTiers checkoutEnabled={checkoutEnabled} />
         </div>
       </section>
 
