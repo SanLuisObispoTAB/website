@@ -12,6 +12,11 @@
 
 const SQUARE_VERSION = "2025-06-18";
 
+/** Shown on Square's hosted checkout as the seller contact. Same address
+ *  the membership and sponsorship flows use, so a donor who writes in
+ *  reaches the people who can actually answer. */
+const SUPPORT_EMAIL = "slotabmembership@gmail.com";
+
 export type Money = { amount: number; currency: "USD" };
 
 export type PaymentLinkInput = {
@@ -176,6 +181,23 @@ function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: 
     checkout_options: {
       redirect_url: input.redirectUrl,
       ask_for_shipping_address: false,
+      // Square's hosted checkout is built for retail, and it shows retail
+      // furniture by default that reads as nonsense on a donation:
+      //   enable_coupon  — an "Add coupon" box. SLOTAB has never issued a
+      //     discount code and cannot; a donor who sees the field wonders
+      //     whether they are missing one, or whether they are buying
+      //     something rather than giving.
+      //   enable_loyalty — a REWARDS opt-in. A booster club has no loyalty
+      //     programme, and inviting someone to earn points on a charitable
+      //     gift is the wrong note entirely.
+      // Both off. Neither is a payment control, so nothing is lost.
+      enable_coupon: false,
+      enable_loyalty: false,
+      // Square's page is the one screen in this flow that isn't ours, so it
+      // is also the one place a confused donor has nowhere to turn. This puts
+      // a real SLOTAB address in front of them without their having to
+      // navigate back.
+      merchant_support_email: SUPPORT_EMAIL,
     },
     ...(input.note ? { payment_note: input.note.slice(0, 500) } : {}),
   };
