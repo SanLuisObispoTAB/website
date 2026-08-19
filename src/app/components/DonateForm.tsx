@@ -7,6 +7,9 @@ import teamsData from "../data/teams.json";
 // longer part of the flow: we mint our own line item now, so a designation is
 // carried verbatim instead of collapsing onto a shared storefront tile.
 import { squareDonateUrl } from "../data/square-donate";
+// One source of truth with /membership, so the level a donor is promised
+// here is the level that page describes.
+import { GENERAL_MEMBERSHIPS } from "../data/sponsor-tiers";
 
 type Team = {
   slug: string;
@@ -62,22 +65,44 @@ const HANDOFF_SECONDS = 5;
 const ONE_TIME_FLOOR = 25;
 const MONTHLY_FLOOR = 10;
 
-// Membership tier qualification thresholds — pulled from the
-// 2026-05-06 research draft. Annual one-time OR (monthly × 12) qualifies.
-const TIERS = [
-  { name: "Supporter", oneTime: 25, monthly: 10 },
-  { name: "Fan", oneTime: 250, monthly: 25 },
-  { name: "Booster", oneTime: 500, monthly: 50 },
-  { name: "Champion", oneTime: 1500, monthly: 125 },
-  { name: "Patron", oneTime: 5000, monthly: 420 },
-];
+/** The membership level a gift enrols you at, named exactly as `/membership`
+ *  names it.
+ *
+ *  This used to run off a private ladder — Supporter / Fan / Booster /
+ *  Champion / Patron — carried over from a 2026-05-06 research draft and never
+ *  reconciled with what the club actually offers. **Not one of those five names
+ *  appears on `/membership`**, whose general memberships are Family,
+ *  Individual and Tiger Friend. Worse, the two ladders shared the word
+ *  *Champion* while disagreeing about it by a factor of six: this page told a
+ *  $1,500 donor they were "Champion-level" while the membership page sells
+ *  Champion as the **$10,000 top business sponsorship**. A donor could
+ *  reasonably have believed they had bought a package with stadium ads and ten
+ *  season passes.
+ *
+ *  Now derived from the same `GENERAL_MEMBERSHIPS` array `/membership`
+ *  renders, so the two cannot drift apart again — the same reasoning that put
+ *  the sponsorship prices in one place in #145.
+ *
+ *  Business sponsorship tiers are deliberately NOT consulted. Those are
+ *  packages with banners, scoreboard ads and All-Sport passes, sold to
+ *  businesses through a different flow; a large personal donation does not buy
+ *  one, and saying otherwise would promise perks nobody has agreed to. */
+function membershipLevelFor(
+  amount: number,
+  mode: "one-time" | "monthly",
+): string | null {
+  if (amount <= 0) return null;
 
-function tierForGift(amount: number, mode: "one-time" | "monthly") {
-  for (let i = TIERS.length - 1; i >= 0; i--) {
-    const t = TIERS[i];
-    const threshold = mode === "monthly" ? t.monthly : t.oneTime;
-    if (amount >= threshold) return t.name;
+  const ranked = GENERAL_MEMBERSHIPS.filter((t) => !t.anyAmount).sort(
+    (a, b) => (b.annual ?? 0) - (a.annual ?? 0),
+  );
+  for (const t of ranked) {
+    const threshold = mode === "monthly" ? t.monthly : t.annual;
+    if (threshold != null && amount >= threshold) return t.name;
   }
+  // Any gift below the named levels still enrols the donor — that is the whole
+  // point of Tiger Friend, and #37: every donation makes you a member.
+  return GENERAL_MEMBERSHIPS.find((t) => t.anyAmount)?.name ?? null;
   return null;
 }
 
@@ -147,7 +172,7 @@ export default function DonateForm({
     return Number.isFinite(parsed) ? parsed : 0;
   }, [amount, other]);
 
-  const tier = tierForGift(effectiveAmount, mode);
+  const tier = membershipLevelFor(effectiveAmount, mode);
   const teamShare = effectiveAmount * 0.75;
   const generalShare = effectiveAmount * 0.25;
   const isGeneral = team === "general";
@@ -444,8 +469,8 @@ export default function DonateForm({
           )}
           {tier && (
             <div className="slotab-donate-tier-callout">
-              Your gift makes you a <strong>{tier}-level</strong> SLOTAB
-              member.
+              Your gift enrols you at the <strong>{tier}</strong> membership
+              level.
               {mode === "monthly" && (
                 <span className="slotab-donate-sustainer">
                   {" "}
