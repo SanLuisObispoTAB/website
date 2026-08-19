@@ -173,6 +173,21 @@ export async function POST(req: Request) {
     return bad("Unknown request kind");
   }
 
+  // Mark anything minted through the preview route.
+  //
+  // Board review runs against PRODUCTION credentials, so a reviewer's test gift
+  // is a real charge sitting in the real Square account, indistinguishable from
+  // a parent's donation — which is how a $25 test ends up booked as revenue and
+  // never refunded. The marker goes in the payment note and metadata, NOT in
+  // the line item: Erik asked for the review to look exactly like production,
+  // and a "[TEST]" prefix on the checkout heading would defeat that. The note
+  // is visible on the payment in the Square dashboard, which is where whoever
+  // reconciles will be looking.
+  if (previewUnlock) {
+    note = `*** TEST — board review, refund this *** ${note}`;
+    metadata.test = "true";
+  }
+
   const origin = siteOrigin(req);
   const redirectUrl = new URL("/thank-you", origin);
   redirectUrl.searchParams.set("kind", String(metadata.kind));
