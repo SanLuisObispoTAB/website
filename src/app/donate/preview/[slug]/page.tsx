@@ -124,36 +124,53 @@ export default async function DonatePreviewPage({
                   ? " — real charges"
                   : " — test only, no money moves"}
               </dd>
-              <dt>Credentials</dt>
+              <dt>Token</dt>
               <dd>
-                {creds.ok
-                  ? `✅ authenticated — location "${creds.locationName}"`
-                  : `❌ ${creds.error}`}
+                {creds.locations.length > 0
+                  ? `✅ authenticated${creds.merchantId ? ` (merchant ${creds.merchantId})` : ""}`
+                  : "❌ could not authenticate"}
+              </dd>
+              <dt>Location</dt>
+              <dd>
+                {creds.locationMatches
+                  ? `✅ matched — "${creds.locationName}" (${creds.locationStatus})`
+                  : "❌ not found in this account"}
+              </dd>
+              <dt>Can take payments</dt>
+              <dd>
+                {creds.locationCanTakePayments
+                  ? "✅ yes — CREDIT_CARD_PROCESSING enabled"
+                  : "❌ no — this is what blocks checkout"}
               </dd>
             </dl>
-            {!creds.ok && creds.accountLocations.length > 0 && (
+
+            {!creds.ok && creds.error && (
+              <p className="slotab-cred-hint">
+                <strong>{creds.error}</strong>
+              </p>
+            )}
+
+            {creds.locations.length > 0 && (
               <>
-                <p>
-                  Locations this token can actually see — set{" "}
-                  <code>SQUARE_LOCATION_ID</code> to one of these:
-                </p>
+                <p>Every location this token can see:</p>
                 <ul>
-                  {creds.accountLocations.map((l) => (
-                    <li key={l}>
-                      <code>{l}</code>
+                  {creds.locations.map((l) => (
+                    <li key={l.id}>
+                      <code>{l.id}</code> — {l.name} · {l.status} ·{" "}
+                      {l.canTakePayments
+                        ? "can take payments"
+                        : "CANNOT take payments"}
                     </li>
                   ))}
                 </ul>
+                <p className="slotab-cred-hint">
+                  If one of these can take payments and it isn&apos;t the one
+                  matched above, set <code>SQUARE_LOCATION_ID</code> to that id
+                  and redeploy. If <em>none</em> can, the Square account itself
+                  hasn&apos;t finished activation — that is settled in the
+                  Square dashboard, not here.
+                </p>
               </>
-            )}
-            {!creds.ok && (
-              <p className="slotab-cred-hint">
-                Remember all three must agree:{" "}
-                <code>SQUARE_ACCESS_TOKEN</code>,{" "}
-                <code>SQUARE_LOCATION_ID</code> and{" "}
-                <code>SQUARE_ENVIRONMENT</code> — and Vercel needs a{" "}
-                <strong>redeploy</strong> after changing them.
-              </p>
             )}
           </div>
         </div>

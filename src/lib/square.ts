@@ -281,13 +281,30 @@ export class SquareError extends Error {
 // Deliberately reports names and ids only, never the token. Rendered on the
 // slug-gated preview page, and it goes when that route goes.
 
+export type SquareLocationInfo = {
+  id: string;
+  name: string;
+  status: string;
+  /** Square only takes card payments at a location whose capabilities include
+   *  CREDIT_CARD_PROCESSING. A location can be ACTIVE and still lack it, which
+   *  is what produces the checkout page reading "This business is currently
+   *  not accepting payments" — the link is created happily, and only the buyer
+   *  ever sees the refusal. */
+  canTakePayments: boolean;
+};
+
 export type SquareCredentialCheck = {
   ok: boolean;
   environment: string;
   /** Whether SQUARE_LOCATION_ID was found in the account the token belongs to. */
   locationMatches: boolean;
   locationName?: string;
-  accountLocations: string[];
+  /** False when the matched location cannot process cards — the specific
+   *  cause of "This business is currently not accepting payments". */
+  locationCanTakePayments: boolean;
+  locationStatus?: string;
+  merchantId?: string;
+  locations: SquareLocationInfo[];
   error?: string;
 };
 
@@ -300,12 +317,17 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
       ? "https://connect.squareup.com"
       : "https://connect.squareupsandbox.com";
 
+  const empty = {
+    environment,
+    locationMatches: false,
+    locationCanTakePayments: false,
+    locations: [] as SquareLocationInfo[],
+  };
+
   if (!token || !locationId) {
     return {
       ok: false,
-      environment,
-      locationMatches: false,
-      accountLocations: [],
+      ...empty,
       error: "SQUARE_ACCESS_TOKEN or SQUARE_LOCATION_ID is not set",
     };
   }
@@ -319,7 +341,13 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
       cache: "no-store",
     });
     const json = (await res.json()) as {
-      locations?: Array<{ id: string; name?: string }>;
+      locations?: Array<{
+        id: string;
+        name?: string;
+        status?: string;
+        merchant_id?: string;
+        capabilities?: string[];
+      }>;
       errors?: Array<{ code?: string; detail?: string }>;
     };
 
@@ -329,11 +357,7 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
         `HTTP ${res.status}`;
       return {
         ok: false,
-        environment,
-        locationMatches: false,
-        accountLocations: [],
-        // The overwhelmingly likely cause of a 401 here is a token/host
-        // mismatch, so say so rather than leaving them to decode it.
+        ...empty,
         error:
           res.status === 401
             ? `${detail} — this usually means SQUARE_ENVIRONMENT ("${environment}") doesn't match the token you set.`
@@ -341,24 +365,44 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
       };
     }
 
-    const locations = json.locations ?? [];
+    const locations: SquareLocationInfo[] = (json.locations ?? []).map((l) => ({
+      id: l.id,
+      name: l.name ?? "(unnamed)",
+      status: l.status ?? "UNKNOWN",
+      canTakePayments: (l.capabilities ?? []).includes("CREDIT_CARD_PROCESSING"),
+    }));
+
+    const raw = (json.locations ?? []).find((l) => l.id === locationId);
     const match = locations.find((l) => l.id === locationId);
+
+    if (!match) {
+      return {
+        ok: false,
+        ...empty,
+        locations,
+        merchantId: (json.locations ?? [])[0]?.merchant_id,
+        error:
+          "SQUARE_LOCATION_ID is not a location in this account — check you used the Live Location ID, not the sandbox one.",
+      };
+    }
+
     return {
-      ok: Boolean(match),
+      ok: match.canTakePayments,
       environment,
-      locationMatches: Boolean(match),
-      locationName: match?.name,
-      accountLocations: locations.map((l) => `${l.name ?? "(unnamed)"} — ${l.id}`),
-      error: match
+      locationMatches: true,
+      locationName: match.name,
+      locationStatus: match.status,
+      locationCanTakePayments: match.canTakePayments,
+      merchantId: raw?.merchant_id,
+      locations,
+      error: match.canTakePayments
         ? undefined
-        : "SQUARE_LOCATION_ID is not a location in this account — you're probably still using the sandbox Location ID.",
+        : `Location "${match.name}" cannot process card payments (status ${match.status}). This is the cause of "This business is currently not accepting payments" — the payment link is created fine and Square refuses at the checkout page.`,
     };
   } catch (err) {
     return {
       ok: false,
-      environment,
-      locationMatches: false,
-      accountLocations: [],
+      ...empty,
       error: err instanceof Error ? err.message : "Could not reach Square",
     };
   }
