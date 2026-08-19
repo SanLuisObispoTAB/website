@@ -101,6 +101,16 @@ the convention.
   single-squad template. Multi-squad expectations live in
   `EXPECTED_SQUADS` — add a slug there and the missing squads get
   tracked automatically.
+- **`npm run square-report`** produces the Treasurer's per-sport allocation
+  from Square — gross, 75% team share and 25% general share per designation,
+  for a date range (`-- --since 2026-07-01 --until 2026-08-01`, `-- --csv
+  out.csv`). It exists because **Trina reconciles from a QuickBooks connector,
+  and those post a daily summary with no line detail** — so the sport a donor
+  chose never reaches her ledger, however carefully the site puts it in the
+  transaction. Keys on `metadata.designation` / `metadata.level`, never on the
+  line item name: names are for humans and have already changed twice.
+  Excludes DRAFT orders (abandoned checkouts) and anything tagged
+  `metadata.test` (board test gifts, #153). Read-only. See decision #161.
 - **`npm run photo-usage`** audits `public/photos` as a library: which
   photos nothing references, which are **the same image under two
   filenames** (16x16 grayscale signature, so it catches re-crops and
