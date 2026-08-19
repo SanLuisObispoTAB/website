@@ -3531,3 +3531,20 @@ a.slotab-platinum-slide:hover {
   padding: 0.05rem 0.3rem; border-radius: 3px; font-size: 0.85em;
 }
 .slotab-cred-hint { margin: 0.7rem 0 0; font-size: 0.85rem; }
+
+/* Handoff continue button + countdown. The button comes first and the
+   countdown reads as a subtitle beneath it: a donor who has finished reading
+   should reach for the button, not wait out a timer. */
+.slotab-donate-continue {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin: 0.9rem 0 0;
+}
+
+.slotab-donate-countdown {
+  font-size: 0.82rem;
+  color: var(--slotab-muted);
+  font-variant-numeric: tabular-nums; /* stops the width jitter as it ticks */
+}

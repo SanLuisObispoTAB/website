@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import teamsData from "../data/teams.json";
 // Only the fallback URL is still needed. The storefront's item *labels* are no
@@ -43,6 +43,21 @@ const MONTHLY_TIERS = [10, 25, 50, 100, 200, 500];
 // SDK (#144). Flip this to `true` when that lands: every monthly branch below
 // is intact and gated on it, so nothing has to be rebuilt from memory.
 const RECURRING_ENABLED = false;
+
+// How long the handoff panel stays up before the donor is sent to Square.
+//
+// The panel used to flash and vanish: the redirect fired the instant the link
+// came back, so nobody could read it. A pause fixes that, but only for the
+// informational case — and the panel is not always informational. When the
+// donor has asked for something the checkout cannot carry (anonymity, a
+// membership tier), it also carries a pre-written email they need to send, and
+// *no* countdown is the right length for that. Five seconds would simply move
+// the problem from "couldn't read it" to "was pulled away mid-task".
+//
+// So: a countdown when there is nothing to do, and an explicit Continue when
+// there is. Either way a button is offered, because a donor who has finished
+// reading should never be made to wait for a timer.
+const HANDOFF_SECONDS = 5;
 
 const ONE_TIME_FLOOR = 25;
 const MONTHLY_FLOOR = 10;
@@ -119,6 +134,9 @@ export default function DonateForm({
   // and the donor must key it in. Telling a storefront donor "the amount is
   // already set" would send them through a checkout they'd underpay.
   const [handoffMode, setHandoffMode] = useState<"link" | "storefront">("link");
+  // Held rather than followed immediately, so the panel above can be read.
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
+  const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const tiers = mode === "monthly" ? MONTHLY_TIERS : ONE_TIME_TIERS;
@@ -165,6 +183,18 @@ export default function DonateForm({
   if (tier) {
     unrecordedIntent.push(`Qualifies for the ${tier} membership tier`);
   }
+
+  // Whether the donor must actually *do* something before leaving, as opposed
+  // to there merely being text on screen. Only this blocks the auto-advance.
+  //
+  // The distinction matters because the tier line above matches nearly every
+  // gift, so treating "the panel has content" as "the donor has a task" would
+  // make every single donation a two-click flow. But a tier is **derivable
+  // from the amount** — the club can work it out from the transaction and
+  // nobody needs to be told. Anonymity cannot be derived from anything: if the
+  // donor doesn't tell us, the default is that their name goes on the donor
+  // wall, which is the one outcome here that is awkward to undo.
+  const needsDonorAction = !displayOnWall;
   // The designation deliberately isn't listed here any more. It used to be —
   // #140 had to warn the donor that all three cheer programmes landed on one
   // "CHEER" storefront item and both wrestling teams on "WRESTLING", so the
@@ -192,6 +222,19 @@ export default function DonateForm({
       `&body=${encodeURIComponent(body)}`
     );
   })();
+
+  useEffect(() => {
+    if (secondsLeft === null || !checkoutUrl) return;
+    if (secondsLeft <= 0) {
+      window.location.href = checkoutUrl;
+      return;
+    }
+    const t = window.setTimeout(
+      () => setSecondsLeft((n) => (n === null ? null : n - 1)),
+      1000,
+    );
+    return () => window.clearTimeout(t);
+  }, [secondsLeft, checkoutUrl]);
 
   return (
     <div className="slotab-donate-form">
@@ -478,7 +521,7 @@ export default function DonateForm({
       <button
         type="button"
         className="slotab-btn slotab-donate-submit"
-        disabled={submitDisabled || starting}
+        disabled={submitDisabled || starting || checkoutUrl !== null}
         aria-busy={starting}
         onClick={async () => {
           // Stop here rather than handing off: an undesignated gift is
@@ -515,8 +558,13 @@ export default function DonateForm({
             const data = (await res.json()) as { url?: string; error?: string };
             if (res.ok && data.url) {
               setHandoffMode("link");
+              setCheckoutUrl(data.url);
               setHandedOff(true);
-              window.location.href = data.url;
+              // Auto-advance unless the donor has something to send us
+              // first — see `needsDonorAction`.
+              if (!needsDonorAction) {
+                setSecondsLeft(HANDOFF_SECONDS);
+              }
               return;
             }
             if (res.status === 503) {
@@ -568,6 +616,22 @@ export default function DonateForm({
                 The amount and designation are already set — you only need your
                 card details. Nothing has been charged yet.
               </p>
+              {checkoutUrl && (
+                <p className="slotab-donate-continue">
+                  <a href={checkoutUrl} className="slotab-btn">
+                    Continue to secure checkout →
+                  </a>
+                  {secondsLeft !== null && (
+                    <span
+                      className="slotab-donate-countdown"
+                      aria-live="polite"
+                    >
+                      Taking you there in {secondsLeft}
+                      {secondsLeft === 1 ? " second" : " seconds"}…
+                    </span>
+                  )}
+                </p>
+              )}
             </>
           ) : (
             <>
@@ -602,6 +666,15 @@ export default function DonateForm({
                 Opens a pre-written email to our membership team so your gift
                 gets credited the way you asked. Takes a few seconds and saves
                 us chasing you later.
+                {checkoutUrl && secondsLeft === null && (
+                  <>
+                    {" "}
+                    <strong>
+                      We&apos;ll wait — use the button above when you&apos;re
+                      ready to pay.
+                    </strong>
+                  </>
+                )}
               </p>
             </>
           )}
