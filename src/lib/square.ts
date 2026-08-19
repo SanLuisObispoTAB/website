@@ -128,6 +128,27 @@ export function isSquareConfigured(previewUnlock = false): boolean {
   return credentialsUsableHere(previewUnlock);
 }
 
+/** Whether the **public** /donate and /membership pages should use the new
+ *  checkout, as opposed to the preview route.
+ *
+ *  Separate from `isSquareConfigured` on purpose, and the distinction is the
+ *  whole point: without it, putting a production token in Vercel is an
+ *  all-or-nothing switch that makes the new flow live for every donor the
+ *  instant it is saved. There would be no way to look at the real production
+ *  checkout before real people are using it — and "deploy it and watch" is a
+ *  poor plan for the page that takes the money.
+ *
+ *  With this flag, a production token can go in while the public site stays on
+ *  the storefront: the board reviews the genuine production checkout through
+ *  `/donate/preview/<slug>`, and flipping SQUARE_LIVE_DONATE to "true" is a
+ *  deliberate, separate, instantly reversible act.
+ *
+ *  Defaults to off. Anything other than the exact string "true" is off, so a
+ *  typo fails safe rather than launching. */
+export function isPublicCheckoutEnabled(): boolean {
+  return credentialsUsableHere() && process.env.SQUARE_LIVE_DONATE === "true";
+}
+
 function sanitizeMetadata(md: Record<string, string>): Record<string, string> {
   const out: Record<string, string> = {};
   for (const [k, v] of Object.entries(md)) {

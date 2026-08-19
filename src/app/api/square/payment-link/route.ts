@@ -6,6 +6,7 @@ import {
   SquareError,
   isSquareConfigured,
   isPreviewUnlock,
+  isPublicCheckoutEnabled,
 } from "../../../../lib/square";
 import { rateLimit, clientKey } from "../../../../lib/rate-limit";
 
@@ -91,7 +92,12 @@ export async function POST(req: Request) {
     parsed = null;
   }
 
-  if (!isSquareConfigured(previewUnlock)) {
+  // A preview request only needs working credentials. A public request also
+  // needs the launch flag — see `isPublicCheckoutEnabled`.
+  const allowed = previewUnlock
+    ? isSquareConfigured(true)
+    : isPublicCheckoutEnabled();
+  if (!allowed) {
     // Explicit and distinguishable, so the client can fall back to the old
     // storefront rather than showing a donor a dead button. This also fires
     // when the live site is holding *sandbox* credentials, which is the case

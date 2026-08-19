@@ -4,13 +4,14 @@ import BusinessSponsorCTA from "../components/BusinessSponsorCTA";
 import SponsorWall from "../components/SponsorWall";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
-import { isSquareConfigured } from "../../lib/square";
+import { isPublicCheckoutEnabled } from "../../lib/square";
 
 export default function MembershipPage() {
   // Resolved on the server so the page never promises a checkout that would
-  // answer 503. Until the production token lands this is false on the live
-  // site, and both the panel copy and the tier buttons say so.
-  const checkoutEnabled = isSquareConfigured();
+  // answer 503. False until BOTH a production token is present and
+  // SQUARE_LIVE_DONATE is "true", so the board can review the real checkout
+  // through the preview route while the public site stays on the storefront.
+  const checkoutEnabled = isPublicCheckoutEnabled();
 
   return (
     <>

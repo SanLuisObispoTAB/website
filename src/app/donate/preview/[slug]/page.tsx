@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import DonateForm from "../../../components/DonateForm";
 import TigerPageHeader from "../../../components/tiger/TigerPageHeader";
-import { squarePreviewSlug } from "../../../../lib/square";
+import { squarePreviewSlug, isSquareConfigured } from "../../../../lib/square";
 
 // A staging copy of /donate that exercises the NEW Square checkout while the
 // public /donate keeps using the old storefront.
@@ -42,26 +42,61 @@ export default async function DonatePreviewPage({
   // the ability to create sandbox orders. The API does the careful comparison.
   if (!expected || slug !== expected) notFound();
 
+  // Which warning to show. `isSquareConfigured()` with no preview unlock is
+  // true only when the credentials are production-grade, so this doubles as
+  // "are we pointed at real money?".
+  const sandbox = !isSquareConfigured();
+
   return (
     <>
       <TigerPageHeader kicker="Internal test page" title="Donate (test)" />
 
       <section className="slotab-section">
         <div className="slotab-container">
-          <div className="slotab-preview-banner" role="alert">
-            <strong>This is a test page. No money moves here.</strong>
-            <p>
-              Checkout runs against Square&apos;s <strong>sandbox</strong>, so
-              real cards are declined and nothing is charged. Use Square&apos;s
-              test card <code>4111 1111 1111 1111</code>, any future expiry,
-              any CVV, and postal code <code>94103</code>.
-            </p>
-            <p>
-              The public <a href="/donate">/donate</a> page is unaffected and
-              still uses the existing Square storefront. Swap the two by setting
-              a production token — see decision #145.
-            </p>
-          </div>
+          {sandbox ? (
+            <div className="slotab-preview-banner" role="alert">
+              <strong>Test page — no money moves here.</strong>
+              <p>
+                Checkout runs against Square&apos;s <strong>sandbox</strong>, so
+                nothing is charged and no card is accepted.
+              </p>
+              <p className="slotab-preview-heads-up">
+                <strong>Expect one extra screen that donors will never see.</strong>{" "}
+                In test mode Square shows a grey{" "}
+                <em>&ldquo;Checkout API Sandbox Testing Panel&rdquo;</em> first.
+                Click <strong>Preview Link</strong> on it to see the real
+                checkout page. That panel is a Square testing artefact — in
+                production the Donate button goes straight to checkout.
+              </p>
+              <p>
+                Square won&apos;t let you finish a payment in test mode
+                (&ldquo;this preview cannot be used to complete a payment&rdquo;)
+                — that&apos;s their limitation, not a fault in our flow. To see
+                where donors land afterwards, open the{" "}
+                <a href="/thank-you?kind=donation&amp;designation=girls-volleyball">
+                  thank-you page
+                </a>{" "}
+                directly.
+              </p>
+            </div>
+          ) : (
+            <div className="slotab-preview-banner" role="alert">
+              <strong>
+                Test page — but this is the REAL Square checkout.
+              </strong>
+              <p>
+                Square is in <strong>production</strong> mode, so anything you
+                pay here is a <strong>real charge on a real card</strong>. Any
+                test gift must be refunded from the Square dashboard.
+              </p>
+              <p>
+                The public <a href="/donate">/donate</a> page is still on the
+                old storefront until <code>SQUARE_LIVE_DONATE</code> is set to{" "}
+                <code>true</code>, so what you see here is exactly what donors
+                will get at launch — before they get it.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -73,6 +108,10 @@ export default async function DonatePreviewPage({
               <li>
                 The amount you pick here arrives on Square <em>already set</em>
                 — you should never retype it.
+              </li>
+              <li>
+                The checkout page carries <strong>SLOTAB&apos;s</strong> name
+                and the gift&apos;s designation, not a generic storefront item.
               </li>
               <li>
                 The line item names your exact designation, including
