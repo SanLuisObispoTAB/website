@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import teamsData from "../../../data/teams.json";
-import { sponsorTierById } from "../../../data/sponsor-tiers";
+import { sponsorTierById, levelForGift } from "../../../data/sponsor-tiers";
 import {
   createPaymentLink,
   SquareError,
@@ -208,14 +208,31 @@ export async function POST(req: Request) {
 
     amountCents = raw;
     const label = team ? teamDisplayName(team) : "";
+
+    // The level goes in the NAME because Square's hosted checkout renders
+    // nothing else. Tested against the sandbox: `variation_name` and the line
+    // item `note` are both accepted by the API and both invisible to the
+    // buyer, even with the order summary expanded; and moving the level to a
+    // second $0 line item replaces the heading with a generic "Checkout",
+    // losing the sport from the top entirely. Name or nothing.
+    //
+    // The cost is that Square's item-sales report now keys on sport *and*
+    // level, so a designation can appear under several names. Mitigated by
+    // carrying the level in `metadata` as well — invisible to a donor, but the
+    // clean field for the reconciliation sidetool to group on, which is where
+    // per-sport totals should come from anyway (see #144).
+    const level = levelForGift(raw / 100);
+    const levelSuffix = level ? ` (${level})` : "";
+
     lineItemName = isGeneral
-      ? "SLOTAB General Fund — donation"
-      : `${label} — SLOTAB donation`;
+      ? `SLOTAB General Fund — donation${levelSuffix}`
+      : `${label} — SLOTAB donation${levelSuffix}`;
     note = isGeneral
-      ? "SLOTAB General Fund donation"
-      : `SLOTAB donation designated ${label} (75% team / 25% general fund)`;
+      ? `SLOTAB General Fund donation${level ? ` — ${level} level` : ""}`
+      : `SLOTAB donation designated ${label} (75% team / 25% general fund)${level ? ` — ${level} level` : ""}`;
     metadata.kind = "donation";
     metadata.designation = designation;
+    if (level) metadata.level = level;
     if (!isGeneral) metadata.split = "75-25";
   } else {
     return bad("Unknown request kind");
