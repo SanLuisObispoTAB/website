@@ -3,11 +3,10 @@
 import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import teamsData from "../data/teams.json";
-import {
-  squareDonateUrl,
-  hasOwnSquareItem,
-  squareItemLabel,
-} from "../data/square-donate";
+// Only the fallback URL is still needed. The storefront's item *labels* are no
+// longer part of the flow: we mint our own line item now, so a designation is
+// carried verbatim instead of collapsing onto a shared storefront tile.
+import { squareDonateUrl } from "../data/square-donate";
 
 type Team = {
   slug: string;
@@ -87,6 +86,11 @@ export default function DonateForm() {
   // Set once the donor has been handed off to Square, so the follow-up
   // panel appears instead of pre-cluttering the form with caveats.
   const [handedOff, setHandedOff] = useState(false);
+  // Checkout is now minted server-side, so the click is asynchronous and can
+  // fail. Both states are surfaced rather than swallowed — a donor staring at
+  // a dead button is a lost gift.
+  const [starting, setStarting] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const tiers = mode === "monthly" ? MONTHLY_TIERS : ONE_TIME_TIERS;
   const floor = mode === "monthly" ? MONTHLY_FLOOR : ONE_TIME_FLOOR;
@@ -132,11 +136,12 @@ export default function DonateForm() {
   if (tier) {
     unrecordedIntent.push(`Qualifies for the ${tier} membership tier`);
   }
-  if (!isGeneral) {
-    unrecordedIntent.push(
-      `Designated ${teamLabel} — recorded on Square as "${squareItemLabel(team)}"`,
-    );
-  }
+  // The designation deliberately isn't listed here any more. It used to be —
+  // #140 had to warn the donor that all three cheer programmes landed on one
+  // "CHEER" storefront item and both wrestling teams on "WRESTLING", so the
+  // split had to be applied by hand. The server now names the line item, so the
+  // designation reaches Square exactly as chosen and is no longer intent that
+  // needs carrying by email.
 
   const intentMailto = (() => {
     const body = [
@@ -436,8 +441,9 @@ export default function DonateForm() {
       <button
         type="button"
         className="slotab-btn slotab-donate-submit"
-        disabled={submitDisabled}
-        onClick={() => {
+        disabled={submitDisabled || starting}
+        aria-busy={starting}
+        onClick={async () => {
           // Stop here rather than handing off: an undesignated gift is
           // exactly the outcome this change exists to prevent, and Square
           // has no way to ask the question once the donor has left us.
@@ -450,25 +456,70 @@ export default function DonateForm() {
             });
             return;
           }
-          setHandedOff(true);
-          window.open(squareDonateUrl(team), "_blank", "noopener,noreferrer");
+          setCheckoutError(null);
+          setStarting(true);
+          try {
+            const res = await fetch("/api/square/payment-link", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                kind: "donation",
+                designation: team,
+                // Cents, rounded rather than truncated so 49.995 doesn't
+                // quietly become $49.99. The server re-checks the bounds.
+                amountCents: Math.round(effectiveAmount * 100),
+                email: donorEmail,
+              }),
+            });
+            const data = (await res.json()) as { url?: string; error?: string };
+            if (res.ok && data.url) {
+              setHandedOff(true);
+              window.location.href = data.url;
+              return;
+            }
+            if (res.status === 503) {
+              // Square not configured — fall back to the #140 storefront
+              // handoff rather than blocking the donation entirely.
+              setHandedOff(true);
+              window.open(
+                squareDonateUrl(team),
+                "_blank",
+                "noopener,noreferrer",
+              );
+              return;
+            }
+            setCheckoutError(
+              data.error ?? "Could not start checkout — please try again.",
+            );
+          } catch {
+            setCheckoutError(
+              "Could not reach checkout. Check your connection and try again.",
+            );
+          } finally {
+            setStarting(false);
+          }
         }}
       >
-        {mode === "monthly"
-          ? `Start ${MONEY.format(effectiveAmount || floor)}/mo recurring`
-          : `Donate ${MONEY.format(effectiveAmount || floor)}`}
+        {starting
+          ? "Opening secure checkout…"
+          : mode === "monthly"
+            ? `Start ${MONEY.format(effectiveAmount || floor)}/mo recurring`
+            : `Donate ${MONEY.format(effectiveAmount || floor)}`}
       </button>
+      {checkoutError && (
+        <p className="slotab-donate-warning" role="alert">
+          {checkoutError}
+        </p>
+      )}
       {handedOff && (
         <div className="slotab-donate-handoff" role="status">
           <p className="slotab-donate-handoff-lead">
-            Checkout opened in a new tab
-            {hasOwnSquareItem(team)
-              ? ` — your gift will be recorded as “${squareItemLabel(team)}”.`
-              : " under “GENERAL ATHLETICS”."}
+            Taking you to secure checkout for{" "}
+            <strong>{MONEY.format(effectiveAmount)}</strong> to {teamLabel}.
           </p>
           <p>
-            Enter your amount there — pick <strong>$0.00</strong> if you want a
-            figure the buttons don&apos;t offer. Nothing has been charged yet.
+            The amount and designation are already set — you only need your card
+            details. Nothing has been charged yet.
           </p>
           {unrecordedIntent.length > 0 && (
             <>

@@ -1,0 +1,134 @@
+// The official 2026-2027 SLOTAB Memberships & Sponsorships sheet, as distributed
+// by the Sponsorship lead. Transcribed from the printed sheet in #88 and
+// re-tiered by the board 2026-08-11.
+//
+// WHY THIS IS ITS OWN MODULE
+// These prices are now charged, not just displayed. `MembershipTiers` renders
+// them and `/api/square/payment-link` bills them, and those two must never be
+// able to disagree — a card advertising $5,000 beside a checkout charging
+// something else is precisely the failure #143 found on the Square storefront,
+// where "Gold" sells for $2,500 against a page promising a $5,000 package.
+// One array, imported by both. If the board revises the offering, edit here.
+//
+// `id` is what crosses the wire from the browser. The **price is never sent
+// with it** — the client names a tier, the server looks up what that tier
+// costs. A posted amount would be a posted price.
+
+export type SponsorTier = {
+  /** Stable slug — the only tier identifier the client is trusted with. */
+  id: string;
+  name: string;
+  /** Annual price in whole dollars. Required: every sponsor tier is billable. */
+  annual: number;
+  /** Monthly recurring option, where the sheet offers one. Display only until
+   *  the Subscriptions API lands — see #144. */
+  monthly?: number;
+  /** The top three tiers carry the "Includes Ad Perks" flag on the sheet. */
+  adPerks?: boolean;
+  perks: string[];
+};
+
+// All-Sport Annual Pass counts scale with the sponsorship level, confirmed by
+// the board 2026-08-11: $500 -> 2 · $1,000 -> 4 · $2,500 -> 6 · $5,000 -> 8 ·
+// $10,000 -> 10. These supersede the counts transcribed from the printed sheet
+// in #88, which read 2/2/2/4/6 up the ladder.
+export const SPONSOR_TIERS: SponsorTier[] = [
+  {
+    id: "champion",
+    name: "Champion Sponsor",
+    annual: 10000,
+    adPerks: true,
+    perks: [
+      "Logo on ALL SLOHS student-athlete t-shirts for a full year (submit logo + payment before a trimester starts to make that print run)",
+      "Digital ads on stadium scoreboard: football, soccer, track & field",
+      "Digital ads on gym scoreboard: basketball, stunt & volleyball",
+      "Featured game sponsor (sport of your choice) — designated seating + 6 tickets",
+      "Banners at THREE sporting locations of your choice for TWO years",
+      "Recognition on SLOTAB website and Tiger Teams App",
+      "Ten SLOHS All-Sport Annual Passes",
+    ],
+  },
+  {
+    id: "gold",
+    name: "Gold Sponsor",
+    annual: 5000,
+    adPerks: true,
+    perks: [
+      "Digital ads on stadium scoreboard: football, soccer, track & field",
+      "Digital ads on gym scoreboard: basketball, stunt & volleyball",
+      "Banner at sporting location of your choice for TWO years",
+      "Recognition on SLOTAB website",
+      "Eight SLOHS All-Sport Annual Passes",
+    ],
+  },
+  {
+    id: "silver",
+    name: "Silver Sponsor",
+    annual: 2500,
+    adPerks: true,
+    perks: [
+      "Banner at sporting location of your choice for one year",
+      "Recognition on SLOTAB website",
+      "Six SLOHS All-Sport Annual Passes",
+    ],
+  },
+  {
+    id: "tiger-pride",
+    name: "Tiger Pride",
+    annual: 1000,
+    monthly: 95,
+    perks: [
+      "Recognition on SLOTAB website",
+      "Four SLOHS All-Sport Annual Passes",
+    ],
+  },
+  {
+    id: "varsity",
+    name: "Varsity",
+    annual: 500,
+    monthly: 45,
+    perks: [
+      "Recognition on SLOTAB website",
+      "Two SLOHS All-Sport Annual Passes",
+    ],
+  },
+];
+
+export function sponsorTierById(id: string): SponsorTier | undefined {
+  return SPONSOR_TIERS.find((t) => t.id === id);
+}
+
+/** General memberships are displayed but not separately billable — they run
+ *  through the ordinary donation flow, where any amount qualifies you at the
+ *  matching level (board decision #37: every donation enrols you as a member). */
+export type MembershipTier = {
+  name: string;
+  annual?: number;
+  monthly?: number;
+  anyAmount?: boolean;
+  perks: string[];
+};
+
+export const GENERAL_MEMBERSHIPS: MembershipTier[] = [
+  {
+    name: "Family",
+    annual: 125,
+    monthly: 11,
+    perks: [
+      "One Single-Season Pass",
+      "Tiger news & event updates",
+      "Supports all sports",
+    ],
+  },
+  {
+    name: "Individual",
+    annual: 50,
+    monthly: 5,
+    perks: ["Tiger news & event updates", "Supports all sports"],
+  },
+  {
+    name: "Tiger Friend",
+    anyAmount: true,
+    perks: ["Tiger news & event updates", "Supports all sports"],
+  },
+];

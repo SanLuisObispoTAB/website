@@ -6,16 +6,15 @@ import Link from "next/link";
 // Member" — into a donation form with a sport picker and a $50 default. There
 // was no business path at all, so this panel is the first thing they meet.
 //
-// WHY THIS DOESN'T LINK STRAIGHT TO CHECKOUT
-// The Square storefront does carry a Business Sponsorships category, but it is
+// WHY IT DOESN'T TOUCH THE OLD STOREFRONT
+// The Square storefront carries a Business Sponsorships category, but it is
 // still selling the pre-#88 ladder: "Platinum" at $5,000 with the perk list
 // this site sells as Champion at $10,000, and "Gold" at $2,500 with four
 // passes and a one-year banner where this site's Gold promises eight passes
-// and two years. Deep-linking a tier card to those items would sell a package
-// at half price, or hand a business a receipt that contradicts the page they
-// just read. So enrolment goes through the board until the storefront is
-// re-tiered — see the External Inputs row. Once it matches, this becomes the
-// same per-tier deep link the sport donations already use (#140).
+// and two years. Linking there would sell a package at half price. Since #144
+// we mint our own checkout instead, pricing each tier from the same array the
+// page renders — so the stale storefront items are simply out of the path, and
+// re-tiering them is no longer a blocker on taking sponsor money correctly.
 const SPONSOR_EMAIL = "slotabmembership@gmail.com";
 
 const ENQUIRY_BODY = [
@@ -65,17 +64,17 @@ export default function BusinessSponsorCTA() {
           <li>
             <span className="slotab-biz-step-n">2</span>
             <span>
-              <strong>Send us your business details.</strong> The button below
-              opens an email with everything we need: your tier, where you want
-              your banner, and your logo.
+              <strong>Send us your business details.</strong> A checkout
+              can take payment but it can&apos;t take a logo file — so we ask
+              for that, and your banner location, by email.
             </span>
           </li>
           <li>
             <span className="slotab-biz-step-n">3</span>
             <span>
-              <strong>We confirm and invoice you.</strong> A board member
-              confirms your package and arranges payment — by invoice, or by
-              check to the address on the sheet below.
+              <strong>Pay online, or by check.</strong> Every tier has a
+              secure-checkout button — the price is set for you, nothing to
+              enter. Prefer a check? The address is on the sheet below.
             </span>
           </li>
         </ol>
@@ -88,7 +87,7 @@ export default function BusinessSponsorCTA() {
             Start your sponsorship
           </a>
           <Link href="#sponsorship-tiers" className="slotab-btn outline">
-            See the tiers &amp; perks
+            See the tiers &amp; pay online
           </Link>
         </div>
 

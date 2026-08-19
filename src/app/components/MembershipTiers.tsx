@@ -1,117 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import {
+  SPONSOR_TIERS,
+  GENERAL_MEMBERSHIPS,
+  type SponsorTier,
+  type MembershipTier,
+} from "../data/sponsor-tiers";
 
-// The official 2026-2027 SLOTAB Memberships & Sponsorships sheet, as
-// distributed by the Sponsorship lead. This is the finalized offering
-// that superseded the two earlier /membership drafts (the
-// Supporter/Fan/Booster ladder and the Platinum/Gold/Silver/Bronze
-// business tiers). Prices + perks transcribed from the printed sheet.
-// If the board revises the offering, edit the arrays below.
+// Tier prices moved to `data/sponsor-tiers.ts` when they became billable —
+// this component renders them and `/api/square/payment-link` charges them, and
+// the two must not be able to drift. See the note in that file.
 
-type Tier = {
-  name: string;
-  /** Annual price in whole dollars. Omit for the any-amount entry tier. */
-  annual?: number;
-  /** Monthly recurring option, where the sheet offers one. */
-  monthly?: number;
-  /** Entry tier — any gift qualifies; shows "Any amount" instead of a price. */
-  anyAmount?: boolean;
-  /** Top-three tiers carry the "Includes Ad Perks" flag on the sheet. */
-  adPerks?: boolean;
-  perks: string[];
-};
-
-// The three premium, ad-perk sponsor tiers render as a 3-up top row.
-const AD_PERK_TIERS: Tier[] = [
-  {
-    name: "Champion Sponsor",
-    annual: 10000,
-    adPerks: true,
-    perks: [
-      "Logo on ALL SLOHS student-athlete t-shirts for a full year (submit logo + payment before a trimester starts to make that print run)",
-      "Digital ads on stadium scoreboard: football, soccer, track & field",
-      "Digital ads on gym scoreboard: basketball, stunt & volleyball",
-      "Featured game sponsor (sport of your choice) — designated seating + 6 tickets",
-      "Banners at THREE sporting locations of your choice for TWO years",
-      "Recognition on SLOTAB website and Tiger Teams App",
-      "Ten SLOHS All-Sport Annual Passes",
-    ],
-  },
-  {
-    name: "Gold Sponsor",
-    annual: 5000,
-    adPerks: true,
-    perks: [
-      "Digital ads on stadium scoreboard: football, soccer, track & field",
-      "Digital ads on gym scoreboard: basketball, stunt & volleyball",
-      "Banner at sporting location of your choice for TWO years",
-      "Recognition on SLOTAB website",
-      "Eight SLOHS All-Sport Annual Passes",
-    ],
-  },
-  {
-    name: "Silver Sponsor",
-    annual: 2500,
-    adPerks: true,
-    perks: [
-      "Banner at sporting location of your choice for one year",
-      "Recognition on SLOTAB website",
-      "Six SLOHS All-Sport Annual Passes",
-    ],
-  },
-];
-
-// Tiger Pride + Varsity share a centered second row below the ad-perk tiers.
-//
-// All-Sport Annual Pass counts scale with the sponsorship level, confirmed by
-// the board 2026-08-11: $500 -> 2 · $1,000 -> 4 · $2,500 -> 6 · $5,000 -> 8 ·
-// $10,000 -> 10. These supersede the counts transcribed from the printed
-// sheet in #88, which read 2/2/2/4/6 up the ladder.
-const SPONSOR_TIERS: Tier[] = [
-  {
-    name: "Tiger Pride",
-    annual: 1000,
-    monthly: 95,
-    perks: [
-      "Recognition on SLOTAB website",
-      "Four SLOHS All-Sport Annual Passes",
-    ],
-  },
-  {
-    name: "Varsity",
-    annual: 500,
-    monthly: 45,
-    perks: [
-      "Recognition on SLOTAB website",
-      "Two SLOHS All-Sport Annual Passes",
-    ],
-  },
-];
-
-const GENERAL_MEMBERSHIPS: Tier[] = [
-  {
-    name: "Family",
-    annual: 125,
-    monthly: 11,
-    perks: [
-      "One Single-Season Pass",
-      "Tiger news & event updates",
-      "Supports all sports",
-    ],
-  },
-  {
-    name: "Individual",
-    annual: 50,
-    monthly: 5,
-    perks: ["Tiger news & event updates", "Supports all sports"],
-  },
-  {
-    name: "Tiger Friend",
-    anyAmount: true,
-    perks: ["Tiger news & event updates", "Supports all sports"],
-  },
-];
+// The three ad-perk tiers render as a 3-up top row; Tiger Pride and Varsity
+// share a centered second row beneath them.
+const AD_PERK_TIERS = SPONSOR_TIERS.filter((t) => t.adPerks);
+const PAIR_TIERS = SPONSOR_TIERS.filter((t) => !t.adPerks);
 
 const MONEY = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -119,15 +24,71 @@ const MONEY = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
-function TierCard({ t }: { t: Tier }) {
+function SponsorCheckoutButton({ tier }: { tier: SponsorTier }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  return (
+    <>
+      <button
+        type="button"
+        className="slotab-btn slotab-tier-cta"
+        disabled={busy}
+        aria-busy={busy}
+        onClick={async () => {
+          setError(null);
+          setBusy(true);
+          try {
+            const res = await fetch("/api/square/payment-link", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              // Only the tier id crosses the wire. The price is looked up
+              // server-side — a posted amount would be a posted price.
+              body: JSON.stringify({ kind: "sponsorship", tierId: tier.id }),
+            });
+            const data = (await res.json()) as { url?: string; error?: string };
+            if (res.ok && data.url) {
+              window.location.href = data.url;
+              return;
+            }
+            setError(
+              res.status === 503
+                ? "Online payment isn't available yet — please email us and we'll invoice you."
+                : (data.error ?? "Could not start checkout — please try again."),
+            );
+          } catch {
+            setError("Could not reach checkout. Please try again.");
+          } finally {
+            setBusy(false);
+          }
+        }}
+      >
+        {busy ? "Opening checkout…" : `Sponsor at ${MONEY.format(tier.annual)}`}
+      </button>
+      {error && (
+        <p className="slotab-tier-error" role="alert">
+          {error}
+        </p>
+      )}
+    </>
+  );
+}
+
+function TierCard({
+  t,
+  sponsor,
+}: {
+  t: SponsorTier | MembershipTier;
+  sponsor?: SponsorTier;
+}) {
+  const anyAmount = "anyAmount" in t ? t.anyAmount : false;
+  const adPerks = "adPerks" in t ? t.adPerks : false;
   return (
     <div className="slotab-tier-card">
-      {t.adPerks && (
-        <span className="slotab-tier-badge">Includes Ad Perks</span>
-      )}
+      {adPerks && <span className="slotab-tier-badge">Includes Ad Perks</span>}
       <h3>{t.name}</h3>
       <div className="slotab-tier-amount">
-        {t.anyAmount ? (
+        {anyAmount ? (
           <span>
             Any amount
             <span className="slotab-tier-per slotab-tier-per-note">
@@ -151,6 +112,10 @@ function TierCard({ t }: { t: Tier }) {
           <li key={p}>{p}</li>
         ))}
       </ul>
+      {/* Sponsor tiers are billable here and now. General memberships aren't:
+          any donation enrols you at the matching level (#37), so they route
+          through /donate rather than carrying a price-specific button. */}
+      {sponsor && <SponsorCheckoutButton tier={sponsor} />}
     </div>
   );
 }
@@ -165,12 +130,12 @@ export default function MembershipTiers() {
         </h3>
         <div className="slotab-tier-grid slotab-tier-grid-three">
           {AD_PERK_TIERS.map((t) => (
-            <TierCard key={t.name} t={t} />
+            <TierCard key={t.id} t={t} sponsor={t} />
           ))}
         </div>
         <div className="slotab-tier-grid slotab-tier-grid-pair">
-          {SPONSOR_TIERS.map((t) => (
-            <TierCard key={t.name} t={t} />
+          {PAIR_TIERS.map((t) => (
+            <TierCard key={t.id} t={t} sponsor={t} />
           ))}
         </div>
       </div>
@@ -187,6 +152,7 @@ export default function MembershipTiers() {
       <div className="slotab-tier-foot">
         <h3 className="slotab-tier-join-head">How to Join</h3>
         <p>
+          Sponsors can pay online using the button on any tier above.
           Complete your membership online, or mail a check payable to{" "}
           <strong className="slotab-mail-address">
             SLOTAB, PO Box 16025, San&nbsp;Luis&nbsp;Obispo,&nbsp;CA&nbsp;93406

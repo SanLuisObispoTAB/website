@@ -106,6 +106,7 @@
 .tiger-sponsors-foot,
 .tiger-cta-inner,
 .slotab-notfound,
+.slotab-thanks,
 /* Catches `style={{ textAlign: "center" }}`, which React serialises with no
    space after the colon. Property-specific, so it can't match
    `justify-content: center` or similar. */
@@ -3376,4 +3377,39 @@ a.slotab-platinum-slide:hover {
   .slotab-biz-sponsor { padding: 2rem 0 2.25rem; }
   .slotab-biz-actions .tiger-btn,
   .slotab-biz-actions .slotab-btn { width: 100%; text-align: center; }
+}
+
+/* --------------------------------------------------------------------------
+   SPONSOR TIER CHECKOUT + THANK-YOU (phase one of the Square integration)
+   -------------------------------------------------------------------------- */
+
+/* Sits at the foot of a sponsor tier card. `margin-top: auto` pins it to the
+   bottom so the buttons line up across cards whose perk lists differ in
+   length — a ragged row of CTAs reads as a layout bug. */
+.slotab-tier-cta {
+  margin-top: auto;
+  align-self: stretch;
+  text-align: center;
+}
+
+.slotab-tier-card { display: flex; flex-direction: column; }
+
+.slotab-tier-error {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: #b00020;
+}
+
+.slotab-thanks {
+  max-width: 42rem;
+  text-align: center;
+}
+
+.slotab-thanks .slotab-btn-row { margin: 2rem 0 1.5rem; }
+
+.slotab-thanks-note {
+  font-size: 0.9rem;
+  color: var(--slotab-muted);
+  border-top: 1px solid var(--slotab-border);
+  padding-top: 1.25rem;
 }
