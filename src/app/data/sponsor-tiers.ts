@@ -132,3 +132,60 @@ export const GENERAL_MEMBERSHIPS: MembershipTier[] = [
     perks: ["Tiger news & event updates", "Supports all sports"],
   },
 ];
+
+
+// ---------------------------------------------------------------------------
+// THE COMBINED LADDER
+//
+// Businesses currently enrol through the same donate flow as families, so a
+// gift has to be placed against **both** halves of the sheet — the general
+// memberships above and the sponsorship tiers. Splitting them would put a
+// $5,000 gift at "Family", the top of a ladder that stops at $125, and leave
+// the five levels above it unreachable from the page where the money is
+// actually given.
+//
+// Lives here rather than in `DonateForm` because it is a fact about the
+// offering, not about that form: `/membership` renders these arrays and
+// `/donate` names a level from them, and the two disagreeing is exactly the
+// bug #158 fixed. If the board later splits business enrolment onto its own
+// path (the change Erik is arguing for), this is the one function to revisit.
+
+type Threshold = { name: string; annual: number; monthly?: number };
+
+/** Every paid level the club offers, richest first. */
+function rankedLevels(): Threshold[] {
+  return [
+    ...SPONSOR_TIERS.map((t) => ({
+      name: t.name,
+      annual: t.annual,
+      monthly: t.monthly,
+    })),
+    ...GENERAL_MEMBERSHIPS.filter((t) => !t.anyAmount).map((t) => ({
+      name: t.name,
+      annual: t.annual ?? 0,
+      monthly: t.monthly,
+    })),
+  ].sort((a, b) => b.annual - a.annual);
+}
+
+/** The level a gift of `amount` qualifies for, named exactly as `/membership`
+ *  names it. Returns null for a zero or negative amount.
+ *
+ *  `mode` exists for the recurring work that is currently switched off
+ *  (`RECURRING_ENABLED`, #154). Levels with no monthly price on the sheet —
+ *  Silver, Gold and Champion — are simply skipped when matching monthly, so a
+ *  monthly pledge can never be credited against a price the club does not
+ *  publish. */
+export function levelForGift(
+  amount: number,
+  mode: "one-time" | "monthly" = "one-time",
+): string | null {
+  if (amount <= 0) return null;
+  for (const t of rankedLevels()) {
+    const threshold = mode === "monthly" ? t.monthly : t.annual;
+    if (threshold != null && amount >= threshold) return t.name;
+  }
+  // Below every named level, and still a member — that is what Tiger Friend is
+  // for, and #37: every donation enrols you.
+  return GENERAL_MEMBERSHIPS.find((t) => t.anyAmount)?.name ?? null;
+}
