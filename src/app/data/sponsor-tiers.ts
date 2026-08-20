@@ -48,6 +48,13 @@ export type SponsorTier = {
 // form reports Varsity as having no picker at all, which is exactly the wrong
 // conclusion.
 //
+// Banners changed 2026-08-20: **only Champion and Gold carry one**, both now
+// for ONE year rather than two — Champion at three locations, Gold at one.
+// Silver's banner was withdrawn. Worth stating plainly because the earlier
+// ladder had Silver carrying a banner and the top two carrying two-year terms,
+// and the Square storefront descriptions still describe the old arrangement
+// until they are edited to match.
+//
 // All-Sport Annual Pass counts scale with the sponsorship level, confirmed by
 // the board 2026-08-11: $500 -> 2 · $1,000 -> 4 · $2,500 -> 6 · $5,000 -> 8 ·
 // $10,000 -> 10. These supersede the counts transcribed from the printed sheet
@@ -64,7 +71,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       "Digital ads on stadium scoreboard: football, soccer, track & field",
       "Digital ads on gym scoreboard: basketball, stunt & volleyball",
       "Featured game sponsor (sport of your choice) — designated seating + 6 tickets",
-      "Banners at THREE sporting locations of your choice for TWO years",
+      "Banners at THREE sporting locations of your choice for one year",
       "Recognition on SLOTAB website and Tiger Teams App",
       "Ten SLOHS All-Sport Annual Passes",
     ],
@@ -78,7 +85,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     perks: [
       "Digital ads on stadium scoreboard: football, soccer, track & field",
       "Digital ads on gym scoreboard: basketball, stunt & volleyball",
-      "Banner at sporting location of your choice for TWO years",
+      "Banner at sporting location of your choice for one year",
       "Recognition on SLOTAB website",
       "Eight SLOHS All-Sport Annual Passes",
     ],
@@ -90,7 +97,6 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     adPerks: true,
     sportsCredit: 3,
     perks: [
-      "Banner at sporting location of your choice for one year",
       "Recognition on SLOTAB website",
       "Six SLOHS All-Sport Annual Passes",
     ],
