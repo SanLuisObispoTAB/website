@@ -211,16 +211,27 @@ export async function POST(req: Request) {
       teamDisplayName(TEAMS.find((t) => t.slug === slug)!),
     );
 
+    // Square's checkout collects a *buyer* — a person with a card — and has
+    // nowhere to record which business that person is paying for. Without this
+    // the Treasurer gets a contact's name against a $5,000 sponsorship and has
+    // to guess the company, so it goes in the note and the metadata.
+    const businessName =
+      typeof body.businessName === "string"
+        ? body.businessName.trim().slice(0, 120)
+        : "";
+
     // Server-derived. The request said which tier, not what it costs.
     amountCents = tier.annual * 100;
     lineItemName = `${tier.name} — 2026-27 business sponsorship`;
     note =
       `SLOTAB business sponsorship — ${tier.name} ($${tier.annual}/year)` +
+      (businessName ? ` — ${businessName}` : "") +
       (sportLabels.length
         ? ` — credited to ${sportLabels.join(", ")}`
         : " — no sport designated");
     metadata.kind = "sponsorship";
     metadata.tier = tier.id;
+    if (businessName) metadata.business = businessName;
     // Slugs, not labels: this is the field the Treasurer's report groups on,
     // and labels have already changed once this week.
     if (sports.length) metadata.sports = sports.join(",");

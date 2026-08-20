@@ -3606,3 +3606,58 @@ a.slotab-platinum-slide:hover {
   flex-wrap: wrap;
   margin-top: 0.7rem;
 }
+
+/* --------------------------------------------------------------------------
+   BUSINESS SPONSORSHIP tab inside the donate box
+   -------------------------------------------------------------------------- */
+.slotab-biz-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.5rem;
+}
+
+.slotab-biz-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.6rem 0.5rem;
+  border: 2px solid var(--slotab-border);
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  text-align: center;
+  font: inherit;
+}
+
+.slotab-biz-tier:hover { border-color: var(--slotab-gold-dark); }
+
+.slotab-biz-tier.on {
+  border-color: var(--slotab-gold);
+  background: #fffdf5;
+  box-shadow: 0 0 0 3px rgba(255, 205, 56, 0.28);
+}
+
+.slotab-biz-tier-name { font-size: 0.82rem; font-weight: 700; line-height: 1.2; }
+.slotab-biz-tier-price { font-size: 1.05rem; font-weight: 800; }
+
+.slotab-biz-tier-perk {
+  margin: 0.6rem 0 0;
+  font-size: 0.82rem;
+  color: var(--slotab-muted);
+}
+
+/* The invoice route is a peer of the card button, not a footnote — a sponsor
+   who needs a PO should not feel they are taking the lesser option. */
+.slotab-biz-invoice {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--slotab-border);
+}
+
+.slotab-biz-invoice-lead {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.slotab-biz-invoice p { font-size: 0.87rem; margin: 0 0 0.7rem; }

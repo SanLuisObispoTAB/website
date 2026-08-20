@@ -7,6 +7,7 @@ import teamsData from "../data/teams.json";
 // longer part of the flow: we mint our own line item now, so a designation is
 // carried verbatim instead of collapsing onto a shared storefront tile.
 import { squareDonateUrl } from "../data/square-donate";
+import BusinessSponsorPanel from "./BusinessSponsorPanel";
 // One source of truth with /membership, so the level a donor is promised
 // here is the level that page describes.
 // One source of truth with /membership, across BOTH halves of the sheet —
@@ -122,6 +123,10 @@ export default function DonateForm({
   // and the donor must key it in. Telling a storefront donor "the amount is
   // already set" would send them through a checkout they'd underpay.
   const [handoffMode, setHandoffMode] = useState<"link" | "storefront">("link");
+  // Which half of the box is showing. General membership is the default
+  // deliberately: it is the overwhelming majority of traffic, and a parent
+  // should never have to dismiss a business form to give $50.
+  const [audience, setAudience] = useState<"general" | "business">("general");
   // Held rather than followed immediately, so the panel above can be read.
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
@@ -226,6 +231,38 @@ export default function DonateForm({
 
   return (
     <div className="slotab-donate-form">
+      {/* Audience tabs. Reuses the mode-toggle styling left behind when
+          monthly giving was pulled (#154) — same shape, same position, and one
+          set of rules for the control at the top of this box. */}
+      <div
+        className="slotab-donate-mode"
+        role="tablist"
+        aria-label="Who is giving"
+      >
+        <button
+          type="button"
+          role="tab"
+          aria-selected={audience === "general"}
+          className={`slotab-donate-mode-btn ${audience === "general" ? "on" : ""}`}
+          onClick={() => setAudience("general")}
+        >
+          General membership
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={audience === "business"}
+          className={`slotab-donate-mode-btn ${audience === "business" ? "on" : ""}`}
+          onClick={() => setAudience("business")}
+        >
+          Business sponsorship
+        </button>
+      </div>
+
+      {audience === "business" ? (
+        <BusinessSponsorPanel />
+      ) : (
+        <>
       {/* Mode toggle — hidden until recurring is real; see RECURRING_ENABLED */}
       {RECURRING_ENABLED && (
     <div
@@ -668,6 +705,8 @@ export default function DonateForm({
             </>
           )}
         </div>
+      )}
+        </>
       )}
       <p className="slotab-donate-note">
         SLOTAB is a 501(c)(3) charitable organization. Gifts are tax-

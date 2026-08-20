@@ -9,22 +9,11 @@ import {
   type SponsorTier,
   type MembershipTier,
 } from "../data/sponsor-tiers";
-import teamsData from "../data/teams.json";
+import SportPicker from "./SportPicker";
 
-type Team = { slug: string; name: string; gender?: string };
-
-// Same list and the same labels /donate offers, so a business sees the sports
-// named the way the rest of the site names them.
-const TEAMS = (teamsData.teams as Team[])
-  .map((t) => ({
-    slug: t.slug,
-    label: !t.gender || t.gender === "Co-ed" ? t.name : `${t.name} (${t.gender})`,
-  }))
-  .sort((a, b) => a.label.localeCompare(b.label));
-
-// Tier prices moved to `data/sponsor-tiers.ts` when they became billable —
-// this component renders them and `/api/square/payment-link` charges them, and
-// the two must not be able to drift. See the note in that file.
+// Tier prices live in `data/sponsor-tiers.ts` because they are charged as well
+// as displayed — this component renders them and the payment-link route bills
+// them, and the two must not drift.
 
 // The three ad-perk tiers render as a 3-up top row; Tiger Pride and Varsity
 // share a centered second row beneath them.
@@ -99,39 +88,12 @@ function SponsorCheckoutButton({ tier }: { tier: SponsorTier }) {
           : `Which sports should your sponsorship be credited to? Choose up to ${tier.sportsCredit}.`}
       </p>
 
-      <div className="slotab-sport-picker-grid" role="group">
-        {TEAMS.map((t) => {
-          const on = picked.includes(t.slug);
-          // Beyond the allowance the remaining boxes are disabled rather than
-          // hidden, so the limit is visible instead of mysterious.
-          const blocked = !on && atLimit;
-          return (
-            <label
-              key={t.slug}
-              className={`slotab-sport-option${blocked ? " blocked" : ""}`}
-            >
-              <input
-                type="checkbox"
-                checked={on}
-                disabled={blocked}
-                onChange={() =>
-                  setPicked((prev) =>
-                    prev.includes(t.slug)
-                      ? prev.filter((s) => s !== t.slug)
-                      : [...prev, t.slug],
-                  )
-                }
-              />
-              <span>{t.label}</span>
-            </label>
-          );
-        })}
-      </div>
-
-      <p className="slotab-sport-picker-count" aria-live="polite">
-        {picked.length} of {tier.sportsCredit} chosen
-        {picked.length === 0 && " — optional, you can skip this"}
-      </p>
+      <SportPicker
+        limit={tier.sportsCredit}
+        picked={picked}
+        onChange={setPicked}
+        idPrefix={`tier-${tier.id}`}
+      />
 
       <div className="slotab-sport-picker-actions">
         <button
