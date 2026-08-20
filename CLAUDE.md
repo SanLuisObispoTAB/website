@@ -101,16 +101,17 @@ the convention.
   single-squad template. Multi-squad expectations live in
   `EXPECTED_SQUADS` — add a slug there and the missing squads get
   tracked automatically.
-- **`npm run square-report`** produces the Treasurer's per-sport allocation
-  from Square — gross, 75% team share and 25% general share per designation,
-  for a date range (`-- --since 2026-07-01 --until 2026-08-01`, `-- --csv
-  out.csv`). It exists because **Trina reconciles from a QuickBooks connector,
-  and those post a daily summary with no line detail** — so the sport a donor
-  chose never reaches her ledger, however carefully the site puts it in the
-  transaction. Keys on `metadata.designation` / `metadata.level`, never on the
-  line item name: names are for humans and have already changed twice.
-  Excludes DRAFT orders (abandoned checkouts) and anything tagged
-  `metadata.test` (board test gifts, #153). Read-only. See decision #161.
+- **The Treasurer's donation report lives at `/board/square-report`**, inside
+  the password-gated Board Hub — not a CLI script, because the person who needs
+  it is a volunteer Treasurer who will not run `node`. Pick a date range, read
+  the per-designation table (gross · 75% team · 25% general), download CSV.
+  It exists because **Trina reconciles from a QuickBooks connector, and those
+  post a daily summary with no line detail** — so the sport a donor chose never
+  reaches her ledger. Logic is in `src/lib/square-report.ts`; it keys on
+  `metadata.designation` / `.level` / `.sports`, never the line item name, and
+  excludes abandoned checkouts and anything tagged `metadata.test`. The CSV
+  route under `/api/board/` **checks the session itself** — the proxy only gates
+  paths starting with `/board`. See decisions #161 and #169.
 - **`npm run photo-usage`** audits `public/photos` as a library: which
   photos nothing references, which are **the same image under two
   filenames** (16x16 grayscale signature, so it catches re-crops and

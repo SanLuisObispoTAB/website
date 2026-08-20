@@ -3705,3 +3705,81 @@ a.slotab-platinum-slide:hover {
 }
 
 .slotab-biz-invoice p { font-size: 0.87rem; margin: 0 0 0.7rem; }
+
+/* --------------------------------------------------------------------------
+   BOARD DONATION REPORT (/board/square-report)
+   -------------------------------------------------------------------------- */
+.slotab-board-back { font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+.slotab-report-range {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0;
+  padding: 0.9rem 1rem;
+  background: var(--slotab-bg-alt);
+  border: 1px solid var(--slotab-border);
+  border-radius: 6px;
+}
+
+.slotab-report-range label { display: flex; flex-direction: column; gap: 0.2rem; }
+.slotab-report-range span { font-size: 0.78rem; font-weight: 700; }
+.slotab-report-range input {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--slotab-border);
+  border-radius: 4px;
+  font: inherit;
+}
+
+/* Money tables are the one thing on this site that may legitimately be wider
+   than the page on a phone, so it scrolls in its own box rather than making
+   the whole page scroll sideways. */
+.slotab-report-scroll { overflow-x: auto; }
+
+.slotab-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.slotab-report-table th,
+.slotab-report-table td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--slotab-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.slotab-report-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.slotab-report-table tfoot th {
+  border-top: 2px solid var(--slotab-black);
+  border-bottom: none;
+  font-weight: 800;
+}
+
+.slotab-report-sub {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--slotab-muted);
+}
+
+.slotab-report-sandbox,
+.slotab-report-error {
+  border-left: 4px solid #b00020;
+  background: #fff4f4;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.slotab-report-notes {
+  font-size: 0.83rem;
+  color: var(--slotab-muted);
+  margin-top: 1rem;
+}

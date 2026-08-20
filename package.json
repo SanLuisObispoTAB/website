@@ -11,8 +11,7 @@
     "update-events": "node scripts/update-slotab-events.mjs",
     "photo-intake": "node scripts/photo-intake.mjs",
     "team-audit": "node scripts/team-audit.mjs",
-    "photo-usage": "node scripts/photo-usage.mjs",
-    "square-report": "node scripts/square-report.mjs"
+    "photo-usage": "node scripts/photo-usage.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

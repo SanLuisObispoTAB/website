@@ -255,7 +255,7 @@ export default function DonateForm({
           className={`slotab-donate-mode-btn ${audience === "business" ? "on" : ""}`}
           onClick={() => setAudience("business")}
         >
-          Business sponsorship
+          Sponsorship
         </button>
       </div>
 
