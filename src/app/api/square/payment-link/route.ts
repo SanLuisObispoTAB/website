@@ -184,12 +184,46 @@ export async function POST(req: Request) {
     const tier = typeof body.tierId === "string" ? sponsorTierById(body.tierId) : undefined;
     if (!tier) return bad("Unknown sponsorship tier");
 
+    // Sports the sponsorship is credited to. The storefront has always offered
+    // this and the integration did not, which would have been a regression the
+    // day it replaced the storefront — a Champion sponsor entitled to credit
+    // five sports could name none.
+    //
+    // Both the membership of this list and its length are checked here. The
+    // client renders the limit from the same `sportsCredit` field, but a UI
+    // that disables a checkbox is a courtesy, not a control: the perk is worth
+    // real money, so the server decides how many a tier may claim.
+    const rawSports = Array.isArray(body.sports) ? body.sports : [];
+    const sports: string[] = [];
+    for (const raw of rawSports) {
+      if (typeof raw !== "string") return bad("Invalid sport selection");
+      const team = TEAMS.find((t) => t.slug === raw);
+      if (!team) return bad(`Unknown sport: ${raw}`);
+      if (!sports.includes(raw)) sports.push(raw);
+    }
+    if (sports.length > tier.sportsCredit) {
+      return bad(
+        `${tier.name} may be credited to at most ${tier.sportsCredit} sport${tier.sportsCredit === 1 ? "" : "s"}`,
+      );
+    }
+
+    const sportLabels = sports.map((slug) =>
+      teamDisplayName(TEAMS.find((t) => t.slug === slug)!),
+    );
+
     // Server-derived. The request said which tier, not what it costs.
     amountCents = tier.annual * 100;
     lineItemName = `${tier.name} — 2026-27 business sponsorship`;
-    note = `SLOTAB business sponsorship — ${tier.name} ($${tier.annual}/year)`;
+    note =
+      `SLOTAB business sponsorship — ${tier.name} ($${tier.annual}/year)` +
+      (sportLabels.length
+        ? ` — credited to ${sportLabels.join(", ")}`
+        : " — no sport designated");
     metadata.kind = "sponsorship";
     metadata.tier = tier.id;
+    // Slugs, not labels: this is the field the Treasurer's report groups on,
+    // and labels have already changed once this week.
+    if (sports.length) metadata.sports = sports.join(",");
   } else if (kind === "donation") {
     const designation = typeof body.designation === "string" ? body.designation : "";
     const isGeneral = designation === "general";

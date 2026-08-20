@@ -5,9 +5,22 @@ import Link from "next/link";
 import {
   SPONSOR_TIERS,
   GENERAL_MEMBERSHIPS,
+  sportsCreditPerk,
   type SponsorTier,
   type MembershipTier,
 } from "../data/sponsor-tiers";
+import teamsData from "../data/teams.json";
+
+type Team = { slug: string; name: string; gender?: string };
+
+// Same list and the same labels /donate offers, so a business sees the sports
+// named the way the rest of the site names them.
+const TEAMS = (teamsData.teams as Team[])
+  .map((t) => ({
+    slug: t.slug,
+    label: !t.gender || t.gender === "Co-ed" ? t.name : `${t.name} (${t.gender})`,
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label));
 
 // Tier prices moved to `data/sponsor-tiers.ts` when they became billable —
 // this component renders them and `/api/square/payment-link` charges them, and
@@ -25,52 +38,130 @@ const MONEY = new Intl.NumberFormat("en-US", {
 });
 
 function SponsorCheckoutButton({ tier }: { tier: SponsorTier }) {
+  const [open, setOpen] = useState(false);
+  const [picked, setPicked] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  return (
-    <>
+  const atLimit = picked.length >= tier.sportsCredit;
+
+  async function checkout() {
+    setError(null);
+    setBusy(true);
+    try {
+      const res = await fetch("/api/square/payment-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // Only the tier id and the chosen slugs cross the wire. The price and
+        // the limit on how many sports this tier may credit are both looked up
+        // server-side — a posted amount would be a posted price, and a posted
+        // limit would be a posted perk.
+        body: JSON.stringify({
+          kind: "sponsorship",
+          tierId: tier.id,
+          sports: picked,
+        }),
+      });
+      const data = (await res.json()) as { url?: string; error?: string };
+      if (res.ok && data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setError(
+        res.status === 503
+          ? "Online payment isn't available yet — please email us and we'll invoice you."
+          : (data.error ?? "Could not start checkout — please try again."),
+      );
+    } catch {
+      setError("Could not reach checkout. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (!open) {
+    return (
       <button
         type="button"
         className="slotab-btn slotab-tier-cta"
-        disabled={busy}
-        aria-busy={busy}
-        onClick={async () => {
-          setError(null);
-          setBusy(true);
-          try {
-            const res = await fetch("/api/square/payment-link", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              // Only the tier id crosses the wire. The price is looked up
-              // server-side — a posted amount would be a posted price.
-              body: JSON.stringify({ kind: "sponsorship", tierId: tier.id }),
-            });
-            const data = (await res.json()) as { url?: string; error?: string };
-            if (res.ok && data.url) {
-              window.location.href = data.url;
-              return;
-            }
-            setError(
-              res.status === 503
-                ? "Online payment isn't available yet — please email us and we'll invoice you."
-                : (data.error ?? "Could not start checkout — please try again."),
-            );
-          } catch {
-            setError("Could not reach checkout. Please try again.");
-          } finally {
-            setBusy(false);
-          }
-        }}
+        onClick={() => setOpen(true)}
       >
-        {busy ? "Opening checkout…" : `Sponsor at ${MONEY.format(tier.annual)}`}
+        {`Sponsor at ${MONEY.format(tier.annual)}`}
       </button>
+    );
+  }
+
+  return (
+    <div className="slotab-sport-picker">
+      <p className="slotab-sport-picker-lead">
+        {tier.sportsCredit === 1
+          ? "Which sport should your sponsorship be credited to?"
+          : `Which sports should your sponsorship be credited to? Choose up to ${tier.sportsCredit}.`}
+      </p>
+
+      <div className="slotab-sport-picker-grid" role="group">
+        {TEAMS.map((t) => {
+          const on = picked.includes(t.slug);
+          // Beyond the allowance the remaining boxes are disabled rather than
+          // hidden, so the limit is visible instead of mysterious.
+          const blocked = !on && atLimit;
+          return (
+            <label
+              key={t.slug}
+              className={`slotab-sport-option${blocked ? " blocked" : ""}`}
+            >
+              <input
+                type="checkbox"
+                checked={on}
+                disabled={blocked}
+                onChange={() =>
+                  setPicked((prev) =>
+                    prev.includes(t.slug)
+                      ? prev.filter((s) => s !== t.slug)
+                      : [...prev, t.slug],
+                  )
+                }
+              />
+              <span>{t.label}</span>
+            </label>
+          );
+        })}
+      </div>
+
+      <p className="slotab-sport-picker-count" aria-live="polite">
+        {picked.length} of {tier.sportsCredit} chosen
+        {picked.length === 0 && " — optional, you can skip this"}
+      </p>
+
+      <div className="slotab-sport-picker-actions">
+        <button
+          type="button"
+          className="slotab-btn"
+          disabled={busy}
+          aria-busy={busy}
+          onClick={checkout}
+        >
+          {busy ? "Opening checkout…" : `Continue — ${MONEY.format(tier.annual)}`}
+        </button>
+        <button
+          type="button"
+          className="slotab-btn outline"
+          onClick={() => {
+            setOpen(false);
+            setPicked([]);
+            setError(null);
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+
       {error && (
         <p className="slotab-tier-error" role="alert">
           {error}
         </p>
       )}
-    </>
+    </div>
   );
 }
 
@@ -111,6 +202,12 @@ function TierCard({
         {t.perks.map((p) => (
           <li key={p}>{p}</li>
         ))}
+        {/* Driven by the tier itself, not by `sponsor` — that prop is gated on
+            whether checkout is switched on, and how many sports a sponsorship
+            credits is true either way. Reading it from `sponsor` would make the
+            perk disappear whenever SQUARE_LIVE_DONATE is off, which is exactly
+            the state the live site is in today. */}
+        {"sportsCredit" in t && <li>{sportsCreditPerk(t.sportsCredit)}</li>}
       </ul>
       {/* Sponsor tiers are billable here and now. General memberships aren't:
           any donation enrols you at the matching level (#37), so they route

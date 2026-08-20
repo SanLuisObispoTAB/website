@@ -25,6 +25,14 @@ export type SponsorTier = {
   monthly?: number;
   /** The top three tiers carry the "Includes Ad Perks" flag on the sheet. */
   adPerks?: boolean;
+  /** How many sports this sponsorship may be credited to.
+   *
+   *  A number rather than a sentence in `perks`, because it is now doing two
+   *  jobs: `/membership` renders the bullet from it, and the payment-link route
+   *  refuses a request that selects more than this many. A display string and a
+   *  validation constant that can disagree is the #145 failure all over again —
+   *  a card promising four while the server accepts three. */
+  sportsCredit: number;
   perks: string[];
 };
 
@@ -50,6 +58,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Champion Sponsor",
     annual: 10000,
     adPerks: true,
+    sportsCredit: 5,
     perks: [
       "Logo on ALL SLOHS student-athlete t-shirts for a full year (submit logo + payment before a trimester starts to make that print run)",
       "Digital ads on stadium scoreboard: football, soccer, track & field",
@@ -58,7 +67,6 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       "Banners at THREE sporting locations of your choice for TWO years",
       "Recognition on SLOTAB website and Tiger Teams App",
       "Ten SLOHS All-Sport Annual Passes",
-      "Choose up to five sports to receive the credit",
     ],
   },
   {
@@ -66,13 +74,13 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Gold Sponsor",
     annual: 5000,
     adPerks: true,
+    sportsCredit: 4,
     perks: [
       "Digital ads on stadium scoreboard: football, soccer, track & field",
       "Digital ads on gym scoreboard: basketball, stunt & volleyball",
       "Banner at sporting location of your choice for TWO years",
       "Recognition on SLOTAB website",
       "Eight SLOHS All-Sport Annual Passes",
-      "Choose up to four sports to receive the credit",
     ],
   },
   {
@@ -80,11 +88,11 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Silver Sponsor",
     annual: 2500,
     adPerks: true,
+    sportsCredit: 3,
     perks: [
       "Banner at sporting location of your choice for one year",
       "Recognition on SLOTAB website",
       "Six SLOHS All-Sport Annual Passes",
-      "Choose up to three sports to receive the credit",
     ],
   },
   {
@@ -92,10 +100,10 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Tiger Pride",
     annual: 1000,
     monthly: 95,
+    sportsCredit: 2,
     perks: [
       "Recognition on SLOTAB website",
       "Four SLOHS All-Sport Annual Passes",
-      "Choose up to two sports to receive the credit",
     ],
   },
   {
@@ -103,10 +111,10 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Varsity",
     annual: 500,
     monthly: 45,
+    sportsCredit: 1,
     perks: [
       "Recognition on SLOTAB website",
       "Two SLOHS All-Sport Annual Passes",
-      "Choose one sport to receive the credit",
     ],
   },
 ];
@@ -168,6 +176,17 @@ export const GENERAL_MEMBERSHIPS: MembershipTier[] = [
 // path (the change Erik is arguing for), this is the one function to revisit.
 
 type Threshold = { name: string; annual: number; monthly?: number };
+
+/** Renders the sports-credit bullet from `sportsCredit`, so the wording and
+ *  the limit cannot drift apart. Spelled out rather than numeric to sit
+ *  naturally beside the other perks ("Six SLOHS All-Sport Annual Passes"). */
+export function sportsCreditPerk(n: number): string {
+  const words = ["", "one", "two", "three", "four", "five", "six"];
+  const word = words[n] ?? String(n);
+  return n === 1
+    ? "Choose one sport to receive the credit"
+    : `Choose up to ${word} sports to receive the credit`;
+}
 
 /** Every paid level the club offers, richest first. */
 function rankedLevels(): Threshold[] {

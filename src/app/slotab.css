@@ -3548,3 +3548,61 @@ a.slotab-platinum-slide:hover {
   color: var(--slotab-muted);
   font-variant-numeric: tabular-nums; /* stops the width jitter as it ticks */
 }
+
+/* --------------------------------------------------------------------------
+   SPORT PICKER on the sponsorship tier cards
+   Sits inside a tier card on the cream membership sheet. Scrolls internally
+   rather than stretching the card, so a 27-sport list doesn't make the three
+   cards in a row wildly different heights.
+   -------------------------------------------------------------------------- */
+.slotab-sport-picker {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--slotab-border);
+  text-align: left;
+}
+
+.slotab-sport-picker-lead {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.slotab-sport-picker-grid {
+  max-height: 13rem;
+  overflow-y: auto;
+  border: 1px solid var(--slotab-border);
+  border-radius: 4px;
+  background: #fff;
+  padding: 0.4rem 0.55rem;
+}
+
+.slotab-sport-option {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.18rem 0;
+  font-size: 0.83rem;
+  cursor: pointer;
+}
+
+.slotab-sport-option input { cursor: pointer; }
+
+/* Kept visible but clearly unavailable once the tier's allowance is used up —
+   a vanished option reads as a bug, a dimmed one reads as a limit. */
+.slotab-sport-option.blocked { opacity: 0.4; cursor: not-allowed; }
+.slotab-sport-option.blocked input { cursor: not-allowed; }
+
+.slotab-sport-picker-count {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--slotab-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.slotab-sport-picker-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.7rem;
+}
