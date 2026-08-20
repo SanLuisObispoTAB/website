@@ -130,7 +130,32 @@ export default function BusinessSponsorPanel() {
             </button>
           ))}
         </div>
-        <p className="slotab-biz-tier-perk">{sportsCreditPerk(tier.sportsCredit)}</p>
+        {/* What the selected tier actually buys. `aria-live` so switching tier
+            announces the new package rather than silently swapping it under a
+            screen-reader user.
+
+            Monthly prices are deliberately NOT shown here even though the
+            sheet carries them for Tiger Pride and Varsity: this box sits
+            directly above a card button that can only charge the annual
+            amount, and advertising a monthly option beside it would promise
+            something checkout cannot do — the same fault that had monthly
+            giving pulled from this form in #154. */}
+        <div className="slotab-biz-perks" aria-live="polite">
+          <div className="slotab-biz-perks-head">
+            <h4>{tier.name}</h4>
+            {tier.adPerks && (
+              <span className="slotab-biz-perks-badge">Includes Ad Perks</span>
+            )}
+          </div>
+          <ul>
+            {tier.perks.map((perk) => (
+              <li key={perk}>{perk}</li>
+            ))}
+            {/* Generated from `sportsCredit`, same as the tier cards, so the
+                number here can never disagree with the picker below it. */}
+            <li>{sportsCreditPerk(tier.sportsCredit)}</li>
+          </ul>
+        </div>
       </fieldset>
 
       <fieldset className="slotab-donate-fieldset">

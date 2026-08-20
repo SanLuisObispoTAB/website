@@ -3640,11 +3640,55 @@ a.slotab-platinum-slide:hover {
 .slotab-biz-tier-name { font-size: 0.82rem; font-weight: 700; line-height: 1.2; }
 .slotab-biz-tier-price { font-size: 1.05rem; font-weight: 800; }
 
-.slotab-biz-tier-perk {
-  margin: 0.6rem 0 0;
-  font-size: 0.82rem;
-  color: var(--slotab-muted);
+/* What the selected tier buys. Gold so it reads as the reward for the choice
+   made directly above it, rather than as another form field. */
+.slotab-biz-perks {
+  margin-top: 0.85rem;
+  border: 2px solid var(--slotab-gold);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffaea 0%, #fffdf6 100%);
+  padding: 0.85rem 1rem 0.9rem;
 }
+
+.slotab-biz-perks-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(230, 181, 42, 0.45);
+}
+
+.slotab-biz-perks-head h4 {
+  margin: 0;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+}
+
+.slotab-biz-perks-badge {
+  font-family: var(--font-tiger-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+}
+
+.slotab-biz-perks ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.slotab-biz-perks li {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  margin-bottom: 0.2rem;
+}
+
+.slotab-biz-perks li::marker { color: var(--slotab-gold-dark); }
 
 /* The invoice route is a peer of the card button, not a footnote — a sponsor
    who needs a PO should not feel they are taking the lesser option. */
