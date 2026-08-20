@@ -28,6 +28,18 @@ export type SponsorTier = {
   perks: string[];
 };
 
+// Sports-credit counts (5 / 4 / 3 / 2 / 1 down the ladder) were read off the
+// live storefront items on 2026-08-20, not inferred. They were missing from the
+// #88 transcription entirely, so `/membership` described banners, passes and
+// scoreboard ads while saying nothing about the one perk a business has to make
+// a decision about — and a sponsor could only discover it after reaching Square.
+//
+// Worth knowing if these ever need re-reading: the wording is not uniform. Four
+// tiers render "Sport(s) … (choose up to N)" while **Varsity** renders "Sport …
+// (choose 1)", singular and without "up to". A pattern matching only the first
+// form reports Varsity as having no picker at all, which is exactly the wrong
+// conclusion.
+//
 // All-Sport Annual Pass counts scale with the sponsorship level, confirmed by
 // the board 2026-08-11: $500 -> 2 · $1,000 -> 4 · $2,500 -> 6 · $5,000 -> 8 ·
 // $10,000 -> 10. These supersede the counts transcribed from the printed sheet
@@ -46,6 +58,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       "Banners at THREE sporting locations of your choice for TWO years",
       "Recognition on SLOTAB website and Tiger Teams App",
       "Ten SLOHS All-Sport Annual Passes",
+      "Choose up to five sports to receive the credit",
     ],
   },
   {
@@ -59,6 +72,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       "Banner at sporting location of your choice for TWO years",
       "Recognition on SLOTAB website",
       "Eight SLOHS All-Sport Annual Passes",
+      "Choose up to four sports to receive the credit",
     ],
   },
   {
@@ -70,6 +84,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       "Banner at sporting location of your choice for one year",
       "Recognition on SLOTAB website",
       "Six SLOHS All-Sport Annual Passes",
+      "Choose up to three sports to receive the credit",
     ],
   },
   {
@@ -80,6 +95,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     perks: [
       "Recognition on SLOTAB website",
       "Four SLOHS All-Sport Annual Passes",
+      "Choose up to two sports to receive the credit",
     ],
   },
   {
@@ -90,6 +106,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     perks: [
       "Recognition on SLOTAB website",
       "Two SLOHS All-Sport Annual Passes",
+      "Choose one sport to receive the credit",
     ],
   },
 ];
