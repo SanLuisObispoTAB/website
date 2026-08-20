@@ -44,11 +44,61 @@ at all, and both are things the club already has.
    Businesses). Erik has already looked and sees only merch — but worth a
    second look now that the merchant IDs are known and can be told apart.
 
-## If those fail — Square Support
+## The mailbox probe — Square's own suggestion, made usable
 
-Square can look up an account by merchant ID and confirm a **masked** email
-without breaching the holder's privacy, the same way GoDaddy support did for
-the domain.
+Square's first-line (AI) support **declined to look the account up**, citing
+privacy, and suggested instead: *"If you have access to any email accounts that
+may have been used, you can try the password reset process at
+squareup.com/password."* That is actually a workable lead, because Square only
+sends a reset mail to an address that **has** an account — so it answers *"was
+this account created under a club mailbox?"* without needing Square's
+cooperation.
+
+The club has **nine shared Gmail addresses**, all referenced in this repo. In
+rough order of likelihood for a *membership and donations* storefront:
+
+| Mailbox | Why it is a candidate |
+|---|---|
+| `slotabmembership@gmail.com` | The storefront sells **memberships**. First thing to try. |
+| `slotabtreas@gmail.com` | Treasurer — the role that would wire a payment processor |
+| `slotabpres@gmail.com` | Presidents have historically set up vendor accounts |
+| `slotabsec@gmail.com` | **Erik already has this one** (it held the GoDaddy account) |
+| `slotabboard@gmail.com` | Generic board mailbox |
+| `slotab.tigerapparel@gmail.com` | Most likely owner of the **merch** account `1RZ6X80KDPPNR` — worth confirming, because proving which mailbox owns the account we *do* control tells us how these were set up |
+| `slotabcommunications@gmail.com`, `slotabboosterbash@gmail.com`, `slotabseniorbanners@gmail.com` | Less likely, cheap to rule out |
+
+**Only probe mailboxes the club owns and someone can actually open.** The point
+is to find which club address holds the account, not to attempt entry
+anywhere else. If a reset mail arrives in a club mailbox, that is the answer —
+and it is also the recovery.
+
+## The $25 receipt route
+
+If the mailbox probe comes up empty, **buy the cheapest item on the storefront**
+— Individual Membership, $25. The money goes to the club either way, so nothing
+is wasted, and it produces:
+
+- a **Square receipt naming the seller**, with whatever support contact the
+  account has configured;
+- a **transaction you are a party to**, which changes the conversation with
+  Square support entirely — you are no longer a stranger asking about someone
+  else's account, you are a customer with a receipt asking to reach the seller.
+
+## If those fail — Square Support, but a human
+
+
+
+**Do not repeat the chat attempt.** Square's AI support has already refused
+this once, and first-line chat has neither the authority nor the tooling to do
+an ownership lookup. The GoDaddy equivalent only moved when a human was on the
+line, and Square's own developer forum gives the same advice for account
+questions — phone, so the agent can look at the account while you talk.
+
+Sign in to the account you *do* control (`1RZ6X80KDPPNR`) to reach seller
+support, then ask for the **account recovery / ownership** team rather than
+billing or technical support. A human can confirm a **masked** email without
+breaching the holder's privacy, the same way GoDaddy support did for the
+domain.
 
 **The ask:** *"We are a 501(c)(3) and this Square account is taking donations
 on our behalf. Please confirm the masked email on the account that owns
