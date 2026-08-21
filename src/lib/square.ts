@@ -112,10 +112,18 @@ export function isPreviewUnlock(token: unknown): boolean {
   return diff === 0;
 }
 
+/** Which Square to talk to. Exported because the webhook route needs the same
+ *  answer, and this string was already written out twice in this file — a
+ *  third copy is how sandbox and production drift apart. */
+export function squareApiBase(): string {
+  return (process.env.SQUARE_ENVIRONMENT ?? "sandbox") === "production"
+    ? "https://connect.squareup.com"
+    : "https://connect.squareupsandbox.com";
+}
+
 function config(previewUnlock = false) {
   const token = process.env.SQUARE_ACCESS_TOKEN;
   const locationId = process.env.SQUARE_LOCATION_ID;
-  const environment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
   if (!token || !locationId) {
     throw new Error(
       "Square is not configured — SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID must be set",
@@ -128,11 +136,7 @@ function config(previewUnlock = false) {
       "Refusing to use sandbox Square credentials on the live site — set SQUARE_ENVIRONMENT=production with a production token",
     );
   }
-  const base =
-    environment === "production"
-      ? "https://connect.squareup.com"
-      : "https://connect.squareupsandbox.com";
-  return { token, locationId, base };
+  return { token, locationId, base: squareApiBase() };
 }
 
 /** True when Square is configured *and* those credentials are safe to use in
@@ -363,10 +367,7 @@ export async function verifySquareCredentials(): Promise<SquareCredentialCheck> 
   const token = process.env.SQUARE_ACCESS_TOKEN;
   const locationId = process.env.SQUARE_LOCATION_ID;
   const environment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
-  const base =
-    environment === "production"
-      ? "https://connect.squareup.com"
-      : "https://connect.squareupsandbox.com";
+  const base = squareApiBase();
 
   const empty = {
     environment,
