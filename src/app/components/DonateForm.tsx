@@ -86,9 +86,9 @@ export default function DonateForm({
   previewToken,
 }: {
   /** Set only by the secret preview page. Proves to the API that this request
-   *  may use sandbox credentials on the live site. Absent everywhere else, so
-   *  the public /donate keeps falling back to the storefront until the
-   *  production token lands. */
+   *  may use sandbox credentials on the live site. Absent everywhere else —
+   *  and since the production token landed (#181) the public /donate mints
+   *  real checkouts, so this is now only the sandbox review path. */
   previewToken?: string;
 } = {}) {
   const params = useSearchParams();
@@ -711,8 +711,16 @@ export default function DonateForm({
             if (res.status === 503) {
               // Square not configured for this environment — fall back to the
               // #140 storefront handoff rather than blocking the donation.
-              // This is the live site's normal path until the production token
-              // lands, so it must stay correct, not just present.
+              //
+              // No longer the live site's normal path: since the production
+              // token landed (#181) production mints real checkouts and this
+              // fires only when something is broken — a missing variable, a
+              // deactivated location (#152), an outage. That raises the stakes
+              // rather than lowering them. A donor who lands here is already in
+              // a degraded flow, and for a designation with no storefront tile
+              // of its own — every named fund, the Hall of Fame included — the
+              // designation and the tribute are lost silently unless they are
+              // told. Hence the warning built into `unrecordedIntent` above.
               setHandoffMode("storefront");
               setHandedOff(true);
               window.open(
