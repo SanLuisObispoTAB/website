@@ -27,6 +27,7 @@
     { "slug": "flag-football", "name": "Flag Football", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
     { "slug": "stunt", "name": "STUNT", "gender": "Girls", "season": "Spring", "hasPage": true, "operationalSetup": "none" },
     { "slug": "cheer", "name": "Tiger Cheer", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
+    { "slug": "dance", "name": "Dance Team", "season": "Fall", "seasons": ["Fall", "Winter"], "hasPage": true, "operationalSetup": "none" },
     { "slug": "winter-cheer", "name": "Tiger Winter Cheer", "season": "Winter", "hasPage": true, "operationalSetup": "none" },
     { "slug": "competitive-cheer", "name": "Traditional Competitive Cheer", "season": "Winter", "hasPage": true, "operationalSetup": "none" }
   ]

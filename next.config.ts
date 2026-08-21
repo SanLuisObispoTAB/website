@@ -92,16 +92,19 @@ const nextConfig: NextConfig = {
         destination: "/teams/cross-country",
         permanent: true,
       },
-      // Cheer was living on the Dance team's slug — Coach McDonald flagged it
-      // directly ("the current URL & photos on the page are actually for our
-      // Dance team"). Moved to /teams/cheer 2026-08-16. The old URL was live
-      // and public, so it keeps working; it also frees /teams/dance for the
-      // actual Dance team if that page ever gets built.
-      {
-        source: "/teams/dance",
-        destination: "/teams/cheer",
-        permanent: true,
-      },
+      // NOTE: there is deliberately NO /teams/dance redirect here any more.
+      // Cheer used to live on the Dance team's slug; when it moved to
+      // /teams/cheer on 2026-08-16 a permanent redirect kept the old URL
+      // working, on the stated condition that it would be withdrawn if the
+      // real Dance team ever got a page. It did — 2026-08-20, from Coach
+      // Mettler's own info — so /teams/dance now serves Dance itself.
+      // Don't re-add the redirect: it would bury a live team page.
+      //
+      // The withdrawn rule was a 308, so browsers that hit /teams/dance
+      // between 2026-08-16 and 2026-08-20 may have it cached and will still
+      // land on /teams/cheer until their cache clears. Four days of exposure
+      // on a site that went live 2026-08-15, and unavoidable once a
+      // permanent redirect has shipped.
       // Permanent (308) so search engines transfer the old pages' standing to
       // the new ones rather than treating these as temporary detours.
       ...LEGACY_HTM_URLS.map(([source, destination]) => ({

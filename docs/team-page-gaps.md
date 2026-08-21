@@ -4,7 +4,7 @@
 
 `/teams/cross-country` is the reference page (decisions #108, #109): head coaches with roles and bios, assistants listed, a labelled squad portrait, and action shots only in the action slots. Everything below is content the board supplies — no code change is needed for any of it.
 
-## Standard teams (17)
+## Standard teams (20)
 
 | Team | action hero | action gallery | squad portrait | head coach | coach bio | coach email | liaison |
 |---|---|---|---|---|---|---|---|
@@ -13,9 +13,11 @@
 | `boys-soccer` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | `boys-water-polo` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `boys-wrestling` | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| `cross-country` | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `dance` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
-| `flag-football` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| `cheer` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `competitive-cheer` | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ |
+| `cross-country` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `dance` | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| `flag-football` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | `girls-basketball` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
 | `girls-golf` | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ |
 | `girls-soccer` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
@@ -25,18 +27,19 @@
 | `girls-water-polo` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
 | `girls-wrestling` | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | `stunt` | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ | ❌ |
+| `winter-cheer` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 ### What's missing, by count
 
-- **coach bio** — missing on 15 of 17 teams
-- **liaison** — missing on 7 of 17 teams
-- **action gallery** — missing on 6 of 17 teams
-- **action hero** — missing on 2 of 17 teams
-- **squad portrait** — missing on 0 of 17 teams ✅
-- **head coach** — missing on 0 of 17 teams ✅
-- **coach email** — missing on 0 of 17 teams ✅
+- **coach bio** — missing on 15 of 20 teams
+- **liaison** — missing on 8 of 20 teams
+- **action gallery** — missing on 7 of 20 teams
+- **action hero** — missing on 4 of 20 teams
+- **squad portrait** — missing on 0 of 20 teams ✅
+- **head coach** — missing on 0 of 20 teams ✅
+- **coach email** — missing on 0 of 20 teams ✅
 
-Fully complete: `boys-water-polo`
+Fully complete: `boys-water-polo`, `cheer`, `cross-country`
 
 ### Per team
 
@@ -45,9 +48,11 @@ Fully complete: `boys-water-polo`
 - `boys-soccer` — needs **coach bio**, **liaison** _(1 head coach, 0 assistants, 2 action shots, 1 portrait)_
 - `boys-water-polo` — complete ✅ _(1 head coach, 0 assistants, 1 action shot, 1 portrait)_
 - `boys-wrestling` — needs **action gallery**, **coach bio**, **liaison** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
-- `cross-country` — needs **action gallery** _(2 head coaches, 2 assistants, 0 action shots, 2 portraits)_
-- `dance` — needs **coach bio** _(1 head coach, 0 assistants, 1 action shot, 1 portrait)_
-- `flag-football` — needs **coach bio**, **liaison** _(1 head coach, 0 assistants, 4 action shots, 1 portrait)_
+- `cheer` — complete ✅ _(1 head coach, 7 assistants, 4 action shots, 3 portraits)_
+- `competitive-cheer` — needs **action hero**, **action gallery**, **coach bio** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
+- `cross-country` — complete ✅ _(2 head coaches, 4 assistants, 16 action shots, 3 portraits)_
+- `dance` — needs **action hero**, **action gallery**, **liaison** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
+- `flag-football` — needs **liaison** _(1 head coach, 5 assistants, 4 action shots, 1 portrait)_
 - `girls-basketball` — needs **coach bio** _(1 head coach, 0 assistants, 1 action shot, 1 portrait)_
 - `girls-golf` — needs **action gallery**, **coach bio** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
 - `girls-soccer` — needs **coach bio** _(1 head coach, 0 assistants, 3 action shots, 1 portrait)_
@@ -57,6 +62,7 @@ Fully complete: `boys-water-polo`
 - `girls-water-polo` — needs **coach bio** _(1 head coach, 0 assistants, 4 action shots, 1 portrait)_
 - `girls-wrestling` — needs **action hero**, **action gallery**, **coach bio**, **liaison** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
 - `stunt` — needs **action gallery**, **coach bio**, **liaison** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
+- `winter-cheer` — needs **coach bio** _(1 head coach, 0 assistants, 2 action shots, 1 portrait)_
 
 ## Large programs (2) — held to a lower bar
 
