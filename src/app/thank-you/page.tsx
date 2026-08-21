@@ -4,6 +4,13 @@ import PageHeader from "../components/PageHeader";
 import SponsorEnquiry from "../components/SponsorEnquiry";
 import { sponsorTierById } from "../data/sponsor-tiers";
 import teamsData from "../data/teams.json";
+import { specialFund } from "../data/special-funds";
+// The induction date, so a Hall of Fame donor is told when the thing they just
+// paid for happens. One source with /hall-of-fame — the date has already moved
+// once (Oct 3 → Oct 10) and must never disagree between two pages.
+import hofData from "../data/hof.json";
+
+const { ceremony } = hofData;
 
 export const metadata = { title: "Thank You — SLOTAB" };
 
@@ -29,6 +36,7 @@ function ThankYouBody({
   const team = designation
     ? (teamsData.teams as Team[]).find((t) => t.slug === designation)
     : undefined;
+  const fund = designation ? specialFund(designation) : undefined;
 
   if (kind === "sponsorship") {
     const subject = `Sponsorship details${tier ? ` — ${tier.name}` : ""}`;
@@ -78,21 +86,42 @@ function ThankYouBody({
   return (
     <>
       <p style={{ fontSize: "1.15rem" }}>
-        Thank you — your gift{team ? <> to <strong>{team.name}</strong></> : null}{" "}
-        is complete, and Square has emailed your receipt.
+        Thank you — your gift
+        {team ? <> to <strong>{team.name}</strong></> : null}
+        {fund ? <> to <strong>{fund.label}</strong></> : null} is complete, and
+        Square has emailed your receipt.
       </p>
-      <p>
-        Every donation enrolls you as a SLOTAB member at the matching tier. Your
-        support pays for uniforms, equipment, travel and the shared programs
-        that reach every Tiger team.
-      </p>
+      {/* A fund donor needs a different second paragraph: theirs bought a
+          specific thing on a specific night, and saying "uniforms, equipment,
+          travel" would describe a gift they didn't make. */}
+      {fund ? (
+        <p>
+          It goes straight to honoring this year&apos;s inductees — the engraved
+          award, the medallion, the nameplate on the wall in the Big Gym. Your
+          gift also enrolls you as a SLOTAB member at the matching tier, and
+          you&apos;re welcome at the induction on{" "}
+          {ceremony.dateLabel} at {ceremony.venueName}.
+        </p>
+      ) : (
+        <p>
+          Every donation enrolls you as a SLOTAB member at the matching tier.
+          Your support pays for uniforms, equipment, travel and the shared
+          programs that reach every Tiger team.
+        </p>
+      )}
       <div className="slotab-btn-row">
         <Link href="/" className="slotab-btn">
           Back to Home
         </Link>
-        <Link href="/teams" className="slotab-btn outline">
-          Explore the Teams
-        </Link>
+        {fund ? (
+          <Link href="/hall-of-fame" className="slotab-btn outline">
+            See the Hall of Fame
+          </Link>
+        ) : (
+          <Link href="/teams" className="slotab-btn outline">
+            Explore the Teams
+          </Link>
+        )}
       </div>
       <p className="slotab-thanks-note">
         Questions about your donation? Email{" "}

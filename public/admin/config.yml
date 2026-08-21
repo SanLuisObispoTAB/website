@@ -566,6 +566,89 @@ collections:
                   required: false,
                   hint: "Leave empty and the button falls back to the general /donate page.",
                 }
+              - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
+          - name: fund
+            label: "Fund the Class (donation band)"
+            widget: object
+            collapsed: true
+            hint: "The fundraising band on /hall-of-fame. Gifts land on the Hall of Fame designation in the donate form and post to the 'Donation: Hall of Fame' class in QuickBooks."
+            fields:
+              - {
+                  name: enabled,
+                  label: "Show the fund band",
+                  widget: boolean,
+                  default: true,
+                  hint: "Turn off after the class is inducted and the fund is closed.",
+                }
+              - { name: designation, label: "Donation designation slug", widget: hidden, default: "hall-of-fame" }
+              - { name: kicker, label: "Kicker (small gold line)", widget: string }
+              - { name: title, label: "Headline", widget: string }
+              - { name: lead, label: "Lead paragraph", widget: text }
+              - {
+                  name: body,
+                  label: "Body paragraphs",
+                  widget: list,
+                  field: { name: para, label: "Paragraph", widget: text },
+                }
+              - { name: heroPhoto, label: "Background photo", widget: image }
+              - {
+                  name: heroPhotoPosition,
+                  label: "Background crop position",
+                  widget: string,
+                  required: false,
+                  hint: "CSS object-position, e.g. 'center 42%'. Leave blank for centred.",
+                }
+              - {
+                  name: goalDollars,
+                  label: "Fundraising goal ($)",
+                  widget: number,
+                  value_type: int,
+                  min: 0,
+                  hint: "Leave at 0 to hide the progress bar entirely. Only set this once the AD has given a real target — a made-up goal on a donation page is worse than no goal.",
+                }
+              - {
+                  name: raisedDollars,
+                  label: "Raised so far ($)",
+                  widget: number,
+                  value_type: int,
+                  min: 0,
+                  hint: "Read the Hall of Fame row off /board/square-report and paste the gross figure here.",
+                }
+              - {
+                  name: raisedAsOf,
+                  label: "Raised figure as of (date label)",
+                  widget: string,
+                  required: false,
+                  hint: "e.g. 'September 12'. Shown under the bar so nobody reads a stale number as live.",
+                }
+              - name: levels
+                label: "Giving levels"
+                widget: list
+                fields:
+                  - { name: amount, label: "Amount ($)", widget: number, value_type: int, min: 25 }
+                  - { name: item, label: "What it buys", widget: string }
+                  - { name: blurb, label: "One-line description", widget: text }
+                  - {
+                      name: featured,
+                      label: "Highlight this level",
+                      widget: boolean,
+                      required: false,
+                      default: false,
+                      hint: "Marks one card 'Most meaningful'. Highlight exactly one.",
+                    }
+              - { name: levelsNote, label: "Note under the levels", widget: text }
+              - name: gallery
+                label: "Legacy photo strip"
+                widget: list
+                required: false
+                hint: "Leave empty to hide the strip. Shown in black and white until hovered."
+                fields:
+                  - { name: photo, label: "Photo", widget: image }
+                  - { name: caption, label: "Caption", widget: string }
+              - { name: tributeLabel, label: "Tribute field label", widget: string }
+              - { name: tributeHint, label: "Tribute line under the band", widget: text }
+              - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
+
           - name: committee
             label: "Committee members"
             widget: list

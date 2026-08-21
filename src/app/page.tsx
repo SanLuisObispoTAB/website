@@ -262,6 +262,13 @@ export default function ClassicHomePage() {
               >
                 Donate an auction item →
               </a>
+              {/* The Hall of Fame ask, surfaced where the induction is already
+                  mentioned. The band on /hall-of-fame is the only place the
+                  fund is explained, and nobody browses to a Hall of Fame page
+                  looking to donate — they have to be sent (#184). */}
+              <Link href="/hall-of-fame#fund" className="tiger-ulink">
+                Fund the Hall of Fame class →
+              </Link>
             </div>
           </div>
         </div>

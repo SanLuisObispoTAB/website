@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HofFund from "../components/HofFund";
 import InducteeGrid from "../components/InducteeGrid";
 import PageHeader from "../components/PageHeader";
 import hofData from "../data/hof.json";
@@ -83,13 +84,22 @@ export default function HallOfFamePage() {
                 Donate to the HOF Fund
               </Link>
             ) : (
-              <Link href="/donate" className="slotab-btn dark">
-                Donate to SLOTAB
+              /* No dedicated HOF donate URL is set, but there is now a real
+                 Hall of Fame designation on the donate form — so this points at
+                 the fund band below rather than the generic donate page. */
+              <Link href="#fund" className="slotab-btn dark">
+                Fund the Class of 2026
               </Link>
             )}
           </div>
         </div>
       </section>
+
+      {/* Fund the Class of 2026 — the fundraising band (#184). Sits directly
+          under the save-the-date because the ask only makes sense next to the
+          night it pays for, and above the 46-name grid because that grid is
+          long enough that anything below it is effectively unpublished. */}
+      <HofFund />
 
       {/* Past Inductees — filterable grid */}
       <section className="slotab-section">

@@ -3,10 +3,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import teamsData from "../data/teams.json";
-// Only the fallback URL is still needed. The storefront's item *labels* are no
-// longer part of the flow: we mint our own line item now, so a designation is
-// carried verbatim instead of collapsing onto a shared storefront tile.
-import { squareDonateUrl } from "../data/square-donate";
+// The minted checkout carries a designation verbatim, so the storefront's item
+// labels dropped out of the flow — but only on that path. The 503 fallback is
+// still the storefront, and the storefront has no tile for a named fund, so
+// `hasOwnSquareItem` is back: a Hall of Fame gift sent that way lands under
+// GENERAL ATHLETICS and is lost unless the donor is told to tell us.
+import { squareDonateUrl, hasOwnSquareItem } from "../data/square-donate";
 import BusinessSponsorPanel from "./BusinessSponsorPanel";
 // One source of truth with /membership, so the level a donor is promised
 // here is the level that page describes.
@@ -14,6 +16,10 @@ import BusinessSponsorPanel from "./BusinessSponsorPanel";
 // businesses enrol through this same form, so a gift has to be placed
 // against the sponsorship tiers as well as the general memberships.
 import { levelForGift } from "../data/sponsor-tiers";
+// Designations that are neither a team nor the general fund — the Hall of Fame
+// push is the first. Imported rather than special-cased here so the split rule
+// stays identical to the one the Treasurer's report applies.
+import { SPECIAL_FUNDS, specialFund, isUnsplitDesignation } from "../data/special-funds";
 
 type Team = {
   slug: string;
@@ -92,10 +98,30 @@ export default function DonateForm({
   // from a team page still arrives pre-chosen — those donors have already
   // told us where the gift goes.
   const initialTeam = params.get("team") ?? "";
+  // `?amount=` lets a giving-level card elsewhere on the site (the Hall of Fame
+  // ladder, #184) land the donor on the form with their chosen figure already
+  // in. Bounded and integer-checked here because it arrives from a URL; the
+  // server re-checks it either way. An out-of-range value is ignored rather
+  // than clamped — silently changing what someone clicked is worse than
+  // falling back to the default.
+  const amountParam = Number(params.get("amount"));
+  const initialAmount =
+    Number.isFinite(amountParam) &&
+    Number.isInteger(amountParam) &&
+    amountParam >= 25 &&
+    amountParam <= 50_000
+      ? amountParam
+      : null;
 
   const [mode, setMode] = useState<"one-time" | "monthly">("one-time");
-  const [amount, setAmount] = useState<number>(50);
-  const [other, setOther] = useState<string>("");
+  const [amount, setAmount] = useState<number>(initialAmount ?? 50);
+  // A deep-linked figure that isn't one of the ladder buttons still has to show
+  // up somewhere, or the donor sees their $250 click land on a highlighted $50.
+  const [other, setOther] = useState<string>(
+    initialAmount !== null && !ONE_TIME_TIERS.includes(initialAmount)
+      ? String(initialAmount)
+      : "",
+  );
   const [team, setTeam] = useState<string>(initialTeam);
   // Raised only when someone tries to submit without designating. Deliberately
   // not a disabled button: a dead control gives no reason, and the reason is
@@ -111,6 +137,11 @@ export default function DonateForm({
   const [donorEmail, setDonorEmail] = useState("");
   const [donorPhone, setDonorPhone] = useState("");
   const [displayOnWall, setDisplayOnWall] = useState(true);
+  // Whose name the gift is given in. Only ever collected for a fund that offers
+  // it (see `special-funds.ts`) — nobody donates to Girls Water Polo "in honor
+  // of" anyone, and an empty field on every gift is friction for all to serve
+  // none.
+  const [tribute, setTribute] = useState("");
   // Set once the donor has been handed off to Square, so the follow-up
   // panel appears instead of pre-cluttering the form with caveats.
   const [handedOff, setHandedOff] = useState(false);
@@ -159,12 +190,18 @@ export default function DonateForm({
   const teamShare = effectiveAmount * 0.75;
   const generalShare = effectiveAmount * 0.25;
   const isGeneral = team === "general";
+  const fund = specialFund(team);
+  // Whether ANY of the gift is split off to the general fund. A named fund
+  // keeps all of it, same as a general gift — so the 75/25 preview, which is
+  // the club's promise to the donor, must not appear for either.
+  const unsplit = isUnsplitDesignation(team);
   const hasDesignation = team !== "";
   const tooLow = effectiveAmount > 0 && effectiveAmount < floor;
 
-  const teamLabel =
-    isGeneral
-      ? "SLOTAB General Fund"
+  const teamLabel = isGeneral
+    ? "SLOTAB General Fund"
+    : fund
+      ? fund.label
       : TEAMS.find((t) => t.slug === team)?.name ?? "your team";
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorEmail);
@@ -179,6 +216,24 @@ export default function DonateForm({
   // email in an inbox — and needs no backend, which is the constraint until
   // Q1 is decided.
   const unrecordedIntent: string[] = [];
+  // Checked only after the fallback has actually been taken — on the minted
+  // path the designation reaches Square by itself and warning about it would
+  // be a lie that costs a click.
+  if (
+    handedOff &&
+    handoffMode === "storefront" &&
+    hasDesignation &&
+    !hasOwnSquareItem(team)
+  ) {
+    unrecordedIntent.push(
+      `Gift is designated ${teamLabel} — the storefront has no tile for it, so the payment will show as GENERAL ATHLETICS`,
+    );
+    // The tribute rides in order metadata on the minted path and has nowhere
+    // to go on this one, so it becomes intent to carry by email like the rest.
+    if (tribute.trim()) {
+      unrecordedIntent.push(`Given in honor of ${tribute.trim()}`);
+    }
+  }
   if (mode === "monthly") {
     unrecordedIntent.push(
       `Wants to give ${MONEY.format(effectiveAmount)}/month, not a one-time gift` +
@@ -219,6 +274,7 @@ export default function DonateForm({
       donorPhone ? `Phone: ${donorPhone}` : null,
       `Amount: ${MONEY.format(effectiveAmount)}${mode === "monthly" ? " per month" : " one-time"}`,
       `Designation: ${teamLabel}`,
+      tribute.trim() ? `In honor of: ${tribute.trim()}` : null,
       "",
       ...unrecordedIntent.map((l) => `- ${l}`),
     ]
@@ -396,6 +452,15 @@ export default function DonateForm({
             SELECT A SPORT OR GENERAL DONATION
           </option>
           <option value="general">SLOTAB General Fund (all teams)</option>
+          {/* Named funds sit above the team list: they are neither a team nor
+              the general fund, and burying the Hall of Fame between Golf and
+              Soccer would lose the one designation the club is actively
+              promoting this fall. */}
+          {SPECIAL_FUNDS.map((f) => (
+            <option key={f.slug} value={f.slug}>
+              {f.label}
+            </option>
+          ))}
           {TEAMS.map((t) => (
             <option key={t.slug} value={t.slug}>
               {!t.gender || t.gender === "Co-ed"
@@ -415,12 +480,39 @@ export default function DonateForm({
           </p>
         ) : (
           <p className="slotab-donate-hint" id="donate-designation-hint">
-            {hasDesignation
-              ? "You can change this any time before checkout."
-              : "Pick the team you want to support, or give to the General Fund."}
+            {fund
+              ? fund.blurb
+              : hasDesignation
+                ? "You can change this any time before checkout."
+                : "Pick the team you want to support, or give to the General Fund."}
           </p>
         )}
       </fieldset>
+
+      {/* Tribute — only for a fund that offers one. Sent to Square as order
+          metadata, so unlike the anonymity flag it does NOT need chasing by
+          email afterwards. */}
+      {fund?.tribute && (
+        <fieldset className="slotab-donate-fieldset">
+          <legend>{fund.tribute.label}</legend>
+          {/* The legend already names this field, so the input carries an
+              aria-label rather than a second visible one. */}
+          <label className="slotab-donate-field">
+            <input
+              type="text"
+              maxLength={80}
+              aria-label={fund.tribute.label}
+              placeholder={fund.tribute.placeholder}
+              value={tribute}
+              onChange={(e) => setTribute(e.target.value)}
+            />
+          </label>
+          <p className="slotab-donate-hint">
+            We&apos;ll list your gift in their honor in the ceremony program.
+            Leave it blank to give without a tribute.
+          </p>
+        </fieldset>
+      )}
 
       {/* 4-year auto-renew (recurring only) */}
       {mode === "monthly" && (
@@ -459,16 +551,18 @@ export default function DonateForm({
                 <span>
                   {isGeneral
                     ? "100% of your gift powers the SLOTAB General Fund"
-                    : `75% to ${teamLabel}`}
+                    : fund
+                      ? `100% of your gift goes to ${fund.label}`
+                      : `75% to ${teamLabel}`}
                 </span>
                 <strong>
-                  {isGeneral
+                  {unsplit
                     ? MONEY.format(effectiveAmount)
                     : MONEY.format(teamShare)}
                   {mode === "monthly" && "/mo"}
                 </strong>
               </div>
-              {!isGeneral && (
+              {!unsplit && (
                 <div className="slotab-donate-preview-row muted">
                   <span>
                     25% to SLOTAB General Fund (Hudl, senior banners,
@@ -552,8 +646,9 @@ export default function DonateForm({
           />
           <span>
             <strong>Display my name on the SLOTAB Donor Wall.</strong>{" "}
-            Uncheck to give anonymously — your gift still counts toward
-            the team and your member tier.
+            Uncheck to give anonymously — your gift still counts toward{" "}
+            {fund ? "the fund" : isGeneral ? "the club" : "the team"} and your
+            member tier.
           </span>
         </label>
       </fieldset>
@@ -587,6 +682,11 @@ export default function DonateForm({
                 kind: "donation",
                 ...(previewToken ? { previewToken } : {}),
                 designation: team,
+                // Only ever set for a fund that asked for one; the server
+                // ignores it otherwise.
+                ...(fund?.tribute && tribute.trim()
+                  ? { tribute: tribute.trim() }
+                  : {}),
                 // Cents, rounded rather than truncated so 49.995 doesn't
                 // quietly become $49.99. The server re-checks the bounds.
                 amountCents: Math.round(effectiveAmount * 100),

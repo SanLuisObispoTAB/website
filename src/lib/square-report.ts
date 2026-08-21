@@ -15,12 +15,14 @@
 
 import teamsData from "../app/data/teams.json";
 import { sponsorTierById } from "../app/data/sponsor-tiers";
+import { specialFund, isUnsplitDesignation } from "../app/data/special-funds";
 
 const SQUARE_VERSION = "2025-06-18";
 const TEAM_SHARE = 0.75;
 
 export type ReportRow = {
-  /** Team slug, "general", or "sponsorship:<tier>". */
+  /** Team slug, "general", a named fund ("hall-of-fame"), or
+   *  "sponsorship:<tier>". */
   key: string;
   kind: string;
   count: number;
@@ -29,6 +31,12 @@ export type ReportRow = {
   toGeneralCents: number;
   levels: string[];
   sports: string[];
+  /** The Treasurer's QuickBooks class for this row, where one exists — today
+   *  only the named funds have one ("Donation: Hall of Fame"). Carried so the
+   *  report names the class she posts to instead of a slug she has to
+   *  translate. Empty for teams and sponsorships, which have no separate
+   *  class. */
+  qbClass: string;
 };
 
 export type Report = {
@@ -151,6 +159,10 @@ export async function buildSquareReport(
         toGeneralCents: 0,
         levels: [],
         sports: [],
+        // Read off our own fund table rather than the order metadata: a gift
+        // taken before the class existed still belongs to it, and the class is
+        // a property of the fund, not of the transaction.
+        qbClass: specialFund(key)?.qbClass ?? "",
       } satisfies ReportRow);
 
     row.count += 1;
@@ -165,7 +177,10 @@ export async function buildSquareReport(
   // A general-fund gift and a business sponsorship are not split — both go to
   // the club rather than to one team's allocation.
   for (const row of rows.values()) {
-    const splits = row.kind === "donation" && row.key !== "general";
+    // A named fund keeps 100% too — see `isUnsplitDesignation`. Testing only
+    // for "general" here is what would quietly book three quarters of a Hall of
+    // Fame gift against a team allocation.
+    const splits = row.kind === "donation" && !isUnsplitDesignation(row.key);
     row.toTeamCents = splits ? Math.round(row.grossCents * TEAM_SHARE) : 0;
     row.toGeneralCents = row.grossCents - row.toTeamCents;
   }
@@ -190,7 +205,7 @@ export async function buildSquareReport(
 export function reportToCsv(report: Report): string {
   const money = (c: number) => (c / 100).toFixed(2);
   return [
-    "designation,kind,gifts,gross_usd,to_team_usd,to_general_usd,levels,sports",
+    "designation,kind,gifts,gross_usd,to_team_usd,to_general_usd,levels,sports,quickbooks_class",
     ...report.rows.map((r) =>
       [
         r.key,
@@ -201,6 +216,7 @@ export function reportToCsv(report: Report): string {
         money(r.toGeneralCents),
         `"${r.levels.join("; ")}"`,
         `"${r.sports.join("; ")}"`,
+        `"${r.qbClass}"`,
       ].join(","),
     ),
   ].join("\n") + "\n";
@@ -216,6 +232,8 @@ type Team = { slug: string; name: string; gender?: string };
  *  "girls-volleyball" in the inbox is two reports to trust instead of one. */
 export function designationLabel(key: string): string {
   if (key === "general") return "SLOTAB General Fund";
+  const fund = specialFund(key);
+  if (fund) return fund.label;
   if (key.startsWith("sponsorship:")) {
     const tier = sponsorTierById(key.slice("sponsorship:".length));
     return tier ? `${tier.name} (sponsorship)` : "Business sponsorship";
