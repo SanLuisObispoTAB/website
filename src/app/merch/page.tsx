@@ -10,17 +10,24 @@ import PageHeader from "../components/PageHeader";
 // attached to the "SLOTAB Merch" location in the club's *other* Square account
 // (see decision #162 for why there are two).
 //
-// Empty means the page shows a "not open yet" note instead of a dead button —
-// a shop link that 404s is worse than an honest absence.
-const STORE_URL = "";
+// Recovered 2026-08-21 after it was lost in the production rollover. Note the
+// host: `slotab-apparel`, NOT `slotab-3` — the two stores are separate Square
+// Online sites in separate Square accounts.
+const STORE_URL = "https://slotab-apparel.square.site/slotab-merch";
 
 /** A shirt design, and where to buy it.
  *
- *  `url` is the product page for that specific shirt, so the gallery is a
+ *  `url` is the product page for that specific shirt, so the gallery can be a
  *  shopfront rather than a lookbook — clicking Baseball should land on the
  *  Baseball shirt, not on a store homepage the parent then has to search.
- *  Empty `url` degrades to a plain image, so a design with no listing yet
- *  still shows without producing a broken link. */
+ *
+ *  **All nine are empty today, and that is correct.** The store was checked
+ *  item by item on 2026-08-21: it stocks general Tiger gear — hoodies, hats,
+ *  spirit tees, blankets — and carries **none** of these sport-specific
+ *  designs. They are ordered through the coach and ParentSquare in a window at
+ *  the start of each season, which is what the copy below says. Fill a `url`
+ *  in if a design is ever listed; an empty one renders as a plain image rather
+ *  than a link that goes somewhere unrelated. */
 type Shirt = { name: string; src: string; url?: string };
 
 const SHIRTS: Shirt[] = [
@@ -42,8 +49,9 @@ export default function MerchPage() {
       <section className="slotab-section">
         <div className="slotab-container slotab-prose">
           <p>
-            Find SLOTAB merch at select games and school events — home football
-            games, sports physical night, and parent sports meetings.
+            Shop Tiger gear online, or find SLOTAB merch at select games and
+            school events — home football games, sports physical night, and
+            parent sports meetings.
           </p>
 
           {STORE_URL ? (
