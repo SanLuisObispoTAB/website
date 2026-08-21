@@ -1,6 +1,6 @@
 {
   "slug": "flag-football",
-  "name": "Varsity Girls Flag Football",
+  "name": "Girls Flag Football",
   "sport": "Flag Football",
   "gender": "Girls",
   "season": "Fall",
@@ -35,11 +35,277 @@
       "role": "Strength and Injury Prevention Coach"
     }
   ],
+  "roster": [
+    {
+      "number": 4,
+      "name": "Paige Engelskirger",
+      "year": "9",
+      "position": "RB/DEF",
+      "squad": "Varsity"
+    },
+    {
+      "number": 20,
+      "name": "Sophia Esdras",
+      "year": "11",
+      "position": "DEF",
+      "squad": "Varsity"
+    },
+    {
+      "number": 10,
+      "name": "Tina Gonzalez",
+      "year": "12",
+      "position": "DEF",
+      "squad": "Varsity"
+    },
+    {
+      "number": 31,
+      "name": "Grace Henard",
+      "year": "10",
+      "position": "DEF/WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 17,
+      "name": "Lucy James",
+      "year": "9",
+      "position": "DEF/RB",
+      "squad": "Varsity"
+    },
+    {
+      "number": 19,
+      "name": "Liv Lauer",
+      "year": "9",
+      "position": "DEF/WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 29,
+      "name": "Nora Lilly",
+      "year": "9",
+      "position": "RB/DEF",
+      "squad": "Varsity"
+    },
+    {
+      "number": 27,
+      "name": "Madison Lund",
+      "year": "11",
+      "position": "DEF/WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 8,
+      "name": "Edie Mo Wenck",
+      "year": "10",
+      "position": "C/DEF",
+      "squad": "Varsity"
+    },
+    {
+      "number": 36,
+      "name": "Finley Pearce",
+      "year": "12",
+      "position": "DEF/WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 13,
+      "name": "Kendall Pedersen",
+      "year": "12",
+      "position": "DEF/WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 26,
+      "name": "Emily Peters",
+      "year": "10",
+      "position": "WR/RB",
+      "squad": "Varsity"
+    },
+    {
+      "number": 2,
+      "name": "Natalie Peters",
+      "year": "12",
+      "position": "WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 11,
+      "name": "Madalyn Purdy",
+      "year": "12",
+      "position": "WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 24,
+      "name": "Julia Ross",
+      "year": "10",
+      "position": "WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 5,
+      "name": "Leanna Saligan",
+      "year": "12",
+      "position": "QB",
+      "squad": "Varsity"
+    },
+    {
+      "number": 14,
+      "name": "Jordyn Tarcon",
+      "year": "10",
+      "position": "DEF/WR",
+      "squad": "Varsity"
+    },
+    {
+      "number": 23,
+      "name": "Olivia Albertson",
+      "year": "9",
+      "position": "QB",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 33,
+      "name": "Hattie Bramer",
+      "year": "9",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 30,
+      "name": "Chalaya Cadwet-Daney",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 22,
+      "name": "Brooklyn Deaton",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 32,
+      "name": "Addis Esty",
+      "year": "11",
+      "squad": "Junior Varsity"
+    },
+    {
+      "name": "Reese Garrett",
+      "year": "10",
+      "position": "Practice Player",
+      "squad": "Junior Varsity"
+    },
+    {
+      "name": "Marisol Hopkins",
+      "year": "10",
+      "position": "Practice Player",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 1,
+      "name": "Valentina Jimenez",
+      "year": "11",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 15,
+      "name": "Ashton Jones",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 21,
+      "name": "Sophia Lanphar",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 18,
+      "name": "Megan Leichtfuss",
+      "year": "9",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 25,
+      "name": "Peyton McNeer",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 3,
+      "name": "Iris Olander",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 16,
+      "name": "Kaylen Owens",
+      "year": "9",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 12,
+      "name": "Natalia Rodarte",
+      "year": "11",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 35,
+      "name": "Gianna Senor",
+      "year": "9",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 34,
+      "name": "Presley Senteio",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 9,
+      "name": "Raina Vigil",
+      "year": "9",
+      "squad": "Junior Varsity"
+    },
+    {
+      "name": "Milla Vrajich",
+      "year": "11",
+      "position": "Practice Player",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 6,
+      "name": "Zoe Waddell",
+      "year": "11",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 28,
+      "name": "Hailey Wehe",
+      "year": "10",
+      "squad": "Junior Varsity"
+    },
+    {
+      "number": 7,
+      "name": "Joise Winter",
+      "year": "9",
+      "squad": "Junior Varsity"
+    }
+  ],
   "wishlist": [
-    { "item": "Yearly Hudl subscription", "cost": 1000 },
-    { "item": "Football catching machine", "cost": "$3,000–4,000" },
-    { "item": "Football throwing targets", "cost": "$50–100 each" },
-    { "item": "Out-of-town tournament travel", "cost": 5000 }
+    {
+      "item": "Yearly Hudl subscription",
+      "cost": 1000
+    },
+    {
+      "item": "Football catching machine",
+      "cost": "$3,000–4,000"
+    },
+    {
+      "item": "Football throwing targets",
+      "cost": "$50–100 each"
+    },
+    {
+      "item": "Out-of-town tournament travel",
+      "cost": 5000
+    }
   ],
   "gallery": [
     "/photos/gfball-saff6-1200x800.jpg",

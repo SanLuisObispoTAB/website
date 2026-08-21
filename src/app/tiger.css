@@ -648,6 +648,62 @@
   color: var(--tiger-gold-deep);
   background: var(--tiger-paper);
 }
+/* The Teams dropdown lists every team with a page (22 and counting), which
+   is far too tall for one column — it would run off the bottom of most
+   screens. Lay it out in balanced columns instead, breaking by season.
+   `display: block` on the open state (above) is what makes CSS columns
+   work here; a flex or grid parent would ignore column-count. */
+.tiger-nav-dropdown.grouped {
+  /* Anchored to the trigger's RIGHT edge, not its left. "Teams" is the
+     last dropdown in the bar, so a 560px panel opening leftwards from it
+     runs ~13px off a 1280px viewport — narrow enough to miss by eye and
+     wide enough to clip a whole column on smaller laptops. */
+  left: auto;
+  right: 0;
+  min-width: 560px;
+  padding: 14px 6px;
+  column-count: 3;
+  column-gap: 6px;
+}
+/* Keep a season's heading welded to its first team — without this a column
+   can break immediately after "Winter", stranding the heading alone at the
+   foot of one column and its teams at the head of the next. */
+.tiger-nav-dropdown.grouped > * {
+  break-inside: avoid;
+}
+.tiger-nav-dropdown-heading {
+  break-after: avoid;
+  padding: 10px 12px 4px;
+  font-family: var(--tiger-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tiger-gold-deep);
+}
+/* "All Teams" sits above the first heading; give it a rule so it reads as
+   the catch-all rather than as a member of the season under it. */
+.tiger-nav-dropdown.grouped > a:first-of-type {
+  border-bottom: 1px solid var(--tiger-bone);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+.tiger-nav-dropdown.grouped a {
+  padding: 6px 12px;
+}
+/* No narrow-viewport variant here on purpose: `.tiger-nav-links` is
+   display:none below 1025px (see the max-width:1024px block further down),
+   so this panel only ever renders on desktop and 3 columns always fit. */
+/* Season headings in the mobile panel, which is a single flat column. */
+.tiger-nav-mobile-heading {
+  padding: 14px 0 2px;
+  font-family: var(--tiger-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tiger-gold-deep);
+}
 
 .tiger-nav-cta {
   flex-shrink: 0;

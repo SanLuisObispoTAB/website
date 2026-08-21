@@ -2,10 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 type RosterEntry = {
-  number: number;
+  /** Jersey number. Optional, because plenty of rosters don't have one:
+   *  cheer doesn't issue numbers at all, and flag football's practice
+   *  players hadn't been given a uniform when the coach sent the list. */
+  number?: number;
   name: string;
+  /** Grade level. A bare number renders as "Gr. 12" so a lone "12" in the
+   *  corner of a card isn't ambiguous; anything else renders verbatim, for
+   *  a team that sends "Senior" or "Sr." instead. */
   year: string;
-  position: string;
+  /** Optional — a JV list often arrives before positions are settled. */
+  position?: string;
+  /** Squad name, for a program fielding more than one (Varsity / JV Black /
+   *  JV Gold). Rows group under it, in first-appearance order. Absent on
+   *  every entry means one flat list, which is how a single-squad team
+   *  renders. */
+  squad?: string;
 };
 
 type WishlistEntry = {
@@ -135,6 +147,16 @@ function formatCost(cost: number | string | undefined): string | null {
   return /^\d+(\.\d+)?$/.test(trimmed) ? MONEY.format(Number(trimmed)) : trimmed;
 }
 
+/** Grade level for the roster card's corner. Coaches send the grade as a
+ *  bare number, and "12" alone in a corner reads as a jersey number or a
+ *  count — so a numeric grade is labelled. Anything else ("Senior", "Sr.")
+ *  is already self-describing and passes through untouched. Mirrors the
+ *  number-or-free-text handling in `formatCost` above. */
+function formatYear(year: string): string {
+  const trimmed = year.trim();
+  return /^\d{1,2}$/.test(trimmed) ? `Gr. ${trimmed}` : trimmed;
+}
+
 export default function TeamPage({ team }: { team: Team }) {
   // A team may declare one head coach or several (cross country runs boys and
   // girls under two). Normalise to a list so the markup has one shape.
@@ -144,7 +166,32 @@ export default function TeamPage({ team }: { team: Team }) {
   const teamPhotos: TeamPhoto[] =
     team.teamPhotos ?? (team.teamPhoto ? [{ photo: team.teamPhoto }] : []);
 
-  const rosterByYear = (team.roster ?? []).slice().sort((a, b) => a.number - b.number);
+  // Roster rows, grouped into squads. A program may field one list (no
+  // `squad` anywhere) or several; both render through the same path, the
+  // single-squad case simply producing one unnamed group.
+  //
+  // Within a group, numbered athletes sort by number and unnumbered ones
+  // fall to the end in name order — so a flag football JV list with three
+  // practice players still reads as a jersey-ordered roster with the
+  // not-yet-issued names after it, rather than putting them first.
+  const roster = team.roster ?? [];
+  const rosterSquads: Array<{ label?: string; players: RosterEntry[] }> = [];
+  for (const p of roster) {
+    let group = rosterSquads.find((g) => g.label === p.squad);
+    if (!group) {
+      group = { label: p.squad, players: [] };
+      rosterSquads.push(group);
+    }
+    group.players.push(p);
+  }
+  for (const g of rosterSquads) {
+    g.players.sort((a, b) => {
+      if (a.number != null && b.number != null) return a.number - b.number;
+      if (a.number != null) return -1;
+      if (b.number != null) return 1;
+      return a.name.localeCompare(b.name);
+    });
+  }
 
   // The quick-facts band holds coach / captains / liaisons. Teams awaiting
   // their 2026-27 handoff info have none of the three, so skip the band
@@ -331,30 +378,52 @@ export default function TeamPage({ team }: { team: Team }) {
       </section>
 
       {/* Roster */}
-      {rosterByYear.length > 0 && (
+      {roster.length > 0 && (
         <section className="slotab-section">
           <div className="slotab-container">
             <div className="slotab-section-title">
               <span className="slotab-kicker">
-                {rosterByYear.length} Tigers on the roster
+                {roster.length} Tigers on the roster
               </span>
               <h2>Roster</h2>
             </div>
-            <div className="slotab-team-roster">
-              {rosterByYear.map((p) => (
-                <div
-                  key={p.number + p.name}
-                  className="slotab-team-roster-row"
-                >
-                  <span className="slotab-team-roster-num">#{p.number}</span>
-                  <span className="slotab-team-roster-name">{p.name}</span>
-                  <span className="slotab-team-roster-position">
-                    {p.position}
-                  </span>
-                  <span className="slotab-team-roster-year">{p.year}</span>
+            {rosterSquads.map((g) => (
+              <div key={g.label ?? "_"} className="slotab-team-roster-squad">
+                {g.label && (
+                  <h3 className="slotab-team-roster-squad-label">
+                    {g.label}
+                    <span className="slotab-team-roster-squad-count">
+                      {g.players.length}
+                    </span>
+                  </h3>
+                )}
+                <div className="slotab-team-roster">
+                  {g.players.map((p) => (
+                    <div
+                      key={`${g.label ?? ""}-${p.number ?? ""}-${p.name}`}
+                      className={`slotab-team-roster-row${
+                        p.number == null ? " no-num" : ""
+                      }`}
+                    >
+                      {p.number != null && (
+                        <span className="slotab-team-roster-num">
+                          #{p.number}
+                        </span>
+                      )}
+                      <span className="slotab-team-roster-name">{p.name}</span>
+                      {p.position && (
+                        <span className="slotab-team-roster-position">
+                          {p.position}
+                        </span>
+                      )}
+                      <span className="slotab-team-roster-year">
+                        {formatYear(p.year)}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </section>
       )}

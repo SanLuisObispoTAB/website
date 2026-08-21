@@ -67,6 +67,296 @@
     "Jazmine Patton",
     "Jillian Davis"
   ],
+  "roster": [
+    {
+      "name": "Addisen McGuire",
+      "year": "12",
+      "position": "Backspot",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Ava Connolly",
+      "year": "12",
+      "position": "Backspot",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Dillan Best",
+      "year": "12",
+      "position": "Base",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Evelyn de la Motte",
+      "year": "12",
+      "position": "Flyer, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Nevaeh Sandhu",
+      "year": "12",
+      "position": "Base",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Scarlet McBride",
+      "year": "12",
+      "position": "Base",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Scarlett Ruiz",
+      "year": "12",
+      "position": "Base",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Audrey Arnold",
+      "year": "11",
+      "position": "Flyer, Backspot, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Jasmine Jenny",
+      "year": "11",
+      "position": "Backspot, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Jazmine Patton",
+      "year": "11",
+      "position": "Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Jillian Davis",
+      "year": "11",
+      "position": "Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Kali Lynch",
+      "year": "11",
+      "position": "Base",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Lexi Kirschner",
+      "year": "11",
+      "position": "Flyer, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Lilly Miller",
+      "year": "11",
+      "position": "Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Tilly Schlidt",
+      "year": "11",
+      "position": "Backspot",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Ashley Rollins",
+      "year": "10",
+      "position": "Flyer, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Hayden Allen",
+      "year": "10",
+      "position": "Base",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Jocelyn Castro",
+      "year": "10",
+      "position": "Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Lauren Rethmeier",
+      "year": "10",
+      "position": "Backspot",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Lily Ross",
+      "year": "10",
+      "position": "Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Piper Davis",
+      "year": "10",
+      "position": "Flyer, Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Stella Dunn",
+      "year": "10",
+      "position": "Backspot, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Eleanor Suhr",
+      "year": "9",
+      "position": "Flyer, Base, Tumbler",
+      "squad": "Varsity"
+    },
+    {
+      "name": "Kassandra Ramirez",
+      "year": "11",
+      "position": "Base",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Kyani Mowrey",
+      "year": "11",
+      "position": "Base",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Dayana Romero Castro",
+      "year": "10",
+      "position": "Base",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Grace Fields",
+      "year": "10",
+      "position": "Backspot",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Layla Mooney",
+      "year": "10",
+      "position": "Backspot",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Natalie Getten",
+      "year": "10",
+      "position": "Flyer",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Sophia Guzman",
+      "year": "10",
+      "position": "Backspot, Tumbler",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Valeria Altamirano Flores",
+      "year": "10",
+      "position": "Base",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Jasmine Brito Amador",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Quinn Beckstrand",
+      "year": "9",
+      "position": "Flyer",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Reed Arjal",
+      "year": "9",
+      "position": "Flyer",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Violet Hunt",
+      "year": "9",
+      "position": "Base, Tumbler",
+      "squad": "JV Black"
+    },
+    {
+      "name": "Daniela Castro Gomez",
+      "year": "10",
+      "position": "Backspot",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Scarlet Salomon Gaspar",
+      "year": "10",
+      "position": "Base",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Aria Martinez",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Chelsea Reyna Hernandez",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Dinah Storm",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Emily Masingale",
+      "year": "9",
+      "position": "Backspot",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Isabella Cuevas-Pelayo",
+      "year": "9",
+      "position": "Flyer",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Mia Campos",
+      "year": "9",
+      "position": "Flyer",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Natalie Schulz",
+      "year": "9",
+      "position": "Flyer",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Nevaeh Rangel",
+      "year": "9",
+      "position": "Base, Backspot",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Sarai Martinez",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Sophia Silveira",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Gold"
+    },
+    {
+      "name": "Vanessa Ramirez",
+      "year": "9",
+      "position": "Base",
+      "squad": "JV Gold"
+    }
+  ],
   "wishlist": [
     {
       "item": "TumblTrak Air Barrel Cradles",

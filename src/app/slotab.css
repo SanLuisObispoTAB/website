@@ -1592,6 +1592,52 @@
   font-size: 0.85rem;
   color: var(--slotab-ink);
 }
+/* A roster with no jersey numbers (cheer doesn't issue them) would otherwise
+   keep an empty 3.2rem gutter down the left of every row. Drop the column
+   and shift the three remaining fields one across. */
+.slotab-team-roster-row.no-num {
+  grid-template-columns: 1fr auto;
+}
+.slotab-team-roster-row.no-num .slotab-team-roster-name {
+  grid-column: 1;
+  grid-row: 1;
+}
+.slotab-team-roster-row.no-num .slotab-team-roster-position {
+  grid-column: 1;
+  grid-row: 2;
+}
+.slotab-team-roster-row.no-num .slotab-team-roster-year {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Squad blocks, for a program fielding more than one roster (flag football
+   runs Varsity + JV; cheer runs Varsity + JV Black + JV Gold). */
+.slotab-team-roster-squad + .slotab-team-roster-squad {
+  margin-top: 2.5rem;
+}
+.slotab-team-roster-squad-label {
+  max-width: 1000px;
+  margin: 0 auto 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--slotab-gold);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--slotab-black);
+}
+.slotab-team-roster-squad-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--slotab-muted);
+}
 
 .slotab-team-wishlist {
   list-style: none;
