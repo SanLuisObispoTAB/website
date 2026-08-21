@@ -4,14 +4,8 @@ import SponsorWall from "../components/SponsorWall";
 import { SPONSOR_SEASON } from "../data/sponsors";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
-import { isPublicCheckoutEnabled } from "../../lib/square";
 
 export default function MembershipPage() {
-  // Resolved on the server so the page never promises a checkout that would
-  // answer 503. False until BOTH a production token is present and
-  // SQUARE_LIVE_DONATE is "true", so the board can review the real checkout
-  // through the preview route while the public site stays on the storefront.
-  const checkoutEnabled = isPublicCheckoutEnabled();
 
   return (
     <>
@@ -36,7 +30,7 @@ export default function MembershipPage() {
               friends — join at any level.
             </p>
           </div>
-          <MembershipTiers checkoutEnabled={checkoutEnabled} />
+          <MembershipTiers />
         </div>
       </section>
 
@@ -56,22 +50,6 @@ export default function MembershipPage() {
             <strong>Businesses &amp; individuals:</strong> the Sponsorship
             Tiers above (Champion, Gold, Silver, Tiger Pride, Varsity) layer
             game-day visibility and ad perks on top of your membership.
-          </p>
-          <p
-            style={{
-              display: "flex",
-              gap: "0.75rem",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginTop: "1.5rem",
-            }}
-          >
-            <Link
-              href="/donate"
-              className="tiger-btn tiger-btn-primary tiger-btn-arrow"
-            >
-              Donate &amp; Become a Member
-            </Link>
           </p>
         </div>
       </section>
