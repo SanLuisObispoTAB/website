@@ -153,24 +153,31 @@ export default function BusinessSponsorPanel() {
             ))}
             {/* Generated from `sportsCredit`, same as the tier cards, so the
                 number here can never disagree with the picker below it. */}
-            <li>{sportsCreditPerk(tier.sportsCredit)}</li>
+            {sportsCreditPerk(tier.sportsCredit) && (
+              <li>{sportsCreditPerk(tier.sportsCredit)}</li>
+            )}
           </ul>
         </div>
       </fieldset>
 
-      <fieldset className="slotab-donate-fieldset">
-        <legend>
-          {tier.sportsCredit === 1
-            ? "Sport to credit"
-            : `Sports to credit — up to ${tier.sportsCredit}`}
-        </legend>
-        <SportPicker
-          limit={tier.sportsCredit}
-          picked={sports}
-          onChange={setSports}
-          idPrefix="biz"
-        />
-      </fieldset>
+      {/* Tiger Pride and Varsity credit no sport on the final sheet, so the
+          whole fieldset goes rather than showing an empty or capped-at-zero
+          picker. */}
+      {tier.sportsCredit > 0 && (
+        <fieldset className="slotab-donate-fieldset">
+          <legend>
+            {tier.sportsCredit === 1
+              ? "Sport to credit"
+              : `Sports to credit — up to ${tier.sportsCredit}`}
+          </legend>
+          <SportPicker
+            limit={tier.sportsCredit}
+            picked={sports}
+            onChange={setSports}
+            idPrefix="biz"
+          />
+        </fieldset>
+      )}
 
       <fieldset className="slotab-donate-fieldset">
         <legend>Your business</legend>

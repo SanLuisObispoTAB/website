@@ -48,12 +48,20 @@ export type SponsorTier = {
 // form reports Varsity as having no picker at all, which is exactly the wrong
 // conclusion.
 //
-// Banners changed 2026-08-20: **only Champion and Gold carry one**, both now
-// for ONE year rather than two — Champion at three locations, Gold at one.
-// Silver's banner was withdrawn. Worth stating plainly because the earlier
-// ladder had Silver carrying a banner and the top two carrying two-year terms,
-// and the Square storefront descriptions still describe the old arrangement
-// until they are edited to match.
+// Transcribed from the board's **final** 2026-27 sheet (PDF, 2026-08-20).
+// That sheet supersedes every earlier instruction, including the same day's
+// "banners are Champion and Gold only". What actually changed from the site's
+// previous state:
+//
+//   · Gold banners went from ONE location to THREE.
+//   · Silver's banner came BACK, at TWO locations.
+//   · Sports designation is now a flat THREE for Champion, Gold and Silver,
+//     and Tiger Pride and Varsity get NONE — where the site had 5/4/3/2/1.
+//   · New perk on Champion and Gold: video on HUDL.
+//   · Silver no longer carries scoreboard ads, so it loses the ad-perks flag.
+//   · No monthly prices appear anywhere on the sheet, so the $95/$45/$11/$5
+//     figures the site carried are gone.
+//   · Tiger Friend is back — it was never removed here, so nothing to do.
 //
 // All-Sport Annual Pass counts scale with the sponsorship level, confirmed by
 // the board 2026-08-11: $500 -> 2 · $1,000 -> 4 · $2,500 -> 6 · $5,000 -> 8 ·
@@ -65,15 +73,15 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Champion Sponsor",
     annual: 10000,
     adPerks: true,
-    sportsCredit: 5,
+    sportsCredit: 3,
     perks: [
-      "Logo on ALL SLOHS student-athlete t-shirts for a full year (submit logo + payment before a trimester starts to make that print run)",
-      "Digital ads on stadium scoreboard: football, soccer, track & field",
-      "Digital ads on gym scoreboard: basketball, stunt & volleyball",
-      "Featured game sponsor (sport of your choice) — designated seating + 6 tickets",
-      "Banners at THREE sporting locations of your choice for one year",
+      "Logo on ALL student-athlete T-shirts for the full year",
+      "Digital ads on stadium/gym scoreboard: basketball, stunt, volleyball, football, soccer, and track & field",
+      "Featured game sponsor — designated seats (6 tickets)",
+      "Banners at 3 sport locations of your choice for 1 year",
       "Recognition on SLOTAB website and Tiger Teams App",
-      "Ten SLOHS All-Sport Annual Passes",
+      "Video on HUDL, our streaming platform",
+      "10 SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -81,46 +89,48 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Gold Sponsor",
     annual: 5000,
     adPerks: true,
-    sportsCredit: 4,
+    sportsCredit: 3,
     perks: [
-      "Digital ads on stadium scoreboard: football, soccer, track & field",
-      "Digital ads on gym scoreboard: basketball, stunt & volleyball",
-      "Banner at sporting location of your choice for one year",
+      "Digital ads on stadium/gym scoreboard: basketball, stunt, volleyball, football, soccer, and track & field",
+      "Banners at 3 sport locations of your choice for 1 year",
       "Recognition on SLOTAB website",
-      "Eight SLOHS All-Sport Annual Passes",
+      "Video on HUDL, our streaming platform",
+      "8 SLOHS All-Sport Annual Passes",
     ],
   },
   {
     id: "silver",
     name: "Silver Sponsor",
     annual: 2500,
-    adPerks: true,
     sportsCredit: 3,
     perks: [
-      "Recognition on SLOTAB website",
-      "Six SLOHS All-Sport Annual Passes",
+      "Banners at 2 sport locations of your choice for 1 year",
+      // The sheet prints two recognition bullets for Silver — a plain
+      // "Recognition on SLOTAB website" and this fuller one. Taken as a
+      // duplication in the source rather than two distinct perks, so the
+      // fuller line stands alone. Worth a board confirmation.
+      "Recognition on SLOTAB website and business promotional pages",
+      "6 SLOHS All-Sport Annual Passes",
     ],
   },
   {
     id: "tiger-pride",
     name: "Tiger Pride",
     annual: 1000,
-    monthly: 95,
-    sportsCredit: 2,
+    sportsCredit: 0,
     perks: [
       "Recognition on SLOTAB website",
-      "Four SLOHS All-Sport Annual Passes",
+      "4 SLOHS All-Sport Annual Passes",
     ],
   },
   {
     id: "varsity",
     name: "Varsity",
     annual: 500,
-    monthly: 45,
-    sportsCredit: 1,
+    sportsCredit: 0,
     perks: [
       "Recognition on SLOTAB website",
-      "Two SLOHS All-Sport Annual Passes",
+      "2 SLOHS All-Sport Annual Passes",
     ],
   },
 ];
@@ -144,17 +154,11 @@ export const GENERAL_MEMBERSHIPS: MembershipTier[] = [
   {
     name: "Family",
     annual: 125,
-    monthly: 11,
-    perks: [
-      "One Single-Season Pass",
-      "Tiger news & event updates",
-      "Supports all sports",
-    ],
+    perks: ["Tiger news & event updates", "Supports all sports"],
   },
   {
     name: "Individual",
     annual: 50,
-    monthly: 5,
     perks: ["Tiger news & event updates", "Supports all sports"],
   },
   {
@@ -163,7 +167,6 @@ export const GENERAL_MEMBERSHIPS: MembershipTier[] = [
     perks: ["Tiger news & event updates", "Supports all sports"],
   },
 ];
-
 
 // ---------------------------------------------------------------------------
 // THE COMBINED LADDER
@@ -186,7 +189,11 @@ type Threshold = { name: string; annual: number; monthly?: number };
 /** Renders the sports-credit bullet from `sportsCredit`, so the wording and
  *  the limit cannot drift apart. Spelled out rather than numeric to sit
  *  naturally beside the other perks ("Six SLOHS All-Sport Annual Passes"). */
-export function sportsCreditPerk(n: number): string {
+export function sportsCreditPerk(n: number): string | null {
+  // Tiger Pride and Varsity credit no sport on the final sheet, so there is no
+  // bullet to render and no picker to show. Null rather than an empty string so
+  // callers have to handle it rather than printing a blank list item.
+  if (n <= 0) return null;
   const words = ["", "one", "two", "three", "four", "five", "six"];
   const word = words[n] ?? String(n);
   return n === 1

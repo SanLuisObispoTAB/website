@@ -203,7 +203,9 @@ export async function POST(req: Request) {
     }
     if (sports.length > tier.sportsCredit) {
       return bad(
-        `${tier.name} may be credited to at most ${tier.sportsCredit} sport${tier.sportsCredit === 1 ? "" : "s"}`,
+        tier.sportsCredit === 0
+          ? `${tier.name} sponsorships aren't credited to a specific sport`
+          : `${tier.name} may be credited to at most ${tier.sportsCredit} sport${tier.sportsCredit === 1 ? "" : "s"}`,
       );
     }
 

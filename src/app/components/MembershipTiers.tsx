@@ -15,10 +15,12 @@ import SportPicker from "./SportPicker";
 // as displayed — this component renders them and the payment-link route bills
 // them, and the two must not drift.
 
-// The three ad-perk tiers render as a 3-up top row; Tiger Pride and Varsity
-// share a centered second row beneath them.
-const AD_PERK_TIERS = SPONSOR_TIERS.filter((t) => t.adPerks);
-const PAIR_TIERS = SPONSOR_TIERS.filter((t) => !t.adPerks);
+// The top three render as a 3-up row; the remaining two share a centered row
+// beneath. Grouped by POSITION, not by `adPerks` — the final sheet took
+// scoreboard ads away from Silver, and the page layout should not reflow every
+// time the board moves a perk between tiers.
+const TOP_TIERS = SPONSOR_TIERS.slice(0, 3);
+const PAIR_TIERS = SPONSOR_TIERS.slice(3);
 
 const MONEY = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -83,17 +85,21 @@ function SponsorCheckoutButton({ tier }: { tier: SponsorTier }) {
   return (
     <div className="slotab-sport-picker">
       <p className="slotab-sport-picker-lead">
-        {tier.sportsCredit === 1
-          ? "Which sport should your sponsorship be credited to?"
-          : `Which sports should your sponsorship be credited to? Choose up to ${tier.sportsCredit}.`}
+        {tier.sportsCredit === 0
+          ? `${tier.name} supports all Tiger athletics — no sport to choose.`
+          : tier.sportsCredit === 1
+            ? "Which sport should your sponsorship be credited to?"
+            : `Which sports should your sponsorship be credited to? Choose up to ${tier.sportsCredit}.`}
       </p>
 
-      <SportPicker
-        limit={tier.sportsCredit}
-        picked={picked}
-        onChange={setPicked}
-        idPrefix={`tier-${tier.id}`}
-      />
+      {tier.sportsCredit > 0 && (
+        <SportPicker
+          limit={tier.sportsCredit}
+          picked={picked}
+          onChange={setPicked}
+          idPrefix={`tier-${tier.id}`}
+        />
+      )}
 
       <div className="slotab-sport-picker-actions">
         <button
@@ -169,7 +175,9 @@ function TierCard({
             credits is true either way. Reading it from `sponsor` would make the
             perk disappear whenever SQUARE_LIVE_DONATE is off, which is exactly
             the state the live site is in today. */}
-        {"sportsCredit" in t && <li>{sportsCreditPerk(t.sportsCredit)}</li>}
+        {"sportsCredit" in t && sportsCreditPerk(t.sportsCredit) && (
+          <li>{sportsCreditPerk(t.sportsCredit)}</li>
+        )}
       </ul>
       {/* Sponsor tiers are billable here and now. General memberships aren't:
           any donation enrols you at the matching level (#37), so they route
@@ -192,7 +200,7 @@ export default function MembershipTiers({
           <span>Available to businesses &amp; individuals</span>
         </h3>
         <div className="slotab-tier-grid slotab-tier-grid-three">
-          {AD_PERK_TIERS.map((t) => (
+          {TOP_TIERS.map((t) => (
             <TierCard key={t.id} t={t} sponsor={checkoutEnabled ? t : undefined} />
           ))}
         </div>
