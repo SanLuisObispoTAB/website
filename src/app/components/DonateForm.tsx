@@ -131,7 +131,17 @@ export default function DonateForm({
   // burying it: parent gifts are the overwhelming majority of traffic, so this
   // costs the many a click to save the few one. Flip the initial value back to
   // "general" if the click-through data says it is not paying for itself.
-  const [audience, setAudience] = useState<"general" | "business">("business");
+  // `?tab=general` / `?tab=sponsorship` deep-links a specific half, which is
+  // how /membership sends a reader straight to the form matching the tiers
+  // they were just reading. Anything else falls through to the default.
+  const tabParam = params.get("tab");
+  const [audience, setAudience] = useState<"general" | "business">(
+    tabParam === "general"
+      ? "general"
+      : tabParam === "sponsorship" || tabParam === "business"
+        ? "business"
+        : "business",
+  );
   // Held rather than followed immediately, so the panel above can be read.
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState<number | null>(null);

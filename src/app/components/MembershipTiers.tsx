@@ -209,6 +209,14 @@ export default function MembershipTiers({
             <TierCard key={t.id} t={t} sponsor={checkoutEnabled ? t : undefined} />
           ))}
         </div>
+        {/* This page is the catalogue; /donate is where you act. The tab is
+            named in the URL so a sponsor lands on the sponsorship form rather
+            than on whichever tab happens to be the default that week. */}
+        <p className="slotab-tier-group-cta">
+          <Link href="/donate?tab=sponsorship" className="slotab-btn">
+            Sponsor the Tigers →
+          </Link>
+        </p>
       </div>
 
       <div className="slotab-tier-group">
@@ -218,6 +226,11 @@ export default function MembershipTiers({
             <TierCard key={t.name} t={t} />
           ))}
         </div>
+        <p className="slotab-tier-group-cta">
+          <Link href="/donate?tab=general" className="slotab-btn">
+            Join or donate →
+          </Link>
+        </p>
       </div>
 
       <div className="slotab-tier-foot">

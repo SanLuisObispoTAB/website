@@ -13,6 +13,9 @@
 //
 // Read-only: it creates and changes nothing in Square.
 
+import teamsData from "../app/data/teams.json";
+import { sponsorTierById } from "../app/data/sponsor-tiers";
+
 const SQUARE_VERSION = "2025-06-18";
 const TEAM_SHARE = 0.75;
 
@@ -201,4 +204,25 @@ export function reportToCsv(report: Report): string {
       ].join(","),
     ),
   ].join("\n") + "\n";
+}
+
+
+type Team = { slug: string; name: string; gender?: string };
+
+/** Turns a metadata key back into something a Treasurer recognises.
+ *
+ *  Lives here rather than in the page because the weekly email needs the same
+ *  labels — a report that says "Volleyball (Girls)" on screen and
+ *  "girls-volleyball" in the inbox is two reports to trust instead of one. */
+export function designationLabel(key: string): string {
+  if (key === "general") return "SLOTAB General Fund";
+  if (key.startsWith("sponsorship:")) {
+    const tier = sponsorTierById(key.slice("sponsorship:".length));
+    return tier ? `${tier.name} (sponsorship)` : "Business sponsorship";
+  }
+  const team = (teamsData.teams as Team[]).find((t) => t.slug === key);
+  if (!team) return key;
+  return !team.gender || team.gender === "Co-ed"
+    ? team.name
+    : `${team.name} (${team.gender})`;
 }

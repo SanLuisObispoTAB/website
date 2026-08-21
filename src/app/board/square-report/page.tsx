@@ -1,9 +1,8 @@
 import Link from "next/link";
-import teamsData from "../../data/teams.json";
-import { sponsorTierById } from "../../data/sponsor-tiers";
 import {
   buildSquareReport,
   defaultRange,
+  designationLabel as label,
   type Report,
 } from "../../../lib/square-report";
 
@@ -20,28 +19,11 @@ export const dynamic = "force-dynamic";
 // the login page. The CSV download lives under /api and therefore checks the
 // session itself — see lib/board-auth.ts for why that is not automatic.
 
-type Team = { slug: string; name: string; gender?: string };
-const TEAMS = teamsData.teams as Team[];
-
 const MONEY = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 const money = (cents: number) => MONEY.format(cents / 100);
-
-/** Turns a metadata key back into something a Treasurer recognises. */
-function label(key: string): string {
-  if (key === "general") return "SLOTAB General Fund";
-  if (key.startsWith("sponsorship:")) {
-    const tier = sponsorTierById(key.slice("sponsorship:".length));
-    return tier ? `${tier.name} (sponsorship)` : "Business sponsorship";
-  }
-  const team = TEAMS.find((t) => t.slug === key);
-  if (!team) return key;
-  return !team.gender || team.gender === "Co-ed"
-    ? team.name
-    : `${team.name} (${team.gender})`;
-}
 
 function toDateInput(iso: string) {
   return iso.slice(0, 10);

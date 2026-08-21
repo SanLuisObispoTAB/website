@@ -107,6 +107,7 @@
 .tiger-cta-inner,
 .slotab-notfound,
 .slotab-thanks,
+.slotab-tier-group-cta,
 /* Catches `style={{ textAlign: "center" }}`, which React serialises with no
    space after the colon. Property-specific, so it can't match
    `justify-content: center` or similar. */
@@ -3868,4 +3869,12 @@ a.slotab-platinum-slide:hover {
   font-size: 0.83rem;
   color: var(--slotab-muted);
   margin-top: 1rem;
+}
+
+/* Sends a reader from the catalogue on /membership to the matching half of the
+   donate form. Centred under its tier group, which is a centred block — so it
+   is in the line-balancing list near the top of this file. */
+.slotab-tier-group-cta {
+  text-align: center;
+  margin: 1.25rem 0 0;
 }
