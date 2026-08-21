@@ -82,7 +82,7 @@ function ThankYouBody({
         is complete, and Square has emailed your receipt.
       </p>
       <p>
-        Every donation enrols you as a SLOTAB member at the matching tier. Your
+        Every donation enrolls you as a SLOTAB member at the matching tier. Your
         support pays for uniforms, equipment, travel and the shared programs
         that reach every Tiger team.
       </p>

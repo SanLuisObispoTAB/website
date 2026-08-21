@@ -185,7 +185,7 @@ export function composeFulfilmentEmail(
     lines.push(
       "*** THIS IS A BOARD TEST CHARGE, NOT A REAL SPONSOR. ***",
       "It was minted through the preview checkout and should be refunded.",
-      "No fulfilment is owed. Nothing below needs actioning.",
+      "No fulfillment is owed. Nothing below needs action.",
       "",
     );
   }
@@ -264,7 +264,7 @@ export function composeFulfilmentEmail(
 
   // Rendered from the tier's own perks array, so it cannot drift from what
   // /membership promises or what the payment link charged.
-  lines.push("FULFILMENT CHECKLIST");
+  lines.push("FULFILLMENT CHECKLIST");
   for (const perk of tier.perks) {
     const action = perkAction(perk);
     lines.push(`  [ ] ${perk}`);
