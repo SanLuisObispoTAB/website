@@ -39,11 +39,10 @@ export const TEAM_PHOTO_BY_SLUG: Record<string, string> = {
   "girls-wrestling": "/photos/gwrestling-team-2026.jpg",
   "flag-football": "/photos/gfball-saff7-1200x900.jpg",
   cheer: "/photos/ccheer-fall-stunts-2025.jpg",
-  // Posed, and knowingly so — the third standing exception. Coach Mettler's
-  // 2026-08-18 drop is the program's first, and nothing in the library is a
-  // Dance *performance* shot: this is the official 2025-26 squad portrait.
-  // Swap it the moment a game or showcase photo arrives (#171).
-  dance: "/photos/gdance-team-2025.jpg",
+  // Real performance action, from Coach Mettler's photo drop the same day the
+  // page was built — so the posed exception this entry carried for a matter of
+  // hours (#171) is already gone. Cal Poly Showcase, Feb 2026 (#172).
+  dance: "/photos/gdance-showcase-poms-2026.jpg",
   // Real winter action, supplied by the coach 2026-08-17 — supersedes the
   // squad-portrait guess this entry previously carried.
   "winter-cheer": "/photos/ccheer-winter-tigers-2026.jpg",

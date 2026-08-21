@@ -4,12 +4,21 @@
   "sport": "Dance",
   "season": "Fall",
   "tagline": "Artistry, energy and Tiger spirit — on the field, in the gym, on the stage.",
+  "heroPhoto": "/photos/gdance-showcase-poms-2026.jpg",
+  "heroPhotoPosition": "center 40%",
   "teamPhotos": [
     {
       "photo": "/photos/gdance-team-2025.jpg",
       "label": "Dance Team",
       "note": "The 2025-26 squad, from the program's inaugural season. A 2026-27 portrait will replace this one once it's taken."
+    },
+    {
+      "photo": "/photos/gdance-team-holt-2025.jpg",
+      "label": "Friday night at Holt Field"
     }
+  ],
+  "gallery": [
+    "/photos/gdance-hiphop-gym-2026.jpg"
   ],
   "headCoach": {
     "name": "Mandi Mettler",
