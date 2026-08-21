@@ -93,6 +93,10 @@
 .slotab-team-comms-note,
 .slotab-team-comms-none,
 .slotab-impact-stat,
+.slotab-hof-fund-head,
+.slotab-hof-goal,
+.slotab-hof-levels-note,
+.slotab-hof-fund-fineprint,
 .slotab-donate-submit,
 .slotab-donate-note,
 .slotab-tier-foot,
@@ -2156,6 +2160,351 @@
   padding-top: 0.5rem;
   border-top: 1px dashed var(--slotab-border);
   font-style: italic;
+}
+
+/* Draft banner — the unlisted review page at /preview/hof-fund (#185).
+   Loud on purpose: a reviewer who mistakes a proposal for the live site gives
+   feedback on the wrong thing. Not themed like the rest of the site for the
+   same reason — it should read as scaffolding, not as a section of the page. */
+.slotab-draft-banner {
+  background: repeating-linear-gradient(
+    45deg,
+    #1a1a1a,
+    #1a1a1a 12px,
+    #232323 12px,
+    #232323 24px
+  );
+  color: #fff;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 4px solid var(--slotab-gold);
+}
+.slotab-draft-banner p {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  text-wrap: balance;
+}
+.slotab-draft-banner a {
+  color: var(--slotab-gold);
+}
+.slotab-draft-flag {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.slotab-draft-asks {
+  margin-top: 0.75rem !important;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ==========================================================================
+   HALL OF FAME — "Fund the HOF Class of 2026" band (#184)
+   --------------------------------------------------------------------------
+   The only dark band on /hall-of-fame, and deliberately so: it is the one
+   block on a page of record-keeping that asks for money, and an ask styled
+   like the paragraph above it gets skimmed like the paragraph above it. Black
+   ground + archival black-and-white photograph + gold rules is also the
+   material vocabulary of what the money buys — plaque, medallion, trophy case.
+
+   The photo is decorative (alt=""), so the overlay is free to be heavy: the
+   copy has to clear WCAG AA over whatever crop the band lands on at any
+   viewport, and the picture's job is atmosphere, not information.
+   ========================================================================== */
+.slotab-hof-fund {
+  position: relative;
+  overflow: hidden;
+  background: var(--slotab-black);
+  color: #fff;
+  border-top: 5px solid var(--slotab-gold);
+  border-bottom: 5px solid var(--slotab-gold);
+  /* Asymmetric on purpose. This band is now the first block on the page
+     (#184 revision), sitting directly under a black page header it visually
+     merges with, so a generous top pad buys nothing but pushes the ask further
+     below the fold. The foot keeps its room. */
+  padding: clamp(2rem, 4vw, 3rem) 1.25rem clamp(3rem, 7vw, 5.5rem);
+}
+/* Two layers, not one: a near-opaque wash guarantees the contrast floor, and
+   the vignette on top keeps the photograph legible at the edges instead of
+   flattening the whole thing to grey. */
+.slotab-hof-fund-overlay {
+  position: absolute;
+  inset: 0;
+  /* Tuned against the actual crop rather than by eye: heavy enough that white
+     body copy clears AA over the brightest part of the photograph, light
+     enough that it still reads as a photograph. At 0.9 flat it did not — the
+     helmets vanished and the band was just a black box. */
+  background:
+    radial-gradient(
+      130% 90% at 50% 0%,
+      rgba(10, 10, 10, 0.5) 0%,
+      rgba(10, 10, 10, 0.74) 55%,
+      rgba(10, 10, 10, 0.88) 100%
+    );
+}
+.slotab-hof-fund-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.slotab-hof-fund-head {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto;
+}
+/* The top ask — see the note in HofFund.tsx. */
+.slotab-hof-fund-head-cta {
+  margin: 1.5rem 0 0;
+}
+.slotab-hof-fund-head .slotab-kicker {
+  display: block;
+  color: var(--slotab-gold);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+.slotab-hof-fund-head h2 {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.slotab-hof-fund-lead {
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+/* Body copy sits in two columns on wide screens so the band doesn't become a
+   wall of 100-character lines — the measure, not the layout, is the point. */
+.slotab-hof-fund-body {
+  display: grid;
+  gap: 1.25rem 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 900px;
+  margin: 2rem auto 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+.slotab-hof-fund-body p { margin: 0; }
+
+/* Thermometer. Hidden entirely until hof.json carries a real goal — see the
+   note in that file. */
+.slotab-hof-goal {
+  max-width: 680px;
+  margin: 2.5rem auto 0;
+  text-align: center;
+}
+.slotab-hof-goal-figures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.slotab-hof-goal-figures strong {
+  font-family: var(--tiger-serif);
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  line-height: 1;
+  color: var(--slotab-gold);
+}
+.slotab-hof-goal-figures span {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.98rem;
+}
+.slotab-hof-goal-track {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+.slotab-hof-goal-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--slotab-gold-dark) 0%,
+    var(--slotab-gold) 100%
+  );
+}
+.slotab-hof-goal-asof {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* The ladder. Each card is a whole link — the amount is the decision, so the
+   click target is the card, not a small "donate" line inside it. */
+.slotab-hof-levels {
+  list-style: none;
+  margin: 2.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+}
+.slotab-hof-level a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem 1.4rem 1.35rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 3px solid var(--slotab-gold-dark);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+.slotab-hof-level a:hover,
+.slotab-hof-level a:focus-visible {
+  transform: translateY(-3px);
+  background: rgba(255, 205, 56, 0.12);
+  border-color: var(--slotab-gold);
+  color: #fff;
+  text-decoration: none;
+}
+.slotab-hof-level-flag {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 0.6rem;
+  padding: 0.2rem 0.6rem;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.slotab-hof-level-amount {
+  font-family: var(--tiger-serif);
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--slotab-gold);
+}
+.slotab-hof-level-item {
+  margin-top: 0.45rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.slotab-hof-level-blurb {
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.76);
+  /* Pushes the call-to-action to the bottom of every card regardless of how
+     long the blurb runs, so the row of "Give $X →" lines aligns. */
+  flex: 1 1 auto;
+}
+.slotab-hof-level-go {
+  margin-top: 1rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slotab-gold);
+}
+/* The level the committee most wants taken — one inductee covered end to end.
+   Filled rather than merely outlined, because on a dark ground an outline
+   accent reads as a hover state. */
+.slotab-hof-level.featured a {
+  background: rgba(255, 205, 56, 0.14);
+  border-color: var(--slotab-gold);
+  border-top-color: var(--slotab-gold);
+}
+.slotab-hof-levels-note {
+  max-width: 720px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.slotab-hof-fund-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2.25rem;
+}
+.slotab-hof-fund-fineprint {
+  max-width: 720px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Legacy strip under the band — light ground, so the dark band reads as a
+   single deliberate object rather than the page changing colour for good. */
+.slotab-hof-legacy { background: var(--slotab-bg-alt); }
+.slotab-hof-legacy-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.slotab-hof-legacy-item { margin: 0; }
+.slotab-hof-legacy-item img {
+  display: block;
+  width: 100%;
+  /* Overrides the height attribute next/image writes onto the <img>. Without
+     it that attribute is a presentational hint with a definite value, both
+     dimensions are definite, and `aspect-ratio` below is ignored — which is
+     how three landscape photographs rendered as 800px-tall portrait crops. */
+  height: auto;
+  /* Fixed ratio: the three photographs are 4:3, 3:2 and near-square, and an
+     uneven row of caption baselines is what makes a gallery look accidental. */
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+  transition: filter 0.3s ease;
+}
+.slotab-hof-legacy-item:hover img { filter: grayscale(0%) contrast(1); }
+.slotab-hof-legacy-item figcaption {
+  margin-top: 0.65rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--slotab-muted);
+  border-left: 3px solid var(--slotab-gold);
+  padding-left: 0.7rem;
+}
+
+@media (max-width: 640px) {
+  .slotab-hof-fund { padding-left: 1rem; padding-right: 1rem; }
+  .slotab-hof-levels { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Honour a reader who has asked for less movement — the lift and the
+   grayscale-to-colour reveal are decoration, not information. */
+@media (prefers-reduced-motion: reduce) {
+  .slotab-hof-level a,
+  .slotab-hof-legacy-item img {
+    transition: none;
+  }
+  .slotab-hof-level a:hover,
+  .slotab-hof-level a:focus-visible {
+    transform: none;
+  }
 }
 
 /* Impact ledger */

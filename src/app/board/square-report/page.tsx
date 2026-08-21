@@ -115,6 +115,14 @@ export default async function SquareReportPage({
                       <tr key={r.key}>
                         <td>
                           {label(r.key)}
+                          {/* The QuickBooks class Trina posts this row to,
+                              shown verbatim so the report and her ledger use
+                              the same words. Only the named funds have one. */}
+                          {r.qbClass && (
+                            <span className="slotab-report-sub">
+                              QuickBooks: {r.qbClass}
+                            </span>
+                          )}
                           {r.sports.length > 0 && (
                             <span className="slotab-report-sub">
                               credited to{" "}

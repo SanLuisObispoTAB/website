@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import teamsData from "../../../data/teams.json";
 import { sponsorTierById, levelForGift } from "../../../data/sponsor-tiers";
+import { specialFund } from "../../../data/special-funds";
 import {
   createPaymentLink,
   SquareError,
@@ -240,8 +241,21 @@ export async function POST(req: Request) {
   } else if (kind === "donation") {
     const designation = typeof body.designation === "string" ? body.designation : "";
     const isGeneral = designation === "general";
+    // A named fund (the Hall of Fame, #184) is a third kind of designation: it
+    // is not a team, so there is no 75/25 split, and it is not the general
+    // fund, so it must not be reported as one.
+    const fund = specialFund(designation);
     const team = TEAMS.find((t) => t.slug === designation);
-    if (!isGeneral && !team) return bad("Unknown designation");
+    if (!isGeneral && !fund && !team) return bad("Unknown designation");
+
+    // Whose honour the gift is given in. Only accepted for a fund that offers
+    // a tribute — otherwise it is free text on someone's receipt for no reason.
+    // Trimmed and capped: it lands in a line the Treasurer reads, and Square
+    // rejects an over-long note outright, which would kill the whole gift.
+    const tribute =
+      fund?.tribute && typeof body.tribute === "string"
+        ? body.tribute.trim().replace(/\s+/g, " ").slice(0, 80)
+        : "";
 
     const raw = body.amountCents;
     if (typeof raw !== "number" || !Number.isInteger(raw)) {
@@ -271,16 +285,33 @@ export async function POST(req: Request) {
     const level = levelForGift(raw / 100);
     const levelSuffix = level ? ` (${level})` : "";
 
-    lineItemName = isGeneral
-      ? `SLOTAB General Fund — donation${levelSuffix}`
-      : `${label} — SLOTAB donation${levelSuffix}`;
-    note = isGeneral
-      ? `SLOTAB General Fund donation${level ? ` — ${level} level` : ""}`
-      : `SLOTAB donation designated ${label} (75% team / 25% general fund)${level ? ` — ${level} level` : ""}`;
+    if (fund) {
+      lineItemName = `${fund.label} — donation${levelSuffix}`;
+      note =
+        `${fund.label} — 100% to the fund, no team split` +
+        (level ? ` — ${level} level` : "") +
+        // Trina's QuickBooks class, verbatim. The note is what shows on the
+        // payment in the Square dashboard, which is where the reconciliation
+        // actually happens.
+        (fund.qbClass ? ` — QuickBooks: ${fund.qbClass}` : "") +
+        (tribute ? ` — in honor of ${tribute}` : "");
+    } else {
+      lineItemName = isGeneral
+        ? `SLOTAB General Fund — donation${levelSuffix}`
+        : `${label} — SLOTAB donation${levelSuffix}`;
+      note = isGeneral
+        ? `SLOTAB General Fund donation${level ? ` — ${level} level` : ""}`
+        : `SLOTAB donation designated ${label} (75% team / 25% general fund)${level ? ` — ${level} level` : ""}`;
+    }
     metadata.kind = "donation";
     metadata.designation = designation;
     if (level) metadata.level = level;
-    if (!isGeneral) metadata.split = "75-25";
+    // The split marker is what the Treasurer's report keys the allocation on,
+    // so it must be absent for anything that isn't split — a named fund keeps
+    // 100%, same as a general gift.
+    if (!isGeneral && !fund) metadata.split = "75-25";
+    if (fund?.qbClass) metadata.qbClass = fund.qbClass;
+    if (tribute) metadata.tribute = tribute;
   } else {
     return bad("Unknown request kind");
   }

@@ -27,6 +27,73 @@
     "donateUrl": "",
     "_note": "Date/venue corrected 2026-08-11 from Oct 3 / Holland Ranch to Oct 10 / Octagon Barn, per SLOTAB's own live Auctria event page; ticketsUrl uses SLOTAB's Auctria vanity link (auctria.events/SLOHSathleticsboosterbash), which is what the printed QR tag encodes and redirects to the same event. donateUrl and alumniMembership.joinUrl stay empty — the page hides each CTA until a real URL is set."
   },
+  "fund": {
+    "enabled": true,
+    "designation": "hall-of-fame",
+    "kicker": "The Class of 2026 Fund",
+    "title": "The night ends. What they take home doesn't.",
+    "lead": "Induction is one evening at the Octagon Barn. The award in an inductee's hands outlives it by fifty years — it sits on a mantel, in an office, in a case their grandchildren walk past.",
+    "body": [
+      "The Hall of Fame is run on volunteer time and a shoulder-tap budget. Every dollar in this fund pays for the things an inductee actually keeps: the engraved award, the medallion they wear when their name is read, the nameplate on the wall in the Big Gym, and the printed program that puts their career on the record.",
+      "This is the one SLOTAB gift that isn't split 75/25 between a team and the general fund. All of it goes to honoring the class."
+    ],
+    "heroPhoto": "/photos/football-helmets-bw.jpg",
+    "heroPhotoPosition": "center 42%",
+    "goalDollars": 0,
+    "raisedDollars": 0,
+    "raisedAsOf": "",
+    "levels": [
+      {
+        "amount": 50,
+        "item": "Engraved nameplate",
+        "blurb": "Puts one inductee's name on the Hall of Fame wall, where every team that walks through the Big Gym reads it."
+      },
+      {
+        "amount": 100,
+        "item": "Induction medallion",
+        "blurb": "The medallion an inductee wears the moment their name is called at the Bash — and the one photo their family keeps."
+      },
+      {
+        "amount": 250,
+        "item": "Commemorative award",
+        "blurb": "The engraved keepsake that goes home with them and stays out on a shelf for the next fifty years."
+      },
+      {
+        "amount": 500,
+        "item": "One inductee, fully honored",
+        "blurb": "Award, medallion, nameplate, and their place in the printed program — one Tiger's entire night covered by you.",
+        "featured": true
+      },
+      {
+        "amount": 1000,
+        "item": "Ceremony underwriter",
+        "blurb": "Two inductees honored end to end, plus the program every guest in the room takes home."
+      },
+      {
+        "amount": 2500,
+        "item": "Legacy patron",
+        "blurb": "Carries the Class of 2026 and seeds the engraving for the class after it. Recognized from the stage."
+      }
+    ],
+    "levelsNote": "Levels are how the committee plans to spend the fund. Any amount helps — every Hall of Fame gift goes to the Class of 2026 honors, whatever the size.",
+    "gallery": [
+      {
+        "photo": "/photos/tigers-gym-scoreboard.jpg",
+        "caption": "The Big Gym. Every banner up there started with somebody who's now eligible."
+      },
+      {
+        "photo": "/photos/bbball-huddle-bw.jpg",
+        "caption": "Ten years from now, one of these Tigers is a nominee."
+      },
+      {
+        "photo": "/photos/football-four-backs-bw.jpg",
+        "caption": "Forty-six inductees so far. The list is nowhere near finished."
+      }
+    ],
+    "tributeLabel": "Give in someone's honor",
+    "tributeHint": "Giving for a coach, a teammate, or an inductee? Add their name at checkout and we'll list the gift in their honor in the ceremony program.",
+    "_note": "Added 2026-08-21 for the Class of 2026 push (decision #184). The dollar-to-item mapping in `levels` is the committee's working plan, NOT quoted engraver pricing — confirm with the AD before it gets repeated in print, and adjust the amounts here rather than in the component. `goalDollars` is 0 on purpose: the thermometer stays hidden until the AD gives a real target, because a made-up goal on a 501(c)(3) donation page is worse than no goal. Set goalDollars (and raisedDollars + raisedAsOf, refreshed from /board/square-report) and the progress bar appears with no code change."
+  },
   "committee": [],
   "alumniMembership": {
     "title": "Become an Alumni Member",
