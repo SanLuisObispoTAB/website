@@ -5,29 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import teamsData from "../../data/teams.json";
-import { orderedSeasons, teamInSeason } from "../../data/seasons";
+import { navSeason, teamInSeason } from "../../data/seasons";
 
 type NavLink = {
   href: string;
   label: string;
 };
-/** A season heading inside the Teams dropdown. The dropdown lists every
- *  team with a page, which is too many to scan as one flat column, so the
- *  list is broken up by season rather than run together. */
-type NavHeading = { heading: string };
-type NavChild = NavLink | NavHeading;
-
-function isHeading(c: NavChild): c is NavHeading {
-  return "heading" in c;
-}
-function isLink(c: NavChild): c is NavLink {
-  return !isHeading(c);
-}
-
 type NavItem = {
   label: string;
   href?: string;
-  children?: NavChild[];
+  children?: NavLink[];
 };
 
 type TeamEntry = {
@@ -43,43 +30,27 @@ type TeamEntry = {
 };
 
 // Teams dropdown is built from teams.json so new pages appear automatically.
-//
-// Every team with a page is listed, grouped under a season heading, with the
-// current (or upcoming, during summer) season leading — previously this showed
-// the in-season teams ONLY, which kept the menu short but meant a parent
-// looking for, say, Baseball in September could not find it in the nav at all.
-// Teams without a page are deliberately still absent: `/teams/<slug>` does not
-// exist for them, so a link would 404. "All Teams" leads and covers those.
-//
-// A team is listed ONCE, under the first season it competes in, so a
-// multi-season team (Dance runs Fall and Winter) does not appear twice in a
-// single menu. The /teams index does repeat it per season, which is right
-// there — that page is browsed a season at a time.
-function teamChildren(): NavChild[] {
-  const withPage = (teamsData.teams as TeamEntry[]).filter((t) => t.hasPage);
-  const claimed = new Set<string>();
-  const children: NavChild[] = [{ href: "/teams", label: "All Teams" }];
-
-  for (const season of orderedSeasons()) {
-    const teams = withPage
-      .filter((t) => !claimed.has(t.slug) && teamInSeason(t, season))
-      .sort(
-        (a, b) =>
-          a.name.localeCompare(b.name) ||
-          (a.gender ?? "").localeCompare(b.gender ?? ""),
-      );
-    if (teams.length === 0) continue;
-    children.push({ heading: season });
-    for (const t of teams) {
-      claimed.add(t.slug);
-      children.push({
-        href: `/teams/${t.slug}`,
-        label:
-          !t.gender || t.gender === "Co-ed" ? t.name : `${t.gender} ${t.name}`,
-      });
-    }
-  }
-  return children;
+// Shows only the in-season teams (or the upcoming season during summer break),
+// so the menu stays short and timely. "All Teams" always leads.
+function teamChildren(): NavLink[] {
+  const season = navSeason();
+  const teams = (teamsData.teams as TeamEntry[])
+    .filter(
+      (t) => t.hasPage && teamInSeason(t, season),
+    )
+    .sort(
+      (a, b) =>
+        a.name.localeCompare(b.name) ||
+        (a.gender ?? "").localeCompare(b.gender ?? ""),
+    );
+  return [
+    { href: "/teams", label: "All Teams" },
+    ...teams.map((t) => ({
+      href: `/teams/${t.slug}`,
+      label:
+        !t.gender || t.gender === "Co-ed" ? t.name : `${t.gender} ${t.name}`,
+    })),
+  ];
 }
 
 const BASE_NAV: NavItem[] = [
@@ -120,11 +91,9 @@ function isActive(item: NavItem, path: string) {
       ? path === "/"
       : path === item.href || path.startsWith(item.href + "/");
   }
-  // Season headings carry no href — skip them, or "Teams" would never
-  // highlight because the first child it tested had nothing to compare.
-  return item.children
-    ?.filter(isLink)
-    .some((c) => path === c.href || path.startsWith(c.href + "/"));
+  return item.children?.some(
+    (c) => path === c.href || path.startsWith(c.href + "/"),
+  );
 }
 
 export default function TigerNav() {
@@ -184,32 +153,17 @@ export default function TigerNav() {
                       ▾
                     </span>
                   </button>
-                  <div
-                    className={`tiger-nav-dropdown${
-                      item.children.some(isHeading) ? " grouped" : ""
-                    }`}
-                    role="menu"
-                  >
-                    {item.children.map((c) =>
-                      isHeading(c) ? (
-                        <div
-                          key={`h-${c.heading}`}
-                          className="tiger-nav-dropdown-heading"
-                          role="presentation"
-                        >
-                          {c.heading}
-                        </div>
-                      ) : (
-                        <Link
-                          key={c.href}
-                          href={c.href}
-                          role="menuitem"
-                          onClick={closeDropdown}
-                        >
-                          {c.label}
-                        </Link>
-                      ),
-                    )}
+                  <div className="tiger-nav-dropdown" role="menu">
+                    {item.children.map((c) => (
+                      <Link
+                        key={c.href}
+                        href={c.href}
+                        role="menuitem"
+                        onClick={closeDropdown}
+                      >
+                        {c.label}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               );
@@ -244,20 +198,11 @@ export default function TigerNav() {
       >
         {NAV.flatMap((item) =>
           item.children
-            ? item.children.map((c) =>
-                isHeading(c) ? (
-                  <div
-                    key={`h-${c.heading}`}
-                    className="tiger-nav-mobile-heading"
-                  >
-                    {c.heading}
-                  </div>
-                ) : (
-                  <Link key={c.href} href={c.href} onClick={closeMobile}>
-                    {c.label}
-                  </Link>
-                ),
-              )
+            ? item.children.map((c) => (
+                <Link key={c.href} href={c.href} onClick={closeMobile}>
+                  {c.label}
+                </Link>
+              ))
             : item.href
               ? [
                   <Link key={item.href} href={item.href} onClick={closeMobile}>
