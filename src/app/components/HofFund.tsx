@@ -56,6 +56,36 @@ const MONEY = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+/** The photo strip. Exported separately from the band because the page now
+ *  opens with the ask and puts the save-the-date directly beneath it — the
+ *  photographs belong after that, as the transition into the mission copy,
+ *  not wedged between the ask and the night it pays for. */
+export function HofLegacyStrip() {
+  const fund = hofData.fund as Fund;
+  if (!fund?.enabled || fund.gallery.length === 0) return null;
+  return (
+    <section className="slotab-section slotab-hof-legacy">
+      <div className="slotab-container">
+        <div className="slotab-hof-legacy-grid">
+          {fund.gallery.map((shot) => (
+            <figure key={shot.photo} className="slotab-hof-legacy-item">
+              <Image
+                src={shot.photo}
+                alt={shot.caption}
+                width={1200}
+                height={800}
+                sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 360px"
+                loading="lazy"
+              />
+              <figcaption>{shot.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function HofFund() {
   const fund = hofData.fund as Fund;
   const { ceremony } = hofData;
@@ -74,8 +104,7 @@ export default function HofFund() {
     : 0;
 
   return (
-    <>
-      <section className="slotab-hof-fund" id="fund">
+    <section className="slotab-hof-fund" id="fund">
         <Image
           src={fund.heroPhoto}
           alt=""
@@ -94,6 +123,16 @@ export default function HofFund() {
             <span className="slotab-kicker">{fund.kicker}</span>
             <h2>{fund.title}</h2>
             <p className="slotab-hof-fund-lead">{fund.lead}</p>
+            {/* A second ask, at the top. The band runs ~1500px on a laptop, so
+                the buttons at its foot are a long scroll from the headline that
+                did the persuading — and a donor already convinced should not
+                have to read a six-rung ladder to find a button. The pair at the
+                bottom stays for the donor who does read it. */}
+            <p className="slotab-hof-fund-head-cta">
+              <Link href={donateHref()} className="slotab-btn">
+                Fund the HOF Class of 2026
+              </Link>
+            </p>
           </div>
 
           <div className="slotab-hof-fund-body">
@@ -165,7 +204,7 @@ export default function HofFund() {
 
           <div className="slotab-hof-fund-cta">
             <Link href={donateHref()} className="slotab-btn">
-              Fund the Class of 2026
+              Fund the HOF Class of 2026
             </Link>
             {ceremony.ticketsUrl && (
               <Link
@@ -184,31 +223,6 @@ export default function HofFund() {
             to the extent allowed by law.
           </p>
         </div>
-      </section>
-
-      {/* Legacy strip — the argument the copy can't make on its own: these are
-          the rooms and the teams the Hall of Fame is a record of. */}
-      {fund.gallery.length > 0 && (
-        <section className="slotab-section slotab-hof-legacy">
-          <div className="slotab-container">
-            <div className="slotab-hof-legacy-grid">
-              {fund.gallery.map((shot) => (
-                <figure key={shot.photo} className="slotab-hof-legacy-item">
-                  <Image
-                    src={shot.photo}
-                    alt={shot.caption}
-                    width={1200}
-                    height={800}
-                    sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 360px"
-                    loading="lazy"
-                  />
-                  <figcaption>{shot.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-    </>
+    </section>
   );
 }

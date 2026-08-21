@@ -568,7 +568,7 @@ collections:
                 }
               - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
           - name: fund
-            label: "Fund the Class (donation band)"
+            label: "Fund the HOF Class (donation band)"
             widget: object
             collapsed: true
             hint: "The fundraising band on /hall-of-fame. Gifts land on the Hall of Fame designation in the donate form and post to the 'Donation: Hall of Fame' class in QuickBooks."

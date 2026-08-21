@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HofFund from "../components/HofFund";
+import HofFund, { HofLegacyStrip } from "../components/HofFund";
 import InducteeGrid from "../components/InducteeGrid";
 import PageHeader from "../components/PageHeader";
 import hofData from "../data/hof.json";
@@ -30,24 +30,16 @@ export default function HallOfFamePage() {
         title="Athletics Hall of Fame"
       />
 
-      {/* Mission + official link */}
-      <section className="slotab-section">
-        <div className="slotab-container slotab-prose" style={{ textAlign: "center" }}>
-          <p style={{ fontSize: "1.15rem" }}>{missionStatement}</p>
-          <p>
-            <Link
-              href={officialPage}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="slotab-btn"
-            >
-              Visit the Official SLOHS HOF Page
-            </Link>
-          </p>
-        </div>
-      </section>
+      {/* Fund the HOF Class of 2026 — the fundraising band (#184).
+          FIRST BLOCK ON THE PAGE, at Erik's call 2026-08-21: it opened below
+          the mission and the save-the-date, which put the only ask on the page
+          under the fold on a laptop. The ceremony strip now sits directly
+          beneath it (the ask still reads next to the night it pays for) and
+          the mission — context, not a call to action — moves below both. */}
+      <HofFund />
 
-      {/* Ceremony — induction at Booster Bash */}
+      {/* Ceremony — induction at Booster Bash. Directly under the fund band:
+          the save-the-date is what the money is for. */}
       <section className="slotab-feature-strip">
         <div className="slotab-container">
           <span
@@ -85,21 +77,42 @@ export default function HallOfFamePage() {
               </Link>
             ) : (
               /* No dedicated HOF donate URL is set, but there is now a real
-                 Hall of Fame designation on the donate form — so this points at
-                 the fund band below rather than the generic donate page. */
-              <Link href="#fund" className="slotab-btn dark">
-                Fund the Class of 2026
+                 Hall of Fame designation on the donate form, so this goes
+                 straight to it rather than to the generic donate page. It used
+                 to point at `#fund`; since the reorder that band is directly
+                 ABOVE this strip, and a button that scrolls a reader back up
+                 to what they just read is worse than no button. */
+              <Link
+                href="/donate?tab=general&team=hall-of-fame"
+                className="slotab-btn dark"
+              >
+                Fund the HOF Class of 2026
               </Link>
             )}
           </div>
         </div>
       </section>
 
-      {/* Fund the Class of 2026 — the fundraising band (#184). Sits directly
-          under the save-the-date because the ask only makes sense next to the
-          night it pays for, and above the 46-name grid because that grid is
-          long enough that anything below it is effectively unpublished. */}
-      <HofFund />
+      {/* Legacy photo strip — after the save-the-date, as the transition from
+          the ask into what the Hall of Fame actually is. */}
+      <HofLegacyStrip />
+
+      {/* Mission + official link */}
+      <section className="slotab-section">
+        <div className="slotab-container slotab-prose" style={{ textAlign: "center" }}>
+          <p style={{ fontSize: "1.15rem" }}>{missionStatement}</p>
+          <p>
+            <Link
+              href={officialPage}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="slotab-btn"
+            >
+              Visit the Official SLOHS HOF Page
+            </Link>
+          </p>
+        </div>
+      </section>
 
       {/* Past Inductees — filterable grid */}
       <section className="slotab-section">
