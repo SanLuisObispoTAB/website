@@ -123,10 +123,15 @@ export default function DonateForm({
   // and the donor must key it in. Telling a storefront donor "the amount is
   // already set" would send them through a checkout they'd underpay.
   const [handoffMode, setHandoffMode] = useState<"link" | "storefront">("link");
-  // Which half of the box is showing. General membership is the default
-  // deliberately: it is the overwhelming majority of traffic, and a parent
-  // should never have to dismiss a business form to give $50.
-  const [audience, setAudience] = useState<"general" | "business">("general");
+  // Which half of the box is showing.
+  //
+  // Sponsorship is the default at Trina's request (2026-08-21), because
+  // business sponsorship is the board's current fundraising push and she wants
+  // it in front of anyone who lands here. Noting the trade-off rather than
+  // burying it: parent gifts are the overwhelming majority of traffic, so this
+  // costs the many a click to save the few one. Flip the initial value back to
+  // "general" if the click-through data says it is not paying for itself.
+  const [audience, setAudience] = useState<"general" | "business">("business");
   // Held rather than followed immediately, so the panel above can be read.
   const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState<number | null>(null);
