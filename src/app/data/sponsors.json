@@ -8,6 +8,11 @@
           "name": "SLO Credit Union",
           "logo": "/sponsors/gold/SLO-Credit-Union.png",
           "website": "https://slocu.com/"
+        },
+        {
+          "name": "SLO Safe Ride",
+          "logo": "/sponsors/gold/SLO-Safe-Ride.png",
+          "website": "https://slosaferide.com/"
         }
       ]
     },
@@ -16,6 +21,10 @@
       "sponsors": [
         {
           "name": "Premium Meat Market"
+        },
+        {
+          "name": "Crocker Coastal Construction",
+          "logo": "/sponsors/silver/Crocker-Coastal-Construction-pdf.jpg"
         }
       ]
     },
@@ -29,10 +38,6 @@
         {
           "name": "San Luis Obispo Heart",
           "logo": "/sponsors/tigerpride/San-Luis-Obispo-Heart.jpg"
-        },
-        {
-          "name": "Crocker Coastal Construction",
-          "logo": "/sponsors/silver/Crocker-Coastal-Construction-pdf.jpg"
         }
       ]
     },
