@@ -1881,6 +1881,34 @@
   text-decoration: none;
   transition: transform 0.2s, border-color 0.2s, background 0.2s;
 }
+
+/* Stand-in for a sponsor whose artwork hasn't arrived yet — the business
+   name set as a deliberate wordmark rather than a broken image. Same tile
+   footprint as a logo, so the grid rhythm holds. `text-wrap: balance` per
+   #107: centred, and several of these names run three or four words. */
+.tiger-sponsor-wordmark {
+  font-family: var(--tiger-serif), Georgia, serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--tiger-ink);
+}
+.tiger-sponsors-tier.champion-tier .tiger-sponsor-wordmark { font-size: 1.5rem; }
+.tiger-sponsors-tier.gold-tier .tiger-sponsor-wordmark { font-size: 1.25rem; }
+.tiger-sponsors-tier.varsity-tier .tiger-sponsor-wordmark { font-size: 0.95rem; }
+
+/* A tier holding one or two sponsors would otherwise stretch each tile
+   across the whole row — `minmax(X, 1fr)` has no upper bound. Invisible
+   while every tier held sixteen logos; very visible on the sparse 2026-27
+   wall, where Gold opened with a single sponsor. Capping the tile (the grid
+   centres it) fixes 1- and 2-sponsor tiers and changes nothing at 3+, where
+   the track is already narrower than the cap. */
+.tiger-sponsors-grid { justify-items: center; }
+.tiger-sponsor-tile { width: 100%; max-width: 340px; }
+.tiger-sponsors-tier.champion-tier .tiger-sponsor-tile { max-width: 460px; }
+.tiger-sponsors-tier.gold-tier .tiger-sponsor-tile { max-width: 380px; }
 .tiger-sponsor-tile:hover {
   transform: translateY(-2px);
   border-color: var(--tiger-gold);

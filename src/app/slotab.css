@@ -875,6 +875,46 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   border-color: var(--slotab-gold);
 }
+/* Stand-in for a sponsor whose artwork hasn't arrived yet. Set as a
+   deliberate wordmark — centred, balanced, in the heading face — so the
+   tile reads as a designed nameplate rather than a logo that failed to
+   load. Sits in the same footprint as a logo tile, so the grid keeps its
+   rhythm. `text-wrap: balance` per #107: these names are centred and
+   several run to three or four words. */
+.slotab-sponsor-wordmark {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--slotab-black);
+  letter-spacing: 0.01em;
+}
+.slotab-sponsor-tier.champion .slotab-sponsor-wordmark { font-size: 1.35rem; }
+.slotab-sponsor-tier.gold .slotab-sponsor-wordmark { font-size: 1.15rem; }
+.slotab-sponsor-tier.varsity .slotab-sponsor-wordmark { font-size: 0.9rem; }
+/* A tier holding one or two sponsors would otherwise stretch each tile
+   across the whole row — `minmax(X, 1fr)` has no upper bound. Invisible
+   while every tier held sixteen logos; very visible on the sparse 2026-27
+   wall, where Gold opened with a single sponsor and Silver with one
+   wordmark. The grid already centres its items, so capping the tile is
+   enough; at 3+ per tier the track is narrower than the cap and nothing
+   changes. */
+.slotab-sponsor-logo { max-width: 420px; }
+.slotab-sponsor-tier.champion .slotab-sponsor-logo { max-width: 520px; }
+
+/* Bound the logo height per tier, the way the homepage wall already does.
+   Nothing capped it here, so tile height followed each logo's aspect ratio
+   — a tall square logo next to a wide banner gave a row of 108 / 202 / 259
+   px tiles. Harmless when a tier held sixteen small logos; conspicuous at
+   three across. */
+.slotab-sponsor-tier.champion .slotab-sponsor-logo img { max-height: 160px; }
+.slotab-sponsor-tier.gold .slotab-sponsor-logo img { max-height: 110px; }
+.slotab-sponsor-tier.silver .slotab-sponsor-logo img { max-height: 88px; }
+.slotab-sponsor-tier.tigerpride .slotab-sponsor-logo img { max-height: 76px; }
+.slotab-sponsor-tier.varsity .slotab-sponsor-logo img { max-height: 64px; }
+
 .slotab-sponsor-tier.champion .slotab-sponsor-logo { min-height: 200px; padding: 1.25rem; }
 .slotab-sponsor-tier.gold .slotab-sponsor-logo { min-height: 150px; }
 .slotab-sponsor-tier.silver .slotab-sponsor-logo { min-height: 120px; }

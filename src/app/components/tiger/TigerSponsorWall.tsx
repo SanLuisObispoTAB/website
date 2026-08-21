@@ -17,12 +17,16 @@ function alphaPath(originalLogo: string): string {
 }
 
 function Tile({ s }: { s: Sponsor }) {
-  const src = alphaPath(s.logo);
   // max-height is controlled by tier-specific CSS (.champion-tier
   // .tiger-sponsor-tile img, etc.) so each tier scales independently.
-  const inner = (
+  //
+  // A sponsor with no artwork yet gets their name set as a wordmark. They
+  // have paid; being absent from the wall is the one outcome that is
+  // actually wrong. This is also why alphaPath() is only called inside the
+  // branch — it would happily build "/sponsors/alpha/undefined" otherwise.
+  const inner = s.logo ? (
     <Image
-      src={src}
+      src={alphaPath(s.logo)}
       alt={s.name}
       width={300}
       height={144}
@@ -31,6 +35,8 @@ function Tile({ s }: { s: Sponsor }) {
         objectFit: "contain",
       }}
     />
+  ) : (
+    <span className="tiger-sponsor-wordmark">{s.name}</span>
   );
   if (s.website) {
     return (
@@ -53,8 +59,12 @@ function Tile({ s }: { s: Sponsor }) {
 }
 
 export default function TigerSponsorWall({ mode = "full" }: Props) {
+  // Drop empty tiers as well as the compact-mode Varsity cut. Early in a
+  // season the wall is sparse — the 2026-27 rebuild opened with no Champion
+  // sponsor at all — and an empty tier would render a heading over nothing.
   const tiers = SPONSOR_TIERS.filter(
-    (t) => mode !== "compact" || t.tier !== "Varsity",
+    (t) =>
+      t.sponsors.length > 0 && (mode !== "compact" || t.tier !== "Varsity"),
   );
 
   return (
@@ -66,7 +76,7 @@ export default function TigerSponsorWall({ mode = "full" }: Props) {
             <div className="tiger-sponsors-tier-label">{tier}</div>
             <div className={`tiger-sponsors-grid ${cls}`}>
               {sponsors.map((s) => (
-                <Tile key={`${tier}-${s.name}-${s.logo}`} s={s} />
+                <Tile key={`${tier}-${s.name}`} s={s} />
               ))}
             </div>
           </div>

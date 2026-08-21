@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MembershipTiers from "../components/MembershipTiers";
 import SponsorWall from "../components/SponsorWall";
+import { SPONSOR_SEASON } from "../data/sponsors";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
 import { isPublicCheckoutEnabled } from "../../lib/square";
@@ -78,13 +79,18 @@ export default function MembershipPage() {
       <section className="slotab-section alt">
         <div className="slotab-container">
           <div className="slotab-section-title">
-            <span className="slotab-kicker">2025–2026</span>
+            {/* Season comes from the sponsor data rather than being typed
+                here — this line still read 2025–2026 for a fortnight after
+                the wall itself had been rebuilt for 2026-27. */}
+            <span className="slotab-kicker">
+              {SPONSOR_SEASON.replace("-", "–")}
+            </span>
             <h2>Business Sponsors</h2>
             <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
               Thank you to all of our generous business sponsors. Your
               continued support of our Tiger athletes is greatly appreciated.
-              The wall below recognizes our 2025–26 sponsors and refreshes
-              for 2026–27 as businesses renew.
+              This wall is built fresh each season and grows as businesses
+              come on board — join them and your logo appears here.
             </p>
           </div>
           <SponsorshipMarker />

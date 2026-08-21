@@ -2,8 +2,14 @@ import sponsorsJson from "./sponsors.json";
 
 export type Sponsor = {
   name: string;
-  logo: string;
-  /** Optional sponsor website. When present, the logo on the sponsor wall
+  /** Optional. A sponsor is on the wall the moment they pay, which is often
+   *  well before anyone chases them for artwork — 4 of the 8 in the 2026-27
+   *  rebuild had none. Without a logo the tile renders the business name as
+   *  a wordmark instead, so a paying sponsor is never simply missing. Note
+   *  the homepage wall needs a matching transparent copy under
+   *  /sponsors/alpha/ whenever this IS set. */
+  logo?: string;
+  /** Optional sponsor website. When present, the tile on the sponsor wall
    * is wrapped in an external link. */
   website?: string;
 };

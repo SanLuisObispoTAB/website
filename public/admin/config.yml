@@ -67,7 +67,13 @@ collections:
               - name: tier
                 label: "Tier"
                 widget: select
-                options: ["Champion", "Gold", "Silver", "Varsity"]
+                # "Tiger Pride" was missing here until 2026-08-20, so the
+                # board could not select the tier that three of the eight
+                # 2026-27 sponsors actually sit in. Must match the ladder in
+                # data/sponsors.ts exactly — the wall derives a CSS class
+                # from the name.
+                options:
+                  ["Champion", "Gold", "Silver", "Tiger Pride", "Varsity"]
               - name: sponsors
                 label: "Sponsors in this tier"
                 widget: list
@@ -75,9 +81,10 @@ collections:
                   - { name: name, label: "Business name", widget: string }
                   - {
                       name: logo,
-                      label: "Logo",
+                      label: "Logo (optional)",
                       widget: image,
-                      hint: "Upload the sponsor's logo (PNG, JPG or SVG).",
+                      required: false,
+                      hint: "Upload the sponsor's logo (PNG, JPG or SVG). Leave blank if the artwork hasn't arrived yet — the wall shows the business name as a wordmark instead, so the sponsor still appears. Remember the matching transparent copy under /sponsors/alpha/ when you do add one.",
                     }
                   - {
                       name: website,

@@ -21,7 +21,10 @@ function LogoTile({
   width: number;
   height: number;
 }) {
-  const inner = (
+  // No artwork yet — set the business name as a wordmark rather than drop
+  // the sponsor. They have paid; being absent from the wall is the one
+  // outcome that is actually wrong.
+  const inner = s.logo ? (
     <Image
       src={s.logo}
       alt={s.name}
@@ -33,6 +36,8 @@ function LogoTile({
         height: "100%",
       }}
     />
+  ) : (
+    <span className="slotab-sponsor-wordmark">{s.name}</span>
   );
   if (s.website) {
     return (
@@ -53,15 +58,20 @@ function LogoTile({
 export default function SponsorWall() {
   return (
     <div className="slotab-sponsor-wall">
-      {SPONSOR_TIERS.map(({ tier, sponsors }) => {
+      {SPONSOR_TIERS.filter((t) => t.sponsors.length > 0).map(({
+        tier,
+        sponsors,
+      }) => {
         const size = TIER_SIZES[tier];
         return (
           <div key={tier} className={`slotab-sponsor-tier ${size.className}`}>
             <h3>{tier} Sponsors</h3>
             <div className="slotab-sponsor-grid">
               {sponsors.map((s) => (
+                // Keyed on name, not logo: a sponsor without artwork has no
+                // logo to key on, and two of them would collide on undefined.
                 <LogoTile
-                  key={s.logo}
+                  key={s.name}
                   s={s}
                   width={size.w}
                   height={size.h}

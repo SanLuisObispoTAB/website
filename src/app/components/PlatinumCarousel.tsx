@@ -29,7 +29,11 @@ export default function PlatinumCarousel() {
   if (sponsors.length === 0) return null;
 
   const current = sponsors[index];
-  const inner = (
+  // Same fallback as the two sponsor walls: a sponsor with no artwork yet
+  // shows as a wordmark rather than a broken image. Unreachable while the
+  // Champion tier is empty (the early-return above covers that), but the
+  // carousel must not assume a logo exists the moment one is signed.
+  const inner = current.logo ? (
     <Image
       src={current.logo}
       alt={current.name}
@@ -37,6 +41,8 @@ export default function PlatinumCarousel() {
       height={280}
       style={{ objectFit: "contain", width: "100%", height: "100%" }}
     />
+  ) : (
+    <span className="slotab-sponsor-wordmark">{current.name}</span>
   );
 
   return (
