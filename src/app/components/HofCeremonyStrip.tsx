@@ -3,13 +3,13 @@ import hofData from "../data/hof.json";
 
 // The gold "Save the Date" strip on /hall-of-fame.
 //
-// Extracted from the page when the unlisted review page at /preview/hof-fund
-// was built (#185): that page has to show the AD the *proposed* page, and a
-// second hand-copied strip would drift from the real one the first time the
-// venue or the date changed — which has already happened once (Oct 3 / Holland
-// Ranch → Oct 10 / Octagon Barn, #106). One component, two callers, one date.
+// Extracted when the unlisted review page at /preview/hof-fund was built
+// (#185): that page has to show the AD the *proposed* Hall of Fame page, and a
+// hand-copied strip would drift from the real one the first time the venue or
+// the date changed — which has already happened once (Oct 3 / Holland Ranch →
+// Oct 10 / Octagon Barn, #106). One component, two callers, one date.
 //
-// The markup is unchanged from the inline version it replaces.
+// The markup is identical to the inline version it replaced on /hall-of-fame.
 
 export default function HofCeremonyStrip() {
   const { ceremony } = hofData;
