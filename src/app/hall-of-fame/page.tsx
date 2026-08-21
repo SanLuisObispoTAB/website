@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HofCeremonyStrip from "../components/HofCeremonyStrip";
 import HofFund, { HofLegacyStrip } from "../components/HofFund";
 import InducteeGrid from "../components/InducteeGrid";
 import PageHeader from "../components/PageHeader";
@@ -18,7 +19,6 @@ export default function HallOfFamePage() {
     officialPage,
     nominationForms,
     nominationCriteria,
-    ceremony,
     alumniMembership,
   } = hofData;
   const committee = hofData.committee as CommitteeMember[];
@@ -39,59 +39,10 @@ export default function HallOfFamePage() {
       <HofFund />
 
       {/* Ceremony — induction at Booster Bash. Directly under the fund band:
-          the save-the-date is what the money is for. */}
-      <section className="slotab-feature-strip">
-        <div className="slotab-container">
-          <span
-            className="slotab-kicker"
-            style={{
-              display: "block",
-              letterSpacing: "0.2em",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Save the Date
-          </span>
-          <h2>{ceremony.title} — at the Booster Bash</h2>
-          <p style={{ fontSize: "1.1rem" }}>
-            <strong>{ceremony.dateLabel}</strong> · {ceremony.venueName}
-          </p>
-          <p style={{ maxWidth: 640, margin: "0.5rem auto 1.5rem" }}>
-            {ceremony.venueDetail}
-          </p>
-          {/* Each CTA renders only once a real URL is set in hof.json —
-              a dead "#" button on a save-the-date is worse than none. */}
-          <div className="slotab-btn-row" style={{ justifyContent: "center" }}>
-            {ceremony.ticketsUrl && (
-              <Link href={ceremony.ticketsUrl} className="slotab-btn dark">
-                Booster Bash Tickets
-              </Link>
-            )}
-            {ceremony.donateUrl ? (
-              <Link
-                href={ceremony.donateUrl}
-                className="slotab-btn dark"
-                style={{ background: "transparent", color: "var(--slotab-black)" }}
-              >
-                Donate to the HOF Fund
-              </Link>
-            ) : (
-              /* No dedicated HOF donate URL is set, but there is now a real
-                 Hall of Fame designation on the donate form, so this goes
-                 straight to it rather than to the generic donate page. It used
-                 to point at `#fund`; since the reorder that band is directly
-                 ABOVE this strip, and a button that scrolls a reader back up
-                 to what they just read is worse than no button. */
-              <Link
-                href="/donate?tab=general&team=hall-of-fame"
-                className="slotab-btn dark"
-              >
-                Fund the HOF Class of 2026
-              </Link>
-            )}
-          </div>
-        </div>
-      </section>
+          the save-the-date is what the money is for. Extracted to a component
+          in #185 so the unlisted review page renders the same strip, not a
+          copy of it that drifts the next time the venue moves. */}
+      <HofCeremonyStrip />
 
       {/* Legacy photo strip — after the save-the-date, as the transition from
           the ask into what the Hall of Fame actually is. */}

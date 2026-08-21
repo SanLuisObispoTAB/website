@@ -2,8 +2,10 @@ import type { MetadataRoute } from "next";
 import teamsData from "./data/teams.json";
 
 // Public routes only. Deliberately excluded: /admin and /admin-portal (board
-// tooling), /board/* (password-gated), and /spring-social (an unlinked page
-// still describing the April 2026 edition — see decision #94).
+// tooling), /board/* (password-gated), /spring-social (an unlinked page
+// still describing the April 2026 edition — see decision #94), and
+// /preview/hof-fund (an unlisted draft of the Hall of Fame fundraising block,
+// sent to the AD for review — #185; it also carries its own `noindex`).
 const STATIC_ROUTES = [
   "",
   "/about",

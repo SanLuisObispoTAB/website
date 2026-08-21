@@ -2162,6 +2162,53 @@
   font-style: italic;
 }
 
+/* Draft banner — the unlisted review page at /preview/hof-fund (#185).
+   Loud on purpose: a reviewer who mistakes a proposal for the live site gives
+   feedback on the wrong thing. Not themed like the rest of the site for the
+   same reason — it should read as scaffolding, not as a section of the page. */
+.slotab-draft-banner {
+  background: repeating-linear-gradient(
+    45deg,
+    #1a1a1a,
+    #1a1a1a 12px,
+    #232323 12px,
+    #232323 24px
+  );
+  color: #fff;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 4px solid var(--slotab-gold);
+}
+.slotab-draft-banner p {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  text-wrap: balance;
+}
+.slotab-draft-banner a {
+  color: var(--slotab-gold);
+}
+.slotab-draft-flag {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--slotab-gold);
+  color: var(--slotab-black);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.slotab-draft-asks {
+  margin-top: 0.75rem !important;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
 /* ==========================================================================
    HALL OF FAME — "Fund the HOF Class of 2026" band (#184)
    --------------------------------------------------------------------------
