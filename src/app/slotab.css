@@ -3878,3 +3878,28 @@ a.slotab-platinum-slide:hover {
   text-align: center;
   margin: 1.25rem 0 0;
 }
+
+/* A merch tile that links to its product page. Only `.is-linked` tiles get the
+   affordance — an unlinked design must not look clickable. */
+.slotab-merch-item.is-linked {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.slotab-merch-item.is-linked:hover,
+.slotab-merch-item.is-linked:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(10, 10, 10, 0.12);
+  text-decoration: none;
+}
+
+.slotab-merch-shop {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--slotab-gold-dark);
+}

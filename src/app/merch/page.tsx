@@ -2,20 +2,37 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 
-// Online store URL. Empty until the board supplies the real storefront link —
-// the button below stays hidden rather than shipping a dead "#" CTA.
+// The merch store.
+//
+// NOT the storefront the donation flow falls back to. `slotab-3.square.site`
+// carries memberships, sponsorships, sport passes and team donations — 37
+// products, none of them apparel. Merch lives on its own Square Online site,
+// attached to the "SLOTAB Merch" location in the club's *other* Square account
+// (see decision #162 for why there are two).
+//
+// Empty means the page shows a "not open yet" note instead of a dead button —
+// a shop link that 404s is worse than an honest absence.
 const STORE_URL = "";
 
-const SHIRTS = [
-  { name: "Baseball", src: "/merch/SLOHS_Baseball_2-1.png" },
-  { name: "Beach Volleyball", src: "/merch/SLOHS_BeachVolleyball_2-1.png" },
-  { name: "Golf", src: "/merch/SLOHS_Golf_2.png" },
-  { name: "Softball", src: "/merch/SLOHS_Softball_2-1.png" },
-  { name: "Stunt", src: "/merch/SLOHS_Stunt_2-1.png" },
-  { name: "Swim & Dive", src: "/merch/SLOHS_SwimDive_3-1.png" },
-  { name: "Tennis", src: "/merch/SLOHS_Tennis_2-1.png" },
-  { name: "Track & Field", src: "/merch/SLOHS_TrackField_2.png" },
-  { name: "Volleyball", src: "/merch/SLOHS_Volleyball_2.png" },
+/** A shirt design, and where to buy it.
+ *
+ *  `url` is the product page for that specific shirt, so the gallery is a
+ *  shopfront rather than a lookbook — clicking Baseball should land on the
+ *  Baseball shirt, not on a store homepage the parent then has to search.
+ *  Empty `url` degrades to a plain image, so a design with no listing yet
+ *  still shows without producing a broken link. */
+type Shirt = { name: string; src: string; url?: string };
+
+const SHIRTS: Shirt[] = [
+  { name: "Baseball", src: "/merch/SLOHS_Baseball_2-1.png", url: "" },
+  { name: "Beach Volleyball", src: "/merch/SLOHS_BeachVolleyball_2-1.png", url: "" },
+  { name: "Golf", src: "/merch/SLOHS_Golf_2.png", url: "" },
+  { name: "Softball", src: "/merch/SLOHS_Softball_2-1.png", url: "" },
+  { name: "Stunt", src: "/merch/SLOHS_Stunt_2-1.png", url: "" },
+  { name: "Swim & Dive", src: "/merch/SLOHS_SwimDive_3-1.png", url: "" },
+  { name: "Tennis", src: "/merch/SLOHS_Tennis_2-1.png", url: "" },
+  { name: "Track & Field", src: "/merch/SLOHS_TrackField_2.png", url: "" },
+  { name: "Volleyball", src: "/merch/SLOHS_Volleyball_2.png", url: "" },
 ];
 
 export default function MerchPage() {
@@ -69,17 +86,36 @@ export default function MerchPage() {
             </p>
           </div>
           <div className="slotab-merch-grid">
-            {SHIRTS.map((s) => (
-              <div key={s.name} className="slotab-merch-item">
-                <Image
-                  src={s.src}
-                  alt={`SLOHS ${s.name} shirt design`}
-                  width={500}
-                  height={500}
-                />
-                <h4>{s.name}</h4>
-              </div>
-            ))}
+            {SHIRTS.map((s) => {
+                const art = (
+                  <>
+                    <Image
+                      src={s.src}
+                      alt={`SLOHS ${s.name} shirt design`}
+                      width={500}
+                      height={500}
+                    />
+                    <h4>{s.name}</h4>
+                  </>
+                );
+                // A linked tile only when there is somewhere to go. Wrapping a
+                // design with no listing in an anchor would look identical and
+                // do nothing, which is the worse failure.
+                return s.url ? (
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    className="slotab-merch-item is-linked"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {art}
+                    <span className="slotab-merch-shop">Shop this design →</span>
+                  </a>
+                ) : (
+                  <div key={s.name} className="slotab-merch-item">{art}</div>
+                );
+              })}
           </div>
           <p
             style={{
