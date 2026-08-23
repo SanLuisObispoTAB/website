@@ -60,6 +60,13 @@ type TeamPhoto = {
   note?: string;
 };
 
+/** A gallery entry. A bare path is the common case and every existing team
+ *  uses it. The object form adds a caption, for a photo whose *point* isn't
+ *  visible in the photo — Dance's Future Tigers shot is a wide, soft crowd
+ *  picture that reads as nothing until you're told it's the outreach
+ *  workshop, which is the only reason the coach asked for it at all. */
+type GalleryEntry = string | { photo: string; caption?: string };
+
 type AssistantCoach = {
   name: string;
   role: string;
@@ -112,7 +119,7 @@ export type Team = {
    *  the portrait. Natural aspect ratios are preserved (no crop), so mix
    *  landscape + portrait freely. Distinct from heroPhoto (the single top
    *  action shot) and teamPhoto (the posed portrait). */
-  gallery?: string[];
+  gallery?: GalleryEntry[];
   eventCategory?: string;
   headCoach?: Coach;
   /** Several head coaches, for a combined team (cross country runs boys and
@@ -162,6 +169,10 @@ export default function TeamPage({ team }: { team: Team }) {
   // girls under two). Normalise to a list so the markup has one shape.
   const headCoaches: Coach[] =
     team.headCoaches ?? (team.headCoach ? [team.headCoach] : []);
+  // Same for gallery entries, which may be a bare path or a captioned object.
+  const gallery = (team.gallery ?? []).map((g) =>
+    typeof g === "string" ? { photo: g, caption: undefined } : g,
+  );
   // Same for squad portraits.
   const teamPhotos: TeamPhoto[] =
     team.teamPhotos ?? (team.teamPhoto ? [{ photo: team.teamPhoto }] : []);
@@ -320,7 +331,7 @@ export default function TeamPage({ team }: { team: Team }) {
       )}
 
       {/* Action gallery — showcase as many in-game photos as we have */}
-      {team.gallery && team.gallery.length > 0 && (
+      {gallery.length > 0 && (
         <section className="slotab-section slotab-team-gallery-section">
           <div className="slotab-container">
             <div className="slotab-section-title">
@@ -328,18 +339,23 @@ export default function TeamPage({ team }: { team: Team }) {
               <h2>{team.name} on the field</h2>
             </div>
             <div className="slotab-team-gallery">
-              {team.gallery.map((src, i) => (
-                <div key={src} className="slotab-team-gallery-item">
+              {gallery.map((g, i) => (
+                <figure key={g.photo} className="slotab-team-gallery-item">
                   <Image
-                    src={src}
-                    alt={`${team.name} action photo ${i + 1}`}
+                    src={g.photo}
+                    alt={g.caption ?? `${team.name} action photo ${i + 1}`}
                     width={1200}
                     height={800}
                     sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 360px"
                     loading="lazy"
                     style={{ width: "100%", height: "auto", display: "block" }}
                   />
-                </div>
+                  {g.caption && (
+                    <figcaption className="slotab-team-gallery-caption">
+                      {g.caption}
+                    </figcaption>
+                  )}
+                </figure>
               ))}
             </div>
           </div>

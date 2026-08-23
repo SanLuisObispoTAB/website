@@ -57,7 +57,12 @@ function assess(t) {
   const heads = t.headCoaches ?? (t.headCoach ? [t.headCoach] : []);
   const portraits =
     t.teamPhotos ?? (t.teamPhoto ? [{ photo: t.teamPhoto }] : []);
-  const gallery = t.gallery ?? [];
+  // Gallery entries are either a bare path or { photo, caption } — normalise
+  // to paths, or `isPortrait` silently passes an object and the "no posed
+  // portraits in action slots" rule (#108) stops catching anything.
+  const gallery = (t.gallery ?? []).map((g) =>
+    typeof g === "string" ? g : g.photo,
+  );
   const liaisons = (t.liaisons ?? []).filter(
     (l) => l.name && !/TBD/i.test(l.name),
   );

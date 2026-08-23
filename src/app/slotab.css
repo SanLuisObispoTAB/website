@@ -3326,6 +3326,19 @@ a.slotab-platinum-slide:hover {
   border: 1px solid var(--slotab-border);
   padding: 6px;
   overflow: hidden;
+  /* Now a <figure>, which carries UA margins that would break the grid. */
+  margin: 0;
+}
+/* Optional caption, for a photo whose point isn't visible in the photo.
+   Left-aligned rather than centred: these run to a sentence or two, and the
+   centred-text rule (#107) is about short blocks stranding a word — a
+   left-aligned caption sidesteps it entirely. */
+.slotab-team-gallery-caption {
+  padding: 0.55rem 0.35rem 0.2rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--slotab-muted);
+  text-wrap: pretty;
 }
 
 /* ==========================================================================
