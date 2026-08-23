@@ -3360,6 +3360,179 @@ a.slotab-platinum-slide:hover {
   border: 1px solid var(--slotab-border);
   padding: 6px;
   overflow: hidden;
+  /* Now a <figure>, which carries UA margins that would break the grid. */
+  margin: 0;
+}
+/* ==========================================================================
+   CLICK-TO-ENLARGE (ZoomablePhotos)
+   Photos are stored at 1200px (photo-intake's TARGET_WIDTH) but the gallery
+   shows them at ~360px, so the tile is a button that opens the stored size.
+   ========================================================================== */
+
+/* The trigger must be invisible as a control — it wraps an existing tile and
+   must not add a border, background or inline-block baseline gap that would
+   shift layouts on 21 team pages. */
+.slotab-photo-zoom-trigger {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+}
+.slotab-photo-zoom-trigger:focus-visible {
+  outline: 3px solid var(--slotab-gold);
+  outline-offset: 2px;
+}
+/* Affordance. Hidden until hover/focus so it doesn't litter every tile, but
+   always present for touch, where there is no hover to reveal it. */
+.slotab-photo-zoom-hint {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+.slotab-photo-zoom-trigger:hover .slotab-photo-zoom-hint,
+.slotab-photo-zoom-trigger:focus-visible .slotab-photo-zoom-hint {
+  opacity: 1;
+}
+@media (hover: none) {
+  .slotab-photo-zoom-hint {
+    opacity: 0.75;
+  }
+}
+
+.slotab-lightbox {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.slotab-lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.88);
+}
+.slotab-lightbox-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3.5rem 1rem 1.5rem;
+  box-sizing: border-box;
+}
+/* Capped at the stored width — upscaling past 1200px only makes it softer.
+   Width is explicit rather than `auto`: an `auto` width on a not-yet-loaded
+   image resolves to zero, and a zero-size box is exactly what stops a lazy
+   image ever loading. Explicit width + `height: auto` lets the width/height
+   attributes supply the aspect ratio, so the box is correct before a byte
+   of image arrives. */
+.slotab-lightbox-img {
+  width: min(1200px, 100%);
+  height: auto;
+  max-height: 78vh;
+  object-fit: contain;
+}
+.slotab-lightbox-caption,
+.slotab-lightbox-count {
+  margin: 0;
+  max-width: 800px;
+  text-align: center;
+  text-wrap: balance;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+.slotab-lightbox-count {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+.slotab-lightbox-close,
+.slotab-lightbox-nav {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease;
+}
+.slotab-lightbox-close:hover,
+.slotab-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+.slotab-lightbox-close:focus-visible,
+.slotab-lightbox-nav:focus-visible {
+  outline: 3px solid var(--slotab-gold);
+  outline-offset: 2px;
+}
+.slotab-lightbox-close {
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+.slotab-lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 64px;
+  border-radius: 6px;
+  font-size: 2rem;
+  line-height: 1;
+}
+.slotab-lightbox-nav.prev {
+  left: 1rem;
+}
+.slotab-lightbox-nav.next {
+  right: 1rem;
+}
+/* On a phone the arrows would sit on top of the photo, so drop them to the
+   bottom corners where the thumb already is. */
+@media (max-width: 640px) {
+  .slotab-lightbox-nav {
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+    width: 56px;
+    height: 48px;
+  }
+}
+
+/* Optional caption, for a photo whose point isn't visible in the photo.
+   Left-aligned rather than centred: these run to a sentence or two, and the
+   centred-text rule (#107) is about short blocks stranding a word — a
+   left-aligned caption sidesteps it entirely. */
+.slotab-team-gallery-caption {
+  padding: 0.55rem 0.35rem 0.2rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--slotab-muted);
+  text-wrap: pretty;
 }
 
 /* ==========================================================================

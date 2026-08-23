@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ZoomablePhotos from "./ZoomablePhotos";
 
 type RosterEntry = {
   /** Jersey number. Optional, because plenty of rosters don't have one:
@@ -302,30 +303,17 @@ export default function TeamPage({ team }: { team: Team }) {
               <span className="slotab-kicker">Meet the Team</span>
               <h2>{team.name} — 2026-27</h2>
             </div>
-            {teamPhotos.map(({ photo, label, note }) => (
-              <figure className="slotab-team-photo-frame" key={photo}>
-                <Image
-                  src={photo}
-                  alt={
-                    label
-                      ? `${team.name} ${label} team photo`
-                      : `${team.name} team photo`
-                  }
-                  width={1200}
-                  height={800}
-                  sizes="(max-width: 1024px) 100vw, 1100px"
-                  style={{ width: "100%", height: "auto", display: "block" }}
-                />
-                {(label || note) && (
-                  <figcaption className="slotab-team-photo-caption">
-                    {label}
-                    {note && (
-                      <span className="slotab-team-photo-note">{note}</span>
-                    )}
-                  </figcaption>
-                )}
-              </figure>
-            ))}
+            <ZoomablePhotos
+              variant="portraits"
+              items={teamPhotos.map(({ photo, label, note }) => ({
+                photo,
+                label,
+                note,
+                alt: label
+                  ? `${team.name} ${label} team photo`
+                  : `${team.name} team photo`,
+              }))}
+            />
           </div>
         </section>
       )}
@@ -338,26 +326,14 @@ export default function TeamPage({ team }: { team: Team }) {
               <span className="slotab-kicker">In Action</span>
               <h2>{team.name} on the field</h2>
             </div>
-            <div className="slotab-team-gallery">
-              {gallery.map((g, i) => (
-                <figure key={g.photo} className="slotab-team-gallery-item">
-                  <Image
-                    src={g.photo}
-                    alt={g.caption ?? `${team.name} action photo ${i + 1}`}
-                    width={1200}
-                    height={800}
-                    sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 360px"
-                    loading="lazy"
-                    style={{ width: "100%", height: "auto", display: "block" }}
-                  />
-                  {g.caption && (
-                    <figcaption className="slotab-team-gallery-caption">
-                      {g.caption}
-                    </figcaption>
-                  )}
-                </figure>
-              ))}
-            </div>
+            <ZoomablePhotos
+              variant="gallery"
+              items={gallery.map((g, i) => ({
+                photo: g.photo,
+                caption: g.caption,
+                alt: g.caption ?? `${team.name} action photo ${i + 1}`,
+              }))}
+            />
           </div>
         </section>
       )}
