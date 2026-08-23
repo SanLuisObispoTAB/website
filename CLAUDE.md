@@ -37,6 +37,44 @@ After **every** substantive change you ship:
 If the user has to ask you whether you updated this doc, you missed
 the convention.
 
+## External Inputs rows are DATED CLAIMS, not facts
+
+This is the rule that was missing, and its absence cost three wrong
+statements to the board in one sitting (decision #188).
+
+The Decisions Log and *External Inputs Pending* look alike and behave
+nothing alike:
+
+- A **Decisions Log** row is **history**. "On 21 Aug we chose X" is true
+  forever. Append-only is exactly right for it.
+- An **External Inputs Pending** row is a **claim about the current state
+  of something outside this repo** — a Vercel environment variable, a
+  Square dashboard setting, whether a coach has replied. It is true on the
+  day it is written and can be false an hour later, and *nothing in this
+  repo will notice*.
+
+So:
+
+- **Never cite an External Inputs row as present-tense fact.** It tells you
+  what was true when someone last looked. Before repeating it — in a commit
+  message, a PR body, the `Last updated:` line, or to the user — either
+  re-verify it or say "as of `<date>`, unverified".
+- **Every row carries an as-of date and a "how to check now"** — the
+  command, URL, or page that answers it authoritatively. A row that asserts
+  a blocker without saying how to confirm it is how a stale row survives.
+- **Check the repo before believing the doc.** The `RESEND_API_KEY` row
+  that went stale was contradicted by `src/app/api/cron/weekly-report/`,
+  which had been sitting in this repo using the same mailer for two days.
+  A grep would have caught it.
+- **If the check can be automated, build it and point the row at it.**
+  `/board` reads the four notification variables and reports 🔴/🟡/✅
+  (`lib/notification-config.ts`, #187). That readout cannot go stale,
+  because it *is* the state. Prefer building one of those over writing a
+  more carefully worded row.
+- **Suspect any row older than the work around it.** If a row was written
+  with decision #177 and #180 shipped the same week, assume #180 may have
+  moved it and go and look.
+
 ## Other conventions worth knowing
 
 - **Photo naming**: `<b|g|c><sport>-<descriptor>.jpg`. `b/g/c` =
