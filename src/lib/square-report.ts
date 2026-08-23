@@ -177,12 +177,9 @@ export async function buildSquareReport(
   // A general-fund gift and a business sponsorship are not split — both go to
   // the club rather than to one team's allocation.
   for (const row of rows.values()) {
-    // A named fund keeps 100% too — see `isUnsplitDesignation`. Testing only
-    // for "general" here is what would quietly book three quarters of a Hall of
-    // Fame gift against a team allocation.
-    const splits = row.kind === "donation" && !isUnsplitDesignation(row.key);
-    row.toTeamCents = splits ? Math.round(row.grossCents * TEAM_SHARE) : 0;
-    row.toGeneralCents = row.grossCents - row.toTeamCents;
+    const split = allocateCents(row.key, row.kind, row.grossCents);
+    row.toTeamCents = split.toTeamCents;
+    row.toGeneralCents = split.toGeneralCents;
   }
 
   const sorted = [...rows.values()].sort((a, b) => b.grossCents - a.grossCents);
@@ -200,6 +197,27 @@ export async function buildSquareReport(
     skippedTests,
     unattributedCents,
   };
+}
+
+/** How one gift divides between its designation and the shared pot.
+ *
+ *  Exported because two surfaces now state the split to a human — the
+ *  Treasurer's report and the donation notification the Membership VP gets the
+ *  moment a gift lands (#186) — and a second copy of this arithmetic is a
+ *  second answer to "how much went to Water Polo".
+ *
+ *  A named fund keeps 100% too, which is why the test is `isUnsplitDesignation`
+ *  and not `key === "general"`. Testing only for the general fund is what would
+ *  quietly book three quarters of a Hall of Fame gift against a team.
+ */
+export function allocateCents(
+  designationKey: string,
+  kind: string,
+  grossCents: number,
+): { toTeamCents: number; toGeneralCents: number } {
+  const splits = kind === "donation" && !isUnsplitDesignation(designationKey);
+  const toTeamCents = splits ? Math.round(grossCents * TEAM_SHARE) : 0;
+  return { toTeamCents, toGeneralCents: grossCents - toTeamCents };
 }
 
 export function reportToCsv(report: Report): string {

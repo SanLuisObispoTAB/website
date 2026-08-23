@@ -56,10 +56,15 @@ the domain cuts over to slotab.org), a few things need to be filled in:
 3. **Springly env vars** (optional, for the join form to create real
    Springly records) — `SPRINGLY_API_BASE` and `SPRINGLY_API_KEY`.
    Without them, the form still works but responses are stubbed.
-4. **Sponsor fulfilment email** (`/api/square/webhook`) — sends the
-   Membership VP a perk-fulfilment handoff the moment Square confirms a
-   business sponsorship. **Inert until all four of these are set**, and it
-   says so in the logs rather than failing quietly:
+4. **Square transaction notifications** (`/api/square/webhook`) — emails the
+   Membership VP the moment Square confirms a payment: a perk-fulfilment
+   handoff for a business sponsorship, and for a donation the donor, the
+   designation, the 75/25 split and the donor-wall preference. That second one
+   is not a nicety — since the checkout cutover (#181) Square's own
+   notification is a bare *payment received*, where the old storefront raised
+   an *order* notification naming the item and the buyer, and Square exposes no
+   setting to change either (#186). **Inert until all four of these are set**,
+   and it says so in the logs rather than failing quietly:
    - `SQUARE_WEBHOOK_SIGNATURE_KEY` — from Square Dashboard → Developers →
      Webhooks, after subscribing to **`payment.updated`** with the
      notification URL `https://slotab.org/api/square/webhook`.
@@ -69,10 +74,13 @@ the domain cuts over to slotab.org), a few things need to be filled in:
    - `RESEND_API_KEY` and `EMAIL_FROM` — the mailer. `EMAIL_FROM` must be on
      a domain verified in Resend, or sends fail with a 422.
 
-   Optional: `SPONSOR_FULFILMENT_EMAIL` overrides the recipient, which
-   defaults to `slotabmembership@gmail.com`. Test it end to end from
-   Square's dashboard — the webhook page can replay a sample event, and
-   sandbox works if `SQUARE_ENVIRONMENT` is `sandbox`.
+   Optional: `SPONSOR_FULFILMENT_EMAIL` and `DONATION_NOTIFICATION_EMAIL`
+   override the recipients, both defaulting to `slotabmembership@gmail.com`.
+   They are separate variables on purpose — a sponsorship handoff is a work
+   order and a donation notice is a heads-up, so the board can send the second
+   somewhere the first should not go. Test it end to end from Square's
+   dashboard — the webhook page can replay a sample event, and sandbox works if
+   `SQUARE_ENVIRONMENT` is `sandbox`.
 5. **Weekly scraper workflow** — in `.github/workflows/update-events.yml`,
    the committer email `erik@ravens-peak-consulting.com` should be
    updated to whoever owns the production Vercel team account (Vercel

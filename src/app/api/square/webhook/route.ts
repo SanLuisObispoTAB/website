@@ -4,12 +4,24 @@ import {
   composeFulfilmentEmail,
   type SponsorshipPayment,
 } from "../../../../lib/sponsor-fulfilment";
+import {
+  composeDonationEmail,
+  type DonationPayment,
+} from "../../../../lib/donation-notification";
 import { sendEmail } from "../../../../lib/email";
 import { squareApiBase } from "../../../../lib/square";
 
-// Square -> SLOTAB. Fires when a payment completes, and hands a new business
-// sponsorship to the Membership VP with everything she needs to start
-// fulfilling the perks.
+// Square -> SLOTAB. Fires when a payment completes, and tells the Membership VP
+// what just happened — the perks a new business sponsorship owes, or the donor
+// and designation behind a new donation.
+//
+// THE DONATION HALF EXISTS BECAUSE SQUARE'S OWN NOTIFICATION STOPPED SAYING IT
+// Dannene, 2026-08-23: "I am not getting enough information now when someone
+// donates." Correct, and it is our doing rather than Square's. Before #181 a
+// donation was a Square Online storefront sale, which raises an ORDER
+// notification naming the item and the buyer; a minted payment link raises a
+// PAYMENT notification, which names an amount. Square offers no setting for the
+// contents of either, so the detail has to come back from us — #186.
 //
 // WHY A WEBHOOK AND NOT THE THANK-YOU PAGE
 // `/thank-you` only renders if the buyer comes back to the site after paying.
@@ -32,6 +44,15 @@ export const dynamic = "force-dynamic";
 /** Where the handoff goes. The Membership VP owns sponsor fulfilment. */
 const FULFILMENT_INBOX =
   process.env.SPONSOR_FULFILMENT_EMAIL ?? "slotabmembership@gmail.com";
+
+/** Where donation notifications go. Its own variable rather than a reuse of
+ *  `SPONSOR_FULFILMENT_EMAIL`: today both are the Membership VP, but a
+ *  sponsorship handoff is a work order and a donation notice is a heads-up, and
+ *  the board may well want the second somewhere the first should not go — the
+ *  Treasurer, or a shared board address. Splitting them now costs one line;
+ *  splitting them later means changing a recipient someone already relies on. */
+const DONATION_INBOX =
+  process.env.DONATION_NOTIFICATION_EMAIL ?? "slotabmembership@gmail.com";
 
 /** Square signs `notificationUrl + rawBody` with HMAC-SHA256, base64.
  *
@@ -118,11 +139,15 @@ export async function POST(req: Request) {
   // Order metadata is where the sponsorship details live — see the
   // payment-link route, which sets kind/tier/business/sports/test.
   const metadata = await fetchOrderMetadata(payment.order_id);
+
+  if (metadata.kind === "donation") {
+    return handleDonation(payment, metadata);
+  }
   if (metadata.kind !== "sponsorship") {
-    // Donations go through the same rail but owe no perks, so there is nothing
-    // to hand off. If the club ever wants a donation notification too, this is
-    // the branch to extend.
-    return NextResponse.json({ ok: true, ignored: "not a sponsorship" });
+    // Money taken at this location outside the website — an invoice, a card
+    // reader at a game. Nothing on our side knows what it was for, so there is
+    // nothing to say about it.
+    return NextResponse.json({ ok: true, ignored: "not from the website" });
   }
 
   const sponsorship: SponsorshipPayment = {
@@ -130,8 +155,12 @@ export async function POST(req: Request) {
     tierId: metadata.tier ?? "",
     amountCents: payment.amount_money?.amount ?? 0,
     sportSlugs: metadata.sports ? metadata.sports.split(",").filter(Boolean) : [],
-    buyerName: buyerName(payment),
+    buyerName: metadata.donor || buyerName(payment),
     buyerEmail: payment.buyer_email_address,
+    // Was always "not provided" until #186 put it in order metadata: Square's
+    // Payment object has no phone field, and the number the sponsor typed only
+    // ever existed as checkout prefill.
+    buyerPhone: metadata.phone,
     paymentId: payment.id,
     orderId: payment.order_id,
     paidAt: payment.created_at,
@@ -159,6 +188,69 @@ export async function POST(req: Request) {
   // non-2xx makes Square retry, which would re-send a mail that may well have
   // gone out. Send failures are logged (and `sendEmail` logs the whole body
   // when unconfigured), so nothing is lost.
+  return NextResponse.json({ ok: true, email: result.status });
+}
+
+/** Tell the Membership VP a donation landed, with the fields Square's payment
+ *  notification cannot carry: who gave, what they designated it to, how it
+ *  splits, and whether they may be named on the donor wall. */
+async function handleDonation(
+  payment: SquarePayment,
+  metadata: Record<string, string>,
+): Promise<Response> {
+  // Designation is the one field this email exists to deliver, so a payment
+  // without one is not worth sending: it would say "New donation: $75 — " and
+  // send the reader to the dashboard anyway. It also should not happen — the
+  // form refuses to hand off an undesignated gift — so it is logged, not
+  // swallowed.
+  if (!metadata.designation) {
+    console.error(
+      `[square-webhook] donation ${payment.id} has no metadata.designation — no email sent`,
+    );
+    return NextResponse.json({ ok: true, ignored: "no designation" });
+  }
+
+  const gift: DonationPayment = {
+    designation: metadata.designation,
+    amountCents: payment.amount_money?.amount ?? 0,
+    level: metadata.level,
+    tribute: metadata.tribute,
+    // The name the donor typed on our form, which is the one they meant. The
+    // Square billing name is the cardholder and is shown separately when the
+    // two differ.
+    donorName: metadata.donor,
+    donorEmail: payment.buyer_email_address,
+    donorPhone: metadata.phone,
+    cardholderName: buyerName(payment),
+    // `wall` is written ONLY when the donor opted out — an always-present "yes"
+    // would spend one of Square's ten metadata slots to say "behave normally",
+    // and a Hall of Fame gift already fills all ten. So absence is read as
+    // consent, which is what the checked-by-default box means.
+    //
+    // The composer keeps a third state for "genuinely unknown" and this
+    // deliberately does not use it. The only payments that reach here carry
+    // metadata this route wrote, and every build that writes `kind: "donation"`
+    // from #186 onward also writes the opt-out. The narrow exception is a
+    // checkout link minted before this deploy and paid after it — those would
+    // read as consent, and the mitigation is that the donation email does not
+    // exist until this deploy either, so there is no window in which a stale
+    // link produces a wrong-headed one.
+    displayOnWall: metadata.wall !== "no",
+    paymentId: payment.id,
+    orderId: payment.order_id,
+    paidAt: payment.created_at,
+    isTest: metadata.test === "true",
+  };
+
+  const email = composeDonationEmail(gift);
+  const result = await sendEmail({
+    to: DONATION_INBOX,
+    subject: email.subject,
+    text: email.text,
+  });
+  console.log(
+    `[square-webhook] donation email for ${payment.id}: ${result.status}`,
+  );
   return NextResponse.json({ ok: true, email: result.status });
 }
 
