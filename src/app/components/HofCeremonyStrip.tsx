@@ -7,16 +7,15 @@ import hofData from "../data/hof.json";
 // (#185): that page has to show the AD the *proposed* Hall of Fame page, and a
 // hand-copied strip would drift from the real one the first time the venue or
 // the date changed — which has already happened once (Oct 3 / Holland Ranch →
-// Oct 10 / Octagon Barn, #106).
+// Oct 10 / Octagon Barn, #106). One component, two callers, one date.
 //
-// /hall-of-fame keeps its own inline copy of this markup until the fundraising
-// band is approved and PR #6 lands, at which point it switches to this
-// component and the duplication goes away. Nothing can drift in the meantime:
-// both copies read the same `hof.json`, so only the markup is repeated, never
-// the date. The markup here is identical to the inline version.
+// The markup is identical to the inline version it replaced on /hall-of-fame.
 
 export default function HofCeremonyStrip() {
   const { ceremony } = hofData;
+  // Same label as the band's own buttons — one string, so a rename can't leave
+  // two buttons on one page disagreeing about what the fund is called.
+  const fund = hofData.fund as { ctaLabel: string };
 
   return (
     <section className="slotab-feature-strip">
@@ -65,7 +64,7 @@ export default function HofCeremonyStrip() {
               href="/donate?tab=general&team=hall-of-fame"
               className="slotab-btn dark"
             >
-              Fund the HOF Class of 2026
+              {fund.ctaLabel}
             </Link>
           )}
         </div>

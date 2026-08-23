@@ -95,6 +95,7 @@
 .slotab-impact-stat,
 .slotab-hof-fund-head,
 .slotab-hof-goal,
+.slotab-hof-fund-split,
 .slotab-hof-levels-note,
 .slotab-hof-fund-fineprint,
 .slotab-donate-submit,
@@ -2210,7 +2211,7 @@
 }
 
 /* ==========================================================================
-   HALL OF FAME — "Fund the HOF Class of 2026" band (#184)
+   HALL OF FAME — the Hall of Fame Fund band (#184, reframed #186)
    --------------------------------------------------------------------------
    The only dark band on /hall-of-fame, and deliberately so: it is the one
    block on a page of record-keeping that asks for money, and an ask styled
@@ -2299,6 +2300,15 @@
   color: rgba(255, 255, 255, 0.82);
 }
 .slotab-hof-fund-body p { margin: 0; }
+
+.slotab-hof-fund-split {
+  max-width: 640px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+.slotab-hof-fund-split strong { color: var(--slotab-gold); }
 
 /* Thermometer. Hidden entirely until hof.json carries a real goal — see the
    note in that file. */
@@ -2437,6 +2447,30 @@
   text-align: center;
   font-size: 0.92rem;
   color: rgba(255, 255, 255, 0.65);
+}
+
+/* Alumni block. Deliberately quieter than the ladder above it — a gold rule
+   and a lift in the ground rather than another filled card, because it is an
+   aside addressed to one audience, not a seventh giving level competing with
+   the six. */
+.slotab-hof-alumni {
+  max-width: 780px;
+  margin: 2.25rem auto 0;
+  padding: 1.35rem 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 4px solid var(--slotab-gold);
+  text-align: left;
+}
+.slotab-hof-alumni h3 {
+  color: var(--slotab-gold);
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+.slotab-hof-alumni p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .slotab-hof-fund-cta {
@@ -3326,19 +3360,6 @@ a.slotab-platinum-slide:hover {
   border: 1px solid var(--slotab-border);
   padding: 6px;
   overflow: hidden;
-  /* Now a <figure>, which carries UA margins that would break the grid. */
-  margin: 0;
-}
-/* Optional caption, for a photo whose point isn't visible in the photo.
-   Left-aligned rather than centred: these run to a sentence or two, and the
-   centred-text rule (#107) is about short blocks stranding a word — a
-   left-aligned caption sidesteps it entirely. */
-.slotab-team-gallery-caption {
-  padding: 0.55rem 0.35rem 0.2rem;
-  font-size: 0.82rem;
-  line-height: 1.4;
-  color: var(--slotab-muted);
-  text-wrap: pretty;
 }
 
 /* ==========================================================================

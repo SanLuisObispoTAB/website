@@ -568,10 +568,10 @@ collections:
                 }
               - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
           - name: fund
-            label: "Fund the HOF Class (donation band)"
+            label: "Hall of Fame Fund (donation band)"
             widget: object
             collapsed: true
-            hint: "The fundraising band on /hall-of-fame. Gifts land on the Hall of Fame designation in the donate form and post to the 'Donation: Hall of Fame' class in QuickBooks."
+            hint: "The fundraising band on /hall-of-fame. This is a STANDING fund for the Hall of Fame going forward, not a single-class drive (AD, 2026-08-24) — keep the copy class-agnostic, or the page dates itself the morning after an induction. Gifts land on the Hall of Fame designation in the donate form and post to the 'Donation: Hall of Fame' class in QuickBooks."
             fields:
               - {
                   name: enabled,
@@ -585,10 +585,23 @@ collections:
               - { name: title, label: "Headline", widget: string }
               - { name: lead, label: "Lead paragraph", widget: text }
               - {
+                  name: ctaLabel,
+                  label: "Donate button label",
+                  widget: string,
+                  hint: "Used by every Give button in the band AND by the save-the-date strip, so they can never disagree.",
+                }
+              - {
                   name: body,
                   label: "Body paragraphs",
                   widget: list,
                   field: { name: para, label: "Paragraph", widget: text },
+                }
+              - {
+                  name: splitNote,
+                  label: "75/25 note",
+                  widget: text,
+                  required: false,
+                  hint: "Shown full width under the body columns. States that this fund is not split 75/25 like a team gift.",
                 }
               - { name: heroPhoto, label: "Background photo", widget: image }
               - {
@@ -604,7 +617,13 @@ collections:
                   widget: number,
                   value_type: int,
                   min: 0,
-                  hint: "Leave at 0 to hide the progress bar entirely. Only set this once the AD has given a real target — a made-up goal on a donation page is worse than no goal.",
+                  hint: "Leave at 0 to hide the progress bar entirely. Only set this once the AD has given a real target — a made-up goal on a donation page is worse than no goal. The AD is supplying one (2026-08-24).",
+                }
+              - {
+                  name: goalLabel,
+                  label: "Progress bar phrase",
+                  widget: string,
+                  hint: "Reads as '$4,000 raised of $25,000 <this phrase>'. Keep it class-agnostic, e.g. 'for the Hall of Fame Fund'.",
                 }
               - {
                   name: raisedDollars,
@@ -645,6 +664,14 @@ collections:
                 fields:
                   - { name: photo, label: "Photo", widget: image }
                   - { name: caption, label: "Caption", widget: string }
+              - name: alumniCallout
+                label: "Alumni block"
+                widget: object
+                required: false
+                hint: "Addressed to former Tigers specifically — the audience the AD asked to reach continually. Delete both fields to hide the block."
+                fields:
+                  - { name: title, label: "Heading", widget: string }
+                  - { name: body, label: "Body", widget: text }
               - { name: tributeLabel, label: "Tribute field label", widget: string }
               - { name: tributeHint, label: "Tribute line under the band", widget: text }
               - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }

@@ -4,8 +4,10 @@ import HofFund, { HofLegacyStrip } from "../../components/HofFund";
 import PageHeader from "../../components/PageHeader";
 
 // An unlisted review copy of the proposed /hall-of-fame opening, built so the
-// Athletic Director can look at the Class of 2026 fundraising band before it
-// goes public (#185).
+// Athletic Director can look at the Hall of Fame Fund band before it goes
+// public (#185). He has since reviewed it and asked for the standing-fund
+// framing this now carries (#186), so this copy is the revision, not the
+// version he first saw.
 //
 // WHY IT IS A REAL PAGE ON PRODUCTION AND NOT A VERCEL PREVIEW LINK
 // The AD reviews on the SLOHS district network, and that network **blocks the
@@ -51,15 +53,18 @@ export default function HofFundPreviewPage() {
           <span className="slotab-draft-flag">Draft for review</span>
           <p>
             This is a <strong>proposal</strong>, not a published page. It shows
-            the Class of 2026 fundraising block as it would open{" "}
+            the Hall of Fame Fund block as it would open{" "}
             <Link href="/hall-of-fame">the Hall of Fame page</Link>, with the
             Booster Bash save-the-date beneath it.
           </p>
           <p className="slotab-draft-asks">
-            Two things we need from you before it goes live:{" "}
-            <strong>a fundraising goal</strong> for the class (there is a
-            progress bar built and waiting, hidden until there is a real number
-            to show), and{" "}
+            <strong>Revised on your feedback:</strong> this is now a standing
+            fund for the Hall of Fame going forward — not a Class of 2026 drive
+            — and alumni are addressed directly, in the block above the buttons.
+            Still needed before it goes live:{" "}
+            <strong>the fundraising goal</strong> you&apos;re putting together
+            (the progress bar is built and waiting, hidden until there is a real
+            number), and{" "}
             <strong>confirmation of what each level actually buys</strong> — the
             six amounts below are the committee&apos;s working plan, not
             engraver pricing. Reply with corrections and they are a five-minute
