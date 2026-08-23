@@ -2,7 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import hofData from "../data/hof.json";
 
-// The Class of 2026 fundraising band on /hall-of-fame (#184).
+// The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186).
+//
+// IT IS A STANDING FUND, NOT A CLASS DRIVE
+// It shipped as a "Class of 2026" campaign. The Athletic Director's review
+// changed that: "the goal is to fund the Hall of Fame in general and not just
+// this class. The alumni are an integral part of the Tiger Community and we
+// should continually reach that audience." So the copy is deliberately
+// class-agnostic — naming one class is exactly what dates a page the morning
+// after an induction, and it tells an alum who graduated in 1994 that this
+// year's drive is not about them. Keep it that way when editing.
 //
 // WHY IT LOOKS DIFFERENT FROM THE REST OF THE PAGE
 // Everything else on /hall-of-fame is a record: mission, criteria, 46 names in
@@ -19,11 +28,12 @@ import hofData from "../data/hof.json";
 // its own figure into the donate form (`?amount=`), because the gap between "I
 // should give $250" and a typed 2-5-0 is where donations die.
 //
-// EVERYTHING EDITABLE LIVES IN hof.json (Decap: Hall of Fame → Fund the Class).
-// Levels, copy, photos, and the goal are data. In particular `goalDollars` is 0
-// until the AD supplies a real target: the thermometer renders only when it is
-// set, because an invented goal on a 501(c)(3) donation page is worse than no
-// goal at all.
+// EVERYTHING EDITABLE LIVES IN hof.json (Decap: Hall of Fame → Hall of Fame
+// Fund). Levels, copy, photos, the button label and the goal are all data —
+// the button label included, because it has now been renamed twice in three
+// days and that should never need a deploy. `goalDollars` is 0 until the AD's
+// figure lands: the thermometer renders only when it is set, because an
+// invented goal on a 501(c)(3) donation page is worse than no goal at all.
 
 type Level = {
   amount: number;
@@ -39,14 +49,28 @@ type Fund = {
   title: string;
   lead: string;
   body: string[];
+  /** The 75/25 fact. Its own field rather than a third body paragraph: the body
+   *  is a two-column grid, so an odd third paragraph orphaned under the left
+   *  column. This is a standing note about the gift, not part of the argument,
+   *  and reads better full width beneath both columns. */
+  splitNote?: string;
   heroPhoto: string;
   heroPhotoPosition?: string;
+  ctaLabel: string;
   goalDollars: number;
   raisedDollars: number;
   raisedAsOf: string;
+  /** The phrase the thermometer figures are read against, e.g. "for the Hall of
+   *  Fame Fund". Data rather than a literal, so the sentence never has to name
+   *  a single class again. */
+  goalLabel: string;
   levels: Level[];
   levelsNote: string;
   gallery: { photo: string; caption: string }[];
+  /** The AD's core point, given its own block: alumni are the audience for this
+   *  fund, and they need to be addressed directly rather than left to infer it
+   *  from a paragraph about engraving. */
+  alumniCallout?: { title: string; body: string };
   tributeHint: string;
 };
 
@@ -130,7 +154,7 @@ export default function HofFund() {
                 bottom stays for the donor who does read it. */}
             <p className="slotab-hof-fund-head-cta">
               <Link href={donateHref()} className="slotab-btn">
-                Fund the HOF Class of 2026
+                {fund.ctaLabel}
               </Link>
             </p>
           </div>
@@ -141,6 +165,10 @@ export default function HofFund() {
             ))}
           </div>
 
+          {fund.splitNote && (
+            <p className="slotab-hof-fund-split">{fund.splitNote}</p>
+          )}
+
           {/* Thermometer — only once there is a real target to measure
               against. See the note in hof.json. */}
           {hasGoal && (
@@ -148,8 +176,7 @@ export default function HofFund() {
               <div className="slotab-hof-goal-figures">
                 <strong>{MONEY.format(fund.raisedDollars)}</strong>
                 <span>
-                  raised of {MONEY.format(fund.goalDollars)} for the Class of{" "}
-                  2026
+                  raised of {MONEY.format(fund.goalDollars)} {fund.goalLabel}
                 </span>
               </div>
               <div
@@ -202,9 +229,19 @@ export default function HofFund() {
 
           <p className="slotab-hof-levels-note">{fund.levelsNote}</p>
 
+          {/* Alumni block, between the ladder and the CTA row: it is the reason
+              to give for the audience the AD wants reached, so it belongs
+              immediately before the button rather than buried in body copy. */}
+          {fund.alumniCallout && (
+            <div className="slotab-hof-alumni">
+              <h3>{fund.alumniCallout.title}</h3>
+              <p>{fund.alumniCallout.body}</p>
+            </div>
+          )}
+
           <div className="slotab-hof-fund-cta">
             <Link href={donateHref()} className="slotab-btn">
-              Fund the HOF Class of 2026
+              {fund.ctaLabel}
             </Link>
             {ceremony.ticketsUrl && (
               <Link

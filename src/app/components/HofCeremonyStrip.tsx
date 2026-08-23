@@ -13,6 +13,9 @@ import hofData from "../data/hof.json";
 
 export default function HofCeremonyStrip() {
   const { ceremony } = hofData;
+  // Same label as the band's own buttons — one string, so a rename can't leave
+  // two buttons on one page disagreeing about what the fund is called.
+  const fund = hofData.fund as { ctaLabel: string };
 
   return (
     <section className="slotab-feature-strip">
@@ -61,7 +64,7 @@ export default function HofCeremonyStrip() {
               href="/donate?tab=general&team=hall-of-fame"
               className="slotab-btn dark"
             >
-              Fund the HOF Class of 2026
+              {fund.ctaLabel}
             </Link>
           )}
         </div>

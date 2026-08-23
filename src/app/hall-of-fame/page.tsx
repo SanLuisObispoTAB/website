@@ -30,7 +30,7 @@ export default function HallOfFamePage() {
         title="Athletics Hall of Fame"
       />
 
-      {/* Fund the HOF Class of 2026 — the fundraising band (#184).
+      {/* The Hall of Fame Fund — the fundraising band (#184, reframed #186).
           FIRST BLOCK ON THE PAGE, at Erik's call 2026-08-21: it opened below
           the mission and the save-the-date, which put the only ask on the page
           under the fold on a laptop. The ceremony strip now sits directly
