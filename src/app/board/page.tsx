@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
+import { notificationConfig } from "../../lib/notification-config";
 import boardData from "../data/board.json";
 import handoffData from "../data/board-handoff.json";
 
@@ -24,6 +25,12 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+// Required by the panel above. Without it Next prerenders this page and bakes
+// the environment-variable state in at BUILD time, so the readout would keep
+// saying "off" after someone had set the variables — the exact failure it
+// exists to prevent, wearing a green tick.
+export const dynamic = "force-dynamic";
+
 function slugifyRole(role: string): string {
   return role
     .toLowerCase()
@@ -41,6 +48,10 @@ function slugifyRole(role: string): string {
 const ADMIN_URL = "/admin";
 
 export default function BoardHubPage() {
+  // Read at request time, not build time — the whole point is to reflect what
+  // Vercel currently holds, and a value baked into a static build would go
+  // stale the moment someone sets a variable.
+  const notificationStatus = notificationConfig();
   const roster = (boardData.members as RosterMember[]) ?? [];
   const handoffs = (handoffData.handoffs as Handoff[]) ?? [];
 
@@ -182,6 +193,12 @@ export default function BoardHubPage() {
                 — how to invite a new editor; how a new editor gets into
                 /admin.
               </span>
+            </li>
+            <li>
+              <strong>Automatic emails:</strong> {notificationStatus.summary}
+              <div style={{ color: "#666", fontSize: "0.9rem" }}>
+                {notificationStatus.detail}
+              </div>
             </li>
           </ul>
 
