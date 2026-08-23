@@ -204,6 +204,22 @@ function sanitizeMetadata(md: Record<string, string>): Record<string, string> {
 function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: string) {
   return {
     idempotency_key: idempotencyKey,
+    // A long shot at Square's own notification, and worth the one line either
+    // way. Dannene's 2026-08-23 screenshots show the payment notification
+    // rendering the literal words "Payment Link" where the storefront's order
+    // notification named the item — so the line item name below is evidently
+    // NOT what that email reads. `description` is the payment link's own name
+    // and the next most likely candidate.
+    //
+    // UNVERIFIED against the notification email: proving it needs a real
+    // payment through a real link, which is a live charge in the club's
+    // account. What it definitely does do is name the link in the Square
+    // dashboard's payment-link list, where every entry currently reads the
+    // same. Square caps this at 250 characters.
+    //
+    // This is a bonus, not the fix. The fix is the webhook email (#186), which
+    // does not depend on Square rendering anything.
+    description: input.lineItemName.slice(0, 250),
     order: {
       location_id: locationId,
       line_items: [
