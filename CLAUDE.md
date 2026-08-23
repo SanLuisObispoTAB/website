@@ -40,7 +40,7 @@ the convention.
 ## External Inputs rows are DATED CLAIMS, not facts
 
 This is the rule that was missing, and its absence cost three wrong
-statements to the board in one sitting (decision #188).
+statements to the board in one sitting (decision #189).
 
 The Decisions Log and *External Inputs Pending* look alike and behave
 nothing alike:
@@ -68,7 +68,7 @@ So:
   A grep would have caught it.
 - **If the check can be automated, build it and point the row at it.**
   `/board` reads the four notification variables and reports 🔴/🟡/✅
-  (`lib/notification-config.ts`, #187). That readout cannot go stale,
+  (`lib/notification-config.ts`, #188). That readout cannot go stale,
   because it *is* the state. Prefer building one of those over writing a
   more carefully worded row.
 - **Suspect any row older than the work around it.** If a row was written

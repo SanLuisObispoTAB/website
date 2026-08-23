@@ -24,7 +24,7 @@ import winterCheer from "../app/data/teams/winter-cheer.json";
 // Who to tell when a gift is designated to a team.
 //
 // WHY THIS FILE EXISTS AT ALL
-// The donation notification (#186) is a to-do list, and "let the team know
+// The donation notification (#187) is a to-do list, and "let the team know
 // $1,875 just arrived for them" is on it. The liaisons are already in the team
 // JSONs — but every other consumer of those files is a *route*, which imports
 // exactly the one file it renders. A webhook has a slug and no idea which file

@@ -204,7 +204,7 @@ export function sportsCreditPerk(n: number): string | null {
 /** What a level *name* entitles someone to.
  *
  *  `levelForGift` returns a name and the metadata on a Square order stores that
- *  name, so the donation notification (#186) has a string and needs the perks
+ *  name, so the donation notification (#187) has a string and needs the perks
  *  behind it. Searches both halves of the ladder because a gift is placed
  *  against both — see the note above `rankedLevels`.
  *

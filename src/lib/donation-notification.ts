@@ -357,7 +357,7 @@ export function composeDonationEmail(gift: DonationPayment): DonationEmail {
     "---",
     "Sent automatically by slotab.org when Square confirms a donation. Square's",
     "own payment notification cannot carry any of the above, which is why this",
-    "exists — see decision #186.",
+    "exists — see decision #187.",
     "",
     "The checklist is generated, not written: the level's items come straight",
     "from the board's membership and sponsorship sheet as transcribed in",

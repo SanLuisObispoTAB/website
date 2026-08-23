@@ -340,7 +340,7 @@ export async function POST(req: Request) {
 
   // THE DONOR BLOCK — the fields Square's own notification stopped carrying.
   //
-  // Added for #186. Since #181 a donation raises a Square *payment*
+  // Added for #187. Since #181 a donation raises a Square *payment*
   // notification ("you got paid $75") rather than the storefront's *order*
   // notification, which named the item and the buyer; Square exposes no setting
   // to change either, so the Membership VP's notification has to be ours, built

@@ -21,7 +21,7 @@ import { squareApiBase } from "../../../../lib/square";
 // donation was a Square Online storefront sale, which raises an ORDER
 // notification naming the item and the buyer; a minted payment link raises a
 // PAYMENT notification, which names an amount. Square offers no setting for the
-// contents of either, so the detail has to come back from us — #186.
+// contents of either, so the detail has to come back from us — #187.
 //
 // WHY A WEBHOOK AND NOT THE THANK-YOU PAGE
 // `/thank-you` only renders if the buyer comes back to the site after paying.
@@ -169,7 +169,7 @@ export async function POST(req: Request) {
     sportSlugs: metadata.sports ? metadata.sports.split(",").filter(Boolean) : [],
     buyerName: metadata.donor || buyerName(payment),
     buyerEmail: payment.buyer_email_address,
-    // Was always "not provided" until #186 put it in order metadata: Square's
+    // Was always "not provided" until #187 put it in order metadata: Square's
     // Payment object has no phone field, and the number the sponsor typed only
     // ever existed as checkout prefill.
     buyerPhone: metadata.phone,
@@ -242,7 +242,7 @@ async function handleDonation(
     // The composer keeps a third state for "genuinely unknown" and this
     // deliberately does not use it. The only payments that reach here carry
     // metadata this route wrote, and every build that writes `kind: "donation"`
-    // from #186 onward also writes the opt-out. The narrow exception is a
+    // from #187 onward also writes the opt-out. The narrow exception is a
     // checkout link minted before this deploy and paid after it — those would
     // read as consent, and the mitigation is that the donation email does not
     // exist until this deploy either, so there is no window in which a stale

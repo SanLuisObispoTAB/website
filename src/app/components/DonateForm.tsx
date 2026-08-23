@@ -240,7 +240,7 @@ export default function DonateForm({
         (autoRenew ? ", with the 4-year lock-in" : ""),
     );
   }
-  // Same gate as the designation above, and for the same reason: since #186 the
+  // Same gate as the designation above, and for the same reason: since #187 the
   // minted path carries this in order metadata, so telling a donor on that path
   // that their choice "can't travel through that checkout" would be a false
   // statement asking them to do work they don't need to do. The storefront
@@ -264,7 +264,7 @@ export default function DonateForm({
   // Anonymity used to be the one thing that wasn't derivable from anything, and
   // #157 held anonymous donors on this panel for exactly that reason: if they
   // didn't tell us by email, the default was that their name went on the donor
-  // wall, which is the one outcome here that is awkward to undo. Since #186 the
+  // wall, which is the one outcome here that is awkward to undo. Since #187 the
   // checkbox rides to Square in order metadata and reaches the Membership VP by
   // itself, so the hold has nothing left to protect — an anonymous donor now
   // auto-advances like everybody else. On the storefront fallback, which still
@@ -708,7 +708,7 @@ export default function DonateForm({
                 name: donorName,
                 phone: donorPhone,
                 // Carried so the Membership VP's notification can say it
-                // (#186). Until now this answer only reached her if the donor
+                // (#187). Until now this answer only reached her if the donor
                 // also clicked the mailto below — which is a lot to ask of a
                 // preference whose default is "publish my name".
                 displayOnWall,

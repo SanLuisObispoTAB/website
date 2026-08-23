@@ -12,7 +12,7 @@ export type NotificationStatus = {
  *
  *  WHY THIS IS ON A PAGE AT ALL
  *  Both mails are gated on environment variables nobody can see. The
- *  sponsorship handoff (#177) and the donation checklist (#186) fail *safe* —
+ *  sponsorship handoff (#177) and the donation checklist (#187) fail *safe* —
  *  they log loudly and send nothing — which means the failure mode is silence,
  *  and silence is indistinguishable from "no donations this week". The board
  *  was told twice that these were blocked on four variables when two of them

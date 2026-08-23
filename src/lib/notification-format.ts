@@ -11,7 +11,7 @@
 // "2026-08-23T16:00:00Z" asks a volunteer in San Luis Obispo to do timezone
 // arithmetic to answer "is this the one from this afternoon?", and
 // "+18057974638" is not a number anyone dials. They went unnoticed in the
-// sponsorship mail because until #186 the phone was ALWAYS "not provided" —
+// sponsorship mail because until #187 the phone was ALWAYS "not provided" —
 // it was never carried into the transaction, so the format never showed.
 
 /** Square's ISO/UTC timestamps in the timezone the reader lives in, labelled

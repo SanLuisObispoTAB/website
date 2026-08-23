@@ -171,7 +171,7 @@ export function isPublicCheckoutEnabled(): boolean {
  *  whole request, which would fail the gift — so keys are dropped here instead.
  *
  *  This used to be comfortable headroom and is not any more: a Hall of Fame
- *  gift with a level, a tribute and the donor block added in #186 lands on
+ *  gift with a level, a tribute and the donor block added in #187 lands on
  *  exactly ten. The next key added anywhere in the donation path will silently
  *  push one off the end, and the ones at risk are the ones added last, which is
  *  the donor block the Membership VP's notification is built from. Hence the
@@ -217,7 +217,7 @@ function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: 
     // dashboard's payment-link list, where every entry currently reads the
     // same. Square caps this at 250 characters.
     //
-    // This is a bonus, not the fix. The fix is the webhook email (#186), which
+    // This is a bonus, not the fix. The fix is the webhook email (#187), which
     // does not depend on Square rendering anything.
     description: input.lineItemName.slice(0, 250),
     order: {

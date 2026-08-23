@@ -134,7 +134,7 @@ export function lookupWallRecord(businessName?: string): WallRecord {
  *  before it can be actioned. Matched on keywords, and deliberately additive:
  *  a keyword that stops matching loses its note, never its checklist line.
  *
- *  Exported since #186, because the donation notification renders a checklist
+ *  Exported since #187, because the donation notification renders a checklist
  *  from the same two arrays — a gift of $500 or more lands on a sponsorship
  *  tier by `levelForGift`, so it owes the same passes and banners. A second
  *  copy of this keyword table is a second answer to "what do I do about a

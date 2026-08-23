@@ -203,7 +203,7 @@ export async function buildSquareReport(
  *
  *  Exported because two surfaces now state the split to a human — the
  *  Treasurer's report and the donation notification the Membership VP gets the
- *  moment a gift lands (#186) — and a second copy of this arithmetic is a
+ *  moment a gift lands (#187) — and a second copy of this arithmetic is a
  *  second answer to "how much went to Water Polo".
  *
  *  A named fund keeps 100% too, which is why the test is `isUnsplitDesignation`

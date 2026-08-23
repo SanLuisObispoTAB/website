@@ -66,10 +66,10 @@ the domain cuts over to slotab.org), a few things need to be filled in:
    since the checkout cutover (#181) Square's own
    notification is a bare *payment received*, where the old storefront raised
    an *order* notification naming the item and the buyer, and Square exposes no
-   setting to change either (#186). **Needs all four of these**, and says so in
+   setting to change either (#187). **Needs all four of these**, and says so in
    the logs rather than failing quietly. **Don't guess whether they're set —
    look:** `/board` reads them live and shows 🔴 off / 🟡 half on / ✅ on
-   (#187). From outside the board password,
+   (#188). From outside the board password,
    `curl -X POST https://slotab.org/api/square/webhook -d '{}'` answers **401**
    when the signature key and URL are set (it rejected an unsigned caller) and
    **503** when they are not:
