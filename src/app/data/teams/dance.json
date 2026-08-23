@@ -8,16 +8,20 @@
   "heroPhotoPosition": "center 40%",
   "teamPhotos": [
     {
-      "photo": "/photos/gdance-team-2025.jpg",
-      "label": "Dance Team",
-      "note": "The 2025-26 squad, from the program's inaugural season. A 2026-27 portrait will replace this one once it's taken."
+      "photo": "/photos/gdance-team-2026.jpg",
+      "label": "Dance Team"
     },
     {
       "photo": "/photos/gdance-team-holt-2025.jpg",
-      "label": "Friday night at Holt Field"
+      "label": "Friday night at Holt Field",
+      "note": "From the 2025-26 season, the program's first."
     }
   ],
   "gallery": [
+    {
+      "photo": "/photos/gdance-future-tigers-2025.jpg",
+      "caption": "The team on the field with the Future Tigers — Tiger Spirit's first Future Tiger Spirit Workshop, hosted with Cheer, bringing young dancers out at halftime."
+    },
     "/photos/gdance-hiphop-gym-2026.jpg"
   ],
   "headCoach": {

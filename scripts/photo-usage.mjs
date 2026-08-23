@@ -87,7 +87,11 @@ for (const f of readdirSync(TEAM_DIR).filter((f) => f.endsWith(".json"))) {
   const t = JSON.parse(readFileSync(join(TEAM_DIR, f), "utf8"));
   const slots = [];
   if (t.heroPhoto) slots.push(["heroPhoto", t.heroPhoto]);
-  (t.gallery ?? []).forEach((g, i) => slots.push([`gallery[${i}]`, g]));
+  // Same normalisation as team-audit: a captioned entry is an object, and
+  // basename() on an object would silently produce a bogus signature.
+  (t.gallery ?? []).forEach((g, i) =>
+    slots.push([`gallery[${i}]`, typeof g === "string" ? g : g.photo]),
+  );
   const portraits = t.teamPhotos ?? (t.teamPhoto ? [{ photo: t.teamPhoto }] : []);
   portraits.forEach((p, i) => slots.push([`teamPhotos[${i}]`, p.photo]));
 
