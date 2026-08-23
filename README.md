@@ -78,7 +78,17 @@ the domain cuts over to slotab.org), a few things need to be filled in:
      notification URL `https://slotab.org/api/square/webhook`.
    - `SQUARE_WEBHOOK_URL` — that same URL, character for character. Square
      signs the URL string *as you configured it*, so a trailing slash or a
-     `www.` difference fails every signature.
+     `www.` difference fails every signature. **May hold several URLs,
+     comma-separated**, and the canonical/alias sibling is added automatically
+     — see below for why that matters.
+
+   **The path trap that cost this integration several days (#191).** The live
+   subscription was created with `https://slotab.org/api/webhook`, one segment
+   short of the route, so every `payment.updated` 404'd and no email ever sent
+   while the configuration looked complete. `/api/webhook` is now a working
+   **alias** for `/api/square/webhook`, and the signature check accepts either,
+   so both spellings work. `/board` shows which URLs are accepted. If you edit
+   the subscription URL in Square, check it against that list.
    - `RESEND_API_KEY` and `EMAIL_FROM` — the mailer. `EMAIL_FROM` must be on
      a domain verified in Resend, or sends fail with a 422.
 

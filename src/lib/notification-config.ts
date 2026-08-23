@@ -1,4 +1,5 @@
 import { isEmailConfigured } from "./email";
+import { notificationUrls } from "./square-webhook";
 
 export type NotificationStatus = {
   /** One line, safe to render on its own. */
@@ -44,7 +45,10 @@ export function notificationConfig(): NotificationStatus {
       summary: "✅ on — a new donation or sponsorship emails the Membership VP",
       detail:
         "Trina's Monday report is on too. If one stops arriving, that is a " +
-        "fault to chase, not a quiet week.",
+        "fault to chase, not a quiet week. Square's subscription URL must be " +
+        `one of: ${notificationUrls().join("  or  ")} — if the URL in the ` +
+        "Square dashboard is not on that list, character for character, every " +
+        "event is rejected and nothing is sent (#191).",
     };
   }
   if (mailer && !webhook) {

@@ -10,6 +10,7 @@ import {
 } from "../../../../lib/donation-notification";
 import { sendEmail } from "../../../../lib/email";
 import { squareApiBase } from "../../../../lib/square";
+import { notificationUrls } from "../../../../lib/square-webhook";
 
 // Square -> SLOTAB. Fires when a payment completes, and tells the Membership VP
 // what just happened — the perks a new business sponsorship owes, or the donor
@@ -54,7 +55,22 @@ const FULFILMENT_INBOX =
 const DONATION_INBOX =
   process.env.DONATION_NOTIFICATION_EMAIL ?? "slotabmembership@gmail.com";
 
-/** Square signs `notificationUrl + rawBody` with HMAC-SHA256, base64.
+/** Square signs `notificationUrl + rawBody` with HMAC-SHA256, base64, where
+ *  `notificationUrl` is the URL **as configured in the Square dashboard** —
+ *  character for character. A trailing slash, a `www.`, or a different path all
+ *  fail every signature.
+ *
+ *  Accepts SEVERAL candidate URLs, and that is the point (#191). This
+ *  integration was dead for days because the dashboard said
+ *  `https://slotab.org/api/webhook` while the code lived at
+ *  `/api/square/webhook`, and the only symptom was silence. One env var that
+ *  has to match a setting in someone else's dashboard is a single point of
+ *  quiet failure; a small set of accepted URLs is not.
+ *
+ *  This does NOT weaken the check. Each candidate is compared against an HMAC
+ *  computed with the secret key, so an attacker who cannot produce that HMAC
+ *  gains nothing from there being more than one accepted URL — they still have
+ *  to forge a signature, for any one of them.
  *
  *  Compared with `timingSafeEqual`, and length-checked first because
  *  `timingSafeEqual` throws on a length mismatch rather than returning false. */
@@ -62,16 +78,22 @@ function signatureValid(
   rawBody: string,
   headerSignature: string | null,
   signatureKey: string,
-  notificationUrl: string,
+  notificationUrls: string[],
 ): boolean {
   if (!headerSignature) return false;
-  const expected = createHmac("sha256", signatureKey)
-    .update(notificationUrl + rawBody)
-    .digest("base64");
-  const a = Buffer.from(expected);
-  const b = Buffer.from(headerSignature);
-  return a.length === b.length && timingSafeEqual(a, b);
+  const received = Buffer.from(headerSignature);
+  return notificationUrls.some((url) => {
+    const expected = Buffer.from(
+      createHmac("sha256", signatureKey)
+        .update(url + rawBody)
+        .digest("base64"),
+    );
+    return (
+      expected.length === received.length && timingSafeEqual(expected, received)
+    );
+  });
 }
+
 
 type SquarePayment = {
   id?: string;
@@ -93,11 +115,11 @@ function buyerName(p: SquarePayment): string | undefined {
 
 export async function POST(req: Request) {
   const signatureKey = process.env.SQUARE_WEBHOOK_SIGNATURE_KEY;
-  const notificationUrl = process.env.SQUARE_WEBHOOK_URL;
+  const urls = notificationUrls();
 
   // Refuse to process anything unverifiable. An unauthenticated endpoint that
   // sends mail on request is a spam relay pointed at a volunteer's inbox.
-  if (!signatureKey || !notificationUrl) {
+  if (!signatureKey || urls.length === 0) {
     console.error(
       "[square-webhook] refusing: SQUARE_WEBHOOK_SIGNATURE_KEY and SQUARE_WEBHOOK_URL must both be set",
     );
@@ -110,7 +132,7 @@ export async function POST(req: Request) {
       rawBody,
       req.headers.get("x-square-hmacsha256-signature"),
       signatureKey,
-      notificationUrl,
+      urls,
     )
   ) {
     // The URL is in the log line on purpose. Square signs
@@ -122,9 +144,11 @@ export async function POST(req: Request) {
     // endpoint, the other is the URL the caller asked for. The signature key
     // is NOT logged.
     console.warn(
-      "[square-webhook] bad signature — rejected. Verifying against " +
-        `SQUARE_WEBHOOK_URL=${notificationUrl} ; request arrived at ${req.url}. ` +
-        "If those differ, fix the mismatch before suspecting the key.",
+      "[square-webhook] bad signature — rejected. Tried " +
+        `${urls.length} notification URL(s): ${urls.join(" , ")} ; ` +
+        `request arrived at ${req.url}. Square signs the URL exactly as the ` +
+        "dashboard has it, so if none of those match it character for " +
+        "character, fix that before suspecting the key.",
     );
     return NextResponse.json({ error: "bad signature" }, { status: 401 });
   }
