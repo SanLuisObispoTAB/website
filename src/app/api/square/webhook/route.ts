@@ -113,7 +113,19 @@ export async function POST(req: Request) {
       notificationUrl,
     )
   ) {
-    console.warn("[square-webhook] bad signature — rejected");
+    // The URL is in the log line on purpose. Square signs
+    // `notificationUrl + rawBody`, so the single most likely cause of a
+    // rejection is that SQUARE_WEBHOOK_URL and the URL configured in the
+    // Square dashboard are not the same string — a trailing slash, a `www.`,
+    // or the wrong path. "bad signature" alone sends you looking at the key,
+    // which is almost never it. Neither value here is secret: one is a public
+    // endpoint, the other is the URL the caller asked for. The signature key
+    // is NOT logged.
+    console.warn(
+      "[square-webhook] bad signature — rejected. Verifying against " +
+        `SQUARE_WEBHOOK_URL=${notificationUrl} ; request arrived at ${req.url}. ` +
+        "If those differ, fix the mismatch before suspecting the key.",
+    );
     return NextResponse.json({ error: "bad signature" }, { status: 401 });
   }
 
