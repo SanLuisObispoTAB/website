@@ -58,9 +58,12 @@ the domain cuts over to slotab.org), a few things need to be filled in:
    Without them, the form still works but responses are stubbed.
 4. **Square transaction notifications** (`/api/square/webhook`) — emails the
    Membership VP the moment Square confirms a payment: a perk-fulfilment
-   handoff for a business sponsorship, and for a donation the donor, the
-   designation, the 75/25 split and the donor-wall preference. That second one
-   is not a nicety — since the checkout cutover (#181) Square's own
+   handoff for a business sponsorship, and for a donation a numbered **to-do
+   list** — thank-you or IRS acknowledgement, donor wall, whatever the gift's
+   level owes, and which team liaisons to tell. Both checklists are *generated*
+   from `sponsor-tiers.ts` and the team JSONs, never written out, so revising
+   the board's sheet revises the emails. That second one is not a nicety —
+   since the checkout cutover (#181) Square's own
    notification is a bare *payment received*, where the old storefront raised
    an *order* notification naming the item and the buyer, and Square exposes no
    setting to change either (#186). **Inert until all four of these are set**,
