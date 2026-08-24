@@ -201,6 +201,41 @@ export function sportsCreditPerk(n: number): string | null {
     : `Choose up to ${word} sports to receive the credit`;
 }
 
+/** What a level *name* entitles someone to.
+ *
+ *  `levelForGift` returns a name and the metadata on a Square order stores that
+ *  name, so the donation notification (#187) has a string and needs the perks
+ *  behind it. Searches both halves of the ladder because a gift is placed
+ *  against both — see the note above `rankedLevels`.
+ *
+ *  `kind` matters to the caller: a **donation** of $2,500 reaches "Silver
+ *  Sponsor" by amount alone, which is not the same as a business having bought
+ *  a Silver sponsorship. The notification flags that rather than assuming
+ *  either way. */
+export type LevelDetail = {
+  name: string;
+  perks: string[];
+  kind: "sponsorship" | "membership";
+  /** Sponsorship tiers only — how many sports the tier credits. */
+  sportsCredit?: number;
+};
+
+export function levelByName(name: string): LevelDetail | undefined {
+  const tier = SPONSOR_TIERS.find((t) => t.name === name);
+  if (tier) {
+    return {
+      name: tier.name,
+      perks: tier.perks,
+      kind: "sponsorship",
+      sportsCredit: tier.sportsCredit,
+    };
+  }
+  const membership = GENERAL_MEMBERSHIPS.find((m) => m.name === name);
+  return membership
+    ? { name: membership.name, perks: membership.perks, kind: "membership" }
+    : undefined;
+}
+
 /** Every paid level the club offers, richest first. */
 function rankedLevels(): Threshold[] {
   return [

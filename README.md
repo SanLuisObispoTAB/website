@@ -56,23 +56,49 @@ the domain cuts over to slotab.org), a few things need to be filled in:
 3. **Springly env vars** (optional, for the join form to create real
    Springly records) — `SPRINGLY_API_BASE` and `SPRINGLY_API_KEY`.
    Without them, the form still works but responses are stubbed.
-4. **Sponsor fulfilment email** (`/api/square/webhook`) — sends the
-   Membership VP a perk-fulfilment handoff the moment Square confirms a
-   business sponsorship. **Inert until all four of these are set**, and it
-   says so in the logs rather than failing quietly:
+4. **Square transaction notifications** (`/api/square/webhook`) — emails the
+   Membership VP the moment Square confirms a payment: a perk-fulfilment
+   handoff for a business sponsorship, and for a donation a numbered **to-do
+   list** — thank-you or IRS acknowledgement, donor wall, whatever the gift's
+   level owes, and which team liaisons to tell. Both checklists are *generated*
+   from `sponsor-tiers.ts` and the team JSONs, never written out, so revising
+   the board's sheet revises the emails. That second one is not a nicety —
+   since the checkout cutover (#181) Square's own
+   notification is a bare *payment received*, where the old storefront raised
+   an *order* notification naming the item and the buyer, and Square exposes no
+   setting to change either (#187). **Needs all four of these**, and says so in
+   the logs rather than failing quietly. **Don't guess whether they're set —
+   look:** `/board` reads them live and shows 🔴 off / 🟡 half on / ✅ on
+   (#188). From outside the board password,
+   `curl -X POST https://slotab.org/api/square/webhook -d '{}'` answers **401**
+   when the signature key and URL are set (it rejected an unsigned caller) and
+   **503** when they are not:
    - `SQUARE_WEBHOOK_SIGNATURE_KEY` — from Square Dashboard → Developers →
      Webhooks, after subscribing to **`payment.updated`** with the
      notification URL `https://slotab.org/api/square/webhook`.
    - `SQUARE_WEBHOOK_URL` — that same URL, character for character. Square
      signs the URL string *as you configured it*, so a trailing slash or a
-     `www.` difference fails every signature.
+     `www.` difference fails every signature. **May hold several URLs,
+     comma-separated**, and the canonical/alias sibling is added automatically
+     — see below for why that matters.
+
+   **The path trap that cost this integration several days (#191).** The live
+   subscription was created with `https://slotab.org/api/webhook`, one segment
+   short of the route, so every `payment.updated` 404'd and no email ever sent
+   while the configuration looked complete. `/api/webhook` is now a working
+   **alias** for `/api/square/webhook`, and the signature check accepts either,
+   so both spellings work. `/board` shows which URLs are accepted. If you edit
+   the subscription URL in Square, check it against that list.
    - `RESEND_API_KEY` and `EMAIL_FROM` — the mailer. `EMAIL_FROM` must be on
      a domain verified in Resend, or sends fail with a 422.
 
-   Optional: `SPONSOR_FULFILMENT_EMAIL` overrides the recipient, which
-   defaults to `slotabmembership@gmail.com`. Test it end to end from
-   Square's dashboard — the webhook page can replay a sample event, and
-   sandbox works if `SQUARE_ENVIRONMENT` is `sandbox`.
+   Optional: `SPONSOR_FULFILMENT_EMAIL` and `DONATION_NOTIFICATION_EMAIL`
+   override the recipients, both defaulting to `slotabmembership@gmail.com`.
+   They are separate variables on purpose — a sponsorship handoff is a work
+   order and a donation notice is a heads-up, so the board can send the second
+   somewhere the first should not go. Test it end to end from Square's
+   dashboard — the webhook page can replay a sample event, and sandbox works if
+   `SQUARE_ENVIRONMENT` is `sandbox`.
 5. **Weekly scraper workflow** — in `.github/workflows/update-events.yml`,
    the committer email `erik@ravens-peak-consulting.com` should be
    updated to whoever owns the production Vercel team account (Vercel
