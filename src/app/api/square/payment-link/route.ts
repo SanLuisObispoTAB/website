@@ -176,6 +176,13 @@ export async function POST(req: Request) {
     ? nameParts.slice(0, nameParts.length > 1 ? -1 : undefined).join(" ")
     : undefined;
 
+  // Whether the donor is willing to be named on the donor wall. Absent means
+  // absent: the notification says "not recorded" rather than reading a missing
+  // flag as consent, because a name published against someone's wishes is the
+  // one outcome in this flow that is awkward to undo.
+  const displayOnWall =
+    typeof body.displayOnWall === "boolean" ? body.displayOnWall : undefined;
+
   let lineItemName: string;
   let amountCents: number;
   let note: string;
@@ -330,6 +337,29 @@ export async function POST(req: Request) {
     note = `*** TEST — board review, refund this *** ${note}`;
     metadata.test = "true";
   }
+
+  // THE DONOR BLOCK — the fields Square's own notification stopped carrying.
+  //
+  // Added for #187. Since #181 a donation raises a Square *payment*
+  // notification ("you got paid $75") rather than the storefront's *order*
+  // notification, which named the item and the buyer; Square exposes no setting
+  // to change either, so the Membership VP's notification has to be ours, built
+  // from what the donor typed here. None of this is new exposure — the same
+  // name and phone already go to Square as checkout prefill, one field over.
+  //
+  // Written LAST, and the order matters. Square caps order metadata at TEN
+  // pairs, and a Hall of Fame gift carrying a level, a tribute and the test
+  // marker lands on exactly ten with this block. `sanitizeMetadata` drops from
+  // the end, so going last means an overflow costs a phone number in an email
+  // rather than `designation` or `test` — the two keys the Treasurer's report
+  // is keyed on. It logs loudly either way.
+  if (rawName) metadata.donor = rawName.slice(0, 255);
+  if (buyerPhone) metadata.phone = buyerPhone;
+  // Only the answer that needs acting on is stored. "yes" is the default the
+  // form ships with, and spending a capped metadata key to say "behave
+  // normally" is the wrong trade.
+  if (displayOnWall === false) metadata.wall = "no";
+
 
   const origin = siteOrigin(req);
   const redirectUrl = new URL("/thank-you", origin);

@@ -1,6 +1,7 @@
 import { sponsorTierById, type SponsorTier } from "../app/data/sponsor-tiers";
 import { SPONSOR_TIERS as WALL_TIERS } from "../app/data/sponsors";
 import teamsData from "../app/data/teams.json";
+import { pacificTimestamp, readablePhone } from "./notification-format";
 
 // Composes the handoff email that reaches the Membership VP when a business
 // sponsorship is paid for.
@@ -131,14 +132,23 @@ export function lookupWallRecord(businessName?: string): WallRecord {
 
 /** An annotation appended to a perk that needs something *from the sponsor*
  *  before it can be actioned. Matched on keywords, and deliberately additive:
- *  a keyword that stops matching loses its note, never its checklist line. */
-function perkAction(perk: string): string | null {
+ *  a keyword that stops matching loses its note, never its checklist line.
+ *
+ *  Exported since #187, because the donation notification renders a checklist
+ *  from the same two arrays — a gift of $500 or more lands on a sponsorship
+ *  tier by `levelForGift`, so it owes the same passes and banners. A second
+ *  copy of this keyword table is a second answer to "what do I do about a
+ *  banner", which is the drift this file was written to avoid. */
+export function perkAction(perk: string): string | null {
   const p = perk.toLowerCase();
   if (p.includes("banner")) {
     return "confirm which sport locations they want, then place the banner order";
   }
   if (p.includes("all-sport annual pass")) {
-    return "issue via GoFan to the contact below";
+    // Direction-neutral wording: this note is rendered by two emails now, and
+    // the contact block sits BELOW it in the sponsorship handoff and ABOVE it
+    // in the donation checklist. "the contact below" was wrong in one of them.
+    return "issue via GoFan to the email on this message";
   }
   if (p.includes("digital ad")) {
     return "artwork needed at scoreboard spec — Zach Roper runs the Jumbotron template";
@@ -154,6 +164,12 @@ function perkAction(perk: string): string | null {
   }
   if (p.includes("recognition")) {
     return "add to the sponsor wall in src/app/data/sponsors.json";
+  }
+  // General-membership territory rather than sponsorship — reachable only from
+  // the donation checklist, where "Tiger news & event updates" is the single
+  // thing a Family or Individual membership actually owes.
+  if (p.includes("news") || p.includes("updates")) {
+    return "add them to the Tiger news & events mailing list";
   }
   return null;
 }
@@ -203,14 +219,15 @@ export function composeFulfilmentEmail(
     `  Tier:      ${tier.name} (${MONEY.format(tier.annual)}/year)`,
     `  Paid:      ${amount}`,
   );
-  if (payment.paidAt) lines.push(`  When:      ${payment.paidAt}`);
+  const when = pacificTimestamp(payment.paidAt);
+  if (when) lines.push(`  When:      ${when}`);
   if (payment.paymentId) lines.push(`  Square ID: ${payment.paymentId}`);
   lines.push("");
 
   lines.push("CONTACT");
   lines.push(`  Name:   ${payment.buyerName || "not provided"}`);
   lines.push(`  Email:  ${payment.buyerEmail || "not provided"}`);
-  lines.push(`  Phone:  ${payment.buyerPhone || "not provided"}`);
+  lines.push(`  Phone:  ${readablePhone(payment.buyerPhone) || "not provided"}`);
   lines.push(
     "  (This is the person who paid. For a business sponsorship that is",
     "   often an office manager rather than the marketing contact.)",

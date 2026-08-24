@@ -167,12 +167,36 @@ export function isPublicCheckoutEnabled(): boolean {
   return credentialsUsableHere() && process.env.SQUARE_LIVE_DONATE === "true";
 }
 
+/** Square's hard cap on order metadata pairs. Exceed it and Square rejects the
+ *  whole request, which would fail the gift — so keys are dropped here instead.
+ *
+ *  This used to be comfortable headroom and is not any more: a Hall of Fame
+ *  gift with a level, a tribute and the donor block added in #187 lands on
+ *  exactly ten. The next key added anywhere in the donation path will silently
+ *  push one off the end, and the ones at risk are the ones added last, which is
+ *  the donor block the Membership VP's notification is built from. Hence the
+ *  log below — a dropped key must never be discovered by a volunteer noticing
+ *  a blank line in an email. */
+const METADATA_MAX_KEYS = 10;
+
 function sanitizeMetadata(md: Record<string, string>): Record<string, string> {
   const out: Record<string, string> = {};
+  const dropped: string[] = [];
   for (const [k, v] of Object.entries(md)) {
-    if (Object.keys(out).length >= 10) break; // Square's hard cap
     if (!/^[A-Za-z0-9_-]{1,60}$/.test(k)) continue; // Square's allowed key charset
+    if (Object.keys(out).length >= METADATA_MAX_KEYS) {
+      dropped.push(k);
+      continue;
+    }
     out[k] = String(v).slice(0, 255);
+  }
+  if (dropped.length) {
+    console.error(
+      `[square] order metadata over Square's ${METADATA_MAX_KEYS}-key cap — ` +
+        `DROPPED: ${dropped.join(", ")}. The gift still goes through, but ` +
+        "anything keyed on those fields (the Treasurer's report, the " +
+        "membership notification) is now missing them.",
+    );
   }
   return out;
 }
@@ -180,6 +204,22 @@ function sanitizeMetadata(md: Record<string, string>): Record<string, string> {
 function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: string) {
   return {
     idempotency_key: idempotencyKey,
+    // A long shot at Square's own notification, and worth the one line either
+    // way. Dannene's 2026-08-23 screenshots show the payment notification
+    // rendering the literal words "Payment Link" where the storefront's order
+    // notification named the item — so the line item name below is evidently
+    // NOT what that email reads. `description` is the payment link's own name
+    // and the next most likely candidate.
+    //
+    // UNVERIFIED against the notification email: proving it needs a real
+    // payment through a real link, which is a live charge in the club's
+    // account. What it definitely does do is name the link in the Square
+    // dashboard's payment-link list, where every entry currently reads the
+    // same. Square caps this at 250 characters.
+    //
+    // This is a bonus, not the fix. The fix is the webhook email (#187), which
+    // does not depend on Square rendering anything.
+    description: input.lineItemName.slice(0, 250),
     order: {
       location_id: locationId,
       line_items: [

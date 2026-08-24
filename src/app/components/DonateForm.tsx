@@ -240,7 +240,12 @@ export default function DonateForm({
         (autoRenew ? ", with the 4-year lock-in" : ""),
     );
   }
-  if (!displayOnWall) {
+  // Same gate as the designation above, and for the same reason: since #187 the
+  // minted path carries this in order metadata, so telling a donor on that path
+  // that their choice "can't travel through that checkout" would be a false
+  // statement asking them to do work they don't need to do. The storefront
+  // fallback still cannot carry it, so there it stays.
+  if (handedOff && handoffMode === "storefront" && !displayOnWall) {
     unrecordedIntent.push("Asked to stay anonymous — do not list on the donor wall");
   }
   if (tier) {
@@ -254,10 +259,18 @@ export default function DonateForm({
   // gift, so treating "the panel has content" as "the donor has a task" would
   // make every single donation a two-click flow. But a tier is **derivable
   // from the amount** — the club can work it out from the transaction and
-  // nobody needs to be told. Anonymity cannot be derived from anything: if the
-  // donor doesn't tell us, the default is that their name goes on the donor
-  // wall, which is the one outcome here that is awkward to undo.
-  const needsDonorAction = !displayOnWall;
+  // nobody needs to be told.
+  //
+  // Anonymity used to be the one thing that wasn't derivable from anything, and
+  // #157 held anonymous donors on this panel for exactly that reason: if they
+  // didn't tell us by email, the default was that their name went on the donor
+  // wall, which is the one outcome here that is awkward to undo. Since #187 the
+  // checkbox rides to Square in order metadata and reaches the Membership VP by
+  // itself, so the hold has nothing left to protect — an anonymous donor now
+  // auto-advances like everybody else. On the storefront fallback, which still
+  // cannot carry it, the condition above puts the line back and the absent
+  // countdown leaves the donor on the panel anyway.
+  const needsDonorAction = handoffMode === "storefront" && !displayOnWall;
   // The designation deliberately isn't listed here any more. It used to be —
   // #140 had to warn the donor that all three cheer programmes landed on one
   // "CHEER" storefront item and both wrestling teams on "WRESTLING", so the
@@ -694,6 +707,11 @@ export default function DonateForm({
                 // Carried so Square's form arrives filled in, not blank.
                 name: donorName,
                 phone: donorPhone,
+                // Carried so the Membership VP's notification can say it
+                // (#187). Until now this answer only reached her if the donor
+                // also clicked the mailto below — which is a lot to ask of a
+                // preference whose default is "publish my name".
+                displayOnWall,
               }),
             });
             const data = (await res.json()) as { url?: string; error?: string };
