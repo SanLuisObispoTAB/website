@@ -265,9 +265,13 @@ export default function ClassicHomePage() {
               {/* The Hall of Fame ask, surfaced where the induction is already
                   mentioned. The band on /hall-of-fame is the only place the
                   fund is explained, and nobody browses to a Hall of Fame page
-                  looking to donate — they have to be sent (#184). */}
+                  looking to donate — they have to be sent (#184). Says "the
+                  Hall of Fame", not "the Hall of Fame class": since #186 this
+                  is a standing fund, and since #187 a class only goes in every
+                  other year, so naming a class here would be wrong half the
+                  time. */}
               <Link href="/hall-of-fame#fund" className="tiger-ulink">
-                Fund the Hall of Fame class →
+                Fund the Hall of Fame →
               </Link>
             </div>
           </div>
