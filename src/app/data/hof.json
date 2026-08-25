@@ -44,6 +44,7 @@
     "goalDollars": 10000,
     "raisedDollars": 0,
     "raisedAsOf": "",
+    "raisedStaleAfterDays": 14,
     "goalLabel": "for the Hall of Fame Fund",
     "levels": [
       {
@@ -99,7 +100,7 @@
     },
     "tributeLabel": "Give in someone's honor",
     "tributeHint": "Giving for a coach, a teammate, or an inductee? Add their name at checkout and we'll list the gift in their honor in the ceremony program.",
-    "_note": "Added 2026-08-21 for the Hall of Fame push (decision #184). REFRAMED 2026-08-24 on the Athletic Director's review (#186): a STANDING fund for the Hall of Fame going forward, not a Class of 2026 drive, with alumni as the audience. UPDATED 2026-08-25 on his second pass (#187): goal set to his figure of $10,000, and the cadence corrected — SLOHS inducts a class EVERY OTHER YEAR, not every year (his words). That error was in five strings; if you write new copy here, do not reintroduce it. Note `ceremony.venueDetail` above still reads 'where this year's Hall of Fame class is officially inducted', which is true in 2026 and will be wrong at the 2027 Bash — a non-induction year — so edit it then. The dollar-to-item mapping in `levels` remains the committee's working plan, NOT quoted engraver pricing. `raisedDollars` is 0 and `raisedAsOf` empty: set both from the Hall of Fame row on /board/square-report before or just after go-live, and refresh after each SLOTAB meeting."
+    "_note": "Added 2026-08-21 for the Hall of Fame push (decision #184). REFRAMED 2026-08-24 on the Athletic Director's review (#186): a STANDING fund for the Hall of Fame going forward, not a Class of 2026 drive, with alumni as the audience. UPDATED 2026-08-25 (#187): goal set to the AD's $10,000, and the cadence corrected — SLOHS inducts a class EVERY OTHER YEAR, not every year. That error was in five strings; do not reintroduce it. Note `ceremony.venueDetail` above still reads 'where this year's Hall of Fame class is officially inducted', true in 2026 and wrong at the 2027 Bash — edit it then. WEEKLY REFRESH (#188): the board committed to updating the thermometer weekly, so `raisedAsOf` is an ISO date (YYYY-MM-DD) and the band STOPS PUBLISHING the figure once it is older than `raisedStaleAfterDays` — the bar reverts to showing the goal alone rather than a frozen number. The Monday cron email to the Treasurer carries both values ready to paste. The dollar-to-item mapping in `levels` remains the committee's working plan, NOT quoted engraver pricing."
   },
   "committee": [],
   "alumniMembership": {

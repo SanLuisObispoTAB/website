@@ -631,14 +631,24 @@ collections:
                   widget: number,
                   value_type: int,
                   min: 0,
-                  hint: "Read the Hall of Fame row off /board/square-report and paste the gross figure here. Refresh after each SLOTAB meeting so the bar is not stale.",
+                  hint: "Whole dollars raised since the fund opened — the figure the board wants shown. The Monday cron email prints the WEBSITE total ready to paste, but that only counts gifts through the donate form: if cheques, cash or Bash-night gifts are also being counted, use the Treasurer's ledger total instead or the bar under-reports the fund. Refresh WEEKLY — the bar withdraws the number rather than showing a stale one.",
                 }
               - {
                   name: raisedAsOf,
-                  label: "Raised figure as of (date label)",
-                  widget: string,
+                  label: "Raised figure as of",
+                  widget: date,
+                  format: "YYYY-MM-DD",
                   required: false,
-                  hint: "e.g. 'September 12'. Shown under the bar so nobody reads a stale number as live.",
+                  hint: "The day you read the figure off /board/square-report. REQUIRED for the number to appear at all — and once it is more than two weeks old the bar stops showing the number and goes back to showing just the goal, on purpose. Refresh weekly; the Monday email to the Treasurer carries both values ready to paste.",
+                }
+              - {
+                  name: raisedStaleAfterDays,
+                  label: "Stop showing the figure after (days)",
+                  widget: number,
+                  value_type: int,
+                  min: 1,
+                  required: false,
+                  hint: "Grace period on the weekly refresh promise. 14 = two missed weeks, then the bar shows the goal alone instead of a frozen total.",
                 }
               - name: levels
                 label: "Giving levels"

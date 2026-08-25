@@ -68,7 +68,19 @@ type Fund = {
   ctaLabel: string;
   goalDollars: number;
   raisedDollars: number;
+  /** ISO date (YYYY-MM-DD) the raised figure was read off
+   *  /board/square-report. An ISO date rather than a display string on
+   *  purpose: it is what makes the figure a *dated* claim the code can check,
+   *  and a free-text "September 12" cannot be compared to anything. Rendered
+   *  for humans below. Empty = no figure published yet. */
   raisedAsOf: string;
+  /** How many days a raised figure stays publishable. The board promised a
+   *  WEEKLY refresh (2026-08-25), so this is the grace period on that promise:
+   *  past it the bar stops asserting a number and falls back to showing the
+   *  goal alone. A thermometer that quietly freezes is the standard failure of
+   *  this widget, and the one thing worse than no number is a stale number
+   *  under a 501(c)(3) logo. Default 14 — two missed weeks. */
+  raisedStaleAfterDays?: number;
   /** The phrase the thermometer figures are read against, e.g. "for the Hall of
    *  Fame Fund". Data rather than a literal, so the sentence never has to name
    *  a single class again. */
@@ -88,6 +100,17 @@ const MONEY = new Intl.NumberFormat("en-US", {
   currency: "USD",
   maximumFractionDigits: 0,
 });
+
+/** When this build was made, used to age the raised figure.
+ *
+ *  Module scope, not the component body, for two reasons that happen to agree:
+ *  the React compiler rejects `Date.now()` during render as impure (correctly —
+ *  a value that changes between renders is exactly what it guards against), and
+ *  build time is the semantics actually wanted here. Evaluated once per build,
+ *  so the staleness flip lands on the next rebuild after the boundary — the
+ *  same trade-off `isDonateDriveActive` documents in campaign.ts, and the same
+ *  reason it is safe: deploys and the events cron rebuild this site regularly. */
+const BUILT_AT_MS = Date.now();
 
 /** The photo strip. Exported separately from the band because the page now
  *  opens with the ask and puts the save-the-date directly beneath it — the
@@ -141,7 +164,24 @@ export default function HofFund() {
   // #184, so "$0 raised" is a claim about money that may already have come in,
   // and it would be printed under a 501(c)(3) logo. A goal with an empty track
   // says "we are starting" and cannot be wrong.
-  const hasRaisedFigure = fund.raisedAsOf.trim().length > 0;
+  // Aged against BUILT_AT_MS — see the note on that constant. Doing this on the
+  // server rather than in the browser also keeps the markup deterministic and
+  // avoids a hydration mismatch on a date boundary.
+  const asOf = fund.raisedAsOf.trim();
+  const asOfMs = asOf ? Date.parse(`${asOf}T12:00:00Z`) : NaN;
+  const staleAfterDays = fund.raisedStaleAfterDays ?? 14;
+  const ageDays = Number.isNaN(asOfMs)
+    ? Infinity
+    : (BUILT_AT_MS - asOfMs) / 86_400_000;
+  // A figure is publishable only while it is both present and fresh.
+  const hasRaisedFigure = !Number.isNaN(asOfMs) && ageDays <= staleAfterDays;
+  const asOfLabel = Number.isNaN(asOfMs)
+    ? ""
+    : new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC",
+      }).format(asOfMs);
   const pct =
     hasGoal && hasRaisedFigure
       ? Math.min(100, Math.round((fund.raisedDollars / fund.goalDollars) * 100))
@@ -228,8 +268,8 @@ export default function HofFund() {
               </div>
               <p className="slotab-hof-goal-asof">
                 {hasRaisedFigure
-                  ? `As of ${fund.raisedAsOf}. Updated after each SLOTAB meeting.`
-                  : "The bar fills as gifts come in, updated after each SLOTAB meeting."}
+                  ? `As of ${asOfLabel}. Updated weekly.`
+                  : "The bar fills as gifts come in, updated weekly."}
               </p>
             </div>
           )}
