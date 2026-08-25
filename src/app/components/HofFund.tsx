@@ -2,7 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import hofData from "../data/hof.json";
 
-// The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186).
+// The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186, #187).
+//
+// TWO FACTS THE COPY MUST KEEP STRAIGHT
+// 1. SLOHS inducts a class EVERY OTHER YEAR, not every year (the AD, #187).
+//    The first draft got this wrong in five separate strings. If you write new
+//    copy here, do not reintroduce it — and note the biennial cadence is an
+//    argument FOR the fund, not a complication: the money that arrives between
+//    inductions is what makes the next one right.
+// 2. It is a standing fund, not a class drive — see below.
 //
 // IT IS A STANDING FUND, NOT A CLASS DRIVE
 // It shipped as a "Class of 2026" campaign. The Athletic Director's review
@@ -31,9 +39,10 @@ import hofData from "../data/hof.json";
 // EVERYTHING EDITABLE LIVES IN hof.json (Decap: Hall of Fame → Hall of Fame
 // Fund). Levels, copy, photos, the button label and the goal are all data —
 // the button label included, because it has now been renamed twice in three
-// days and that should never need a deploy. `goalDollars` is 0 until the AD's
-// figure lands: the thermometer renders only when it is set, because an
-// invented goal on a 501(c)(3) donation page is worse than no goal at all.
+// days and that should never need a deploy. `goalDollars` held 0 until the AD
+// gave a real figure, because an invented goal on a 501(c)(3) donation page is
+// worse than no goal at all; it is now $10,000 (#187) and the thermometer
+// renders. `raisedDollars` is refreshed by hand from /board/square-report.
 
 type Level = {
   amount: number;
@@ -123,9 +132,20 @@ export default function HofFund() {
     (amount ? `&amount=${amount}` : "");
 
   const hasGoal = fund.goalDollars > 0;
-  const pct = hasGoal
-    ? Math.min(100, Math.round((fund.raisedDollars / fund.goalDollars) * 100))
-    : 0;
+  // A raised total is a DATED CLAIM, not a fact — the house rule the status doc
+  // spells out. `raisedAsOf` is what turns one into the other, so the figure is
+  // published only once someone has stamped a date on it by reading the Hall of
+  // Fame row off /board/square-report. Until then the bar shows the goal alone.
+  //
+  // This is not pedantry: the designation has been live in the donate form since
+  // #184, so "$0 raised" is a claim about money that may already have come in,
+  // and it would be printed under a 501(c)(3) logo. A goal with an empty track
+  // says "we are starting" and cannot be wrong.
+  const hasRaisedFigure = fund.raisedAsOf.trim().length > 0;
+  const pct =
+    hasGoal && hasRaisedFigure
+      ? Math.min(100, Math.round((fund.raisedDollars / fund.goalDollars) * 100))
+      : 0;
 
   return (
     <section className="slotab-hof-fund" id="fund">
@@ -174,10 +194,20 @@ export default function HofFund() {
           {hasGoal && (
             <div className="slotab-hof-goal">
               <div className="slotab-hof-goal-figures">
-                <strong>{MONEY.format(fund.raisedDollars)}</strong>
-                <span>
-                  raised of {MONEY.format(fund.goalDollars)} {fund.goalLabel}
-                </span>
+                {hasRaisedFigure ? (
+                  <>
+                    <strong>{MONEY.format(fund.raisedDollars)}</strong>
+                    <span>
+                      raised of {MONEY.format(fund.goalDollars)}{" "}
+                      {fund.goalLabel}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <strong>{MONEY.format(fund.goalDollars)}</strong>
+                    <span>the goal {fund.goalLabel}</span>
+                  </>
+                )}
               </div>
               <div
                 className="slotab-hof-goal-track"
@@ -185,18 +215,22 @@ export default function HofFund() {
                 aria-valuenow={pct}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label={`Hall of Fame fund progress: ${pct}% of goal`}
+                aria-label={
+                  hasRaisedFigure
+                    ? `Hall of Fame fund progress: ${pct}% of goal`
+                    : "Hall of Fame fund progress: not yet published"
+                }
               >
                 <div
                   className="slotab-hof-goal-fill"
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              {fund.raisedAsOf && (
-                <p className="slotab-hof-goal-asof">
-                  As of {fund.raisedAsOf}. Updated after each SLOTAB meeting.
-                </p>
-              )}
+              <p className="slotab-hof-goal-asof">
+                {hasRaisedFigure
+                  ? `As of ${fund.raisedAsOf}. Updated after each SLOTAB meeting.`
+                  : "The bar fills as gifts come in, updated after each SLOTAB meeting."}
+              </p>
             </div>
           )}
 

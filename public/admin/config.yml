@@ -571,7 +571,7 @@ collections:
             label: "Hall of Fame Fund (donation band)"
             widget: object
             collapsed: true
-            hint: "The fundraising band on /hall-of-fame. This is a STANDING fund for the Hall of Fame going forward, not a single-class drive (AD, 2026-08-24) — keep the copy class-agnostic, or the page dates itself the morning after an induction. Gifts land on the Hall of Fame designation in the donate form and post to the 'Donation: Hall of Fame' class in QuickBooks."
+            hint: "The fundraising band on /hall-of-fame. TWO RULES FOR THE COPY: (1) it is a STANDING fund, not a single-class drive (AD, 2026-08-24) — keep it class-agnostic or the page dates itself the morning after an induction; (2) SLOHS inducts a class EVERY OTHER YEAR, not every year (AD, 2026-08-25) — do not write 'every year'. Gifts land on the Hall of Fame designation in the donate form and post to the 'Donation: Hall of Fame' class in QuickBooks."
             fields:
               - {
                   name: enabled,
@@ -617,7 +617,7 @@ collections:
                   widget: number,
                   value_type: int,
                   min: 0,
-                  hint: "Leave at 0 to hide the progress bar entirely. Only set this once the AD has given a real target — a made-up goal on a donation page is worse than no goal. The AD is supplying one (2026-08-24).",
+                  hint: "Set to $10,000 by the AD on 2026-08-25. Setting it back to 0 hides the progress bar entirely. Never invent a figure here — a made-up goal on a donation page is worse than no goal.",
                 }
               - {
                   name: goalLabel,
@@ -631,7 +631,7 @@ collections:
                   widget: number,
                   value_type: int,
                   min: 0,
-                  hint: "Read the Hall of Fame row off /board/square-report and paste the gross figure here.",
+                  hint: "Read the Hall of Fame row off /board/square-report and paste the gross figure here. Refresh after each SLOTAB meeting so the bar is not stale.",
                 }
               - {
                   name: raisedAsOf,
