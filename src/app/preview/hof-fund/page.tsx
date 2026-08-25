@@ -58,17 +58,16 @@ export default function HofFundPreviewPage() {
             Booster Bash save-the-date beneath it.
           </p>
           <p className="slotab-draft-asks">
-            <strong>Revised on your feedback:</strong> this is now a standing
-            fund for the Hall of Fame going forward — not a Class of 2026 drive
-            — and alumni are addressed directly, in the block above the buttons.
-            Still needed before it goes live:{" "}
-            <strong>the fundraising goal</strong> you&apos;re putting together
-            (the progress bar is built and waiting, hidden until there is a real
-            number), and{" "}
-            <strong>confirmation of what each level actually buys</strong> — the
-            six amounts below are the committee&apos;s working plan, not
-            engraver pricing. Reply with corrections and they are a five-minute
-            change.
+            <strong>Both of your notes are in.</strong> The goal is set to{" "}
+            <strong>$10,000</strong> and the progress bar is live against it,
+            and the copy now says a class goes in{" "}
+            <strong>every other year</strong> — that was wrong in five separate
+            places and is fixed in all of them. The one figure still to settle
+            is{" "}
+            <strong>what each level actually buys</strong>: the six amounts
+            below are the committee&apos;s working plan, not engraver pricing,
+            so they are fine on a web page and would not be on a printed
+            program. Corrections are a five-minute change.
           </p>
         </div>
       </section>

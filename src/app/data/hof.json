@@ -32,16 +32,16 @@
     "designation": "hall-of-fame",
     "kicker": "The Hall of Fame Fund",
     "title": "The night ends. What they take home doesn't.",
-    "lead": "Every year the Hall of Fame adds a class. Every year, the award in an inductee's hands outlives the evening by fifty years — it sits on a mantel, in an office, in a case their grandchildren walk past.",
+    "lead": "The Hall of Fame inducts a new class every other year. The award that goes into an inductee's hands outlives the evening by fifty years — it sits on a mantel, in an office, in a case their grandchildren walk past.",
     "body": [
-      "The Hall of Fame runs on volunteer time and a shoulder-tap budget, class after class. This fund is the standing account behind it: the engraved awards, the medallions worn when a name is read, the nameplates on the wall in the Big Gym, and the printed program that puts a career on the record — every year, not just this one.",
+      "The Hall of Fame runs on volunteer time and a shoulder-tap budget. This fund is the standing account behind it: the engraved awards, the medallions worn when a name is read, the nameplates on the wall in the Big Gym, and the printed program that puts a career on the record. A class goes in every other year, so what comes in between inductions is exactly what makes the next one right.",
       "It is also how alumni stay in it. You don't have to live in San Luis Obispo, or have a kid on a roster, to keep a Tiger's name on that wall. For former Tigers, this is a standing way to stay part of the program that shaped you."
     ],
     "splitNote": "This is the one SLOTAB gift that isn't split 75/25 between a team and the general fund. All of it goes to honoring inductees.",
     "ctaLabel": "Give to the HOF Fund",
     "heroPhoto": "/photos/football-helmets-bw.jpg",
     "heroPhotoPosition": "center 42%",
-    "goalDollars": 0,
+    "goalDollars": 10000,
     "raisedDollars": 0,
     "raisedAsOf": "",
     "goalLabel": "for the Hall of Fame Fund",
@@ -78,7 +78,7 @@
         "blurb": "Carries a full class of inductees and seeds the engraving for the class after it. Recognized from the stage."
       }
     ],
-    "levelsNote": "Levels are how the committee plans to spend the fund. Any amount helps — every Hall of Fame gift goes to honoring inductees, this year's class and the ones after it, whatever the size.",
+    "levelsNote": "Levels are how the committee plans to spend the fund. Any amount helps — every Hall of Fame gift goes to honoring inductees, the next class and the ones after it, whatever the size.",
     "gallery": [
       {
         "photo": "/photos/tigers-gym-scoreboard.jpg",
@@ -95,11 +95,11 @@
     ],
     "alumniCallout": {
       "title": "Tiger alumni: this one is yours.",
-      "body": "The Hall of Fame is the part of SLOTAB that belongs to everyone who came through SLOHS, not only to the families here now. Give once, give every year, or come to the induction and see the class read out — the invitation is open."
+      "body": "The Hall of Fame is the part of SLOTAB that belongs to everyone who came through SLOHS, not only to the families here now. Give once, give ahead of each induction, or come to the Bash and see the class read out — the invitation is open."
     },
     "tributeLabel": "Give in someone's honor",
     "tributeHint": "Giving for a coach, a teammate, or an inductee? Add their name at checkout and we'll list the gift in their honor in the ceremony program.",
-    "_note": "Added 2026-08-21 for the Hall of Fame push (decision #184). REFRAMED 2026-08-24 on the Athletic Director's review (#186): this is a STANDING fund for the Hall of Fame going forward, not a Class of 2026 drive — his words, 'the goal is to fund the Hall of Fame in general and not just this class', and alumni are the audience he wants reached continually. Keep copy class-agnostic: naming a single class here is what dates the page the morning after an induction. The dollar-to-item mapping in `levels` is still the committee's working plan, NOT quoted engraver pricing — confirm before it is repeated in print. `goalDollars` stays 0 until the AD's figure lands (he is supplying one); the thermometer renders only when it is set, and `goalLabel` is the phrase it is read against. Refresh raisedDollars + raisedAsOf from /board/square-report."
+    "_note": "Added 2026-08-21 for the Hall of Fame push (decision #184). REFRAMED 2026-08-24 on the Athletic Director's review (#186): a STANDING fund for the Hall of Fame going forward, not a Class of 2026 drive, with alumni as the audience. UPDATED 2026-08-25 on his second pass (#187): goal set to his figure of $10,000, and the cadence corrected — SLOHS inducts a class EVERY OTHER YEAR, not every year (his words). That error was in five strings; if you write new copy here, do not reintroduce it. Note `ceremony.venueDetail` above still reads 'where this year's Hall of Fame class is officially inducted', which is true in 2026 and will be wrong at the 2027 Bash — a non-induction year — so edit it then. The dollar-to-item mapping in `levels` remains the committee's working plan, NOT quoted engraver pricing. `raisedDollars` is 0 and `raisedAsOf` empty: set both from the Hall of Fame row on /board/square-report before or just after go-live, and refresh after each SLOTAB meeting."
   },
   "committee": [],
   "alumniMembership": {
