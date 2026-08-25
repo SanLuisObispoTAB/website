@@ -42,6 +42,9 @@ export type SlotabEvent = {
   isHome?: boolean;
   opponent?: string;
   location?: string;
+  /** Frosh / JV / Varsity, when the weekly sheet names it. A row can carry
+   *  more than one ("JV & Varsity" for a cheer squad working both games). */
+  level?: string;
   /** Internal link to a dedicated event page, when one exists (see
    *  featured-events.json). Surfaces on the home calendar and /upcoming. */
   href?: string;
@@ -88,6 +91,7 @@ type WeeklyEvent = {
   detail?: string;
   isHome: boolean;
   opponent: string;
+  level?: string;
   sourceTab?: string;
 };
 const weeklyEvents: SlotabEvent[] = (

@@ -16,7 +16,7 @@
 | `cheer` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `competitive-cheer` | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ |
 | `cross-country` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `dance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| `dance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | `flag-football` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
 | `girls-basketball` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
 | `girls-golf` | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ |
@@ -32,14 +32,14 @@
 ### What's missing, by count
 
 - **coach bio** — missing on 15 of 20 teams
-- **liaison** — missing on 8 of 20 teams
+- **liaison** — missing on 7 of 20 teams
 - **action gallery** — missing on 6 of 20 teams
 - **action hero** — missing on 3 of 20 teams
 - **squad portrait** — missing on 0 of 20 teams ✅
 - **head coach** — missing on 0 of 20 teams ✅
 - **coach email** — missing on 0 of 20 teams ✅
 
-Fully complete: `boys-water-polo`, `cheer`, `cross-country`
+Fully complete: `boys-water-polo`, `cheer`, `cross-country`, `dance`
 
 ### Per team
 
@@ -51,7 +51,7 @@ Fully complete: `boys-water-polo`, `cheer`, `cross-country`
 - `cheer` — complete ✅ _(1 head coach, 7 assistants, 4 action shots, 3 portraits)_
 - `competitive-cheer` — needs **action hero**, **action gallery**, **coach bio** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
 - `cross-country` — complete ✅ _(2 head coaches, 4 assistants, 18 action shots, 3 portraits)_
-- `dance` — needs **liaison** _(1 head coach, 0 assistants, 2 action shots, 2 portraits)_
+- `dance` — complete ✅ _(1 head coach, 0 assistants, 2 action shots, 2 portraits)_
 - `flag-football` — needs **liaison** _(1 head coach, 5 assistants, 4 action shots, 1 portrait)_
 - `girls-basketball` — needs **coach bio** _(1 head coach, 0 assistants, 1 action shot, 1 portrait)_
 - `girls-golf` — needs **action gallery**, **coach bio** _(1 head coach, 0 assistants, 0 action shots, 1 portrait)_
