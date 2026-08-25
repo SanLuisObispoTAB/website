@@ -30,6 +30,14 @@ const money = (cents: number) => MONEY.format(cents / 100);
 
 const TREASURER_EMAIL = "slotabtreas@gmail.com";
 
+// The day the Hall of Fame designation went live on the donate form (#184).
+// The thermometer needs a CUMULATIVE total, not this email's trailing week, so
+// the fund block below is built from a second report over the whole life of the
+// fund. Nothing was tagged `hall-of-fame` before this date, so an earlier start
+// would only add scanning work.
+const HOF_FUND_SINCE = "2026-08-21T00:00:00.000Z";
+const HOF_DESIGNATION = "hall-of-fame";
+
 function pad(s: string, n: number) {
   return s.length >= n ? s.slice(0, n) : s + " ".repeat(n - s.length);
 }
@@ -40,7 +48,58 @@ function padLeft(s: string, n: number) {
 /** Plain text, not HTML, on purpose: this has to be readable in whatever
  *  Gmail does to it on a phone, and a monospaced column layout survives that
  *  better than a table nobody will style-test. */
-function compose(report: Report, siteUrl: string): string {
+/** The two values that keep the /hall-of-fame thermometer honest.
+ *
+ *  The board committed to a WEEKLY refresh (2026-08-25), and the band enforces
+ *  it: a figure older than its staleness window stops being published and the
+ *  bar reverts to showing the goal alone. That makes the refresh a real weekly
+ *  chore, so this email — which already lands weekly, on the desk of the one
+ *  person who reconciles — carries the numbers ready to paste. Looking them up
+ *  is the step that gets skipped; copying two fields is not.
+ *
+ *  Deliberately part of the existing Monday email rather than a new job: a
+ *  second cron is a second thing to notice has stopped. */
+function composeHofBlock(
+  hof: Report | null,
+  todayIso: string,
+  siteUrl: string,
+): string[] {
+  const lines: string[] = [];
+  lines.push("");
+  lines.push("HALL OF FAME THERMOMETER — paste these two into /admin");
+  lines.push("-".repeat(73));
+  if (!hof) {
+    lines.push(
+      "Could not read the cumulative Hall of Fame total this week. Pull it by hand from",
+    );
+    lines.push(`${siteUrl}/board/square-report — the bar goes back to showing the goal`);
+    lines.push("alone rather than a stale figure, so nothing on the site is wrong meanwhile.");
+    return lines;
+  }
+  const row = hof.rows.find((r) => r.key === HOF_DESIGNATION);
+  const grossCents = row?.grossCents ?? 0;
+  lines.push(`  raisedDollars : ${Math.round(grossCents / 100)}`);
+  lines.push(`  raisedAsOf    : ${todayIso}`);
+  lines.push("");
+  lines.push(
+    `${money(grossCents)} across ${row?.count ?? 0} gift(s) — WEBSITE GIFTS ONLY, since the fund opened.`,
+  );
+  lines.push(
+    "If the club is also counting cheques, cash or gifts taken on Bash night, this figure is a",
+  );
+  lines.push(
+    "FLOOR, not the total — use the ledger number instead so the bar is not under-reporting the",
+  );
+  lines.push("fund. Square can only see what came through the donate form.");
+  lines.push("");
+  lines.push("Hall of Fame → Hall of Fame Fund → Raised so far / Raised figure as of.");
+  lines.push(
+    "If this is not updated, the bar stops showing a number rather than showing an old one.",
+  );
+  return lines;
+}
+
+function compose(report: Report, hof: Report | null, siteUrl: string): string {
   const lines: string[] = [];
   const day = (iso: string) => iso.slice(0, 10);
 
@@ -91,6 +150,8 @@ function compose(report: Report, siteUrl: string): string {
     lines.push("");
     lines.push("*** SANDBOX DATA — these are test transactions, not real money. ***");
   }
+  lines.push(...composeHofBlock(hof, new Date().toISOString().slice(0, 10), siteUrl));
+
   lines.push("");
   lines.push(`Full report, any date range, with CSV export: ${siteUrl}/board/square-report`);
 
@@ -120,6 +181,17 @@ export async function GET(req: Request) {
     return Response.json({ ok: false, stage: "report" }, { status: 502 });
   }
 
+  // The cumulative fund total for the thermometer block. Failure here must not
+  // cost Trina her weekly report — the block says so itself and the email goes
+  // out regardless, which is why this is a separate try rather than part of the
+  // one above.
+  let hofReport: Report | null = null;
+  try {
+    hofReport = await buildSquareReport(HOF_FUND_SINCE, until.toISOString());
+  } catch (err) {
+    console.error("[cron] Hall of Fame cumulative total could not be built:", err);
+  }
+
   // Deliberately NOT short-circuiting on `isEmailConfigured()`. `sendEmail`
   // already handles an unconfigured mailer loudly, and in development it logs
   // the full message so the content is recoverable — returning early here
@@ -128,7 +200,7 @@ export async function GET(req: Request) {
   const result = await sendEmail({
     to: TREASURER_EMAIL,
     subject: `SLOTAB donations — week ending ${weekEnding}`,
-    text: compose(report, siteUrl),
+    text: compose(report, hofReport, siteUrl),
   });
 
   console.log(
