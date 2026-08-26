@@ -5,7 +5,12 @@ import {
   type DonorCandidate,
   type DonorWallQueue,
 } from "../../../lib/donor-wall";
-import { DONOR_WALL, allDonors } from "../../data/donors";
+import {
+  CANONICAL_TIERS,
+  DONOR_WALL,
+  allDonors,
+  legacyTiers,
+} from "../../data/donors";
 import { isRepoWriteConfigured } from "../../../lib/github-commit";
 
 // Staging for the donor wall: who may be added, who must be asked first.
@@ -55,21 +60,19 @@ function defaultDonorRange() {
  *  page: a volunteer should be able to say yes or no without touching a CMS. */
 function PendingRow({
   c,
-  tiers,
   canWrite,
 }: {
   c: DonorCandidate;
-  tiers: string[];
   canWrite: boolean;
 }) {
-  // Default the tier to the level Square recorded, when the board happens to
-  // use a heading containing it ("Champion Sponsor" → "Champion Membership").
-  // A loose match is fine here because the board sees the dropdown before
-  // clicking; getting it right most of the time saves the click that matters.
-  const suggested =
-    tiers.find((t) =>
-      c.level ? t.toLowerCase().includes(c.level.split(" ")[0].toLowerCase()) : false,
-    ) ?? "";
+  // Pre-selected from the level Square recorded at checkout. An EXACT match:
+  // the wall's headings and `metadata.level` are the same eight strings off the
+  // same sheet (#200), so there is nothing to pattern-match. The earlier loose
+  // "does the heading contain the first word" match existed only because the
+  // two vocabularies didn't line up, and it would happily have put a Champion
+  // Sponsor into "Champion Membership" — a tenfold difference in what it claims
+  // somebody gave.
+  const suggested = CANONICAL_TIERS.some((t) => t.name === c.level) ? c.level! : "";
   return (
     <tr>
       <td>
@@ -84,11 +87,18 @@ function PendingRow({
           <input type="hidden" name="name" value={c.name} />
           <input type="hidden" name="action" value="accept" />
           <select name="tier" defaultValue={suggested} aria-label={`Tier for ${c.name}`}>
-            <option value="">Newly added (file later)</option>
-            {tiers.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
+            <option value="">Tier to be confirmed</option>
+            {(["sponsorship", "membership"] as const).map((kind) => (
+              <optgroup
+                key={kind}
+                label={kind === "sponsorship" ? "Sponsorships" : "Memberships"}
+              >
+                {CANONICAL_TIERS.filter((t) => t.kind === kind).map((t) => (
+                  <option key={t.name} value={t.name}>
+                    {t.name}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>{" "}
           <button className="slotab-btn" type="submit" disabled={!canWrite}>
@@ -149,7 +159,7 @@ export default async function DonorWallBoardPage({
   const done = one(params.done);
   const problem = one(params.problem);
   const canWrite = isRepoWriteConfigured();
-  const tierNames = DONOR_WALL.tiers.map((t) => t.tier);
+  const stale = legacyTiers();
 
   let queue: DonorWallQueue | null = null;
   let error: string | null = null;
@@ -177,6 +187,39 @@ export default async function DonorWallBoardPage({
           </a>
           .
         </p>
+
+        {stale.length > 0 && (
+          <div style={{ background: "#fff4e5", padding: "0.75rem 1rem" }}>
+            <p style={{ margin: "0 0 0.5rem" }}>
+              <strong>
+                {stale.reduce((n, t) => n + t.donors.length, 0)} members are still
+                under an old tier heading.
+              </strong>{" "}
+              The wall now uses the club&rsquo;s own eight tiers — the same ones on{" "}
+              <Link href="/membership">the Membership page</Link>. These headings
+              aren&rsquo;t on that sheet:
+            </p>
+            <ul style={{ margin: "0 0 0.5rem" }}>
+              {stale.map((t) => (
+                <li key={t.tier}>
+                  {t.tier} — {t.donors.length}{" "}
+                  {t.donors.length === 1 ? "name" : "names"}
+                </li>
+              ))}
+            </ul>
+            <p style={{ margin: 0, fontSize: "0.9rem" }}>
+              They were left exactly as they were rather than moved for you: a
+              heading says what somebody gave, and no record here says which tier
+              these names belong to. If these are last season&rsquo;s members, the
+              answer may be to retire them with the seasonal clear-down rather
+              than refile them at all. Whoever knows can do either at{" "}
+              <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
+                /admin → Donor Wall
+              </a>
+              , then delete the empty heading.
+            </p>
+          </div>
+        )}
 
         <form method="get" style={{ margin: "1.5rem 0" }}>
           <label>
@@ -249,7 +292,6 @@ export default async function DonorWallBoardPage({
                       <PendingRow
                         key={`${c.name}-${c.when}`}
                         c={c}
-                        tiers={tierNames}
                         canWrite={canWrite}
                       />
                     ))}

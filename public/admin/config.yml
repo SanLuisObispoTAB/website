@@ -105,18 +105,37 @@ collections:
       - name: donors
         label: "Thank You to Our Members"
         file: "src/app/data/donors.json"
-        description: "The member thank-you wall at the foot of the Membership page. ONLY list someone who ticked \"Display my name on the SLOTAB Donor Wall\" at checkout — the Board Hub page at /board/donor-wall shows exactly who those are and generates this list for you to paste. Never add a name from a gift that predates that checkbox: nobody said no, but nobody was asked. Names only, no amounts. Cleared and rebuilt each season, like the sponsor wall."
+        description: "The member thank-you wall at the foot of the Membership page. ONLY list someone who ticked \"Display my name on the SLOTAB Donor Wall\" at checkout — the Board Hub page at /board/donor-wall shows exactly who those are and generates this list for you to paste. Never add a name from a gift that predates that checkbox: nobody said no, but nobody was asked. Names only, no amounts. Tier headings are the club's own eight — five sponsorship tiers and three general memberships — taken straight from the Membership page, so a heading here always names something the club actually offers. Cleared and rebuilt each season, like the sponsor wall."
         fields:
           - { name: season, label: "Season", widget: string }
           - name: tiers
             label: "Membership tiers"
             widget: list
             fields:
+              - name: tier
+                label: "Tier heading"
+                widget: select
+                hint: "The club's own tiers — the same eight the Membership page sells. A sponsorship tier can hold a business or a person; it describes the amount, not who gave it. The last three options are old headings kept only until their names are refiled; don't pick them for anyone new."
+                options:
+                  - "Champion Sponsor"
+                  - "Gold Sponsor"
+                  - "Silver Sponsor"
+                  - "Tiger Pride"
+                  - "Varsity"
+                  - "Family"
+                  - "Individual"
+                  - "Tiger Friend"
+                  - "Recently joined — tier to be confirmed"
+                  - "Champion Membership"
+                  - "Coach Membership"
+                  - "Alumni Membership · New"
               - {
-                  name: tier,
-                  label: "Tier heading",
-                  widget: string,
-                  hint: "As it should read on the page, e.g. \"Champion Membership\". Free text: these headings are the board's own naming and deliberately are not tied to the sponsorship ladder.",
+                  name: group,
+                  label: "Special block",
+                  widget: select,
+                  required: false,
+                  options: ["legacy", "callout"],
+                  hint: "Leave empty for a normal tier. \"legacy\" marks an old heading awaiting refiling; \"callout\" marks an explanatory block that isn't a giving level (the Alumni invitation).",
                 }
               - {
                   name: note,

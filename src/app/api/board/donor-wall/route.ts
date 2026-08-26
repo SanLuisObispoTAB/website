@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import { requestHasBoardSession } from "../../../../lib/board-auth";
-import { buildDonorWallQueue, HOLDING_TIER } from "../../../../lib/donor-wall";
+import { buildDonorWallQueue, UNFILED_TIER } from "../../../../lib/donor-wall";
 import { readJsonFile, writeJsonFile } from "../../../../lib/github-commit";
-import { donorKey, type DonorWall } from "../../../data/donors";
+import {
+  donorKey,
+  isCanonicalTier,
+  type DonorTier,
+  type DonorWall,
+} from "../../../data/donors";
 
 // Accept / decline a pending donor, from the buttons on /board/donor-wall.
 //
@@ -58,6 +63,7 @@ export async function POST(req: Request) {
   // Prove the person is actually waiting, and take the name from SQUARE rather
   // than from the form. This is the check that keeps the token boring.
   let candidateName: string;
+  let candidateLevel: string | undefined;
   try {
     const w = lookbackWindow();
     const queue = await buildDonorWallQueue(w.since, w.until);
@@ -70,6 +76,7 @@ export async function POST(req: Request) {
       );
     }
     candidateName = match.name;
+    candidateLevel = match.level;
   } catch (err) {
     return back(
       `Could not check Square: ${err instanceof Error ? err.message : "unknown error"}`,
@@ -83,19 +90,35 @@ export async function POST(req: Request) {
 
   let message: string;
   if (action === "accept") {
-    const target = wall.tiers.find((t) => t.tier === tier);
-    if (target) {
-      target.donors.push({ name: candidateName });
-    } else {
-      // No tier chosen, or a tier that has since been renamed. Land them in the
-      // holding tier rather than guessing — being unfiled is recoverable, being
-      // filed under the wrong heading is somebody's recognition made wrong.
-      const holding =
-        wall.tiers.find((t) => t.tier === HOLDING_TIER) ??
-        (wall.tiers[wall.tiers.push({ tier: HOLDING_TIER, donors: [] }) - 1]);
-      holding.donors.push({ name: candidateName });
+    // WHICH TIER, AND WHY THE FORM IS NOT TRUSTED TO SAY
+    // The dropdown offers only the club's eight tiers, but a posted field can
+    // say anything, and this one ends up as a public heading over somebody's
+    // name. So the same rule as the name itself: the form may *choose*, it may
+    // not *invent*. A non-canonical value is discarded rather than honoured.
+    //
+    // When nothing usable was chosen, Square's own `metadata.level` decides.
+    // That is not a guess: it is the level the checkout recorded for this gift,
+    // named from the same array these headings come from (#200), so it agrees
+    // with the tier by construction. Filing from it is how the volunteer stops
+    // having to know the ladder.
+    const chosen = isCanonicalTier(tier) ? tier : "";
+    const fromSquare =
+      candidateLevel && isCanonicalTier(candidateLevel) ? candidateLevel : "";
+    const heading = chosen || fromSquare || UNFILED_TIER;
+
+    // A tier with nobody in it isn't stored, so the first donor at a level
+    // creates it. `orderedTiers()` puts it in its place on the ladder at render
+    // time, which is why nothing here has to care where it is pushed.
+    let target = wall.tiers.find((t) => t.tier === heading && t.group !== "legacy");
+    if (!target) {
+      const created: DonorTier = { tier: heading, donors: [] };
+      wall.tiers.push(created);
+      target = created;
     }
-    message = `Add ${candidateName} to the donor wall${target ? ` (${tier})` : ""}`;
+    target.donors.push({ name: candidateName });
+    message =
+      `Add ${candidateName} to the donor wall (${heading})` +
+      (chosen ? "" : fromSquare ? " — filed from the level Square recorded" : "");
   } else {
     wall.dismissed = wall.dismissed ?? [];
     if (!wall.dismissed.some((d) => d.key === donorKey(candidateName))) {

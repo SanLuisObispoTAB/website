@@ -2,7 +2,7 @@ import Link from "next/link";
 import MembershipTiers from "../components/MembershipTiers";
 import SponsorWall from "../components/SponsorWall";
 import { SPONSOR_SEASON } from "../data/sponsors";
-import { DONOR_WALL } from "../data/donors";
+import { DONOR_WALL, orderedTiers } from "../data/donors";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
 
@@ -89,7 +89,7 @@ export default function MembershipPage() {
               appreciated.
             </p>
 
-            {DONOR_WALL.tiers.map((tier) => (
+            {orderedTiers().map((tier) => (
               <div className="slotab-tier" key={tier.tier}>
                 <h3>{tier.tier}</h3>
                 {tier.note && (

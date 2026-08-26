@@ -2,7 +2,7 @@
   "season": "2026-2027",
   "tiers": [
     {
-      "tier": "Tiger Pride Membership",
+      "tier": "Tiger Pride",
       "donors": [
         {
           "name": "Fisher Family"
@@ -17,15 +17,17 @@
     },
     {
       "tier": "Alumni Membership · New",
+      "group": "callout",
       "note": "For former SLOHS Tigers who want to stay connected and support current Tiger athletes. Alumni Members are recognized at the annual Booster Bash and invited to the Hall of Fame induction ceremony.",
-      "donors": [],
       "link": {
         "href": "/hall-of-fame",
         "label": "Learn More on the Hall of Fame Page"
-      }
+      },
+      "donors": []
     },
     {
       "tier": "Champion Membership",
+      "group": "legacy",
       "donors": [
         {
           "name": "Tom & Nicole Katona"
@@ -49,6 +51,7 @@
     },
     {
       "tier": "Coach Membership",
+      "group": "legacy",
       "donors": [
         {
           "name": "Andrew & Kira Abercromby"
