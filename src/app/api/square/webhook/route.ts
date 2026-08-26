@@ -217,7 +217,8 @@ export async function POST(req: Request) {
     text: email.text,
   });
   console.log(
-    `[square-webhook] fulfilment email for ${payment.id}: ${result.status}`,
+    `[square-webhook] fulfilment email for ${payment.id}: ${result.status}` +
+      (result.status === "sent" && result.id ? ` resend_id=${result.id}` : ""),
   );
 
   // 200 regardless of the mail result: the payment is real either way, and a
@@ -285,7 +286,8 @@ async function handleDonation(
     text: email.text,
   });
   console.log(
-    `[square-webhook] donation email for ${payment.id}: ${result.status}`,
+    `[square-webhook] donation email for ${payment.id}: ${result.status}` +
+      (result.status === "sent" && result.id ? ` resend_id=${result.id}` : ""),
   );
   return NextResponse.json({ ok: true, email: result.status });
 }

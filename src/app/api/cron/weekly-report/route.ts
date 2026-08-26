@@ -132,11 +132,13 @@ export async function GET(req: Request) {
   });
 
   console.log(
-    `[cron] weekly report ${result.status}: ${report.totals.count} gift(s), ${money(report.totals.grossCents)}`,
+    `[cron] weekly report ${result.status}: ${report.totals.count} gift(s), ${money(report.totals.grossCents)}` +
+      (result.status === "sent" && result.id ? ` resend_id=${result.id}` : ""),
   );
   return Response.json({
     ok: result.status === "sent",
     email: result.status,
+    ...(result.status === "sent" && result.id ? { resendId: result.id } : {}),
     ...(result.status !== "sent" ? { reason: result.reason } : {}),
     gifts: report.totals.count,
     grossCents: report.totals.grossCents,
