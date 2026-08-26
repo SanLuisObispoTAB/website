@@ -3,7 +3,8 @@ import hofData from "../data/hof.json";
 
 // The gold "Save the Date" strip on /hall-of-fame.
 //
-// Extracted when the unlisted review page at /preview/hof-fund was built
+// Extracted when the unlisted review page at /preview/hof-fund was built (that
+// page is gone as of #189, but the reason it forced this extraction stands)
 // (#185): that page has to show the AD the *proposed* Hall of Fame page, and a
 // hand-copied strip would drift from the real one the first time the venue or
 // the date changed — which has already happened once (Oct 3 / Holland Ranch →
