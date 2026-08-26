@@ -1,4 +1,6 @@
 import Link from "next/link";
+import HofCeremonyStrip from "../components/HofCeremonyStrip";
+import HofFund, { HofLegacyStrip } from "../components/HofFund";
 import InducteeGrid from "../components/InducteeGrid";
 import PageHeader from "../components/PageHeader";
 import hofData from "../data/hof.json";
@@ -17,7 +19,6 @@ export default function HallOfFamePage() {
     officialPage,
     nominationForms,
     nominationCriteria,
-    ceremony,
     alumniMembership,
   } = hofData;
   const committee = hofData.committee as CommitteeMember[];
@@ -28,6 +29,24 @@ export default function HallOfFamePage() {
         kicker="Honoring Tiger Excellence"
         title="Athletics Hall of Fame"
       />
+
+      {/* The Hall of Fame Fund — the fundraising band (#184, reframed #186).
+          FIRST BLOCK ON THE PAGE, at Erik's call 2026-08-21: it opened below
+          the mission and the save-the-date, which put the only ask on the page
+          under the fold on a laptop. The ceremony strip now sits directly
+          beneath it (the ask still reads next to the night it pays for) and
+          the mission — context, not a call to action — moves below both. */}
+      <HofFund />
+
+      {/* Ceremony — induction at Booster Bash. Directly under the fund band:
+          the save-the-date is what the money is for. Extracted to a component
+          in #185 so the unlisted review page renders the same strip, not a
+          copy of it that drifts the next time the venue moves. */}
+      <HofCeremonyStrip />
+
+      {/* Legacy photo strip — after the save-the-date, as the transition from
+          the ask into what the Hall of Fame actually is. */}
+      <HofLegacyStrip />
 
       {/* Mission + official link */}
       <section className="slotab-section">
@@ -43,51 +62,6 @@ export default function HallOfFamePage() {
               Visit the Official SLOHS HOF Page
             </Link>
           </p>
-        </div>
-      </section>
-
-      {/* Ceremony — induction at Booster Bash */}
-      <section className="slotab-feature-strip">
-        <div className="slotab-container">
-          <span
-            className="slotab-kicker"
-            style={{
-              display: "block",
-              letterSpacing: "0.2em",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Save the Date
-          </span>
-          <h2>{ceremony.title} — at the Booster Bash</h2>
-          <p style={{ fontSize: "1.1rem" }}>
-            <strong>{ceremony.dateLabel}</strong> · {ceremony.venueName}
-          </p>
-          <p style={{ maxWidth: 640, margin: "0.5rem auto 1.5rem" }}>
-            {ceremony.venueDetail}
-          </p>
-          {/* Each CTA renders only once a real URL is set in hof.json —
-              a dead "#" button on a save-the-date is worse than none. */}
-          <div className="slotab-btn-row" style={{ justifyContent: "center" }}>
-            {ceremony.ticketsUrl && (
-              <Link href={ceremony.ticketsUrl} className="slotab-btn dark">
-                Booster Bash Tickets
-              </Link>
-            )}
-            {ceremony.donateUrl ? (
-              <Link
-                href={ceremony.donateUrl}
-                className="slotab-btn dark"
-                style={{ background: "transparent", color: "var(--slotab-black)" }}
-              >
-                Donate to the HOF Fund
-              </Link>
-            ) : (
-              <Link href="/donate" className="slotab-btn dark">
-                Donate to SLOTAB
-              </Link>
-            )}
-          </div>
         </div>
       </section>
 
