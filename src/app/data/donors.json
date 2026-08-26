@@ -2,142 +2,168 @@
   "season": "2026-2027",
   "tiers": [
     {
-      "tier": "Tiger Pride Membership",
-      "donors": [
-        {
-          "name": "Fisher Family"
-        },
-        {
-          "name": "Renaissance Foundation"
-        },
-        {
-          "name": "Brian & Anne Wallace"
-        }
-      ]
-    },
-    {
       "tier": "Alumni Membership · New",
+      "group": "callout",
       "note": "For former SLOHS Tigers who want to stay connected and support current Tiger athletes. Alumni Members are recognized at the annual Booster Bash and invited to the Hall of Fame induction ceremony.",
-      "donors": [],
       "link": {
         "href": "/hall-of-fame",
         "label": "Learn More on the Hall of Fame Page"
-      }
+      },
+      "donors": []
+    }
+  ],
+  "unverified": [
+    {
+      "name": "Fisher Family",
+      "was": "Tiger Pride"
     },
     {
-      "tier": "Champion Membership",
-      "donors": [
-        {
-          "name": "Tom & Nicole Katona"
-        },
-        {
-          "name": "Jen Melton"
-        },
-        {
-          "name": "Lindsey Noland"
-        },
-        {
-          "name": "Marcy Rourke"
-        },
-        {
-          "name": "Joanna Whitcher"
-        },
-        {
-          "name": "Min Zhou"
-        }
-      ]
+      "name": "Renaissance Foundation",
+      "was": "Tiger Pride"
     },
     {
-      "tier": "Coach Membership",
-      "donors": [
-        {
-          "name": "Andrew & Kira Abercromby"
-        },
-        {
-          "name": "Brandie Andrews"
-        },
-        {
-          "name": "Margaret Bodemer"
-        },
-        {
-          "name": "Loni Carbonella"
-        },
-        {
-          "name": "Grant de la Motte"
-        },
-        {
-          "name": "Yeung Family"
-        },
-        {
-          "name": "Daniel Gomes"
-        },
-        {
-          "name": "Brian & Jerusha Greenwood"
-        },
-        {
-          "name": "Carrie Hartford"
-        },
-        {
-          "name": "Matt & Beth Henard"
-        },
-        {
-          "name": "Johnson Family"
-        },
-        {
-          "name": "Arya Jones"
-        },
-        {
-          "name": "Derek Kasel"
-        },
-        {
-          "name": "Kim Kaufman"
-        },
-        {
-          "name": "Trevor Keith"
-        },
-        {
-          "name": "Mike & Heather Kirschner"
-        },
-        {
-          "name": "John Oliver"
-        },
-        {
-          "name": "Thomas Ortiz"
-        },
-        {
-          "name": "Martinez Pezua"
-        },
-        {
-          "name": "Timothy Romano"
-        },
-        {
-          "name": "Lori Shields"
-        },
-        {
-          "name": "Amy Sullivan"
-        },
-        {
-          "name": "Bryan Sullivan"
-        },
-        {
-          "name": "Morgan Torell"
-        },
-        {
-          "name": "Libby Waterbury"
-        },
-        {
-          "name": "Kendra Williams"
-        },
-        {
-          "name": "James Willimek"
-        },
-        {
-          "name": "Matthew Woods"
-        },
-        {
-          "name": "Mary Youngs"
-        }
-      ]
+      "name": "Brian & Anne Wallace",
+      "was": "Tiger Pride"
+    },
+    {
+      "name": "Tom & Nicole Katona",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Jen Melton",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Lindsey Noland",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Marcy Rourke",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Joanna Whitcher",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Min Zhou",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Andrew & Kira Abercromby",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Brandie Andrews",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Margaret Bodemer",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Loni Carbonella",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Grant de la Motte",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Yeung Family",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Daniel Gomes",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Brian & Jerusha Greenwood",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Carrie Hartford",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Matt & Beth Henard",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Johnson Family",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Arya Jones",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Derek Kasel",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Kim Kaufman",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Trevor Keith",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Mike & Heather Kirschner",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "John Oliver",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Thomas Ortiz",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Martinez Pezua",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Timothy Romano",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Lori Shields",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Amy Sullivan",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Bryan Sullivan",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Morgan Torell",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Libby Waterbury",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Kendra Williams",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "James Willimek",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Matthew Woods",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Mary Youngs",
+      "was": "Coach Membership"
     }
   ],
   "dismissed": []

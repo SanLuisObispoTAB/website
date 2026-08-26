@@ -5,7 +5,7 @@ import {
   designationLabel,
   type SquarePayment,
 } from "./square-report";
-import { DONOR_WALL, allDonors, donorKey, isDismissed, isOnWall } from "../app/data/donors";
+import { donorKey, isDismissed, isOnWall } from "../app/data/donors";
 
 // Who is waiting to go on the donor wall, and who we are not allowed to add.
 //
@@ -45,11 +45,15 @@ export type DonorCandidate = {
   email?: string;
   designation: string;
   designationLabel: string;
-  /** `metadata.level` — what the amount qualifies for on the combined ladder.
-   *  Offered as a SUGGESTION for which tier heading to file them under, not as
-   *  an answer: the wall's headings ("Coach Membership") are the board's own
-   *  vocabulary and match neither the sponsor ladder nor the general-membership
-   *  names, so a human places them. */
+  /** `metadata.level` — what the amount qualifies for on the combined ladder,
+   *  named exactly as `sponsor-tiers.ts` names it.
+   *
+   *  #198 treated this as a mere suggestion, on the belief that the wall's
+   *  headings were a separate vocabulary. They are not (#200): the wall now
+   *  files under the same eight tiers this string comes from, so it is the
+   *  ANSWER for a gift that carries one — the tier the checkout recorded, not
+   *  an inference from the amount made later by someone reading a table. The
+   *  board can still override it in the dropdown before clicking. */
   level?: string;
   amountCents: number;
   /** ISO, from the Square order. */
@@ -74,6 +78,24 @@ export type DonorWallQueue = {
   /** Gifts with no donor name in metadata at all, so nothing to offer. */
   unnamed: number;
 };
+
+/** How far back the donor queue looks: **4 June 2026**, the end of the 2025-26
+ *  school year and therefore the start of this giving season.
+ *
+ *  Erik set this date. It replaces a 1 August start that was quietly losing
+ *  **June and July** — two months of real donations that never reached the
+ *  queue, so nobody was ever offered them for the wall.
+ *
+ *  ONE constant, imported by both the page and the accept route, because those
+ *  two windows disagreeing is worse than either being wrong. The route refuses
+ *  any name not in the queue it builds; a page looking further back than the
+ *  route would list donors whose buttons could only ever fail, with an error
+ *  message ("no longer pending") that describes something else entirely.
+ *
+ *  Note what this does NOT change: a gift from before `CONSENT_CAPTURED_FROM`
+ *  still lands in `needsAsking`, not `pending`. Widening the window surfaces
+ *  those donors so they can be asked — it does not make them publishable. */
+export const SEASON_START = "2026-06-04T00:00:00.000Z";
 
 /** The date #187 shipped, after which a donation carries a wall preference.
  *  Before it, silence means "never asked" rather than "declined". */
@@ -202,13 +224,16 @@ function billingName(p: SquarePayment): string {
   return [addr?.first_name, addr?.last_name].filter(Boolean).join(" ").trim();
 }
 
-/** The holding tier new names land in when nobody has filed them yet.
+/** Where a name lands when no tier can be established — no tier chosen and no
+ *  usable `metadata.level` on the gift, which in practice means a donation
+ *  taken before the level was recorded.
  *
- *  A real heading rather than a silent append: the wall's tiers are the board's
- *  own vocabulary ("Coach Membership") and match neither the sponsor ladder nor
- *  the general-membership names, so a donor whose tier nobody chose is visibly
- *  unfiled instead of quietly filed wrong. */
-export const HOLDING_TIER = "Newly added — file into a tier above";
+ *  A visible heading rather than a silent append to the bottom tier. Being
+ *  unfiled is a state a board member can see and fix in one edit; being filed
+ *  wrong is somebody's recognition published at a level they did not give, and
+ *  nobody goes looking for that. Rare by design now that filing from the
+ *  recorded level is automatic (#200). */
+export const UNFILED_TIER = "Recently joined — tier to be confirmed";
 
 /** A ready-to-send request for permission, for the donors who were never
  *  asked. Plain text, because it is going to be pasted into Gmail by a

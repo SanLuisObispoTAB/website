@@ -2,10 +2,18 @@ import Link from "next/link";
 import {
   buildDonorWallQueue,
   composeConsentRequest,
+  SEASON_START,
   type DonorCandidate,
   type DonorWallQueue,
 } from "../../../lib/donor-wall";
-import { DONOR_WALL, allDonors } from "../../data/donors";
+import {
+  CANONICAL_TIERS,
+  DONOR_WALL,
+  allDonors,
+  donorKey,
+  legacyTiers,
+  type UnverifiedDonor,
+} from "../../data/donors";
 import { isRepoWriteConfigured } from "../../../lib/github-commit";
 
 // Staging for the donor wall: who may be added, who must be asked first.
@@ -41,35 +49,97 @@ function toDateInput(iso: string) {
   return iso.slice(0, 10);
 }
 
-/** Everything since the club started taking donations through the site. The
- *  default is deliberately wide: this is a catch-up tool, and a default of "this
- *  month" would quietly hide the whole backlog it exists to surface. */
+/** The whole season, from `SEASON_START` (4 June 2026) to tomorrow.
+ *
+ *  Deliberately wide: this is a catch-up tool, and a default of "this month"
+ *  would quietly hide the backlog it exists to surface — which is exactly what
+ *  the previous 1 August default was doing to June and July. */
 function defaultDonorRange() {
   return {
-    since: "2026-08-01T00:00:00.000Z",
+    since: SEASON_START,
     until: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
   };
+}
+
+/** One name carried over from the pre-#201 wall.
+ *
+ *  Deliberately the SAME two buttons as a live donor, because to the volunteer
+ *  it is the same decision. What differs is the evidence: a live donor's row
+ *  carries an amount, a designation and a recorded level; this one carries a
+ *  heading somebody typed at some point, and that is all anyone knows. The row
+ *  says so rather than dressing it up. */
+function CarryoverRow({
+  d,
+  alsoInQueue,
+  canWrite,
+}: {
+  d: UnverifiedDonor;
+  alsoInQueue: boolean;
+  canWrite: boolean;
+}) {
+  return (
+    <tr>
+      <td>
+        <strong>{d.name}</strong>
+        <div style={{ fontSize: "0.8rem", color: "#666" }}>
+          {d.was ? `was listed under “${d.was}”` : "no previous heading recorded"}
+          {alsoInQueue && " · also gave this season — use their row below instead"}
+        </div>
+      </td>
+      <td>
+        <form method="post" action="/api/board/donor-wall">
+          <input type="hidden" name="name" value={d.name} />
+          <input type="hidden" name="action" value="carryover-accept" />
+          <select name="tier" defaultValue="" aria-label={`Tier for ${d.name}`}>
+            <option value="">Tier to be confirmed</option>
+            {(["sponsorship", "membership"] as const).map((kind) => (
+              <optgroup
+                key={kind}
+                label={kind === "sponsorship" ? "Sponsorships" : "Memberships"}
+              >
+                {CANONICAL_TIERS.filter((t) => t.kind === kind).map((t) => (
+                  <option key={t.name} value={t.name}>
+                    {t.name}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>{" "}
+          <button className="slotab-btn" type="submit" disabled={!canWrite}>
+            Keep on the wall
+          </button>
+        </form>
+      </td>
+      <td>
+        <form method="post" action="/api/board/donor-wall">
+          <input type="hidden" name="name" value={d.name} />
+          <input type="hidden" name="action" value="carryover-dismiss" />
+          <button className="slotab-btn outline" type="submit" disabled={!canWrite}>
+            Remove
+          </button>
+        </form>
+      </td>
+    </tr>
+  );
 }
 
 /** One pending donor, with the two buttons that are the whole point of this
  *  page: a volunteer should be able to say yes or no without touching a CMS. */
 function PendingRow({
   c,
-  tiers,
   canWrite,
 }: {
   c: DonorCandidate;
-  tiers: string[];
   canWrite: boolean;
 }) {
-  // Default the tier to the level Square recorded, when the board happens to
-  // use a heading containing it ("Champion Sponsor" → "Champion Membership").
-  // A loose match is fine here because the board sees the dropdown before
-  // clicking; getting it right most of the time saves the click that matters.
-  const suggested =
-    tiers.find((t) =>
-      c.level ? t.toLowerCase().includes(c.level.split(" ")[0].toLowerCase()) : false,
-    ) ?? "";
+  // Pre-selected from the level Square recorded at checkout. An EXACT match:
+  // the wall's headings and `metadata.level` are the same eight strings off the
+  // same sheet (#200), so there is nothing to pattern-match. The earlier loose
+  // "does the heading contain the first word" match existed only because the
+  // two vocabularies didn't line up, and it would happily have put a Champion
+  // Sponsor into "Champion Membership" — a tenfold difference in what it claims
+  // somebody gave.
+  const suggested = CANONICAL_TIERS.some((t) => t.name === c.level) ? c.level! : "";
   return (
     <tr>
       <td>
@@ -84,11 +154,18 @@ function PendingRow({
           <input type="hidden" name="name" value={c.name} />
           <input type="hidden" name="action" value="accept" />
           <select name="tier" defaultValue={suggested} aria-label={`Tier for ${c.name}`}>
-            <option value="">Newly added (file later)</option>
-            {tiers.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
+            <option value="">Tier to be confirmed</option>
+            {(["sponsorship", "membership"] as const).map((kind) => (
+              <optgroup
+                key={kind}
+                label={kind === "sponsorship" ? "Sponsorships" : "Memberships"}
+              >
+                {CANONICAL_TIERS.filter((t) => t.kind === kind).map((t) => (
+                  <option key={t.name} value={t.name}>
+                    {t.name}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>{" "}
           <button className="slotab-btn" type="submit" disabled={!canWrite}>
@@ -144,12 +221,20 @@ export default async function DonorWallBoardPage({
   const params = await searchParams;
   const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
   const fallback = defaultDonorRange();
-  const sinceInput = one(params.since) || toDateInput(fallback.since);
+  // Clamped to the season start, and that is a correctness guard rather than a
+  // policy: the accept route builds its own queue from `SEASON_START` and
+  // refuses any name not in it. A page allowed to look further back would list
+  // donors whose buttons could only ever fail — reporting "no longer pending",
+  // which describes something else entirely. Page window ⊆ route window, always.
+  const floor = toDateInput(SEASON_START);
+  const requestedSince = one(params.since) || toDateInput(fallback.since);
+  const sinceInput = requestedSince < floor ? floor : requestedSince;
   const untilInput = one(params.until) || toDateInput(fallback.until);
   const done = one(params.done);
   const problem = one(params.problem);
   const canWrite = isRepoWriteConfigured();
-  const tierNames = DONOR_WALL.tiers.map((t) => t.tier);
+  const stale = legacyTiers();
+  const carriedOver = DONOR_WALL.unverified ?? [];
 
   let queue: DonorWallQueue | null = null;
   let error: string | null = null;
@@ -162,6 +247,12 @@ export default async function DonorWallBoardPage({
     error = err instanceof Error ? err.message : "Could not reach Square";
   }
 
+  // A carried-over name who has ALSO given this season appears in both piles.
+  // The row says so and points at the Square row, which is the one to use: it
+  // carries an amount and a recorded level, and confirming from there retires
+  // the parked copy in the same write.
+  const pendingKeys = new Set((queue?.pending ?? []).map((c) => donorKey(c.name)));
+
   return (
     <section className="slotab-section">
       <div className="slotab-container slotab-prose">
@@ -170,17 +261,61 @@ export default async function DonorWallBoardPage({
           Currently listed on{" "}
           <Link href="/membership#members">the wall at the foot of /membership</Link>:{" "}
           <strong>{allDonors().length}</strong> across{" "}
-          <strong>{DONOR_WALL.tiers.length}</strong> tiers ({DONOR_WALL.season}).
-          Edit it at{" "}
+          <strong>
+            {DONOR_WALL.tiers.filter((t) => t.donors.length > 0).length}
+          </strong>{" "}
+          tiers ({DONOR_WALL.season})
+          {carriedOver.length > 0 &&
+            `, with ${carriedOver.length} more awaiting review below`}
+          . Edit it at{" "}
           <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
             /admin → Donor Wall
           </a>
           .
         </p>
 
+        {stale.length > 0 && (
+          <div style={{ background: "#fff4e5", padding: "0.75rem 1rem" }}>
+            <p style={{ margin: "0 0 0.5rem" }}>
+              <strong>
+                {stale.reduce((n, t) => n + t.donors.length, 0)} members are still
+                under an old tier heading.
+              </strong>{" "}
+              The wall now uses the club&rsquo;s own eight tiers — the same ones on{" "}
+              <Link href="/membership">the Membership page</Link>. These headings
+              aren&rsquo;t on that sheet:
+            </p>
+            <ul style={{ margin: "0 0 0.5rem" }}>
+              {stale.map((t) => (
+                <li key={t.tier}>
+                  {t.tier} — {t.donors.length}{" "}
+                  {t.donors.length === 1 ? "name" : "names"}
+                </li>
+              ))}
+            </ul>
+            <p style={{ margin: 0, fontSize: "0.9rem" }}>
+              They were left exactly as they were rather than moved for you: a
+              heading says what somebody gave, and no record here says which tier
+              these names belong to. If these are last season&rsquo;s members, the
+              answer may be to retire them with the seasonal clear-down rather
+              than refile them at all. Whoever knows can do either at{" "}
+              <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
+                /admin → Donor Wall
+              </a>
+              , then delete the empty heading.
+            </p>
+          </div>
+        )}
+
         <form method="get" style={{ margin: "1.5rem 0" }}>
           <label>
-            From <input type="date" name="since" defaultValue={sinceInput} />
+            From{" "}
+            <input
+              type="date"
+              name="since"
+              min={floor}
+              defaultValue={sinceInput}
+            />
           </label>{" "}
           <label>
             To <input type="date" name="until" defaultValue={untilInput} />
@@ -206,6 +341,47 @@ export default async function DonorWallBoardPage({
           </p>
         )}
 
+        {carriedOver.length > 0 && (
+          <>
+            <h2>Carried over — confirm or remove ({carriedOver.length})</h2>
+            <p>
+              These names were on the wall before it was tied to the club&rsquo;s
+              tiers, and they have been <strong>taken off the public page</strong>{" "}
+              until somebody confirms them. Nothing about them is lost — they are
+              sitting in the wall&rsquo;s own data file, and they go back up the
+              moment you press <em>Keep on the wall</em>.
+            </p>
+            <p style={{ fontSize: "0.9rem", color: "#666" }}>
+              Worth knowing what you are confirming. Unlike the queue below,
+              these names have <strong>no payment and no consent record behind
+              them</strong> — they came off a hand-written list, so the old
+              heading is the only context there is, and for two of those headings
+              it is context the club no longer uses. Leaving the tier as{" "}
+              <em>Tier to be confirmed</em> is a perfectly good answer if you
+              know the person belongs on the wall but not where.
+            </p>
+            <table className="slotab-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Keep, at this tier</th>
+                  <th>Or not</th>
+                </tr>
+              </thead>
+              <tbody>
+                {carriedOver.map((d) => (
+                  <CarryoverRow
+                    key={d.name}
+                    d={d}
+                    alsoInQueue={pendingKeys.has(donorKey(d.name))}
+                    canWrite={canWrite}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+
         {error && (
           <p style={{ color: "#b00020" }}>
             <strong>Could not read Square:</strong> {error}
@@ -224,11 +400,10 @@ export default async function DonorWallBoardPage({
             <h2>Ready to add ({queue.pending.length})</h2>
             <p>
               These donors ticked <em>&ldquo;Display my name&rdquo;</em> and
-              typed the name themselves. Paste the block below into{" "}
-              <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
-                /admin → Donor Wall
-              </a>{" "}
-              and they appear on the public page.
+              typed the name themselves, so the spelling below is theirs. Pick a
+              tier if you want to override the one Square recorded, then press{" "}
+              <em>Add to wall</em> — they appear on the public page at the next
+              deploy, usually about a minute.
             </p>
             {queue.pending.length === 0 ? (
               <p>
@@ -249,7 +424,6 @@ export default async function DonorWallBoardPage({
                       <PendingRow
                         key={`${c.name}-${c.when}`}
                         c={c}
-                        tiers={tierNames}
                         canWrite={canWrite}
                       />
                     ))}
