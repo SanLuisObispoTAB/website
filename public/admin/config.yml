@@ -115,7 +115,7 @@ collections:
               - name: tier
                 label: "Tier heading"
                 widget: select
-                hint: "The club's own tiers — the same eight the Membership page sells. A sponsorship tier can hold a business or a person; it describes the amount, not who gave it. The last three options are old headings kept only until their names are refiled; don't pick them for anyone new."
+                hint: "The club's own tiers — the same eight the Membership page sells. A sponsorship tier can hold a business or a person; it describes the amount, not who gave it. The last option is the Alumni invitation block, which is a callout rather than a giving level — leave it alone."
                 options:
                   - "Champion Sponsor"
                   - "Gold Sponsor"
@@ -126,8 +126,6 @@ collections:
                   - "Individual"
                   - "Tiger Friend"
                   - "Recently joined — tier to be confirmed"
-                  - "Champion Membership"
-                  - "Coach Membership"
                   - "Alumni Membership · New"
               - {
                   name: group,
@@ -162,6 +160,27 @@ collections:
                       widget: string,
                       hint: "Spelled as the donor gave it. Couples, families and organisations are fine — \"Tom & Nicole Katona\", \"Yeung Family\". This is a public page: check the spelling of someone's name before saving.",
                     }
+          - name: unverified
+            label: "Carried over — awaiting review"
+            widget: list
+            required: false
+            summary: "{{fields.name}}"
+            label_singular: "Name"
+            hint: "Names taken off the public wall until a board member confirms them. NOT shown on the Membership page. Normally you would work this list at /board/donor-wall, which gives you a Keep/Remove button per name — this is here so nothing is trapped behind that page. Emptying the list finishes the job."
+            fields:
+              - {
+                  name: name,
+                  label: "Name",
+                  widget: string,
+                  hint: "Exactly as the wall listed them. Don't re-type a name to tidy it — move it to a tier above instead.",
+                }
+              - {
+                  name: was,
+                  label: "Old heading (for context only)",
+                  widget: string,
+                  required: false,
+                  hint: "The heading they used to sit under. Two of these (\"Champion Membership\", \"Coach Membership\") name nothing the club offers now, which is why these names are being confirmed rather than moved automatically.",
+                }
 
   # ---------------------------------------------------------------
   # Seasonal Donate drive (controls the prominent Donate CTA)

@@ -84,6 +84,34 @@ export type Donor = {
   name: string;
 };
 
+/** A name taken off the public wall and parked for a human to confirm (#201).
+ *
+ *  WHY THIS ARRAY HAS TO EXIST
+ *  The queue on /board/donor-wall is DERIVED from Square and stores nothing —
+ *  that is the whole design (see `lib/donor-wall.ts`). It follows that a name
+ *  Square has never heard of cannot appear there. These 38 came off a hardcoded
+ *  JSX block, not off a payment, so deleting them from `tiers` would not have
+ *  moved them into review; it would have deleted them, with git history as the
+ *  only copy. So the wall's own file holds them: off the public page the moment
+ *  this lands, still in the data, and rendered on the board page with the same
+ *  two buttons as a live donor.
+ *
+ *  This is the ONE place a name may sit without either consent or a payment
+ *  behind it, and it is a departure, so it is bounded: entries only ever leave
+ *  (confirmed onto the wall, or dismissed), nothing writes new ones, and
+ *  nothing here renders on a public page. When it is empty the feature is
+ *  finished and can go. */
+export type UnverifiedDonor = {
+  /** Exactly as the wall listed them. Never re-typed — a person's name is not
+   *  something to re-key from a screenshot. */
+  name: string;
+  /** The heading they were sitting under. The only context that exists about
+   *  what any of them gave, and it is weak context — two of those headings
+   *  ("Champion Membership", "Coach Membership") name nothing the club offers
+   *  today, which is why these are being confirmed rather than mapped. */
+  was?: string;
+};
+
 export type DonorTier = {
   /** One of `CANONICAL_TIER_NAMES`, unless `group` says otherwise. */
   tier: string;
@@ -108,6 +136,9 @@ export type DonorWall = {
   /** Rebuilt each season, same convention as the sponsor wall. */
   season: string;
   tiers: DonorTier[];
+  /** Carried over from the pre-#201 wall, awaiting a board member.
+   *  NOT rendered on /membership — see `UnverifiedDonor`. */
+  unverified?: UnverifiedDonor[];
   /** Suppression list for the staging queue at /board/donor-wall.
    *
    *  Stores `donorKey` values, NOT display names, and that is deliberate. Most

@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { requestHasBoardSession } from "../../../../lib/board-auth";
-import { buildDonorWallQueue, UNFILED_TIER } from "../../../../lib/donor-wall";
+import {
+  buildDonorWallQueue,
+  SEASON_START,
+  UNFILED_TIER,
+} from "../../../../lib/donor-wall";
 import { readJsonFile, writeJsonFile } from "../../../../lib/github-commit";
 import {
   donorKey,
@@ -33,7 +37,7 @@ const DATA_PATH = "src/app/data/donors.json";
  *  the same window. A donor accepted here must be findable here. */
 function lookbackWindow() {
   return {
-    since: "2026-08-01T00:00:00.000Z",
+    since: SEASON_START,
     until: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
   };
 }
@@ -56,40 +60,67 @@ export async function POST(req: Request) {
   const action = String(form.get("action") ?? "");
   const claimedName = String(form.get("name") ?? "").trim();
   const tier = String(form.get("tier") ?? "").trim();
-  if (!claimedName || (action !== "accept" && action !== "dismiss")) {
+  const ACTIONS = ["accept", "dismiss", "carryover-accept", "carryover-dismiss"];
+  if (!claimedName || !ACTIONS.includes(action)) {
     return back("Malformed request — nothing changed.", false);
   }
+  // The two carried-over actions work the pile #201 parked in `unverified`, not
+  // Square's live queue. Different source of truth, same rule: the name written
+  // comes from a store the form cannot reach.
+  const carryover = action.startsWith("carryover-");
+  const accepting = action.endsWith("accept");
 
   // Prove the person is actually waiting, and take the name from SQUARE rather
   // than from the form. This is the check that keeps the token boring.
-  let candidateName: string;
+  //
+  // Skipped for a carried-over name, necessarily — Square has never heard of
+  // them, which is the entire reason they needed parking. Their equivalent
+  // check is below, against `wall.unverified` as read back from GitHub: still a
+  // trusted store, still not the form.
+  let candidateName = "";
   let candidateLevel: string | undefined;
-  try {
-    const w = lookbackWindow();
-    const queue = await buildDonorWallQueue(w.since, w.until);
-    const key = donorKey(claimedName);
-    const match = queue.pending.find((c) => donorKey(c.name) === key);
-    if (!match) {
+  if (!carryover) {
+    try {
+      const w = lookbackWindow();
+      const queue = await buildDonorWallQueue(w.since, w.until);
+      const key = donorKey(claimedName);
+      const match = queue.pending.find((c) => donorKey(c.name) === key);
+      if (!match) {
+        return back(
+          "That donor is no longer pending — someone may have just handled them. Reloaded.",
+          false,
+        );
+      }
+      candidateName = match.name;
+      candidateLevel = match.level;
+    } catch (err) {
       return back(
-        "That donor is no longer pending — someone may have just handled them. Reloaded.",
+        `Could not check Square: ${err instanceof Error ? err.message : "unknown error"}`,
         false,
       );
     }
-    candidateName = match.name;
-    candidateLevel = match.level;
-  } catch (err) {
-    return back(
-      `Could not check Square: ${err instanceof Error ? err.message : "unknown error"}`,
-      false,
-    );
   }
 
   const read = await readJsonFile(DATA_PATH);
   if (!read.ok) return back(`Could not read the wall: ${read.reason}`, false);
   const wall = read.json as DonorWall;
 
+  if (carryover) {
+    const key = donorKey(claimedName);
+    const entry = (wall.unverified ?? []).find((d) => donorKey(d.name) === key);
+    if (!entry) {
+      return back(
+        "That name is no longer awaiting review — someone may have just handled them. Reloaded.",
+        false,
+      );
+    }
+    // The file's spelling, not the form's — the same rule the Square path
+    // follows, for the same reason: this string becomes a public page.
+    candidateName = entry.name;
+  }
+
   let message: string;
-  if (action === "accept") {
+  if (accepting) {
     // WHICH TIER, AND WHY THE FORM IS NOT TRUSTED TO SAY
     // The dropdown offers only the club's eight tiers, but a posted field can
     // say anything, and this one ends up as a public heading over somebody's
@@ -101,6 +132,12 @@ export async function POST(req: Request) {
     // named from the same array these headings come from (#200), so it agrees
     // with the tier by construction. Filing from it is how the volunteer stops
     // having to know the ladder.
+    //
+    // A carried-over name has no recorded level to fall back on — that is
+    // precisely what makes it unverified — so an unchosen tier lands in
+    // UNFILED_TIER rather than inheriting the heading it used to sit under.
+    // Two of those headings name nothing the club offers; carrying one forward
+    // silently would re-publish the claim this whole change exists to retire.
     const chosen = isCanonicalTier(tier) ? tier : "";
     const fromSquare =
       candidateLevel && isCanonicalTier(candidateLevel) ? candidateLevel : "";
@@ -124,21 +161,45 @@ export async function POST(req: Request) {
     if (!wall.dismissed.some((d) => d.key === donorKey(candidateName))) {
       wall.dismissed.push({ key: donorKey(candidateName) });
     }
-    message = "Dismiss a donor from the wall queue";
+    message = carryover
+      ? "Remove a carried-over name from the donor wall"
+      : "Dismiss a donor from the wall queue";
+  }
+
+  // Whichever branch ran, the name has now been decided, so it leaves the
+  // carried-over pile. Done unconditionally rather than only on the carryover
+  // path: someone listed last season may well have given again this season, and
+  // confirming them from Square's queue must retire the parked copy too — or
+  // the board is asked about the same person twice.
+  if (wall.unverified) {
+    wall.unverified = wall.unverified.filter(
+      (d) => donorKey(d.name) !== donorKey(candidateName),
+    );
   }
 
   const written = await writeJsonFile(
     DATA_PATH,
     wall,
     read.sha,
-    `${message}\n\nFrom the Board Hub donor wall queue. The donor consented at\ncheckout; a board member confirmed. See decision #199.`,
+    // The provenance line is not decoration — it is the record of WHY a name is
+    // on a public page, and the two paths do not have the same answer. Saying
+    // "consented at checkout" over a carried-over name would put a consent
+    // claim into git history that nothing supports; those 38 predate the
+    // checkbox entirely (#201). Each path states only what is true of it.
+    `${message}\n\n${
+      carryover
+        ? "From the Board Hub donor wall queue: a name carried over from the\npre-2026-27 wall, confirmed by a board member. No checkout consent\nexists for these — see decision #201."
+        : "From the Board Hub donor wall queue. The donor consented at\ncheckout; a board member confirmed. See decision #199."
+    }`,
   );
   if (!written.ok) return back(`Could not save: ${written.reason}`, false);
 
   return back(
-    action === "accept"
+    accepting
       ? `${candidateName} added. The page updates when the site redeploys, usually a minute.`
-      : "Dismissed — they won't appear in the queue again.",
+      : carryover
+        ? `${candidateName} removed from the wall.`
+        : "Dismissed — they won't appear in the queue again.",
     true,
   );
 }

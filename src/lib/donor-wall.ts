@@ -79,6 +79,24 @@ export type DonorWallQueue = {
   unnamed: number;
 };
 
+/** How far back the donor queue looks: **4 June 2026**, the end of the 2025-26
+ *  school year and therefore the start of this giving season.
+ *
+ *  Erik set this date. It replaces a 1 August start that was quietly losing
+ *  **June and July** — two months of real donations that never reached the
+ *  queue, so nobody was ever offered them for the wall.
+ *
+ *  ONE constant, imported by both the page and the accept route, because those
+ *  two windows disagreeing is worse than either being wrong. The route refuses
+ *  any name not in the queue it builds; a page looking further back than the
+ *  route would list donors whose buttons could only ever fail, with an error
+ *  message ("no longer pending") that describes something else entirely.
+ *
+ *  Note what this does NOT change: a gift from before `CONSENT_CAPTURED_FROM`
+ *  still lands in `needsAsking`, not `pending`. Widening the window surfaces
+ *  those donors so they can be asked — it does not make them publishable. */
+export const SEASON_START = "2026-06-04T00:00:00.000Z";
+
 /** The date #187 shipped, after which a donation carries a wall preference.
  *  Before it, silence means "never asked" rather than "declined". */
 export const CONSENT_CAPTURED_FROM = "2026-08-24T00:00:00.000Z";
