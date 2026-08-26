@@ -2,6 +2,7 @@ import Link from "next/link";
 import MembershipTiers from "../components/MembershipTiers";
 import SponsorWall from "../components/SponsorWall";
 import { SPONSOR_SEASON } from "../data/sponsors";
+import { DONOR_WALL, orderedTiers } from "../data/donors";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
 
@@ -78,8 +79,8 @@ export default function MembershipPage() {
 
       <section className="slotab-section">
         <div className="slotab-container">
-          <div className="slotab-section-title">
-            <span className="slotab-kicker">2026–2027</span>
+          <div className="slotab-section-title" id="members">
+            <span className="slotab-kicker">{DONOR_WALL.season.replace("-", "–")}</span>
             <h2>Thank You to Our Members</h2>
           </div>
           <div className="slotab-prose">
@@ -88,74 +89,28 @@ export default function MembershipPage() {
               appreciated.
             </p>
 
-            <div className="slotab-tier">
-              <h3>Tiger Pride Membership</h3>
-              <ul>
-                <li>Fisher Family</li>
-                <li>Renaissance Foundation</li>
-                <li>Brian &amp; Anne Wallace</li>
-              </ul>
-            </div>
-
-            <div className="slotab-tier">
-              <h3>Alumni Membership · New</h3>
-              <p style={{ fontSize: "0.95rem", marginBottom: "0.75rem" }}>
-                For former SLOHS Tigers who want to stay connected and
-                support current Tiger athletes. Alumni Members are
-                recognized at the annual Booster Bash and invited to the
-                Hall of Fame induction ceremony.
-              </p>
-              <Link href="/hall-of-fame" className="slotab-btn dark">
-                Learn More on the Hall of Fame Page
-              </Link>
-            </div>
-
-            <div className="slotab-tier">
-              <h3>Champion Membership</h3>
-              <ul>
-                <li>Tom &amp; Nicole Katona</li>
-                <li>Jen Melton</li>
-                <li>Lindsey Noland</li>
-                <li>Marcy Rourke</li>
-                <li>Joanna Whitcher</li>
-                <li>Min Zhou</li>
-              </ul>
-            </div>
-
-            <div className="slotab-tier">
-              <h3>Coach Membership</h3>
-              <ul>
-                <li>Andrew &amp; Kira Abercromby</li>
-                <li>Brandie Andrews</li>
-                <li>Margaret Bodemer</li>
-                <li>Loni Carbonella</li>
-                <li>Grant de la Motte</li>
-                <li>Yeung Family</li>
-                <li>Daniel Gomes</li>
-                <li>Brian &amp; Jerusha Greenwood</li>
-                <li>Carrie Hartford</li>
-                <li>Matt &amp; Beth Henard</li>
-                <li>Johnson Family</li>
-                <li>Arya Jones</li>
-                <li>Derek Kasel</li>
-                <li>Kim Kaufman</li>
-                <li>Trevor Keith</li>
-                <li>Mike &amp; Heather Kirschner</li>
-                <li>John Oliver</li>
-                <li>Thomas Ortiz</li>
-                <li>Martinez Pezua</li>
-                <li>Timothy Romano</li>
-                <li>Lori Shields</li>
-                <li>Amy Sullivan</li>
-                <li>Bryan Sullivan</li>
-                <li>Morgan Torell</li>
-                <li>Libby Waterbury</li>
-                <li>Kendra Williams</li>
-                <li>James Willimek</li>
-                <li>Matthew Woods</li>
-                <li>Mary Youngs</li>
-              </ul>
-            </div>
+            {orderedTiers().map((tier) => (
+              <div className="slotab-tier" key={tier.tier}>
+                <h3>{tier.tier}</h3>
+                {tier.note && (
+                  <p style={{ fontSize: "0.95rem", marginBottom: "0.75rem" }}>
+                    {tier.note}
+                  </p>
+                )}
+                {tier.link && (
+                  <Link href={tier.link.href} className="slotab-btn dark">
+                    {tier.link.label}
+                  </Link>
+                )}
+                {tier.donors.length > 0 && (
+                  <ul>
+                    {tier.donors.map((d) => (
+                      <li key={d.name}>{d.name}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,0 +1,170 @@
+{
+  "season": "2026-2027",
+  "tiers": [
+    {
+      "tier": "Alumni Membership · New",
+      "group": "callout",
+      "note": "For former SLOHS Tigers who want to stay connected and support current Tiger athletes. Alumni Members are recognized at the annual Booster Bash and invited to the Hall of Fame induction ceremony.",
+      "link": {
+        "href": "/hall-of-fame",
+        "label": "Learn More on the Hall of Fame Page"
+      },
+      "donors": []
+    }
+  ],
+  "unverified": [
+    {
+      "name": "Fisher Family",
+      "was": "Tiger Pride"
+    },
+    {
+      "name": "Renaissance Foundation",
+      "was": "Tiger Pride"
+    },
+    {
+      "name": "Brian & Anne Wallace",
+      "was": "Tiger Pride"
+    },
+    {
+      "name": "Tom & Nicole Katona",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Jen Melton",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Lindsey Noland",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Marcy Rourke",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Joanna Whitcher",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Min Zhou",
+      "was": "Champion Membership"
+    },
+    {
+      "name": "Andrew & Kira Abercromby",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Brandie Andrews",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Margaret Bodemer",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Loni Carbonella",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Grant de la Motte",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Yeung Family",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Daniel Gomes",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Brian & Jerusha Greenwood",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Carrie Hartford",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Matt & Beth Henard",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Johnson Family",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Arya Jones",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Derek Kasel",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Kim Kaufman",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Trevor Keith",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Mike & Heather Kirschner",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "John Oliver",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Thomas Ortiz",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Martinez Pezua",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Timothy Romano",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Lori Shields",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Amy Sullivan",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Bryan Sullivan",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Morgan Torell",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Libby Waterbury",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Kendra Williams",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "James Willimek",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Matthew Woods",
+      "was": "Coach Membership"
+    },
+    {
+      "name": "Mary Youngs",
+      "was": "Coach Membership"
+    }
+  ],
+  "dismissed": []
+}

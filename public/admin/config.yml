@@ -99,6 +99,89 @@ collections:
                       hint: "Full URL including https://. When set, the sponsor's logo on the wall and home page becomes a clickable link to this URL.",
                     }
 
+  - name: donors
+    label: "Donor Wall"
+    files:
+      - name: donors
+        label: "Thank You to Our Members"
+        file: "src/app/data/donors.json"
+        description: "The member thank-you wall at the foot of the Membership page. ONLY list someone who ticked \"Display my name on the SLOTAB Donor Wall\" at checkout — the Board Hub page at /board/donor-wall shows exactly who those are and generates this list for you to paste. Never add a name from a gift that predates that checkbox: nobody said no, but nobody was asked. Names only, no amounts. Tier headings are the club's own eight — five sponsorship tiers and three general memberships — taken straight from the Membership page, so a heading here always names something the club actually offers. Cleared and rebuilt each season, like the sponsor wall."
+        fields:
+          - { name: season, label: "Season", widget: string }
+          - name: tiers
+            label: "Membership tiers"
+            widget: list
+            fields:
+              - name: tier
+                label: "Tier heading"
+                widget: select
+                hint: "The club's own tiers — the same eight the Membership page sells. A sponsorship tier can hold a business or a person; it describes the amount, not who gave it. The last option is the Alumni invitation block, which is a callout rather than a giving level — leave it alone."
+                options:
+                  - "Champion Sponsor"
+                  - "Gold Sponsor"
+                  - "Silver Sponsor"
+                  - "Tiger Pride"
+                  - "Varsity"
+                  - "Family"
+                  - "Individual"
+                  - "Tiger Friend"
+                  - "Recently joined — tier to be confirmed"
+                  - "Alumni Membership · New"
+              - {
+                  name: group,
+                  label: "Special block",
+                  widget: select,
+                  required: false,
+                  options: ["legacy", "callout"],
+                  hint: "Leave empty for a normal tier. \"legacy\" marks an old heading awaiting refiling; \"callout\" marks an explanatory block that isn't a giving level (the Alumni invitation).",
+                }
+              - {
+                  name: note,
+                  label: "Blurb (optional)",
+                  widget: text,
+                  required: false,
+                  hint: "For a tier that explains itself instead of listing names — the Alumni Membership block works this way.",
+                }
+              - name: link
+                label: "Button (optional)"
+                widget: object
+                required: false
+                fields:
+                  - { name: href, label: "Link", widget: string }
+                  - { name: label, label: "Button text", widget: string }
+              - name: donors
+                label: "Names in this tier"
+                widget: list
+                required: false
+                fields:
+                  - {
+                      name: name,
+                      label: "Name",
+                      widget: string,
+                      hint: "Spelled as the donor gave it. Couples, families and organisations are fine — \"Tom & Nicole Katona\", \"Yeung Family\". This is a public page: check the spelling of someone's name before saving.",
+                    }
+          - name: unverified
+            label: "Carried over — awaiting review"
+            widget: list
+            required: false
+            summary: "{{fields.name}}"
+            label_singular: "Name"
+            hint: "Names taken off the public wall until a board member confirms them. NOT shown on the Membership page. Normally you would work this list at /board/donor-wall, which gives you a Keep/Remove button per name — this is here so nothing is trapped behind that page. Emptying the list finishes the job."
+            fields:
+              - {
+                  name: name,
+                  label: "Name",
+                  widget: string,
+                  hint: "Exactly as the wall listed them. Don't re-type a name to tidy it — move it to a tier above instead.",
+                }
+              - {
+                  name: was,
+                  label: "Old heading (for context only)",
+                  widget: string,
+                  required: false,
+                  hint: "The heading they used to sit under. Two of these (\"Champion Membership\", \"Coach Membership\") name nothing the club offers now, which is why these names are being confirmed rather than moved automatically.",
+                }
+
   # ---------------------------------------------------------------
   # Seasonal Donate drive (controls the prominent Donate CTA)
   # ---------------------------------------------------------------
