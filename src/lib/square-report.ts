@@ -55,28 +55,36 @@ export function defaultRange(now = new Date()): { since: string; until: string }
   return { since: first.toISOString(), until: next.toISOString() };
 }
 
-export async function buildSquareReport(
+/** One Square order, in the shape both consumers actually read.
+ *
+ *  Exported because the donor wall needs the same orders the Treasurer's report
+ *  reads — see `lib/donor-wall.ts`. */
+export type SquareOrder = {
+  /** Needed by the donor wall, which joins payments to orders on this. */
+  id?: string;
+  total_money?: { amount?: number };
+  metadata?: Record<string, string>;
+  tenders?: unknown[];
+  net_amount_due_money?: { amount?: number };
+  created_at?: string;
+};
+
+/** Every order at this location in a window, following Square's cursor.
+ *
+ *  Pulled out of `buildSquareReport` when the donor wall became a second
+ *  consumer (#197). The filter choices here are load-bearing and were paid for
+ *  once already: **not** completed-only, because a paid payment link lands in
+ *  state OPEN and filtering on COMPLETED reports zero for every real gift; and
+ *  `created_at` rather than `closed_at`, because an OPEN order has no
+ *  `closed_at`. Copying this loop instead of sharing it is how the two
+ *  surfaces would eventually disagree about which gifts exist. */
+export async function searchOrders(
+  base: string,
+  token: string,
+  locationId: string,
   sinceISO: string,
   untilISO: string,
-): Promise<Report> {
-  const token = process.env.SQUARE_ACCESS_TOKEN;
-  const locationId = process.env.SQUARE_LOCATION_ID;
-  const environment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
-  if (!token || !locationId) {
-    throw new Error("Square is not configured");
-  }
-  const base =
-    environment === "production"
-      ? "https://connect.squareup.com"
-      : "https://connect.squareupsandbox.com";
-
-  type SquareOrder = {
-    total_money?: { amount?: number };
-    metadata?: Record<string, string>;
-    tenders?: unknown[];
-    net_amount_due_money?: { amount?: number };
-  };
-
+): Promise<SquareOrder[]> {
   const orders: SquareOrder[] = [];
   let cursor: string | undefined;
   do {
@@ -94,12 +102,7 @@ export async function buildSquareReport(
         ...(cursor ? { cursor } : {}),
         query: {
           filter: {
-            // NOT completed-only. A paid payment link lands in state OPEN, and
-            // filtering on COMPLETED reports zero for every real gift — the
-            // worst possible failure for a report a Treasurer trusts. DRAFT is
-            // an abandoned checkout and stays out.
             state_filter: { states: ["OPEN", "COMPLETED"] },
-            // created_at, because an OPEN order has no closed_at.
             date_time_filter: { created_at: { start_at: sinceISO, end_at: untilISO } },
           },
           sort: { sort_field: "CREATED_AT", sort_order: "ASC" },
@@ -119,6 +122,96 @@ export async function buildSquareReport(
     orders.push(...(json.orders ?? []));
     cursor = json.cursor;
   } while (cursor);
+  return orders;
+}
+
+/** One Square payment, in the shape the donor wall reads.
+ *
+ *  Payments and orders carry different halves of what a donor wall needs, and
+ *  neither alone is enough: the ORDER has our metadata (designation, and since
+ *  #196 the typed name and wall preference), while the PAYMENT has the
+ *  cardholder name and email address. For every gift taken before #196 the
+ *  payment is the *only* place a name exists at all. */
+export type SquarePayment = {
+  id?: string;
+  status?: string;
+  created_at?: string;
+  order_id?: string;
+  amount_money?: { amount?: number };
+  buyer_email_address?: string;
+  billing_address?: { first_name?: string; last_name?: string };
+  shipping_address?: { first_name?: string; last_name?: string };
+};
+
+/** Every payment at this location in a window, following Square's cursor.
+ *
+ *  Separate call from `searchOrders` because Square models them separately and
+ *  `orders/search` returns no buyer identity whatsoever. The donor wall joins
+ *  the two on `order_id` — see `lib/donor-wall.ts`. */
+export async function searchPayments(
+  base: string,
+  token: string,
+  locationId: string,
+  sinceISO: string,
+  untilISO: string,
+): Promise<SquarePayment[]> {
+  const payments: SquarePayment[] = [];
+  let cursor: string | undefined;
+  do {
+    const url = new URL(`${base}/v2/payments`);
+    url.searchParams.set("location_id", locationId);
+    url.searchParams.set("begin_time", sinceISO);
+    url.searchParams.set("end_time", untilISO);
+    url.searchParams.set("limit", "100");
+    if (cursor) url.searchParams.set("cursor", cursor);
+    const res = await fetch(url.toString(), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Square-Version": SQUARE_VERSION,
+      },
+      cache: "no-store",
+    });
+    const json = (await res.json()) as {
+      payments?: SquarePayment[];
+      cursor?: string;
+      errors?: Array<{ code?: string; detail?: string }>;
+    };
+    if (json.errors?.length) {
+      throw new Error(
+        json.errors.map((e) => `${e.code}: ${e.detail ?? ""}`).join("; "),
+      );
+    }
+    payments.push(...(json.payments ?? []));
+    cursor = json.cursor;
+  } while (cursor);
+  return payments;
+}
+
+/** Square's API host for the configured environment, plus the credentials.
+ *  Shared so both consumers fail the same way when Square isn't configured. */
+export function squareCreds(): { token: string; locationId: string; base: string; environment: string } {
+  const token = process.env.SQUARE_ACCESS_TOKEN;
+  const locationId = process.env.SQUARE_LOCATION_ID;
+  const environment = process.env.SQUARE_ENVIRONMENT ?? "sandbox";
+  if (!token || !locationId) throw new Error("Square is not configured");
+  return {
+    token,
+    locationId,
+    environment,
+    base:
+      environment === "production"
+        ? "https://connect.squareup.com"
+        : "https://connect.squareupsandbox.com",
+  };
+}
+
+export async function buildSquareReport(
+  sinceISO: string,
+  untilISO: string,
+): Promise<Report> {
+  const { token, locationId, base, environment } = squareCreds();
+
+  const orders = await searchOrders(base, token, locationId, sinceISO, untilISO);
 
   const rows = new Map<string, ReportRow>();
   let skippedTests = 0;

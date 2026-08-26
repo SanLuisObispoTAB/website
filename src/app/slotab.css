@@ -4459,3 +4459,27 @@ a.slotab-platinum-slide:hover {
   font-weight: 700;
   color: var(--slotab-gold-dark);
 }
+
+/* ---------------------------------------------------------------
+   DONOR WALL (#197)
+   Names only — see src/app/data/donors.ts for why no amounts or
+   giving levels appear here.
+   A plain centred column reads as a list of nobodies; a balanced
+   multi-column grid reads as a crowd, which is the point of a wall.
+   --------------------------------------------------------------- */
+.slotab-donor-wall {
+  list-style: none;
+  margin: 2rem auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.4rem 1.5rem;
+  text-align: center;
+  /* Centred blocks must not strand a word alone on a short line (#107). */
+  text-wrap: balance;
+}
+
+.slotab-donor-wall li {
+  padding: 0.35rem 0.25rem;
+  font-weight: 600;
+}

@@ -188,6 +188,7 @@ export default function BoardHubPage() {
           <ul style={{ marginBottom: "2rem", lineHeight: 1.7 }}>
             <li>
               <Link href="/board/square-report">Donation report →</Link>{" "}
+              <Link href="/board/donor-wall">Donor wall →</Link>{" "}
               <Link href="/board/cms-access">CMS access →</Link>{" "}
               <span style={{ color: "#666", fontSize: "0.9rem" }}>
                 — how to invite a new editor; how a new editor gets into

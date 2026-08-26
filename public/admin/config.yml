@@ -99,6 +99,26 @@ collections:
                       hint: "Full URL including https://. When set, the sponsor's logo on the wall and home page becomes a clickable link to this URL.",
                     }
 
+  - name: donors
+    label: "Donor Wall"
+    files:
+      - name: donors
+        label: "Donor Wall"
+        file: "src/app/data/donors.json"
+        description: "Individuals listed on slotab.org/donors. ONLY add someone who ticked \"Display my name on the SLOTAB Donor Wall\" at checkout — the Board Hub page at /board/donor-wall shows exactly who those are and generates this list for you to paste. Never add a name from a gift that predates that checkbox: nobody said no, but nobody was asked. Names only, no amounts — that is all the donor agreed to, and this repo is public."
+        fields:
+          - { name: season, label: "Season", widget: string }
+          - name: donors
+            label: "Donors"
+            widget: list
+            fields:
+              - {
+                  name: name,
+                  label: "Name",
+                  widget: string,
+                  hint: "Spelled as the donor typed it at checkout. This is a public page — check the spelling of someone's name before saving.",
+                }
+
   # ---------------------------------------------------------------
   # Seasonal Donate drive (controls the prominent Donate CTA)
   # ---------------------------------------------------------------
