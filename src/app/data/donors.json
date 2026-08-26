@@ -1,4 +1,143 @@
 {
   "season": "2026-2027",
-  "donors": []
+  "tiers": [
+    {
+      "tier": "Tiger Pride Membership",
+      "donors": [
+        {
+          "name": "Fisher Family"
+        },
+        {
+          "name": "Renaissance Foundation"
+        },
+        {
+          "name": "Brian & Anne Wallace"
+        }
+      ]
+    },
+    {
+      "tier": "Alumni Membership · New",
+      "note": "For former SLOHS Tigers who want to stay connected and support current Tiger athletes. Alumni Members are recognized at the annual Booster Bash and invited to the Hall of Fame induction ceremony.",
+      "donors": [],
+      "link": {
+        "href": "/hall-of-fame",
+        "label": "Learn More on the Hall of Fame Page"
+      }
+    },
+    {
+      "tier": "Champion Membership",
+      "donors": [
+        {
+          "name": "Tom & Nicole Katona"
+        },
+        {
+          "name": "Jen Melton"
+        },
+        {
+          "name": "Lindsey Noland"
+        },
+        {
+          "name": "Marcy Rourke"
+        },
+        {
+          "name": "Joanna Whitcher"
+        },
+        {
+          "name": "Min Zhou"
+        }
+      ]
+    },
+    {
+      "tier": "Coach Membership",
+      "donors": [
+        {
+          "name": "Andrew & Kira Abercromby"
+        },
+        {
+          "name": "Brandie Andrews"
+        },
+        {
+          "name": "Margaret Bodemer"
+        },
+        {
+          "name": "Loni Carbonella"
+        },
+        {
+          "name": "Grant de la Motte"
+        },
+        {
+          "name": "Yeung Family"
+        },
+        {
+          "name": "Daniel Gomes"
+        },
+        {
+          "name": "Brian & Jerusha Greenwood"
+        },
+        {
+          "name": "Carrie Hartford"
+        },
+        {
+          "name": "Matt & Beth Henard"
+        },
+        {
+          "name": "Johnson Family"
+        },
+        {
+          "name": "Arya Jones"
+        },
+        {
+          "name": "Derek Kasel"
+        },
+        {
+          "name": "Kim Kaufman"
+        },
+        {
+          "name": "Trevor Keith"
+        },
+        {
+          "name": "Mike & Heather Kirschner"
+        },
+        {
+          "name": "John Oliver"
+        },
+        {
+          "name": "Thomas Ortiz"
+        },
+        {
+          "name": "Martinez Pezua"
+        },
+        {
+          "name": "Timothy Romano"
+        },
+        {
+          "name": "Lori Shields"
+        },
+        {
+          "name": "Amy Sullivan"
+        },
+        {
+          "name": "Bryan Sullivan"
+        },
+        {
+          "name": "Morgan Torell"
+        },
+        {
+          "name": "Libby Waterbury"
+        },
+        {
+          "name": "Kendra Williams"
+        },
+        {
+          "name": "James Willimek"
+        },
+        {
+          "name": "Matthew Woods"
+        },
+        {
+          "name": "Mary Youngs"
+        }
+      ]
+    }
+  ]
 }

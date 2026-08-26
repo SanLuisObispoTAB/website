@@ -5,7 +5,7 @@ import {
   designationLabel,
   type SquarePayment,
 } from "./square-report";
-import { DONOR_WALL, donorKey, isOnWall, type Donor } from "../app/data/donors";
+import { DONOR_WALL, allDonors, donorKey, isOnWall } from "../app/data/donors";
 
 // Who is waiting to go on the donor wall, and who we are not allowed to add.
 //
@@ -45,6 +45,12 @@ export type DonorCandidate = {
   email?: string;
   designation: string;
   designationLabel: string;
+  /** `metadata.level` — what the amount qualifies for on the combined ladder.
+   *  Offered as a SUGGESTION for which tier heading to file them under, not as
+   *  an answer: the wall's headings ("Coach Membership") are the board's own
+   *  vocabulary and match neither the sponsor ladder nor the general-membership
+   *  names, so a human places them. */
+  level?: string;
   amountCents: number;
   /** ISO, from the Square order. */
   when?: string;
@@ -133,6 +139,7 @@ export async function buildDonorWallQueue(
       email: p.buyer_email_address,
       designation: md.designation ?? "general",
       designationLabel: designationLabel(md.designation ?? "general"),
+      level: md.level,
       amountCents: gross,
       when: p.created_at,
     };
@@ -185,22 +192,32 @@ function billingName(p: SquarePayment): string {
   return [addr?.first_name, addr?.last_name].filter(Boolean).join(" ").trim();
 }
 
-/** The `donors` array as it would read with every pending name added.
+/** The whole `donors.json` as it would read with the pending names added.
  *
  *  Rendered for the board to copy into Decap. A generated block beats hand
- *  typing names: this is the one place a typo becomes a person's name spelled
- *  wrong on a public page. */
+ *  typing: this is the one place a typo becomes a person's name spelled wrong
+ *  on a public page.
+ *
+ *  New names go into a clearly-marked holding tier rather than being filed
+ *  automatically. The wall's tier headings are the board's own vocabulary and
+ *  do not map onto the levels Square records, so guessing would put someone's
+ *  recognition under a heading nobody chose. Each entry carries the level
+ *  Square did record, as a comment-shaped hint the board can act on and then
+ *  delete. */
+export const HOLDING_TIER = "Newly added — file into a tier above";
+
 export function proposedDonorsJson(pending: DonorCandidate[]): string {
-  const merged: Donor[] = [
-    ...DONOR_WALL.donors,
-    ...pending.map((c) => ({ name: c.name })),
-  ];
-  const sortKey = (n: string) => {
-    const parts = n.trim().split(/\s+/);
-    return (parts[parts.length - 1] ?? n).toLowerCase();
-  };
-  merged.sort((a, b) => sortKey(a.name).localeCompare(sortKey(b.name)));
-  return JSON.stringify({ season: DONOR_WALL.season, donors: merged }, null, 2);
+  const tiers = DONOR_WALL.tiers.map((t) => ({ ...t }));
+  if (pending.length) {
+    tiers.push({
+      tier: HOLDING_TIER,
+      donors: pending.map((c) => ({
+        name: c.name,
+        ...(c.level ? { _level: c.level } : {}),
+      })),
+    } as (typeof tiers)[number]);
+  }
+  return JSON.stringify({ season: DONOR_WALL.season, tiers }, null, 2);
 }
 
 /** A ready-to-send request for permission, for the donors who were never

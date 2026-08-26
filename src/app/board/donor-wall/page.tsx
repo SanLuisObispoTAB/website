@@ -6,7 +6,7 @@ import {
   type DonorCandidate,
   type DonorWallQueue,
 } from "../../../lib/donor-wall";
-import { DONOR_WALL } from "../../data/donors";
+import { DONOR_WALL, allDonors } from "../../data/donors";
 
 // Staging for the donor wall: who may be added, who must be asked first.
 //
@@ -69,6 +69,7 @@ function CandidateRow({ c }: { c: DonorCandidate }) {
         )}
       </td>
       <td>{c.designationLabel}</td>
+      <td>{c.level ?? "—"}</td>
       <td style={{ textAlign: "right" }}>{money(c.amountCents)}</td>
       <td>{day(c.when)}</td>
       <td style={{ fontSize: "0.85rem" }}>{c.email ?? "—"}</td>
@@ -103,9 +104,11 @@ export default async function DonorWallBoardPage({
       <div className="slotab-container slotab-prose">
         <h1>Donor wall</h1>
         <p>
-          Currently listed on <Link href="/donors">the public wall</Link>:{" "}
-          <strong>{DONOR_WALL.donors.length}</strong> ({DONOR_WALL.season}). Edit
-          it at{" "}
+          Currently listed on{" "}
+          <Link href="/membership#members">the wall at the foot of /membership</Link>:{" "}
+          <strong>{allDonors().length}</strong> across{" "}
+          <strong>{DONOR_WALL.tiers.length}</strong> tiers ({DONOR_WALL.season}).
+          Edit it at{" "}
           <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
             /admin → Donor Wall
           </a>
@@ -159,6 +162,7 @@ export default async function DonorWallBoardPage({
                     <tr>
                       <th>Name</th>
                       <th>Designated</th>
+                      <th>Level</th>
                       <th style={{ textAlign: "right" }}>Gift</th>
                       <th>When</th>
                       <th>Email</th>
@@ -205,6 +209,7 @@ export default async function DonorWallBoardPage({
                     <tr>
                       <th>Name</th>
                       <th>Designated</th>
+                      <th>Level</th>
                       <th style={{ textAlign: "right" }}>Gift</th>
                       <th>When</th>
                       <th>Email</th>

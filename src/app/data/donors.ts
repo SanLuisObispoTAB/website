@@ -1,34 +1,56 @@
 import donorsJson from "./donors.json";
 
-// The SLOTAB Donor Wall — the individuals who gave and said we could say so.
+// The donor wall — "Thank You to Our Members" at the foot of /membership.
 //
-// WHY THIS FILE EXISTS AT ALL
-// It didn't, until #197, and that was the bug. Since the donate form shipped it
-// has told every donor "we'll use this to add you to the donor wall" and
-// offered a checkbox reading "Display my name on the SLOTAB Donor Wall" — while
-// no wall, no page and no data file existed anywhere in the repo. People ticked
-// a box believing their name went somewhere. `sponsors.json` is the *business*
-// wall and was never this.
+// IT ALREADY EXISTED, AND THAT MATTERS
+// #197 built a separate /donors page after a grep for "donor wall" came back
+// empty. The grep was the mistake: the section has been on /membership since
+// launch, hardcoded as JSX, and the code never uses the phrase. Erik pointed at
+// it — "that should be the template for this year's" — and it overturns two of
+// #197's decisions outright (#198):
 //
-// WHAT IS DELIBERATELY NOT STORED HERE, AND WHY
-// The giving level. Square knows it, the Treasurer's report groups by it, and
-// the May research doc proposed tier groupings on this page — but the consent
-// the donor actually gave reads, in full: "Display my name on the SLOTAB Donor
-// Wall." That covers a name. It does not cover publishing a band that says
-// roughly what they gave, and this repo is PUBLIC, so anything written here is
-// in git history permanently. Names only until the board either decides
-// otherwise or the checkbox copy is changed to ask for it. Adding a field is
-// easy; un-publishing someone's giving level is not.
+//   · It is GROUPED BY MEMBERSHIP TIER, publicly, and has been. #197 reasoned
+//     that publishing a tier implies what someone gave and went names-only.
+//     That reasoning was sound in the abstract and irrelevant in fact: the
+//     board already publishes tier groupings, and this is their call, not a
+//     question to be reopened by a refactor.
+//   · It lives on /membership, where people already look for it. A second wall
+//     at /donors would be a second place to keep current.
+//
+// This file is that section, turned into data so the board can edit it at
+// /admin instead of the JSX being retyped each season — and so the staging
+// page at /board/donor-wall can generate entries for it.
+//
+// STILL TRUE FROM #197: names only within a tier — no amounts, no dates. And
+// the tier headings are the board's own naming ("Coach Membership"), which
+// matches neither the sponsor ladder nor the general-membership names in
+// sponsor-tiers.ts. That is a third vocabulary and deliberately free text here,
+// because inventing a mapping would rename people's recognition on their
+// behalf.
 
 export type Donor = {
-  /** As the donor typed it on the form — their name, spelled their way. */
+  /** As the board lists them. Couples, families and organisations are normal
+   *  here — "Tom & Nicole Katona", "Yeung Family", "Renaissance Foundation" —
+   *  which is why this is one free-text field and not first/last. */
   name: string;
 };
 
-export type DonorWall = {
-  /** Cleared and rebuilt each season, same convention as the sponsor wall. */
-  season: string;
+export type DonorTier = {
+  /** The board's own heading, e.g. "Champion Membership". Free text: see the
+   *  note above about the three competing vocabularies. */
+  tier: string;
+  /** Optional blurb, for a tier that explains itself rather than listing names
+   *  (the Alumni Membership block is exactly this). */
+  note?: string;
+  /** Optional call to action beneath the blurb. */
+  link?: { href: string; label: string };
   donors: Donor[];
+};
+
+export type DonorWall = {
+  /** Rebuilt each season, same convention as the sponsor wall. */
+  season: string;
+  tiers: DonorTier[];
 };
 
 /** Comparison key for "is this person already on the wall?".
@@ -38,10 +60,9 @@ export type DonorWall = {
  *  "maryanne obrien" are one person, and "José" matches "Jose".
  *
  *  Spacing has to go, and that was learned the hard way: an earlier version
- *  deleted the hyphen without replacing it, turning "Mary-Anne" into
- *  "maryanne" while "Mary Anne" stayed "mary anne" — so the same donor was
- *  offered for the wall twice, which is precisely the duplicate this key
- *  exists to prevent.
+ *  deleted the hyphen without replacing it, turning "Mary-Anne" into "maryanne"
+ *  while "Mary Anne" stayed "mary anne" — so the same donor was offered for the
+ *  wall twice, which is precisely the duplicate this key exists to prevent.
  *
  *  It still does NOT try to be clever about nicknames or middle names: "Bob
  *  Smith" and "Robert Smith" stay distinct. Merging those wrongly would publish
@@ -51,8 +72,7 @@ export type DonorWall = {
 export function donorKey(name: string): string {
   return name
     .normalize("NFD")
-    // Strip combining accent marks, so "José" and "Jose" are one person.
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
     .replace(/[^\p{L}\p{N}]/gu, "");
 }
@@ -60,25 +80,16 @@ export function donorKey(name: string): string {
 // Editable via Decap CMS at /admin/#/collections/donors
 export const DONOR_WALL: DonorWall = donorsJson as DonorWall;
 
-/** Names on the wall, sorted for display.
- *
- *  Alphabetical by last word of the name — the closest thing to "by surname"
- *  that works without asking donors to split their name into fields, and it
- *  degrades sensibly for mononyms and for names that don't put the family name
- *  last. Deliberately not sorted by amount: see the note above. */
-export function sortedDonors(donors: Donor[] = DONOR_WALL.donors): Donor[] {
-  const surname = (n: string) => {
-    const parts = n.trim().split(/\s+/);
-    return (parts[parts.length - 1] ?? n).toLowerCase();
-  };
-  return [...donors].sort(
-    (a, b) => surname(a.name).localeCompare(surname(b.name)) || a.name.localeCompare(b.name),
-  );
+/** Every listed name, flattened across tiers. */
+export function allDonors(wall: DonorWall = DONOR_WALL): Donor[] {
+  return wall.tiers.flatMap((t) => t.donors);
 }
 
-/** Is this person already listed? Used by the staging page so a donor who
- *  gives twice is offered once, and a confirmed donor stops reappearing. */
+/** Is this person already listed anywhere on the wall?
+ *
+ *  Across ALL tiers, not within one: a donor who gave again at a higher level
+ *  should be moved by a human, not silently listed twice. */
 export function isOnWall(name: string, wall: DonorWall = DONOR_WALL): boolean {
   const key = donorKey(name);
-  return wall.donors.some((d) => donorKey(d.name) === key);
+  return allDonors(wall).some((d) => donorKey(d.name) === key);
 }
