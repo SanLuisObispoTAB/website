@@ -99,11 +99,21 @@ the domain cuts over to slotab.org), a few things need to be filled in:
    somewhere the first should not go. Test it end to end from Square's
    dashboard — the webhook page can replay a sample event, and sandbox works if
    `SQUARE_ENVIRONMENT` is `sandbox`.
-5. **Weekly scraper workflow** — in `.github/workflows/update-events.yml`,
+5. **Donor wall buttons** (optional) — `/board/donor-wall` lists donors waiting
+   to go on the member wall with **Add to the wall** / **Not on the wall**
+   buttons. Those write `src/app/data/donors.json` by committing to this repo,
+   which needs **`GITHUB_TOKEN`** in Vercel: a **fine-grained** token scoped to
+   this repository alone, with *Contents: read and write* and nothing else — not
+   a classic PAT, which is account-wide. Optional `GITHUB_REPO` and
+   `GITHUB_BRANCH` override the defaults. Without it the page still shows the
+   queue and says the buttons are off. The route refuses any name that is not
+   genuinely pending in Square, so the token cannot write arbitrary content.
+
+6. **Weekly scraper workflow** — in `.github/workflows/update-events.yml`,
    the committer email `erik@ravens-peak-consulting.com` should be
    updated to whoever owns the production Vercel team account (Vercel
    only auto-deploys commits authored by a team member).
-6. **Drop `robots: noindex`** in `src/app/layout.tsx` once the domain
+7. **Drop `robots: noindex`** in `src/app/layout.tsx` once the domain
    cutover lands at slotab.org. The flag is there now so the staging
    URL isn't indexed before the real domain is live.
 

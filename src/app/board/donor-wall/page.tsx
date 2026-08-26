@@ -2,11 +2,11 @@ import Link from "next/link";
 import {
   buildDonorWallQueue,
   composeConsentRequest,
-  proposedDonorsJson,
   type DonorCandidate,
   type DonorWallQueue,
 } from "../../../lib/donor-wall";
 import { DONOR_WALL, allDonors } from "../../data/donors";
+import { isRepoWriteConfigured } from "../../../lib/github-commit";
 
 // Staging for the donor wall: who may be added, who must be asked first.
 //
@@ -51,6 +51,65 @@ function defaultDonorRange() {
   };
 }
 
+/** One pending donor, with the two buttons that are the whole point of this
+ *  page: a volunteer should be able to say yes or no without touching a CMS. */
+function PendingRow({
+  c,
+  tiers,
+  canWrite,
+}: {
+  c: DonorCandidate;
+  tiers: string[];
+  canWrite: boolean;
+}) {
+  // Default the tier to the level Square recorded, when the board happens to
+  // use a heading containing it ("Champion Sponsor" → "Champion Membership").
+  // A loose match is fine here because the board sees the dropdown before
+  // clicking; getting it right most of the time saves the click that matters.
+  const suggested =
+    tiers.find((t) =>
+      c.level ? t.toLowerCase().includes(c.level.split(" ")[0].toLowerCase()) : false,
+    ) ?? "";
+  return (
+    <tr>
+      <td>
+        <strong>{c.name}</strong>
+        <div style={{ fontSize: "0.8rem", color: "#666" }}>
+          {c.designationLabel} · {money(c.amountCents)} · {day(c.when)}
+          {c.level ? ` · ${c.level}` : ""}
+        </div>
+      </td>
+      <td>
+        <form method="post" action="/api/board/donor-wall">
+          <input type="hidden" name="name" value={c.name} />
+          <input type="hidden" name="action" value="accept" />
+          <select name="tier" defaultValue={suggested} aria-label={`Tier for ${c.name}`}>
+            <option value="">Newly added (file later)</option>
+            {tiers.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>{" "}
+          <button className="slotab-btn" type="submit" disabled={!canWrite}>
+            Add to wall
+          </button>
+        </form>
+      </td>
+      <td>
+        <form method="post" action="/api/board/donor-wall">
+          <input type="hidden" name="name" value={c.name} />
+          <input type="hidden" name="action" value="dismiss" />
+          <button className="slotab-btn outline" type="submit" disabled={!canWrite}>
+            Not on the wall
+          </button>
+        </form>
+      </td>
+    </tr>
+  );
+}
+
+/** Read-only row, for the buckets that are not one-click decisions. */
 function CandidateRow({ c }: { c: DonorCandidate }) {
   return (
     <tr>
@@ -87,6 +146,10 @@ export default async function DonorWallBoardPage({
   const fallback = defaultDonorRange();
   const sinceInput = one(params.since) || toDateInput(fallback.since);
   const untilInput = one(params.until) || toDateInput(fallback.until);
+  const done = one(params.done);
+  const problem = one(params.problem);
+  const canWrite = isRepoWriteConfigured();
+  const tierNames = DONOR_WALL.tiers.map((t) => t.tier);
 
   let queue: DonorWallQueue | null = null;
   let error: string | null = null;
@@ -127,6 +190,22 @@ export default async function DonorWallBoardPage({
           </button>
         </form>
 
+        {done && (
+          <p style={{ background: "#e8f5e9", padding: "0.75rem 1rem" }}>✅ {done}</p>
+        )}
+        {problem && (
+          <p style={{ background: "#fdecea", padding: "0.75rem 1rem" }}>⚠️ {problem}</p>
+        )}
+        {!canWrite && (
+          <p style={{ background: "#fff4e5", padding: "0.75rem 1rem" }}>
+            <strong>The buttons are switched off.</strong> Adding a donor writes
+            to the site&apos;s repository, which needs <code>GITHUB_TOKEN</code>{" "}
+            set in Vercel — a fine-grained token for this repository with{" "}
+            <em>Contents: read and write</em> and nothing else. Until then this
+            page still shows you who is waiting.
+          </p>
+        )}
+
         {error && (
           <p style={{ color: "#b00020" }}>
             <strong>Could not read Square:</strong> {error}
@@ -160,33 +239,22 @@ export default async function DonorWallBoardPage({
                 <table className="slotab-table">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Designated</th>
-                      <th>Level</th>
-                      <th style={{ textAlign: "right" }}>Gift</th>
-                      <th>When</th>
-                      <th>Email</th>
+                      <th>Donor</th>
+                      <th>Add to the wall</th>
+                      <th>Or not</th>
                     </tr>
                   </thead>
                   <tbody>
                     {queue.pending.map((c) => (
-                      <CandidateRow key={`${c.name}-${c.when}`} c={c} />
+                      <PendingRow
+                        key={`${c.name}-${c.when}`}
+                        c={c}
+                        tiers={tierNames}
+                        canWrite={canWrite}
+                      />
                     ))}
                   </tbody>
                 </table>
-                <p>
-                  <strong>Copy this into the Donor Wall collection:</strong>
-                </p>
-                <pre
-                  style={{
-                    overflowX: "auto",
-                    padding: "1rem",
-                    background: "#f6f6f6",
-                    fontSize: "0.8rem",
-                  }}
-                >
-                  {proposedDonorsJson(queue.pending)}
-                </pre>
               </>
             )}
 

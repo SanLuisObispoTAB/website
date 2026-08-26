@@ -51,6 +51,16 @@ export type DonorWall = {
   /** Rebuilt each season, same convention as the sponsor wall. */
   season: string;
   tiers: DonorTier[];
+  /** Suppression list for the staging queue at /board/donor-wall.
+   *
+   *  Stores `donorKey` values, NOT display names, and that is deliberate. Most
+   *  entries here are duplicates, businesses that belong on the sponsor wall,
+   *  or a name string that came through badly — housekeeping, not judgements
+   *  about people. But this repo is public, and a legible list headed "people
+   *  we chose not to list" would read as one whatever the reason. A key like
+   *  "tomnicolekatona" suppresses the row without publishing a roll of the
+   *  declined. */
+  dismissed?: Array<{ key: string; note?: string }>;
 };
 
 /** Comparison key for "is this person already on the wall?".
@@ -83,6 +93,12 @@ export const DONOR_WALL: DonorWall = donorsJson as DonorWall;
 /** Every listed name, flattened across tiers. */
 export function allDonors(wall: DonorWall = DONOR_WALL): Donor[] {
   return wall.tiers.flatMap((t) => t.donors);
+}
+
+/** Has this person been dismissed from the staging queue? */
+export function isDismissed(name: string, wall: DonorWall = DONOR_WALL): boolean {
+  const key = donorKey(name);
+  return (wall.dismissed ?? []).some((d) => d.key === key);
 }
 
 /** Is this person already listed anywhere on the wall?

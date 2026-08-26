@@ -5,7 +5,7 @@ import {
   designationLabel,
   type SquarePayment,
 } from "./square-report";
-import { DONOR_WALL, allDonors, donorKey, isOnWall } from "../app/data/donors";
+import { DONOR_WALL, allDonors, donorKey, isDismissed, isOnWall } from "../app/data/donors";
 
 // Who is waiting to go on the donor wall, and who we are not allowed to add.
 //
@@ -69,6 +69,8 @@ export type DonorWallQueue = {
   optedOut: DonorCandidate[];
   /** Consented and already listed — the "nothing to do" pile, counted only. */
   alreadyListed: number;
+  /** Dismissed from the queue by a board member, counted only. */
+  dismissed: number;
   /** Gifts with no donor name in metadata at all, so nothing to offer. */
   unnamed: number;
 };
@@ -105,6 +107,7 @@ export async function buildDonorWallQueue(
   const needsAsking: DonorCandidate[] = [];
   const optedOut: DonorCandidate[] = [];
   let alreadyListed = 0;
+  let dismissed = 0;
   let unnamed = 0;
 
   // A donor who gave twice is offered once. Keyed exactly as the wall compares
@@ -153,6 +156,12 @@ export async function buildDonorWallQueue(
       alreadyListed += 1;
       continue;
     }
+    // Dismissed from the queue by a board member — a duplicate, a business, or
+    // a mangled name string. Suppressed rather than re-offered every week.
+    if (isDismissed(name)) {
+      dismissed += 1;
+      continue;
+    }
 
     const key = donorKey(name);
     if (seen.has(key)) continue;
@@ -182,6 +191,7 @@ export async function buildDonorWallQueue(
     needsAsking: needsAsking.sort(bySize),
     optedOut: optedOut.sort(bySize),
     alreadyListed,
+    dismissed,
     unnamed,
   };
 }
@@ -192,33 +202,13 @@ function billingName(p: SquarePayment): string {
   return [addr?.first_name, addr?.last_name].filter(Boolean).join(" ").trim();
 }
 
-/** The whole `donors.json` as it would read with the pending names added.
+/** The holding tier new names land in when nobody has filed them yet.
  *
- *  Rendered for the board to copy into Decap. A generated block beats hand
- *  typing: this is the one place a typo becomes a person's name spelled wrong
- *  on a public page.
- *
- *  New names go into a clearly-marked holding tier rather than being filed
- *  automatically. The wall's tier headings are the board's own vocabulary and
- *  do not map onto the levels Square records, so guessing would put someone's
- *  recognition under a heading nobody chose. Each entry carries the level
- *  Square did record, as a comment-shaped hint the board can act on and then
- *  delete. */
+ *  A real heading rather than a silent append: the wall's tiers are the board's
+ *  own vocabulary ("Coach Membership") and match neither the sponsor ladder nor
+ *  the general-membership names, so a donor whose tier nobody chose is visibly
+ *  unfiled instead of quietly filed wrong. */
 export const HOLDING_TIER = "Newly added — file into a tier above";
-
-export function proposedDonorsJson(pending: DonorCandidate[]): string {
-  const tiers = DONOR_WALL.tiers.map((t) => ({ ...t }));
-  if (pending.length) {
-    tiers.push({
-      tier: HOLDING_TIER,
-      donors: pending.map((c) => ({
-        name: c.name,
-        ...(c.level ? { _level: c.level } : {}),
-      })),
-    } as (typeof tiers)[number]);
-  }
-  return JSON.stringify({ season: DONOR_WALL.season, tiers }, null, 2);
-}
 
 /** A ready-to-send request for permission, for the donors who were never
  *  asked. Plain text, because it is going to be pasted into Gmail by a
