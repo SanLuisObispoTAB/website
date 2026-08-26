@@ -2,7 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Analytics } from "@vercel/analytics/react";
+// `/next`, NOT `/react` — the two are not interchangeable on a Next.js app,
+// and the react one was quietly costing us data on both counts:
+//
+//   1. Ad-blocker resistance. Vercel serves the beacon from a per-project
+//      `/<unique-path>/*` route as well as the blocklisted `/_vercel/insights/*`,
+//      and tells the client which via an env var. The `/next` build reads
+//      `NEXT_PUBLIC_VERCEL_OBSERVABILITY_BASEPATH`; the `/react` build reads
+//      `REACT_APP_VERCEL_OBSERVABILITY_BASEPATH`, a Create React App variable
+//      that nothing in a Next.js project ever sets. So `/react` always fell
+//      back to the path blockers filter.
+//   2. Route grouping. `/next` derives the *route pattern* from `useParams()`,
+//      so `/board/[role]` and `/donate/preview/[slug]` each stay one row in the
+//      dashboard instead of fragmenting into one row per liaison and per
+//      donation preview link.
+//
+// It is still a "use client" component and self-wraps in <Suspense>, so it
+// drops into this gate exactly where the react one sat.
+import { Analytics } from "@vercel/analytics/next";
 import { track } from "@vercel/analytics";
 import { useCallback, useEffect, useSyncExternalStore } from "react";
 import {

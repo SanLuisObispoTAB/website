@@ -82,7 +82,7 @@ export async function sendEmail(msg: EmailMessage): Promise<EmailResult> {
 
     // Resend's message id. Worth carrying: it is the only handle that ties a
     // send in our logs to the record in Resend's dashboard, which is where the
-    // actual delivered content can be read back. Callers log it (#193).
+    // actual delivered content can be read back. Callers log it (#196).
     const json = (await res.json().catch(() => ({}))) as { id?: string };
     return { status: "sent", id: json.id };
   } catch (err) {

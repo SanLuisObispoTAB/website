@@ -2,7 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import hofData from "../data/hof.json";
 
-// The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186).
+// The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186, #187).
+//
+// TWO FACTS THE COPY MUST KEEP STRAIGHT
+// 1. SLOHS inducts a class EVERY OTHER YEAR, not every year (the AD, #187).
+//    The first draft got this wrong in five separate strings. If you write new
+//    copy here, do not reintroduce it — and note the biennial cadence is an
+//    argument FOR the fund, not a complication: the money that arrives between
+//    inductions is what makes the next one right.
+// 2. It is a standing fund, not a class drive — see below.
 //
 // IT IS A STANDING FUND, NOT A CLASS DRIVE
 // It shipped as a "Class of 2026" campaign. The Athletic Director's review
@@ -31,9 +39,10 @@ import hofData from "../data/hof.json";
 // EVERYTHING EDITABLE LIVES IN hof.json (Decap: Hall of Fame → Hall of Fame
 // Fund). Levels, copy, photos, the button label and the goal are all data —
 // the button label included, because it has now been renamed twice in three
-// days and that should never need a deploy. `goalDollars` is 0 until the AD's
-// figure lands: the thermometer renders only when it is set, because an
-// invented goal on a 501(c)(3) donation page is worse than no goal at all.
+// days and that should never need a deploy. `goalDollars` held 0 until the AD
+// gave a real figure, because an invented goal on a 501(c)(3) donation page is
+// worse than no goal at all; it is now $10,000 (#187) and the thermometer
+// renders. `raisedDollars` is refreshed by hand from /board/square-report.
 
 type Level = {
   amount: number;
@@ -59,7 +68,19 @@ type Fund = {
   ctaLabel: string;
   goalDollars: number;
   raisedDollars: number;
+  /** ISO date (YYYY-MM-DD) the raised figure was read off
+   *  /board/square-report. An ISO date rather than a display string on
+   *  purpose: it is what makes the figure a *dated* claim the code can check,
+   *  and a free-text "September 12" cannot be compared to anything. Rendered
+   *  for humans below. Empty = no figure published yet. */
   raisedAsOf: string;
+  /** How many days a raised figure stays publishable. The board promised a
+   *  WEEKLY refresh (2026-08-25), so this is the grace period on that promise:
+   *  past it the bar stops asserting a number and falls back to showing the
+   *  goal alone. A thermometer that quietly freezes is the standard failure of
+   *  this widget, and the one thing worse than no number is a stale number
+   *  under a 501(c)(3) logo. Default 14 — two missed weeks. */
+  raisedStaleAfterDays?: number;
   /** The phrase the thermometer figures are read against, e.g. "for the Hall of
    *  Fame Fund". Data rather than a literal, so the sentence never has to name
    *  a single class again. */
@@ -79,6 +100,17 @@ const MONEY = new Intl.NumberFormat("en-US", {
   currency: "USD",
   maximumFractionDigits: 0,
 });
+
+/** When this build was made, used to age the raised figure.
+ *
+ *  Module scope, not the component body, for two reasons that happen to agree:
+ *  the React compiler rejects `Date.now()` during render as impure (correctly —
+ *  a value that changes between renders is exactly what it guards against), and
+ *  build time is the semantics actually wanted here. Evaluated once per build,
+ *  so the staleness flip lands on the next rebuild after the boundary — the
+ *  same trade-off `isDonateDriveActive` documents in campaign.ts, and the same
+ *  reason it is safe: deploys and the events cron rebuild this site regularly. */
+const BUILT_AT_MS = Date.now();
 
 /** The photo strip. Exported separately from the band because the page now
  *  opens with the ask and puts the save-the-date directly beneath it — the
@@ -123,9 +155,37 @@ export default function HofFund() {
     (amount ? `&amount=${amount}` : "");
 
   const hasGoal = fund.goalDollars > 0;
-  const pct = hasGoal
-    ? Math.min(100, Math.round((fund.raisedDollars / fund.goalDollars) * 100))
-    : 0;
+  // A raised total is a DATED CLAIM, not a fact — the house rule the status doc
+  // spells out. `raisedAsOf` is what turns one into the other, so the figure is
+  // published only once someone has stamped a date on it by reading the Hall of
+  // Fame row off /board/square-report. Until then the bar shows the goal alone.
+  //
+  // This is not pedantry: the designation has been live in the donate form since
+  // #184, so "$0 raised" is a claim about money that may already have come in,
+  // and it would be printed under a 501(c)(3) logo. A goal with an empty track
+  // says "we are starting" and cannot be wrong.
+  // Aged against BUILT_AT_MS — see the note on that constant. Doing this on the
+  // server rather than in the browser also keeps the markup deterministic and
+  // avoids a hydration mismatch on a date boundary.
+  const asOf = fund.raisedAsOf.trim();
+  const asOfMs = asOf ? Date.parse(`${asOf}T12:00:00Z`) : NaN;
+  const staleAfterDays = fund.raisedStaleAfterDays ?? 14;
+  const ageDays = Number.isNaN(asOfMs)
+    ? Infinity
+    : (BUILT_AT_MS - asOfMs) / 86_400_000;
+  // A figure is publishable only while it is both present and fresh.
+  const hasRaisedFigure = !Number.isNaN(asOfMs) && ageDays <= staleAfterDays;
+  const asOfLabel = Number.isNaN(asOfMs)
+    ? ""
+    : new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "numeric",
+        timeZone: "UTC",
+      }).format(asOfMs);
+  const pct =
+    hasGoal && hasRaisedFigure
+      ? Math.min(100, Math.round((fund.raisedDollars / fund.goalDollars) * 100))
+      : 0;
 
   return (
     <section className="slotab-hof-fund" id="fund">
@@ -174,10 +234,20 @@ export default function HofFund() {
           {hasGoal && (
             <div className="slotab-hof-goal">
               <div className="slotab-hof-goal-figures">
-                <strong>{MONEY.format(fund.raisedDollars)}</strong>
-                <span>
-                  raised of {MONEY.format(fund.goalDollars)} {fund.goalLabel}
-                </span>
+                {hasRaisedFigure ? (
+                  <>
+                    <strong>{MONEY.format(fund.raisedDollars)}</strong>
+                    <span>
+                      raised of {MONEY.format(fund.goalDollars)}{" "}
+                      {fund.goalLabel}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <strong>{MONEY.format(fund.goalDollars)}</strong>
+                    <span>the goal {fund.goalLabel}</span>
+                  </>
+                )}
               </div>
               <div
                 className="slotab-hof-goal-track"
@@ -185,18 +255,22 @@ export default function HofFund() {
                 aria-valuenow={pct}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label={`Hall of Fame fund progress: ${pct}% of goal`}
+                aria-label={
+                  hasRaisedFigure
+                    ? `Hall of Fame fund progress: ${pct}% of goal`
+                    : "Hall of Fame fund progress: not yet published"
+                }
               >
                 <div
                   className="slotab-hof-goal-fill"
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              {fund.raisedAsOf && (
-                <p className="slotab-hof-goal-asof">
-                  As of {fund.raisedAsOf}. Updated after each SLOTAB meeting.
-                </p>
-              )}
+              <p className="slotab-hof-goal-asof">
+                {hasRaisedFigure
+                  ? `As of ${asOfLabel}. Updated weekly.`
+                  : "The bar fills as gifts come in, updated weekly."}
+              </p>
             </div>
           )}
 
