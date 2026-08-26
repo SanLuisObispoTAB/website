@@ -1,0 +1,341 @@
+import Link from "next/link";
+import {
+  buildDonorWallQueue,
+  composeConsentRequest,
+  type DonorCandidate,
+  type DonorWallQueue,
+} from "../../../lib/donor-wall";
+import { DONOR_WALL, allDonors } from "../../data/donors";
+import { isRepoWriteConfigured } from "../../../lib/github-commit";
+
+// Staging for the donor wall: who may be added, who must be asked first.
+//
+// WHY A PAGE AND NOT AN AUTOMATIC APPEND
+// Erik asked for the wall entry to happen automatically when the notification
+// email is generated. Two things stop that being the right shape, and one stops
+// it being possible at all. Vercel's filesystem is read-only, so the webhook
+// cannot write `donors.json` — an automatic append would mean a repo-write
+// token living in the payment path. And this repo is PUBLIC: a name committed
+// here is in git history permanently, so "please take me off" stops being a
+// deletion and becomes a history rewrite. A person confirming a name before it
+// is published is cheap; un-publishing is not. So the webhook proposes and a
+// board member disposes — #197.
+//
+// NOTHING IS STORED. The queue is computed live from Square every time this
+// page loads: consented donors, minus the ones already in donors.json. That
+// makes it idempotent for free — confirm someone and they stop appearing.
+
+export const metadata = {
+  title: "Donor wall — SLOTAB Board",
+  robots: { index: false, follow: false },
+};
+
+// Live Square data; a cached answer here would hide a donor who just gave.
+export const dynamic = "force-dynamic";
+
+const MONEY = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+const money = (c: number) => MONEY.format(c / 100);
+const day = (iso?: string) => (iso ? iso.slice(0, 10) : "—");
+
+function toDateInput(iso: string) {
+  return iso.slice(0, 10);
+}
+
+/** Everything since the club started taking donations through the site. The
+ *  default is deliberately wide: this is a catch-up tool, and a default of "this
+ *  month" would quietly hide the whole backlog it exists to surface. */
+function defaultDonorRange() {
+  return {
+    since: "2026-08-01T00:00:00.000Z",
+    until: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+  };
+}
+
+/** One pending donor, with the two buttons that are the whole point of this
+ *  page: a volunteer should be able to say yes or no without touching a CMS. */
+function PendingRow({
+  c,
+  tiers,
+  canWrite,
+}: {
+  c: DonorCandidate;
+  tiers: string[];
+  canWrite: boolean;
+}) {
+  // Default the tier to the level Square recorded, when the board happens to
+  // use a heading containing it ("Champion Sponsor" → "Champion Membership").
+  // A loose match is fine here because the board sees the dropdown before
+  // clicking; getting it right most of the time saves the click that matters.
+  const suggested =
+    tiers.find((t) =>
+      c.level ? t.toLowerCase().includes(c.level.split(" ")[0].toLowerCase()) : false,
+    ) ?? "";
+  return (
+    <tr>
+      <td>
+        <strong>{c.name}</strong>
+        <div style={{ fontSize: "0.8rem", color: "#666" }}>
+          {c.designationLabel} · {money(c.amountCents)} · {day(c.when)}
+          {c.level ? ` · ${c.level}` : ""}
+        </div>
+      </td>
+      <td>
+        <form method="post" action="/api/board/donor-wall">
+          <input type="hidden" name="name" value={c.name} />
+          <input type="hidden" name="action" value="accept" />
+          <select name="tier" defaultValue={suggested} aria-label={`Tier for ${c.name}`}>
+            <option value="">Newly added (file later)</option>
+            {tiers.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>{" "}
+          <button className="slotab-btn" type="submit" disabled={!canWrite}>
+            Add to wall
+          </button>
+        </form>
+      </td>
+      <td>
+        <form method="post" action="/api/board/donor-wall">
+          <input type="hidden" name="name" value={c.name} />
+          <input type="hidden" name="action" value="dismiss" />
+          <button className="slotab-btn outline" type="submit" disabled={!canWrite}>
+            Not on the wall
+          </button>
+        </form>
+      </td>
+    </tr>
+  );
+}
+
+/** Read-only row, for the buckets that are not one-click decisions. */
+function CandidateRow({ c }: { c: DonorCandidate }) {
+  return (
+    <tr>
+      <td>
+        <strong>{c.name}</strong>
+        {c.nameSource === "cardholder" && (
+          <>
+            {" "}
+            <span
+              title="From the card, not typed by the donor — read it before publishing"
+              style={{ color: "#a15c00", fontSize: "0.8rem" }}
+            >
+              (card name)
+            </span>
+          </>
+        )}
+      </td>
+      <td>{c.designationLabel}</td>
+      <td>{c.level ?? "—"}</td>
+      <td style={{ textAlign: "right" }}>{money(c.amountCents)}</td>
+      <td>{day(c.when)}</td>
+      <td style={{ fontSize: "0.85rem" }}>{c.email ?? "—"}</td>
+    </tr>
+  );
+}
+
+export default async function DonorWallBoardPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+  const fallback = defaultDonorRange();
+  const sinceInput = one(params.since) || toDateInput(fallback.since);
+  const untilInput = one(params.until) || toDateInput(fallback.until);
+  const done = one(params.done);
+  const problem = one(params.problem);
+  const canWrite = isRepoWriteConfigured();
+  const tierNames = DONOR_WALL.tiers.map((t) => t.tier);
+
+  let queue: DonorWallQueue | null = null;
+  let error: string | null = null;
+  try {
+    queue = await buildDonorWallQueue(
+      new Date(`${sinceInput}T00:00:00Z`).toISOString(),
+      new Date(`${untilInput}T00:00:00Z`).toISOString(),
+    );
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Could not reach Square";
+  }
+
+  return (
+    <section className="slotab-section">
+      <div className="slotab-container slotab-prose">
+        <h1>Donor wall</h1>
+        <p>
+          Currently listed on{" "}
+          <Link href="/membership#members">the wall at the foot of /membership</Link>:{" "}
+          <strong>{allDonors().length}</strong> across{" "}
+          <strong>{DONOR_WALL.tiers.length}</strong> tiers ({DONOR_WALL.season}).
+          Edit it at{" "}
+          <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
+            /admin → Donor Wall
+          </a>
+          .
+        </p>
+
+        <form method="get" style={{ margin: "1.5rem 0" }}>
+          <label>
+            From <input type="date" name="since" defaultValue={sinceInput} />
+          </label>{" "}
+          <label>
+            To <input type="date" name="until" defaultValue={untilInput} />
+          </label>{" "}
+          <button className="slotab-btn outline" type="submit">
+            Reload
+          </button>
+        </form>
+
+        {done && (
+          <p style={{ background: "#e8f5e9", padding: "0.75rem 1rem" }}>✅ {done}</p>
+        )}
+        {problem && (
+          <p style={{ background: "#fdecea", padding: "0.75rem 1rem" }}>⚠️ {problem}</p>
+        )}
+        {!canWrite && (
+          <p style={{ background: "#fff4e5", padding: "0.75rem 1rem" }}>
+            <strong>The buttons are switched off.</strong> Adding a donor writes
+            to the site&apos;s repository, which needs <code>GITHUB_TOKEN</code>{" "}
+            set in Vercel — a fine-grained token for this repository with{" "}
+            <em>Contents: read and write</em> and nothing else. Until then this
+            page still shows you who is waiting.
+          </p>
+        )}
+
+        {error && (
+          <p style={{ color: "#b00020" }}>
+            <strong>Could not read Square:</strong> {error}
+          </p>
+        )}
+
+        {queue && (
+          <>
+            {queue.environment !== "production" && (
+              <p style={{ color: "#b00020" }}>
+                <strong>SANDBOX DATA</strong> — these are test transactions, not
+                real donors.
+              </p>
+            )}
+
+            <h2>Ready to add ({queue.pending.length})</h2>
+            <p>
+              These donors ticked <em>&ldquo;Display my name&rdquo;</em> and
+              typed the name themselves. Paste the block below into{" "}
+              <a href="/admin/#/collections/donors" target="_blank" rel="noreferrer">
+                /admin → Donor Wall
+              </a>{" "}
+              and they appear on the public page.
+            </p>
+            {queue.pending.length === 0 ? (
+              <p>
+                <em>Nobody waiting — everyone who consented is already listed.</em>
+              </p>
+            ) : (
+              <>
+                <table className="slotab-table">
+                  <thead>
+                    <tr>
+                      <th>Donor</th>
+                      <th>Add to the wall</th>
+                      <th>Or not</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {queue.pending.map((c) => (
+                      <PendingRow
+                        key={`${c.name}-${c.when}`}
+                        c={c}
+                        tiers={tierNames}
+                        canWrite={canWrite}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            )}
+
+            <h2>Must be asked first ({queue.needsAsking.length})</h2>
+            <p>
+              These gifts came in <strong>before</strong> the site started
+              recording a donor-wall preference, or the only name we have is off
+              the card rather than typed by the donor. Nobody here has said no —
+              nobody was ever asked. <strong>Do not publish these names.</strong>{" "}
+              Send the request below and add anyone who says yes.
+            </p>
+            {queue.needsAsking.length === 0 ? (
+              <p>
+                <em>Nobody in this bucket.</em>
+              </p>
+            ) : (
+              <>
+                <table className="slotab-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Designated</th>
+                      <th>Level</th>
+                      <th style={{ textAlign: "right" }}>Gift</th>
+                      <th>When</th>
+                      <th>Email</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {queue.needsAsking.map((c) => (
+                      <CandidateRow key={`${c.name}-${c.when}`} c={c} />
+                    ))}
+                  </tbody>
+                </table>
+                <p>
+                  <strong>Ready-to-send request</strong> (one example; the same
+                  wording works for everyone on the list):
+                </p>
+                <pre
+                  style={{
+                    overflowX: "auto",
+                    padding: "1rem",
+                    background: "#f6f6f6",
+                    fontSize: "0.8rem",
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  {`Subject: ${composeConsentRequest(queue.needsAsking[0]).subject}\n\n${composeConsentRequest(queue.needsAsking[0]).text}`}
+                </pre>
+              </>
+            )}
+
+            <h2>Asked to stay anonymous ({queue.optedOut.length})</h2>
+            <p>
+              Listed only so nobody wonders whether they were missed.{" "}
+              <strong>These names must never go on the wall.</strong>
+            </p>
+            {queue.optedOut.length === 0 ? (
+              <p>
+                <em>Nobody has opted out.</em>
+              </p>
+            ) : (
+              <ul>
+                {queue.optedOut.map((c) => (
+                  <li key={`${c.name}-${c.when}`}>
+                    {c.name} — {money(c.amountCents)}, {day(c.when)}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <hr />
+            <p className="slotab-donate-note">
+              Already listed and needing nothing: <strong>{queue.alreadyListed}</strong>.
+              Gifts with no name recorded anywhere: <strong>{queue.unnamed}</strong>.
+              Nothing on this page is stored — it is recomputed from Square each
+              time it loads, so confirming someone simply removes them from it.
+            </p>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}

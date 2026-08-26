@@ -219,18 +219,32 @@ export function composeDonationEmail(gift: DonationPayment): DonationEmail {
 
   // 2. THE DONOR WALL. The one field that cannot be recovered from the
   //    transaction, and the one whose wrong answer is awkward to undo.
+  // NOT a task for Membership when the donor consented. Erik's point: putting
+  // somebody on the donor wall is the website's job, not the VP's. It cannot be
+  // done *by the webhook* — Vercel's filesystem is read-only and this repo is
+  // public, so an automatic commit would publish a name with no human ever
+  // reading it, and un-publishing means rewriting git history. So the gift is
+  // staged automatically and a board member confirms it in one place (#197).
   if (gift.displayOnWall === false) {
     todos.push({
-      title: `Do NOT list ${who} on the donor wall — they asked to stay anonymous`,
+      title: `Nothing to do for the donor wall — ${who} asked to stay anonymous`,
       detail: [
-        "→ they unchecked \"display my name\" at checkout.",
+        "→ they unchecked \"display my name\" at checkout, and the wall page",
+        "  will never list them.",
         "→ the gift still counts toward their level; only the listing is off.",
+        "→ noted here so nobody wonders later whether they were missed.",
       ],
     });
   } else if (gift.displayOnWall === true) {
     todos.push({
-      title: `Add ${who} to the donor wall`,
-      detail: ["→ they left the donor-wall box checked, so this is agreed."],
+      title: `${who} is QUEUED for the donor wall — confirm at /board/donor-wall`,
+      detail: [
+        "→ they left the donor-wall box checked, so this is agreed and already",
+        "  staged. Nothing to type: the page generates the entry.",
+        "→ slotab.org/board/donor-wall — check the spelling of their name, then",
+        "  paste the block it gives you into /admin → Donor Wall.",
+        "→ one human look before a name goes on a public page, deliberately.",
+      ],
     });
   } else {
     todos.push({
@@ -238,6 +252,7 @@ export function composeDonationEmail(gift: DonationPayment): DonationEmail {
       detail: [
         "→ no preference was recorded on this gift. Treat that as unknown",
         "  rather than as consent, and ask before listing them.",
+        "→ /board/donor-wall has a ready-to-send request for exactly this.",
       ],
     });
   }
