@@ -96,6 +96,67 @@ export default async function SquareReportPage({
               </p>
             )}
 
+            {/* GIFTS THAT SHOULD NOT HAVE BEEN DESIGNATED
+                Erik, 2026-08-27: "None of the general memberships are allowed
+                to designate a sport." The site let them, so this names the
+                gifts it happened to.
+
+                It reports and does not correct. The allocation shown in the
+                table below is still the allocation the checkout made, because
+                reversing real money a donor chose is a board decision, not a
+                render (#203). Order ids rather than donor names: the id opens
+                the gift in Square, where the name already is. */}
+            {report.flagged.length > 0 && (
+              <div className="slotab-report-flagged" role="alert">
+                <h2>
+                  ⚠️ {report.flagged.length} gift
+                  {report.flagged.length === 1 ? "" : "s"} designated a team at a
+                  general-membership level
+                </h2>
+                <p>
+                  General memberships (
+                  {/* Named from the data so this line cannot drift from the rule. */}
+                  Family, Individual, Tiger Friend) are not allowed to designate
+                  a sport, but the donate form offered it anyway. These gifts are
+                  shown <strong>exactly as Square took them</strong> — nothing
+                  here has been reallocated, and the totals below still include
+                  them. The board decides what happens to each one.
+                </p>
+                <div className="slotab-report-scroll">
+                  <table className="slotab-report-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Designated</th>
+                        <th>Level</th>
+                        <th className="num">Gross</th>
+                        <th className="num">To team (75%)</th>
+                        <th>Square order</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {report.flagged.map((g) => (
+                        <tr key={g.orderId}>
+                          <td>{g.createdAt ? g.createdAt.slice(0, 10) : "—"}</td>
+                          <td>{label(g.designation)}</td>
+                          <td>{g.level}</td>
+                          <td className="num">{money(g.grossCents)}</td>
+                          <td className="num">{money(g.toTeamCents)}</td>
+                          <td className="slotab-report-orderid">{g.orderId}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="slotab-report-sub">
+                  Reconciling any of these means correcting it in Square
+                  <em> and</em> telling Trina — the QuickBooks connector posts a
+                  daily summary with no line detail, so nothing on this site can
+                  do it for her. See <code>docs/sport-designation-plan.md</code>.
+                </p>
+              </div>
+            )}
+
             {report.rows.length === 0 ? (
               <p>No completed website transactions in this period.</p>
             ) : (

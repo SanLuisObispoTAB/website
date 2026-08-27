@@ -14,7 +14,7 @@
 // Read-only: it creates and changes nothing in Square.
 
 import teamsData from "../app/data/teams.json";
-import { sponsorTierById } from "../app/data/sponsor-tiers";
+import { sponsorTierById, GENERAL_MEMBERSHIPS } from "../app/data/sponsor-tiers";
 import { specialFund, isUnsplitDesignation } from "../app/data/special-funds";
 
 const SQUARE_VERSION = "2025-06-18";
@@ -39,6 +39,63 @@ export type ReportRow = {
   qbClass: string;
 };
 
+/** A gift recorded at a general-membership level that nonetheless designated a
+ *  team — the combination Erik ruled out on 2026-08-27 ("none of the general
+ *  memberships are allowed to designate a sport").
+ *
+ *  This is a REPORT, not a correction. It changes no allocation and touches
+ *  nothing in Square; the money stays exactly where the checkout put it until
+ *  the board says otherwise (#203). It exists because the affected gifts could
+ *  not be listed from the repo at all — donations live only in Square, and the
+ *  credentials are Vercel-only — so the honest answer to "which ones?" had to
+ *  be a page that asks Square, not a list written down once and left to rot.
+ *
+ *  NO DONOR NAMES. The order id is enough to open the gift in Square, where
+ *  the name already is, and this page has never held a list of donor names.
+ *  Adding one to answer a reporting question is not a trade worth making. */
+export type FlaggedGift = {
+  /** Square order id — paste into Square to find the gift and its donor. */
+  orderId: string;
+  /** Team slug the gift was designated to. */
+  designation: string;
+  /** The general-membership level it was recorded at. */
+  level: string;
+  grossCents: number;
+  toTeamCents: number;
+  /** ISO timestamp from Square, when the order carries one. */
+  createdAt?: string;
+};
+
+/** Level names that may not designate a sport. Read off `GENERAL_MEMBERSHIPS`
+ *  rather than typed here, so the day the board moves a level between halves
+ *  of the ladder this follows without an edit. */
+const GENERAL_LEVEL_NAMES = new Set(GENERAL_MEMBERSHIPS.map((m) => m.name));
+
+/** Does this gift combine a general-membership level with a team designation —
+ *  the combination the board's rule forbids?
+ *
+ *  Exported and pure so it can be exercised without a Square account. The
+ *  alternative was a four-clause condition buried inside a function that only
+ *  runs against the live API, which is the same as untested.
+ *
+ *  `isUnsplitDesignation` rather than a team lookup, deliberately: it is the
+ *  identical test `allocateCents` uses to decide whether 75% left the general
+ *  pot, so a gift is flagged exactly when money actually reached a team. A
+ *  named fund (the Hall of Fame) is NOT a team and must not be flagged — it
+ *  keeps 100%, and reporting it as a misdesignation would send the board
+ *  chasing a gift that behaved correctly. */
+export function isMisdesignatedGift(
+  md: { kind?: string; level?: string },
+  designationKey: string,
+): boolean {
+  return (
+    md.kind === "donation" &&
+    Boolean(md.level) &&
+    GENERAL_LEVEL_NAMES.has(md.level as string) &&
+    !isUnsplitDesignation(designationKey)
+  );
+}
+
 export type Report = {
   environment: string;
   since: string;
@@ -47,6 +104,9 @@ export type Report = {
   totals: { count: number; grossCents: number; toTeamCents: number; toGeneralCents: number };
   skippedTests: number;
   unattributedCents: number;
+  /** Gifts at a general-membership level that designated a team — see
+   *  `FlaggedGift`. Empty is the healthy state. */
+  flagged: FlaggedGift[];
 };
 
 export function defaultRange(now = new Date()): { since: string; until: string } {
@@ -214,6 +274,7 @@ export async function buildSquareReport(
   const orders = await searchOrders(base, token, locationId, sinceISO, untilISO);
 
   const rows = new Map<string, ReportRow>();
+  const flagged: FlaggedGift[] = [];
   let skippedTests = 0;
   let unattributedCents = 0;
 
@@ -258,6 +319,20 @@ export async function buildSquareReport(
         qbClass: specialFund(key)?.qbClass ?? "",
       } satisfies ReportRow);
 
+    // Flagged in the same pass as the allocation, over the same filters, so
+    // the list and the totals can never describe different sets of gifts —
+    // a gift excluded as a test or an unpaid order is excluded from both.
+    if (isMisdesignatedGift(md, key)) {
+      flagged.push({
+        orderId: o.id ?? "",
+        designation: key,
+        level: md.level,
+        grossCents: gross,
+        toTeamCents: allocateCents(key, md.kind, gross).toTeamCents,
+        createdAt: o.created_at,
+      });
+    }
+
     row.count += 1;
     row.grossCents += gross;
     if (md.level && !row.levels.includes(md.level)) row.levels.push(md.level);
@@ -289,6 +364,9 @@ export async function buildSquareReport(
     },
     skippedTests,
     unattributedCents,
+    // Newest first: the board is working through recent gifts, and the one
+    // that surfaced this is today's.
+    flagged: flagged.sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? "")),
   };
 }
 

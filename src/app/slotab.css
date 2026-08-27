@@ -4421,6 +4421,36 @@ a.slotab-platinum-slide:hover {
   border-radius: 0 4px 4px 0;
 }
 
+/* The general-membership-designated-a-sport warning (#203). Amber rather than
+   the red used by .slotab-report-error above: that one means the report failed
+   to load, this one means the report loaded fine and found something the board
+   has to decide about. Two different reds would read as the same severity. */
+.slotab-report-flagged {
+  border-left: 4px solid var(--slotab-gold-dark, #c89400);
+  background: #fffaf0;
+  padding: 0.85rem 1rem;
+  border-radius: 0 4px 4px 0;
+  margin: 1.25rem 0;
+}
+
+.slotab-report-flagged h2 {
+  font-size: 1rem;
+  margin: 0 0 0.4rem;
+}
+
+.slotab-report-flagged p {
+  font-size: 0.88rem;
+  margin: 0 0 0.75rem;
+}
+
+/* Square ids are long, opaque and meant to be copied, not read. Monospace so a
+   volunteer can check a character against the Square dashboard. */
+.slotab-report-orderid {
+  font-family: var(--tiger-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  word-break: break-all;
+}
+
 .slotab-report-notes {
   font-size: 0.83rem;
   color: var(--slotab-muted);
