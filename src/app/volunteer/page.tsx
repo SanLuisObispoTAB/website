@@ -2,6 +2,12 @@ import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 import slotabEvents from "../data/slotab-events.json";
 
+export const metadata = {
+  title: "Volunteer — SLOTAB",
+  description:
+    "Tiger athletics runs on parent volunteers. See where help is needed this season and sign up.",
+};
+
 // Meeting dates come from the same CMS-editable file that feeds /upcoming and
 // the home calendar, so the board maintains them in one place. This replaced a
 // hardcoded 2025-26 list that went stale the moment the year turned over.

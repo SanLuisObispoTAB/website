@@ -1,5 +1,11 @@
 import PageHeader from "../components/PageHeader";
 
+export const metadata = {
+  title: "About SLOTAB — San Luis Obispo Tiger Athletic Booster Club",
+  description:
+    "Who we are: a 501(c)(3) booster club funding uniforms, equipment, travel, and facilities for every Tiger team at San Luis Obispo High School.",
+};
+
 export default function AboutPage() {
   return (
     <>

@@ -6,6 +6,12 @@ import { DONOR_WALL, orderedTiers } from "../data/donors";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
 
+export const metadata = {
+  title: "Sponsors & Membership — SLOTAB",
+  description:
+    "Join SLOTAB or sponsor Tiger athletics — membership and sponsorship tiers, this season's business sponsors, and our member wall.",
+};
+
 export default function MembershipPage() {
 
   return (

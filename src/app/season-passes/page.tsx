@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 
+export const metadata = {
+  title: "Season Passes — SLOTAB",
+  description:
+    "Catch every Tiger home game — season pass options for SLOHS athletics and how to get yours.",
+};
+
 export default function SeasonPassesPage() {
   return (
     <>

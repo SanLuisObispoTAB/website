@@ -1,6 +1,12 @@
 import EventsList from "../components/EventsList";
 import PageHeader from "../components/PageHeader";
 
+export const metadata = {
+  title: "Upcoming Events — SLOTAB",
+  description:
+    "Booster Club meetings, fundraisers, and Tiger athletics events coming up at San Luis Obispo High School.",
+};
+
 export default function UpcomingPage() {
   return (
     <>

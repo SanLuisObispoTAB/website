@@ -1,6 +1,12 @@
 import PageHeader from "../components/PageHeader";
 import boardData from "../data/board.json";
 
+export const metadata = {
+  title: "Contact SLOTAB",
+  description:
+    "Reach the SLOTAB board — officers, sport liaisons, and how to get in touch about sponsorship, donations, or volunteering.",
+};
+
 type BoardMember = {
   role: string;
   name: string;

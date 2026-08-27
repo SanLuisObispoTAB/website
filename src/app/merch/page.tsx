@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 
+export const metadata = {
+  title: "SLOTAB Merch",
+  description:
+    "Tiger gear and Booster Club apparel — wear your stripes and support SLOHS athletics.",
+};
+
 // The merch store.
 //
 // NOT the storefront the donation flow falls back to. `slotab-3.square.site`

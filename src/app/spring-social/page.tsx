@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 
+export const metadata = {
+  title: "Spring Social — SLOTAB",
+  description:
+    "The Booster Club's annual Spring Social — an evening supporting San Luis Obispo High School athletics.",
+};
+
 export default function SpringSocialPage() {
   return (
     <>
