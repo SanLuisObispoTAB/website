@@ -42,7 +42,9 @@ import hofData from "../data/hof.json";
 // days and that should never need a deploy. `goalDollars` held 0 until the AD
 // gave a real figure, because an invented goal on a 501(c)(3) donation page is
 // worse than no goal at all; it is now $10,000 (#187) and the thermometer
-// renders. `raisedDollars` is refreshed by hand from /board/square-report.
+// renders. `raisedDollars` is refreshed by hand from /board/square-report —
+// weekly, and always together with `raisedAsOf`, which is what keeps the
+// figure publishing at all (#190 started it at $0).
 
 type Level = {
   amount: number;
@@ -160,10 +162,13 @@ export default function HofFund() {
   // published only once someone has stamped a date on it by reading the Hall of
   // Fame row off /board/square-report. Until then the bar shows the goal alone.
   //
-  // This is not pedantry: the designation has been live in the donate form since
-  // #184, so "$0 raised" is a claim about money that may already have come in,
-  // and it would be printed under a 501(c)(3) logo. A goal with an empty track
-  // says "we are starting" and cannot be wrong.
+  // That gate held a figure back until #190: the designation had been live in the
+  // donate form since #184, so "$0 raised" was a claim about money that might
+  // already have come in, printed under a 501(c)(3) logo. The board has since
+  // chosen to start the bar at zero (2026-08-27) rather than run the goal-only
+  // state — a fine call, but it means the number now published counts WEBSITE
+  // gifts from that date. A cheque handed to the Treasurer does not reach it on
+  // its own; it has to be added to `raisedDollars` by hand.
   // Aged against BUILT_AT_MS — see the note on that constant. Doing this on the
   // server rather than in the browser also keeps the markup deterministic and
   // avoids a hydration mismatch on a date boundary.
