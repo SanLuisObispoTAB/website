@@ -1,6 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
+// Prices come from the catalogue rather than being typed here. They are now
+// *charged* as well as displayed — the passes add-on (#208) bills from the same
+// array — and a page advertising $250 beside a checkout charging something else
+// is the #143 failure with a different product on it.
+import { PASS_TYPES, passTypeById } from "../data/passes";
+
+const MONEY = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+
+// Looked up by id so a reordering of the catalogue can't silently swap which
+// card shows which price. Falls back to the array order if an id ever changes.
+const ANNUAL = passTypeById("all-sports-annual") ?? PASS_TYPES[0];
+const SINGLE = passTypeById("single-season") ?? PASS_TYPES[1];
 
 export const metadata = {
   title: "Season Passes — SLOTAB",
@@ -24,9 +40,9 @@ export default function SeasonPassesPage() {
                   height={400}
                 />
               </div>
-              <h3>All Sports Annual Pass</h3>
+              <h3>{ANNUAL.name}</h3>
               <p style={{ fontSize: "2rem", fontWeight: 700, color: "#ffcd38", margin: "0.5rem 0" }}>
-                $250
+                {MONEY.format(ANNUAL.price)}
               </p>
               <p>
                 Gain entry to all SLOHS Fall, Winter, and Spring regular
@@ -45,9 +61,9 @@ export default function SeasonPassesPage() {
                   height={400}
                 />
               </div>
-              <h3>Single Season Pass</h3>
+              <h3>{SINGLE.name}</h3>
               <p style={{ fontSize: "2rem", fontWeight: 700, color: "#ffcd38", margin: "0.5rem 0" }}>
-                $125
+                {MONEY.format(SINGLE.price)}
               </p>
               <p>
                 Gain entry to SLOHS regular season home games during one

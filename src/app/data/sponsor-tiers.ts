@@ -14,6 +14,8 @@
 // with it** — the client names a tier, the server looks up what that tier
 // costs. A posted amount would be a posted price.
 
+import { passesPerk } from "./passes";
+
 export type SponsorTier = {
   /** Stable slug — the only tier identifier the client is trusted with. */
   id: string;
@@ -33,6 +35,14 @@ export type SponsorTier = {
    *  validation constant that can disagree is the #145 failure all over again —
    *  a card promising four while the server accepts three. */
   sportsCredit: number;
+  /** All-Sport Annual Passes included at this tier.
+   *
+   *  A number for the same reason `sportsCredit` is one: since the passes
+   *  add-on (#208) this count is *read by a form* — a Gold sponsor has to be
+   *  told "you already receive 8" before being sold a ninth — as well as
+   *  printed on the tier card. The card's bullet is generated from it by
+   *  `passesPerk`, so the sentence and the number cannot drift. */
+  passesIncluded: number;
   perks: string[];
 };
 
@@ -74,6 +84,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     annual: 10000,
     adPerks: true,
     sportsCredit: 3,
+    passesIncluded: 10,
     perks: [
       "Logo on ALL student-athlete T-shirts for the full year",
       "Digital ads on stadium/gym scoreboard: basketball, stunt, volleyball, football, soccer, and track & field",
@@ -81,7 +92,6 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       "Banners at 3 sport locations of your choice for 1 year",
       "Recognition on SLOTAB website and Tiger Teams App",
       "Video on HUDL, our streaming platform",
-      "10 SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -90,12 +100,12 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     annual: 5000,
     adPerks: true,
     sportsCredit: 3,
+    passesIncluded: 8,
     perks: [
       "Digital ads on stadium/gym scoreboard: basketball, stunt, volleyball, football, soccer, and track & field",
       "Banners at 3 sport locations of your choice for 1 year",
       "Recognition on SLOTAB website",
       "Video on HUDL, our streaming platform",
-      "8 SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -103,6 +113,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Silver Sponsor",
     annual: 2500,
     sportsCredit: 3,
+    passesIncluded: 6,
     perks: [
       "Banners at 2 sport locations of your choice for 1 year",
       // The sheet prints two recognition bullets for Silver — a plain
@@ -110,7 +121,6 @@ export const SPONSOR_TIERS: SponsorTier[] = [
       // duplication in the source rather than two distinct perks, so the
       // fuller line stands alone. Worth a board confirmation.
       "Recognition on SLOTAB website and business promotional pages",
-      "6 SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -118,9 +128,9 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Tiger Pride",
     annual: 1000,
     sportsCredit: 0,
+    passesIncluded: 4,
     perks: [
       "Recognition on SLOTAB website",
-      "4 SLOHS All-Sport Annual Passes",
     ],
   },
   {
@@ -128,15 +138,43 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Varsity",
     annual: 500,
     sportsCredit: 0,
+    passesIncluded: 2,
     perks: [
       "Recognition on SLOTAB website",
-      "2 SLOHS All-Sport Annual Passes",
     ],
   },
 ];
 
 export function sponsorTierById(id: string): SponsorTier | undefined {
   return SPONSOR_TIERS.find((t) => t.id === id);
+}
+
+/** A tier's perks with the generated bullets folded back in, in the order the
+ *  sheet prints them — the pass line last, where it was typed by hand until
+ *  #208 moved the count into `passesIncluded`.
+ *
+ *  **Every consumer of `perks` must go through this.** The pass line is not
+ *  decoration: `perkAction` in `sponsor-fulfilment.ts` matches on it to raise
+ *  "issue via GoFan to the email on this message" in the Membership VP's
+ *  checklist. Reading `tier.perks` directly would silently drop that to-do from
+ *  a live email — a sponsor owed eight passes, and nobody told to send them.
+ *
+ *  Accepts a general membership too, so `MembershipTiers` can render one card
+ *  component across both halves of the sheet. Those include no passes, so the
+ *  list comes back unchanged. */
+export function tierPerks(tier: SponsorTier | MembershipTier): string[] {
+  const included = "passesIncluded" in tier ? tier.passesIncluded : 0;
+  const line = passesPerk(included);
+  return line ? [...tier.perks, line] : tier.perks;
+}
+
+/** All-Sport Annual Passes included at a named level, 0 when none are.
+ *
+ *  Keyed by NAME rather than id because that is what crosses the wire: a
+ *  donation carries `metadata.level` as the string `levelForGift` returned, and
+ *  the passes step has to answer "how many do you already receive?" from it. */
+export function passesForLevel(name: string): number {
+  return SPONSOR_TIERS.find((t) => t.name === name)?.passesIncluded ?? 0;
 }
 
 /** General memberships are displayed but not separately billable — they run
@@ -218,16 +256,21 @@ export type LevelDetail = {
   kind: "sponsorship" | "membership";
   /** Sponsorship tiers only — how many sports the tier credits. */
   sportsCredit?: number;
+  /** Sponsorship tiers only — All-Sport Annual Passes the level includes. */
+  passesIncluded?: number;
 };
 
 export function levelByName(name: string): LevelDetail | undefined {
   const tier = SPONSOR_TIERS.find((t) => t.name === name);
   if (tier) {
     return {
+      // `tierPerks`, not `tier.perks` — the included-passes line is generated
+      // now, and the donation checklist keys its GoFan to-do off it.
       name: tier.name,
-      perks: tier.perks,
+      perks: tierPerks(tier),
       kind: "sponsorship",
       sportsCredit: tier.sportsCredit,
+      passesIncluded: tier.passesIncluded,
     };
   }
   const membership = GENERAL_MEMBERSHIPS.find((m) => m.name === name);

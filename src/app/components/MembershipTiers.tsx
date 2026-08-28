@@ -5,6 +5,7 @@ import {
   SPONSOR_TIERS,
   GENERAL_MEMBERSHIPS,
   sportsCreditPerk,
+  tierPerks,
   type SponsorTier,
   type MembershipTier,
 } from "../data/sponsor-tiers";
@@ -54,7 +55,10 @@ function TierCard({ t }: { t: SponsorTier | MembershipTier }) {
         )}
       </div>
       <ul>
-        {t.perks.map((p) => (
+        {/* `tierPerks`, not `t.perks` — the included-passes bullet is generated
+            from `passesIncluded` since #208, the same way the sports-credit
+            bullet below is generated from `sportsCredit`. */}
+        {tierPerks(t).map((p) => (
           <li key={p}>{p}</li>
         ))}
         {/* Driven by the tier itself, not by `sponsor` — that prop is gated on

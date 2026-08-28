@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SPONSOR_TIERS, sportsCreditPerk } from "../data/sponsor-tiers";
+import { SPONSOR_TIERS, sportsCreditPerk, tierPerks } from "../data/sponsor-tiers";
 import SportPicker, { SPORT_OPTIONS } from "./SportPicker";
 import SponsorEnquiry from "./SponsorEnquiry";
 
@@ -148,7 +148,7 @@ export default function BusinessSponsorPanel() {
             )}
           </div>
           <ul>
-            {tier.perks.map((perk) => (
+            {tierPerks(tier).map((perk) => (
               <li key={perk}>{perk}</li>
             ))}
             {/* Generated from `sportsCredit`, same as the tier cards, so the

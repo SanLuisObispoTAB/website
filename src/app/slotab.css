@@ -100,6 +100,7 @@
 .slotab-hof-fund-fineprint,
 .slotab-donate-submit,
 .slotab-donate-note,
+.slotab-proto-stop,
 .slotab-tier-foot,
 .slotab-platinum-head,
 .slotab-event-intro,
@@ -4490,3 +4491,349 @@ a.slotab-platinum-slide:hover {
   color: var(--slotab-gold-dark);
 }
 
+
+/* ==========================================================================
+   GAME PASSES IN THE GIVING FLOW (#208)
+   --------------------------------------------------------------------------
+   Two groups of rules, deliberately kept apart:
+
+     .slotab-pass-*   the pass picker itself. PRODUCTION-SHAPED — this is what
+                      moves into the donate form when the board picks a layout,
+                      so it reuses the donate box's borders, spacing and gold
+                      accent rather than inventing a look of its own.
+
+     .slotab-proto-*  scaffolding for the board's preview pages: the step rail,
+                      the "stops here" panel, the order table. All of it goes
+                      when /preview/passes is deleted. Nothing outside that
+                      folder should ever use one of these.
+   ========================================================================== */
+
+.slotab-pass-addon {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* The included-passes line leads the panel, because a sponsor must be told
+   what they already receive BEFORE being offered more. Gold-washed like the
+   designation box for the same reason — it is the sentence in this panel that
+   changes what someone does next. */
+.slotab-pass-included {
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  background: rgba(255, 205, 56, 0.14);
+  border-left: 4px solid var(--slotab-gold);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.slotab-pass-options {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.slotab-pass-option {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0.75rem 0.85rem;
+  display: grid;
+  gap: 0.4rem;
+  transition: border-color 0.15s;
+}
+/* A pass in the basket is bordered gold, so the state of the order is legible
+   at a glance rather than only in the total at the bottom. */
+.slotab-pass-option.on {
+  border-color: var(--slotab-gold);
+  box-shadow: inset 0 0 0 1px var(--slotab-gold);
+}
+
+.slotab-pass-option-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+.slotab-pass-option-head h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+.slotab-pass-price {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  white-space: nowrap;
+}
+.slotab-pass-blurb {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--slotab-muted);
+}
+
+.slotab-pass-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.slotab-pass-stepper {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--slotab-border);
+  background: #fff;
+}
+.slotab-pass-stepper button {
+  width: 2.25rem;
+  border: 0;
+  background: #f6f6f6;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--slotab-black);
+  cursor: pointer;
+}
+.slotab-pass-stepper button:hover:not(:disabled) {
+  background: var(--slotab-gold);
+}
+.slotab-pass-stepper button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.slotab-pass-stepper input {
+  width: 3rem;
+  border: 0;
+  border-left: 1px solid var(--slotab-border);
+  border-right: 1px solid var(--slotab-border);
+  padding: 0.5rem 0.25rem;
+  text-align: center;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+}
+
+.slotab-pass-season {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tiger-ink);
+}
+.slotab-pass-season .slotab-donate-select {
+  padding: 0.35rem 0.4rem;
+  font-size: 0.85rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.slotab-pass-line-total {
+  font-size: 0.85rem;
+  color: var(--slotab-muted);
+}
+
+.slotab-pass-total,
+.slotab-pass-summary-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--slotab-border);
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 700;
+}
+
+/* The running order — the gift and the passes as separate lines, never as one
+   number. They are different kinds of money (one deductible, one not) and the
+   summary is where that stops being an abstraction. */
+.slotab-pass-summary {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-left: 4px solid var(--slotab-black);
+  padding: 0.85rem 1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.slotab-pass-summary-total {
+  font-size: 1.05rem;
+}
+
+/* -------------------------------------------------------------- prototype UI */
+
+.slotab-proto-steps {
+  display: flex;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.slotab-proto-steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
+  background: #f6f6f6;
+  color: var(--slotab-muted);
+  flex: 1;
+}
+.slotab-proto-steps li.on {
+  background: var(--slotab-black);
+  color: var(--slotab-gold);
+}
+.slotab-proto-step-n {
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.12);
+  font-size: 0.7rem;
+}
+.slotab-proto-steps li.on .slotab-proto-step-n {
+  background: rgba(255, 205, 56, 0.25);
+}
+
+/* What the giver chose on the previous step, carried onto this one. A wizard
+   that hides the number someone just picked makes them go back to check it. */
+.slotab-proto-recap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.75rem;
+  background: #f6f6f6;
+  font-size: 0.88rem;
+}
+.slotab-proto-edit {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--slotab-gold-dark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.slotab-proto-head {
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+}
+
+/* The stop panel. Red-bordered and unmissable: a reviewer who believes they
+   have just paid is the one outcome this prototype must never produce. */
+.slotab-proto-stop {
+  border: 2px dashed #b00020;
+  background: #fff5f5;
+  padding: 0.9rem 1rem;
+  text-align: center;
+}
+.slotab-proto-stop-flag {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 0.5rem;
+  padding: 0.2rem 0.6rem;
+  background: #b00020;
+  color: #fff;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.slotab-proto-stop p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.slotab-proto-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.slotab-proto-table th,
+.slotab-proto-table td {
+  border-bottom: 1px solid var(--slotab-border);
+  padding: 0.4rem 0.3rem;
+  text-align: left;
+  vertical-align: top;
+}
+.slotab-proto-table th:last-child,
+.slotab-proto-table td:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+.slotab-proto-table tfoot td {
+  font-weight: 800;
+  border-bottom: 0;
+}
+
+.slotab-proto-meta,
+.slotab-proto-todo {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  display: grid;
+  gap: 0.3rem;
+}
+.slotab-proto-meta code {
+  background: #f2f2f2;
+  padding: 0 0.2rem;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+/* The A/B chooser on /preview/passes. Left-aligned on purpose — these are
+   paragraphs of trade-offs, not captions, and centering them would put the
+   house line-balancing rule to work on the wrong kind of copy. */
+.slotab-proto-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.slotab-proto-choice {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  border-top: 4px solid var(--slotab-gold);
+  padding: 1.25rem;
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+}
+.slotab-proto-choice h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.slotab-proto-choice p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.slotab-proto-choice-tag {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slotab-gold-dark);
+}
+.slotab-proto-choice-note {
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--slotab-border);
+  color: var(--slotab-muted);
+}
+.slotab-proto-choice .slotab-btn {
+  justify-self: start;
+  margin-top: 0.25rem;
+}

@@ -1,4 +1,8 @@
-import { sponsorTierById, type SponsorTier } from "../app/data/sponsor-tiers";
+import {
+  sponsorTierById,
+  tierPerks,
+  type SponsorTier,
+} from "../app/data/sponsor-tiers";
 import { SPONSOR_TIERS as WALL_TIERS } from "../app/data/sponsors";
 import teamsData from "../app/data/teams.json";
 import { pacificTimestamp, readablePhone } from "./notification-format";
@@ -282,7 +286,10 @@ export function composeFulfilmentEmail(
   // Rendered from the tier's own perks array, so it cannot drift from what
   // /membership promises or what the payment link charged.
   lines.push("FULFILLMENT CHECKLIST");
-  for (const perk of tier.perks) {
+  // `tierPerks`, not `tier.perks`: the "N SLOHS All-Sport Annual Passes" line
+  // is generated from `passesIncluded` since #208, and `perkAction` matches on
+  // it to raise the GoFan to-do. Reading the raw array would drop that item.
+  for (const perk of tierPerks(tier)) {
     const action = perkAction(perk);
     lines.push(`  [ ] ${perk}`);
     if (action) lines.push(`        → ${action}`);
