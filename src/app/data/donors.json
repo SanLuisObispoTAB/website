@@ -10,6 +10,14 @@
         "label": "Learn More on the Hall of Fame Page"
       },
       "donors": []
+    },
+    {
+      "tier": "Varsity",
+      "donors": [
+        {
+          "name": "Brandie Andrews"
+        }
+      ]
     }
   ],
   "unverified": [
@@ -51,10 +59,6 @@
     },
     {
       "name": "Andrew & Kira Abercromby",
-      "was": "Coach Membership"
-    },
-    {
-      "name": "Brandie Andrews",
       "was": "Coach Membership"
     },
     {
