@@ -4837,3 +4837,130 @@ a.slotab-platinum-slide:hover {
   justify-self: start;
   margin-top: 0.25rem;
 }
+
+/* ==========================================================================
+   HALL OF FAME — the fund's own donation page, /hall-of-fame/donate (#210)
+   --------------------------------------------------------------------------
+   The campaign is a separate thing from the membership flow, so its page gets
+   the two pieces the donate box has no equivalent for: a ladder written as
+   OBJECTS rather than as figures (nameplate, medallion, award — see the note
+   at the top of HofFund.tsx for why that is the whole conversion argument),
+   and the left-hand column's campaign copy.
+
+   Everything else deliberately reuses .slotab-donate-* so this reads as the
+   same club asking, not as a second site.
+   ========================================================================== */
+
+.slotab-hof-give-ladder {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+/* Two lines per rung — the amount, then what it buys. A row of bare figures
+   would fit in half the space and ask the donor to remember which one was the
+   medallion. */
+.slotab-hof-give-option {
+  display: grid;
+  gap: 0.15rem;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 0.6rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.slotab-hof-give-option:hover { border-color: var(--slotab-gold); }
+.slotab-hof-give-option.on {
+  background: var(--slotab-gold);
+  border-color: var(--slotab-gold);
+}
+.slotab-hof-give-amount {
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--slotab-black);
+}
+.slotab-hof-give-item {
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--slotab-muted);
+}
+.slotab-hof-give-option.on .slotab-hof-give-item { color: var(--slotab-black); }
+
+.slotab-hof-give-lead {
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* The 100%-no-split fact. Given a rule of its own because it is the sentence
+   that distinguishes this fund from every other gift on the site — it is why
+   the fund is not a team designation. */
+.slotab-hof-give-split {
+  border-left: 4px solid var(--slotab-gold);
+  padding: 0.6rem 0 0.6rem 0.85rem;
+  margin: 1.25rem 0;
+  font-weight: 600;
+}
+
+.slotab-hof-give-note,
+.slotab-hof-give-ceremony {
+  font-size: 0.9rem;
+  color: var(--slotab-muted);
+  line-height: 1.55;
+}
+.slotab-hof-give-ceremony {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--slotab-border);
+}
+
+.slotab-hof-give-alumni {
+  background: #fff;
+  border: 1px solid var(--slotab-border);
+  padding: 1rem 1.15rem;
+  margin: 1.25rem 0;
+}
+.slotab-hof-give-alumni h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+}
+.slotab-hof-give-alumni p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.slotab-hof-give-back {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* The thermometer was born inside the dark band on /hall-of-fame, so every
+   colour in it is white-on-black: the label and the as-of line are translucent
+   WHITE, the track is a 14%-white wash, and the figure is gold — all of which
+   range from low-contrast to invisible on this page's cream. Restated here for
+   a light ground rather than forked into a second component, so the two
+   surfaces keep sharing one set of markup and one freshness rule.
+
+   Left-aligned too: the band centres it under a centred headline, but here it
+   sits inside a column of left-aligned prose. */
+.slotab-donate-intro .slotab-hof-goal {
+  margin: 1.25rem 0;
+  text-align: left;
+}
+.slotab-donate-intro .slotab-hof-goal-figures {
+  justify-content: flex-start;
+}
+.slotab-donate-intro .slotab-hof-goal-figures strong {
+  /* The gold reads as a highlight on black and as washed-out yellow on cream.
+     Ink for the number, which is the figure being asserted. */
+  color: var(--tiger-ink);
+}
+.slotab-donate-intro .slotab-hof-goal-figures span,
+.slotab-donate-intro .slotab-hof-goal-asof {
+  color: var(--slotab-muted);
+}
+.slotab-donate-intro .slotab-hof-goal-track {
+  background: #ececec;
+  border-color: var(--slotab-border);
+}

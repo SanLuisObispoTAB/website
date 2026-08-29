@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import hofData from "../data/hof.json";
+import HofThermometer from "./HofThermometer";
 
 // The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186, #187).
 //
@@ -103,16 +104,6 @@ const MONEY = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
-/** When this build was made, used to age the raised figure.
- *
- *  Module scope, not the component body, for two reasons that happen to agree:
- *  the React compiler rejects `Date.now()` during render as impure (correctly —
- *  a value that changes between renders is exactly what it guards against), and
- *  build time is the semantics actually wanted here. Evaluated once per build,
- *  so the staleness flip lands on the next rebuild after the boundary — the
- *  same trade-off `isDonateDriveActive` documents in campaign.ts, and the same
- *  reason it is safe: deploys and the events cron rebuild this site regularly. */
-const BUILT_AT_MS = Date.now();
 
 /** The photo strip. Exported separately from the band because the page now
  *  opens with the ask and puts the save-the-date directly beneath it — the
@@ -149,48 +140,17 @@ export default function HofFund() {
   const { ceremony } = hofData;
   if (!fund?.enabled) return null;
 
-  // `tab=general` because /donate opens on the Sponsorship half by default
-  // (Trina, 2026-08-21) — a parent sent here for the Hall of Fame would
-  // otherwise land on a business form and have to find their way back.
-  const donateHref = (amount?: number) =>
-    `/donate?tab=general&team=${fund.designation}` +
-    (amount ? `&amount=${amount}` : "");
-
-  const hasGoal = fund.goalDollars > 0;
-  // A raised total is a DATED CLAIM, not a fact — the house rule the status doc
-  // spells out. `raisedAsOf` is what turns one into the other, so the figure is
-  // published only once someone has stamped a date on it by reading the Hall of
-  // Fame row off /board/square-report. Until then the bar shows the goal alone.
+  // The campaign's own page since #210. It used to be
+  // `/donate?tab=general&team=<designation>` — the membership form with the
+  // fund preselected and a `tab` parameter steering it off the sponsorship
+  // half. That was always a workaround for the fund not having a page of its
+  // own, and it put a campaign gift through the flow for joining the club.
   //
-  // That gate held a figure back until #190: the designation had been live in the
-  // donate form since #184, so "$0 raised" was a claim about money that might
-  // already have come in, printed under a 501(c)(3) logo. The board has since
-  // chosen to start the bar at zero (2026-08-27) rather than run the goal-only
-  // state — a fine call, but it means the number now published counts WEBSITE
-  // gifts from that date. A cheque handed to the Treasurer does not reach it on
-  // its own; it has to be added to `raisedDollars` by hand.
-  // Aged against BUILT_AT_MS — see the note on that constant. Doing this on the
-  // server rather than in the browser also keeps the markup deterministic and
-  // avoids a hydration mismatch on a date boundary.
-  const asOf = fund.raisedAsOf.trim();
-  const asOfMs = asOf ? Date.parse(`${asOf}T12:00:00Z`) : NaN;
-  const staleAfterDays = fund.raisedStaleAfterDays ?? 14;
-  const ageDays = Number.isNaN(asOfMs)
-    ? Infinity
-    : (BUILT_AT_MS - asOfMs) / 86_400_000;
-  // A figure is publishable only while it is both present and fresh.
-  const hasRaisedFigure = !Number.isNaN(asOfMs) && ageDays <= staleAfterDays;
-  const asOfLabel = Number.isNaN(asOfMs)
-    ? ""
-    : new Intl.DateTimeFormat("en-US", {
-        month: "long",
-        day: "numeric",
-        timeZone: "UTC",
-      }).format(asOfMs);
-  const pct =
-    hasGoal && hasRaisedFigure
-      ? Math.min(100, Math.round((fund.raisedDollars / fund.goalDollars) * 100))
-      : 0;
+  // `designation` stays in the data and still rides to Square; what changed is
+  // only which page collects it. Old links keep working — see the redirect in
+  // next.config.ts.
+  const donateHref = (amount?: number) =>
+    `/hall-of-fame/donate${amount ? `?amount=${amount}` : ""}`;
 
   return (
     <section className="slotab-hof-fund" id="fund">
@@ -234,50 +194,11 @@ export default function HofFund() {
             <p className="slotab-hof-fund-split">{fund.splitNote}</p>
           )}
 
-          {/* Thermometer — only once there is a real target to measure
-              against. See the note in hof.json. */}
-          {hasGoal && (
-            <div className="slotab-hof-goal">
-              <div className="slotab-hof-goal-figures">
-                {hasRaisedFigure ? (
-                  <>
-                    <strong>{MONEY.format(fund.raisedDollars)}</strong>
-                    <span>
-                      raised of {MONEY.format(fund.goalDollars)}{" "}
-                      {fund.goalLabel}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <strong>{MONEY.format(fund.goalDollars)}</strong>
-                    <span>the goal {fund.goalLabel}</span>
-                  </>
-                )}
-              </div>
-              <div
-                className="slotab-hof-goal-track"
-                role="progressbar"
-                aria-valuenow={pct}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label={
-                  hasRaisedFigure
-                    ? `Hall of Fame fund progress: ${pct}% of goal`
-                    : "Hall of Fame fund progress: not yet published"
-                }
-              >
-                <div
-                  className="slotab-hof-goal-fill"
-                  style={{ width: `${pct}%` }}
-                />
-              </div>
-              <p className="slotab-hof-goal-asof">
-                {hasRaisedFigure
-                  ? `As of ${asOfLabel}. Updated weekly.`
-                  : "The bar fills as gifts come in, updated weekly."}
-              </p>
-            </div>
-          )}
+          {/* Thermometer — extracted to its own component when the fund got
+              its own donate page (#210), so both surfaces publish the same
+              figure under the same freshness rule. The `hasGoal` test moved
+              inside it. */}
+          <HofThermometer />
 
           {/* The ladder. Written as objects, not amounts — see the note at the
               top of this file. */}

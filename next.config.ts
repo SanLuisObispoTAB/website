@@ -80,6 +80,34 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // The Hall of Fame Fund got its own page at /hall-of-fame/donate (#210).
+      // Before that, every link to it was the membership form with the fund
+      // preselected — nine of them on /hall-of-fame alone, plus whatever the
+      // Athletic Director and the alumni mail have already sent out. Those URLs
+      // are in inboxes and text messages we cannot edit, and without this rule
+      // they would land on /donate with the designation ignored (#209), so an
+      // alumnus giving to the Hall of Fame would be asked to pick a sport.
+      //
+      // ONE rule, not two. A chosen rung from the giving ladder (`?amount=250`)
+      // still arrives, because Next forwards query parameters the destination
+      // does not itself consume — verified, not assumed. A second rule with a
+      // named capture for the amount was written first and deleted: it made the
+      // same URL by a longer route and implied an ordering dependency that does
+      // not exist.
+      //
+      // The redirect does drag `team=` and `tab=` along with it. Both are inert
+      // on the destination, which takes its designation from the page.
+      //
+      // Not permanent (307): this is a convenience for a live campaign rather
+      // than a migration, and a cached 308 is the thing the /teams/dance note
+      // below warns about — four days of exposure there, still visible weeks
+      // later.
+      {
+        source: "/donate",
+        has: [{ type: "query" as const, key: "team", value: "hall-of-fame" }],
+        destination: "/hall-of-fame/donate",
+        permanent: false,
+      },
       // Boys and girls cross country merged into one page 2026-08-11 — the
       // program considers itself a single team. Keep the old slugs working.
       {

@@ -23,6 +23,9 @@ const STATIC_ROUTES = [
   "/volunteer",
   "/impact",
   "/hall-of-fame",
+  // The fund's own campaign page (#210). Listed for the same reason /donate is:
+  // it is a public page an alumnus may reasonably search for.
+  "/hall-of-fame/donate",
   "/upcoming",
   "/back-to-school",
   "/booster-bash",

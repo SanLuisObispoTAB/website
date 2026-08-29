@@ -77,19 +77,17 @@ export function specialFund(slug: string): SpecialFund | undefined {
  *  `offerInPicker`.
  *
  *  WHAT THIS DOES NOT DO, AND WHY THAT MATTERS
- *  It does not make a fund unreachable, and it must not: the Hall of Fame Fund
- *  is a live campaign with a published $10,000 goal, a thermometer on
- *  `/hall-of-fame` fed by gifts carrying `designation=hall-of-fame`, a weekly
- *  cron report to the Treasurer and a QuickBooks class of its own. Five links
- *  on that page — the band's two buttons, the giving ladder, the ceremony strip
- *  — send an alumnus to `/donate?tab=general&team=hall-of-fame`, and that path
- *  still works exactly as it did. What has gone is the fund appearing as an
- *  option to somebody who came to join the club and designate a sport.
+ *  It does not make a fund unreachable. Emptying this list took the Hall of
+ *  Fame out of the membership flow; #210 gave it somewhere to go instead —
+ *  **`/hall-of-fame/donate`, the campaign's own page and its own checkout**,
+ *  which is what Erik meant by "a separate campaign with a separate donation
+ *  page". Every link on `/hall-of-fame` points there now, and old
+ *  `/donate?team=hall-of-fame` links redirect (see `next.config.ts`).
  *
- *  So: reachable **on purpose, from the fund's own page**, and not offered to
- *  anyone who did not ask for it. Removing the designation outright would
- *  break those five links and freeze the thermometer — a decision for the
- *  board, not a side effect of tidying a dropdown. */
+ *  The designation itself is untouched and still rides to Square exactly as
+ *  before, which is what keeps the $10,000 goal, the thermometer, the weekly
+ *  cron to the Treasurer and the QuickBooks class all reading the same money.
+ *  Only the page collecting it changed. */
 export function pickerFunds(): SpecialFund[] {
   return SPECIAL_FUNDS.filter((f) => f.offerInPicker);
 }

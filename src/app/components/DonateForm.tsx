@@ -97,16 +97,18 @@ export default function DonateForm({
   // so gifts meant for a sport were landing undesignated. A `?team=` link
   // from a team page still arrives pre-chosen — those donors have already
   // told us where the gift goes.
-  const initialTeam = params.get("team") ?? "";
-  // The named fund this donor arrived for, if any — read from the URL ONCE and
-  // kept for the life of the form rather than derived from `team`.
+  const requestedTeam = params.get("team") ?? "";
+  // A named fund arriving in `?team=` is ignored, not honoured.
   //
-  // Kept, not derived, because of a trap worth a gift: if the option existed
-  // only while the fund was selected, an alumnus who opened the dropdown to see
-  // what else was there and clicked a sport could never get back to the Hall of
-  // Fame, and the page that sent them is two navigations behind. It stays in
-  // their list; it was never in anybody else's.
-  const arrivedForFund = specialFund(initialTeam);
+  // Since #210 each fund has its own campaign page, and next.config.ts redirects
+  // the old `/donate?team=hall-of-fame` links there, so in practice this never
+  // fires. It is here because the failure mode if it ever did is silent and
+  // expensive: a <select> holding a value with no matching <option> renders
+  // BLANK, so the donor would see an unchosen designation, and the gift would
+  // reach Square carrying a fund the form never showed them. Falling back to ""
+  // makes the form ask the question it always asks, and the submit guard
+  // already refuses to hand off without an answer.
+  const initialTeam = specialFund(requestedTeam) ? "" : requestedTeam;
   // `?amount=` lets a giving-level card elsewhere on the site (the Hall of Fame
   // ladder, #184) land the donor on the form with their chosen figure already
   // in. Bounded and integer-checked here because it arrives from a URL; the
@@ -475,26 +477,15 @@ export default function DonateForm({
           </option>
           <option value="general">SLOTAB General Fund (all teams)</option>
           {/* Named funds sit above the team list — but only the ones the board
-              offers here, which since 2026-08-29 is NONE. A designation names
-              the team a member's gift is directed to; the Hall of Fame is a
-              campaign, and offering it in this list put it in front of a parent
-              who came to join the club and pick a sport. See `offerInPicker`.
-
-              `arrivedForFund` is the other half, and it is not a loophole. An
-              alumnus who clicked "Give $250 to the Hall of Fame" on
-              /hall-of-fame arrives here with `?team=hall-of-fame` already set,
-              and a select holding a value with no matching <option> renders
-              BLANK — so their gift would silently lose the designation they
-              chose one click earlier, and the fund's thermometer would never
-              see it. The option is rendered for them and for nobody else. */}
+              offers here, which since #209 is NONE. A designation names the
+              team a member's gift is directed to; a fund is a campaign, and
+              since #210 each one has its own page and its own checkout. See
+              `offerInPicker` and `pickerFunds`. */}
           {pickerFunds().map((f) => (
             <option key={f.slug} value={f.slug}>
               {f.label}
             </option>
           ))}
-          {arrivedForFund && !pickerFunds().some((f) => f.slug === arrivedForFund.slug) && (
-            <option value={arrivedForFund.slug}>{arrivedForFund.label}</option>
-          )}
           {TEAMS.map((t) => (
             <option key={t.slug} value={t.slug}>
               {!t.gender || t.gender === "Co-ed"

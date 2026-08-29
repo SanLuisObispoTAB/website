@@ -62,7 +62,7 @@ export default function HofCeremonyStrip() {
                ABOVE this strip, and a button that scrolls a reader back up
                to what they just read is worse than no button. */
             <Link
-              href="/donate?tab=general&team=hall-of-fame"
+              href="/hall-of-fame/donate"
               className="slotab-btn dark"
             >
               {fund.ctaLabel}
