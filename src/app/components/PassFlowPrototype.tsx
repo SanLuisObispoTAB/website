@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import teamsData from "../data/teams.json";
 import { levelForGift, passesForLevel } from "../data/sponsor-tiers";
-import { SPECIAL_FUNDS, specialFund, isUnsplitDesignation } from "../data/special-funds";
+import { pickerFunds, specialFund, isUnsplitDesignation } from "../data/special-funds";
 import {
   activePasses,
   includedPasses,
@@ -272,7 +272,10 @@ export default function PassFlowPrototype({
             SELECT A SPORT OR GENERAL DONATION
           </option>
           <option value="general">SLOTAB General Fund (all teams)</option>
-          {SPECIAL_FUNDS.map((f) => (
+          {/* Empty since 2026-08-29 — a named fund is not a designation (see
+              `offerInPicker`). No deep-link case to carry here, unlike the real
+              form: nothing links into a prototype with a fund preselected. */}
+          {pickerFunds().map((f) => (
             <option key={f.slug} value={f.slug}>
               {f.label}
             </option>

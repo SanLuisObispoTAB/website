@@ -19,7 +19,7 @@ import { levelForGift } from "../data/sponsor-tiers";
 // Designations that are neither a team nor the general fund — the Hall of Fame
 // push is the first. Imported rather than special-cased here so the split rule
 // stays identical to the one the Treasurer's report applies.
-import { SPECIAL_FUNDS, specialFund, isUnsplitDesignation } from "../data/special-funds";
+import { pickerFunds, specialFund, isUnsplitDesignation } from "../data/special-funds";
 
 type Team = {
   slug: string;
@@ -98,6 +98,15 @@ export default function DonateForm({
   // from a team page still arrives pre-chosen — those donors have already
   // told us where the gift goes.
   const initialTeam = params.get("team") ?? "";
+  // The named fund this donor arrived for, if any — read from the URL ONCE and
+  // kept for the life of the form rather than derived from `team`.
+  //
+  // Kept, not derived, because of a trap worth a gift: if the option existed
+  // only while the fund was selected, an alumnus who opened the dropdown to see
+  // what else was there and clicked a sport could never get back to the Hall of
+  // Fame, and the page that sent them is two navigations behind. It stays in
+  // their list; it was never in anybody else's.
+  const arrivedForFund = specialFund(initialTeam);
   // `?amount=` lets a giving-level card elsewhere on the site (the Hall of Fame
   // ladder, #184) land the donor on the form with their chosen figure already
   // in. Bounded and integer-checked here because it arrives from a URL; the
@@ -465,15 +474,27 @@ export default function DonateForm({
             SELECT A SPORT OR GENERAL DONATION
           </option>
           <option value="general">SLOTAB General Fund (all teams)</option>
-          {/* Named funds sit above the team list: they are neither a team nor
-              the general fund, and burying the Hall of Fame between Golf and
-              Soccer would lose the one designation the club is actively
-              promoting this fall. */}
-          {SPECIAL_FUNDS.map((f) => (
+          {/* Named funds sit above the team list — but only the ones the board
+              offers here, which since 2026-08-29 is NONE. A designation names
+              the team a member's gift is directed to; the Hall of Fame is a
+              campaign, and offering it in this list put it in front of a parent
+              who came to join the club and pick a sport. See `offerInPicker`.
+
+              `arrivedForFund` is the other half, and it is not a loophole. An
+              alumnus who clicked "Give $250 to the Hall of Fame" on
+              /hall-of-fame arrives here with `?team=hall-of-fame` already set,
+              and a select holding a value with no matching <option> renders
+              BLANK — so their gift would silently lose the designation they
+              chose one click earlier, and the fund's thermometer would never
+              see it. The option is rendered for them and for nobody else. */}
+          {pickerFunds().map((f) => (
             <option key={f.slug} value={f.slug}>
               {f.label}
             </option>
           ))}
+          {arrivedForFund && !pickerFunds().some((f) => f.slug === arrivedForFund.slug) && (
+            <option value={arrivedForFund.slug}>{arrivedForFund.label}</option>
+          )}
           {TEAMS.map((t) => (
             <option key={t.slug} value={t.slug}>
               {!t.gender || t.gender === "Co-ed"

@@ -37,6 +37,21 @@ export type SpecialFund = {
    *  A tribute is the whole point of a memorial-style fund and nothing else in
    *  the checkout can capture it. */
   tribute?: { label: string; placeholder: string };
+  /** Whether this fund is offered in the general designation picker on
+   *  `/donate` — the list a member picks their sport from.
+   *
+   *  **Absent, which is the answer for every fund today.** Erik, 2026-08-29:
+   *  the Hall of Fame is not a valid designation for a membership gift. A
+   *  designation says which *team* a member's gift is directed to; a named
+   *  fund is a separate campaign that happens to reuse the same checkout
+   *  plumbing, and putting it in that list invited a parent joining the club to
+   *  send their membership money somewhere it was never meant to go.
+   *
+   *  It is a flag rather than a deletion because the fund itself is untouched:
+   *  it still takes gifts through its own page (see `pickerFunds` below), and
+   *  if the board ever wants one listed again that is a data edit here, not a
+   *  hunt through the form. */
+  offerInPicker?: boolean;
 };
 
 export const SPECIAL_FUNDS: SpecialFund[] = [
@@ -56,6 +71,27 @@ export const SPECIAL_FUNDS: SpecialFund[] = [
 
 export function specialFund(slug: string): SpecialFund | undefined {
   return SPECIAL_FUNDS.find((f) => f.slug === slug);
+}
+
+/** The funds offered in `/donate`'s designation dropdown. **Empty today** — see
+ *  `offerInPicker`.
+ *
+ *  WHAT THIS DOES NOT DO, AND WHY THAT MATTERS
+ *  It does not make a fund unreachable, and it must not: the Hall of Fame Fund
+ *  is a live campaign with a published $10,000 goal, a thermometer on
+ *  `/hall-of-fame` fed by gifts carrying `designation=hall-of-fame`, a weekly
+ *  cron report to the Treasurer and a QuickBooks class of its own. Five links
+ *  on that page — the band's two buttons, the giving ladder, the ceremony strip
+ *  — send an alumnus to `/donate?tab=general&team=hall-of-fame`, and that path
+ *  still works exactly as it did. What has gone is the fund appearing as an
+ *  option to somebody who came to join the club and designate a sport.
+ *
+ *  So: reachable **on purpose, from the fund's own page**, and not offered to
+ *  anyone who did not ask for it. Removing the designation outright would
+ *  break those five links and freeze the thermometer — a decision for the
+ *  board, not a side effect of tidying a dropdown. */
+export function pickerFunds(): SpecialFund[] {
+  return SPECIAL_FUNDS.filter((f) => f.offerInPicker);
 }
 
 /** True when the whole gift stays with the designation the donor chose, so no
