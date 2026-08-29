@@ -1,3 +1,5 @@
+import hofData from "./hof.json";
+
 // Designations that are neither a team nor the general fund.
 //
 // WHY THIS EXISTS
@@ -52,7 +54,27 @@ export type SpecialFund = {
    *  if the board ever wants one listed again that is a data edit here, not a
    *  hunt through the form. */
   offerInPicker?: boolean;
+  /** The fund's OWN giving ladder — the rungs it publishes, as objects rather
+   *  than as amounts ("Ceremony underwriter", not "Tiger Pride").
+   *
+   *  WHY THIS HAD TO EXIST
+   *  Erik, 2026-08-29, after giving $1,000 on the new campaign page: *"the
+   *  sponsorship levels are used. I selected $1000 (ceremony underwriter) and
+   *  the Square page said SLOHS Athletics Hall of Fame Fund — donation (Tiger
+   *  Pride)."* The checkout was naming the gift off the membership ladder,
+   *  because `levelForGift` was the only ladder the route knew about. A Hall of
+   *  Fame gift is not a Tiger Pride sponsorship, the donor never chose that
+   *  word, and it was the first thing they read on Square.
+   *
+   *  Sourced from the fund's own content file so the board's Decap edits reach
+   *  the receipt as well as the page — a rung renamed at /admin renames it
+   *  everywhere, which is the whole reason this is not a second list. */
+  levels?: FundLevel[];
 };
+
+/** One rung of a fund's ladder. `item` is what the rung buys, and it is what
+ *  the donor sees on their receipt. */
+export type FundLevel = { amount: number; item: string };
 
 export const SPECIAL_FUNDS: SpecialFund[] = [
   {
@@ -66,6 +88,12 @@ export const SPECIAL_FUNDS: SpecialFund[] = [
       label: "In honor of (optional)",
       placeholder: "Coach, teammate, or inductee's name",
     },
+    // Amount and item only. The blurbs are page copy and have no business on a
+    // receipt or in the Treasurer's report.
+    levels: (hofData.fund.levels as FundLevel[]).map(({ amount, item }) => ({
+      amount,
+      item,
+    })),
   },
 ];
 
@@ -90,6 +118,31 @@ export function specialFund(slug: string): SpecialFund | undefined {
  *  Only the page collecting it changed. */
 export function pickerFunds(): SpecialFund[] {
   return SPECIAL_FUNDS.filter((f) => f.offerInPicker);
+}
+
+/** The rung a gift of `dollars` reaches on a fund's own ladder — the highest
+ *  one it covers — or null if the fund publishes no ladder or the gift falls
+ *  below its lowest rung.
+ *
+ *  Null is a real answer, not a failure: the ladder starts at $50 and the site
+ *  takes gifts from $25, so a $25 Hall of Fame gift genuinely buys no named
+ *  object and its line item should read "donation" rather than claim a
+ *  nameplate. Deriving it from the amount **server-side** also means the rung
+ *  cannot be posted from a browser — the same rule the sponsorship tiers follow
+ *  and for the same reason: a name on a receipt is a claim about what the money
+ *  bought. */
+export function fundLevelForAmount(
+  fund: SpecialFund,
+  dollars: number,
+): string | null {
+  if (!fund.levels?.length || dollars <= 0) return null;
+  let best: FundLevel | null = null;
+  for (const rung of fund.levels) {
+    if (dollars >= rung.amount && (!best || rung.amount > best.amount)) {
+      best = rung;
+    }
+  }
+  return best?.item ?? null;
 }
 
 /** True when the whole gift stays with the designation the donor chose, so no

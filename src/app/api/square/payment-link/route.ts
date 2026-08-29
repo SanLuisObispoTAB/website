@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import teamsData from "../../../data/teams.json";
 import { sponsorTierById, levelForGift } from "../../../data/sponsor-tiers";
-import { specialFund } from "../../../data/special-funds";
+import { specialFund, fundLevelForAmount } from "../../../data/special-funds";
 import {
   createPaymentLink,
   SquareError,
@@ -289,14 +289,40 @@ export async function POST(req: Request) {
     // carrying the level in `metadata` as well — invisible to a donor, but the
     // clean field for the reconciliation sidetool to group on, which is where
     // per-sport totals should come from anyway (see #144).
-    const level = levelForGift(raw / 100);
+
+    // WHICH LADDER NAMES THIS GIFT.
+    //
+    // A named fund is a campaign of its own, so it is named off ITS ladder, not
+    // off the membership one. Erik caught this the day the campaign page went
+    // up: a $1,000 Hall of Fame gift reached Square reading "SLOHS Athletics
+    // Hall of Fame Fund — donation (Tiger Pride)". Tiger Pride is a
+    // sponsorship tier. The donor had clicked "Ceremony underwriter", was never
+    // shown the word, and it was the first thing on their checkout page.
+    //
+    // The bug is older than the campaign page — the same suffix rode every Hall
+    // of Fame gift made through `/donate?team=hall-of-fame` since #184. Giving
+    // the fund its own page is what put it in front of somebody.
+    //
+    // `metadata.level` follows the same rule, so the Treasurer's report groups a
+    // Hall of Fame row by the rungs the committee actually spends against. Safe
+    // in both consumers, checked rather than assumed: `isMisdesignatedGift`
+    // already excludes an unsplit designation, and the donation checklist
+    // already suppresses every sponsorship question when a fund is set — a rung
+    // name simply resolves to no membership perks, which is the correct answer
+    // for a gift that buys an engraved award.
+    const level = fund
+      ? fundLevelForAmount(fund, raw / 100)
+      : levelForGift(raw / 100);
     const levelSuffix = level ? ` (${level})` : "";
 
     if (fund) {
-      lineItemName = `${fund.label} — donation${levelSuffix}`;
+      // The rung IS the description here, so it replaces "donation" rather than
+      // trailing it in brackets: "…Fund — Ceremony underwriter" reads as the
+      // thing bought, which is what the fund's ladder is written to sell.
+      lineItemName = `${fund.label} — ${level ?? "donation"}`;
       note =
         `${fund.label} — 100% to the fund, no team split` +
-        (level ? ` — ${level} level` : "") +
+        (level ? ` — ${level}` : "") +
         // Trina's QuickBooks class, verbatim. The note is what shows on the
         // payment in the Square dashboard, which is where the reconciliation
         // actually happens.
