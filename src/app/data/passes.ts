@@ -15,7 +15,33 @@
 //
 // PRICES ARE THE PUBLISHED ONES. $250 / $125 come off `/season-passes`, which
 // is the page the club has been pointing people at all season. That page now
-// imports from here rather than carrying its own copies.
+// imports from here rather than carrying its own copies. Both figures were
+// re-checked against the live storefront items on 2026-08-29 and match.
+//
+// WHERE A PASS IS ACTUALLY BOUGHT, AND WHY IT IS NOT OUR OWN CHECKOUT
+// Square already sells both passes as real catalogue items, and #213 wires
+// `/season-passes` straight to them rather than minting a payment link the way
+// donations do. Three reasons, and the first is decisive:
+//
+//   · The Single Season Pass carries a REQUIRED "Season Selection" option
+//     (Fall / Winter / Spring) on the Square item itself. Minting our own link
+//     would mean re-implementing that choice and carrying it in metadata, and
+//     the club's Square item report would then no longer separate the three
+//     seasons it already separates.
+//   · A storefront purchase raises Square's ONLINE ORDER notification — item,
+//     quantity, buyer, option — which is exactly what the person issuing a pass
+//     needs. A minted payment link raises a PAYMENT notification instead, which
+//     says an amount and a card and nothing else; that gap is the whole reason
+//     `donation-notification.ts` had to be written (#187). For passes the
+//     storefront simply does not have the problem.
+//   · The items exist, are priced correctly, and are being sold today.
+//
+// This is the reverse of the donation story on purpose. A donation needs a
+// designation and a free amount, which no storefront tile can carry; a pass is
+// a fixed-price product with an option, which is precisely what a storefront
+// tile is for.
+
+import { squareStoreUrl } from "./square-store";
 
 export type PassType = {
   /** Stable slug — the only pass identifier a client is trusted with. The
@@ -33,6 +59,13 @@ export type PassType = {
   /** Fat-finger guard, not a policy limit. A family buying more than this is a
    *  conversation with the Membership VP, not a web form. */
   maxQty: number;
+  /** Path to this pass on the club's Square storefront — where it is bought.
+   *
+   *  Verified against the live storefront on 2026-08-29 by opening both product
+   *  pages and reading the price and options off them, the same way
+   *  `square-donate.ts` verified its own paths. If a link 404s, the item was
+   *  renamed in Square: open the store, find the tile, copy the path. */
+  storePath: string;
 };
 
 export const PASS_TYPES: PassType[] = [
@@ -43,6 +76,12 @@ export const PASS_TYPES: PassType[] = [
     blurb:
       "Entry to every SLOHS Fall, Winter and Spring regular-season home game for the school year.",
     maxQty: 10,
+    // The storefront spells this "All Sport Annual Pass", singular — one letter
+    // off the name this site and the sponsorship sheet both use. Left alone
+    // rather than "fixed" in either direction: renaming the Square item would
+    // break its reporting history, and renaming ours would contradict the
+    // printed sheet. Worth knowing when someone compares a receipt to the page.
+    storePath: "/product/all-sport-annual-pass/16",
   },
   {
     id: "single-season",
@@ -52,6 +91,7 @@ export const PASS_TYPES: PassType[] = [
       "Entry to SLOHS regular-season home games for one season — Fall, Winter or Spring.",
     needsSeason: true,
     maxQty: 10,
+    storePath: "/product/single-season-pass/17",
   },
 ];
 
@@ -66,6 +106,11 @@ export type PassSeason = (typeof PASS_SEASONS)[number];
 
 export function passTypeById(id: string): PassType | undefined {
   return PASS_TYPES.find((p) => p.id === id);
+}
+
+/** Where to send someone to buy this pass. */
+export function passStoreUrl(pass: PassType): string {
+  return squareStoreUrl(pass.storePath);
 }
 
 /** One line of a pass order: a type, how many, and — for a single-season pass —

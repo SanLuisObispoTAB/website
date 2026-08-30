@@ -20,7 +20,9 @@
 //
 // Retire this whole file once Q1 is decided and the real integration lands.
 
-const STORE = "https://slotab-3.square.site";
+// Shared with `passes.ts`, which sells the season passes off the same store —
+// and which outlives this file. See the note in `square-store.ts`.
+import { SQUARE_STORE as STORE } from "./square-store";
 
 /** Team slug → Square product path. Verified against the live storefront on
  *  2026-08-17 by reading its rendered product links.

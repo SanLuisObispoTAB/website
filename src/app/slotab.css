@@ -102,6 +102,7 @@
 .slotab-donate-note,
 .slotab-proto-stop,
 .slotab-hof-donors-cta,
+.slotab-pass-store-note,
 .slotab-tier-foot,
 .slotab-platinum-head,
 .slotab-event-intro,
@@ -4976,4 +4977,22 @@ a.slotab-platinum-slide:hover {
 .slotab-hof-donors-cta {
   margin-top: 2rem;
   text-align: center;
+}
+
+/* Season passes — the two notes added when the page started actually selling
+   them (#213). Both sit inside `.slotab-card.dark`, so they need light text;
+   the store note sits on the cream page below the cards and does not. */
+.slotab-pass-note {
+  margin: 0.5rem 0 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+}
+.slotab-pass-store-note {
+  max-width: 640px;
+  margin: 2rem auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--slotab-muted);
 }
