@@ -6,6 +6,7 @@ import {
   type SquarePayment,
 } from "./square-report";
 import { donorKey, isDismissed, isOnWall } from "../app/data/donors";
+import { hasOwnDonorWall, isOnFundWall } from "../app/data/hof-donors";
 
 // Who is waiting to go on the donor wall, and who we are not allowed to add.
 //
@@ -174,7 +175,18 @@ export async function buildDonorWallQueue(
       continue;
     }
 
-    if (isOnWall(name)) {
+    // "Already listed" is asked of the wall this gift would go on, not of the
+    // membership wall alone (#212). A Hall of Fame donor lands on the fund's
+    // own wall, so checking `isOnWall` for them would leave them pending
+    // forever — offered to the board again every week, however many times they
+    // had already been added.
+    //
+    // The same person may legitimately sit on both walls for two different
+    // gifts, which is why this is keyed on the designation rather than the name.
+    const listedAlready = hasOwnDonorWall(candidate.designation)
+      ? isOnFundWall(candidate.designation, name)
+      : isOnWall(name);
+    if (listedAlready) {
       alreadyListed += 1;
       continue;
     }

@@ -99,6 +99,44 @@ collections:
                       hint: "Full URL including https://. When set, the sponsor's logo on the wall and home page becomes a clickable link to this URL.",
                     }
 
+  - name: hof_donors
+    label: "Hall of Fame Donor Wall"
+    files:
+      - name: hof_donors
+        label: "Thank You to Our Hall of Fame Donors"
+        file: "src/app/data/hof-donors.json"
+        description: "The thank-you wall on the Hall of Fame page — SEPARATE from the Membership donor wall, because a Hall of Fame gift is a gift to the fund, not a membership. Two differences worth knowing. (1) It is NOT cleared each season: the Hall of Fame Fund is a standing fund, so a name given in 2026 still paid for a medallion in 2027. (2) The headings are the FUND's giving rungs — Legacy patron, Ceremony underwriter and so on — not the club's membership tiers; filing someone here as \"Tiger Pride\" would credit them with a sponsorship they never bought. Normally you do not edit this by hand: /board/donor-wall files a donor automatically under the rung Square recorded. ONLY list someone who ticked \"Display my name on the SLOTAB Donor Wall\" at checkout. Names only, never amounts. The section hides itself on the page while the wall is empty."
+        fields:
+          - name: tiers
+            label: "Giving rungs"
+            widget: list
+            required: false
+            summary: "{{fields.tier}}"
+            fields:
+              - name: tier
+                label: "Rung heading"
+                widget: select
+                hint: "The fund's own rungs, as the Hall of Fame page sells them. If the board renames a rung in the Hall of Fame Fund settings, rename it here too — names filed under the old wording stay on the page, but they sort to the bottom until they match."
+                options:
+                  - "Legacy patron"
+                  - "Ceremony underwriter"
+                  - "One inductee, fully honored"
+                  - "Commemorative award"
+                  - "Induction medallion"
+                  - "Engraved nameplate"
+                  - "Friends of the Hall of Fame"
+              - name: donors
+                label: "Names at this rung"
+                widget: list
+                required: false
+                fields:
+                  - {
+                      name: name,
+                      label: "Name",
+                      widget: string,
+                      hint: "Spelled as the donor gave it. Couples, families and organisations are fine. This is a public page: check the spelling of someone's name before saving.",
+                    }
+
   - name: donors
     label: "Donor Wall"
     files:

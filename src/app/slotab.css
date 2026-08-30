@@ -101,6 +101,7 @@
 .slotab-donate-submit,
 .slotab-donate-note,
 .slotab-proto-stop,
+.slotab-hof-donors-cta,
 .slotab-tier-foot,
 .slotab-platinum-head,
 .slotab-event-intro,
@@ -4963,4 +4964,16 @@ a.slotab-platinum-slide:hover {
 .slotab-donate-intro .slotab-hof-goal-track {
   background: #ececec;
   border-color: var(--slotab-border);
+}
+
+/* The Hall of Fame Fund's thank-you wall (#212). Reuses `.slotab-tier` from the
+   membership wall so both read as the same club thanking people — the walls are
+   separate because the gifts are, not because they should look unrelated. */
+.slotab-hof-donors {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.slotab-hof-donors-cta {
+  margin-top: 2rem;
+  text-align: center;
 }

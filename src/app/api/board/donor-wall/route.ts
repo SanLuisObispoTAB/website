@@ -12,6 +12,14 @@ import {
   type DonorTier,
   type DonorWall,
 } from "../../../data/donors";
+import {
+  HOF_FALLBACK_TIER,
+  fundWallPath,
+  isHofTier,
+  type HofDonorTier,
+  type HofDonorWall,
+} from "../../../data/hof-donors";
+import { specialFund } from "../../../data/special-funds";
 
 // Accept / decline a pending donor, from the buttons on /board/donor-wall.
 //
@@ -79,6 +87,10 @@ export async function POST(req: Request) {
   // trusted store, still not the form.
   let candidateName = "";
   let candidateLevel: string | undefined;
+  // Which wall this gift belongs on. A carried-over name has no designation —
+  // Square has never heard of them — so it stays empty there and the membership
+  // wall is the only destination, which is where those names came off.
+  let candidateDesignation = "";
   if (!carryover) {
     try {
       const w = lookbackWindow();
@@ -93,12 +105,84 @@ export async function POST(req: Request) {
       }
       candidateName = match.name;
       candidateLevel = match.level;
+      candidateDesignation = match.designation;
     } catch (err) {
       return back(
         `Could not check Square: ${err instanceof Error ? err.message : "unknown error"}`,
         false,
       );
     }
+  }
+
+  // ---------------------------------------------------------------- FUND WALLS
+  //
+  // A gift to a named fund is recognised on THAT FUND'S wall, not on the
+  // membership one. Erik, 2026-08-29: *"the wall on the HOF page … is the
+  // proper place for a HOF donation to go."*
+  //
+  // Before this, every Hall of Fame donor was proposed onto `/membership` under
+  // one of the club's eight tiers — publicly crediting them with a membership
+  // or a sponsorship they had not bought, on a page about a different thing.
+  //
+  // The headings here are the FUND's rungs, so the same filing-from-Square
+  // trick still works: since #211 a fund gift's `metadata.level` is one of
+  // those rung names exactly.
+  //
+  // Accepts only. A dismissal is a statement about the QUEUE, not about a wall,
+  // and the queue is shared across designations — so it stays on `donors.json`
+  // with every other dismissal, below.
+  if (accepting && !carryover && specialFund(candidateDesignation)) {
+    const path = fundWallPath(candidateDesignation);
+    if (!path) {
+      // A fund exists in SPECIAL_FUNDS but has no wall file. Refused loudly
+      // rather than falling through to the membership wall, because falling
+      // through silently is the exact bug this branch was written to end.
+      return back(
+        `No donor wall is configured for ${candidateDesignation} — nothing was written. Add one to FUND_WALL_PATHS.`,
+        false,
+      );
+    }
+    const readFund = await readJsonFile(path);
+    if (!readFund.ok) {
+      return back(`Could not read the fund wall: ${readFund.reason}`, false);
+    }
+    const fundWall = readFund.json as HofDonorWall;
+    fundWall.tiers = fundWall.tiers ?? [];
+
+    // Same rule as the membership wall: the form may choose a heading, never
+    // invent one, because this string becomes a public claim about what
+    // somebody gave.
+    const chosenRung = isHofTier(tier) ? tier : "";
+    const rungFromSquare =
+      candidateLevel && isHofTier(candidateLevel) ? candidateLevel : "";
+    const rung = chosenRung || rungFromSquare || HOF_FALLBACK_TIER;
+
+    let bucket = fundWall.tiers.find((t) => t.tier === rung);
+    if (!bucket) {
+      const created: HofDonorTier = { tier: rung, donors: [] };
+      fundWall.tiers.push(created);
+      bucket = created;
+    }
+    bucket.donors.push({ name: candidateName });
+
+    const wroteFund = await writeJsonFile(
+      path,
+      fundWall,
+      readFund.sha,
+      `Add ${candidateName} to the ${candidateDesignation} donor wall (${rung})` +
+        (chosenRung
+          ? ""
+          : rungFromSquare
+            ? " — filed from the rung Square recorded"
+            : "") +
+        "\n\nFrom the Board Hub donor wall queue. The donor consented at\ncheckout; a board member confirmed. This fund keeps its own wall —\nsee decision #212.",
+    );
+    if (!wroteFund.ok) return back(`Could not save: ${wroteFund.reason}`, false);
+
+    return back(
+      `${candidateName} added to the Hall of Fame wall (${rung}). The page updates when the site redeploys, usually a minute.`,
+      true,
+    );
   }
 
   const read = await readJsonFile(DATA_PATH);

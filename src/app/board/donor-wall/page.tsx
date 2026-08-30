@@ -14,6 +14,12 @@ import {
   legacyTiers,
   type UnverifiedDonor,
 } from "../../data/donors";
+import {
+  HOF_FALLBACK_TIER,
+  hasOwnDonorWall,
+  hofTierOrder,
+  isHofTier,
+} from "../../data/hof-donors";
 import { isRepoWriteConfigured } from "../../../lib/github-commit";
 
 // Staging for the donor wall: who may be added, who must be asked first.
@@ -139,7 +145,18 @@ function PendingRow({
   // two vocabularies didn't line up, and it would happily have put a Champion
   // Sponsor into "Champion Membership" — a tenfold difference in what it claims
   // somebody gave.
-  const suggested = CANONICAL_TIERS.some((t) => t.name === c.level) ? c.level! : "";
+  // A gift to a named fund goes on THAT fund's wall, under that fund's rungs
+  // (#212). Offering the club's eight tiers here would let a volunteer file a
+  // Hall of Fame donor as a "Tiger Pride" sponsor — a level they never bought,
+  // published over their name, on a page about something else.
+  const ownWall = hasOwnDonorWall(c.designation);
+  const suggested = ownWall
+    ? isHofTier(c.level ?? "")
+      ? c.level!
+      : ""
+    : CANONICAL_TIERS.some((t) => t.name === c.level)
+      ? c.level!
+      : "";
   return (
     <tr>
       <td>
@@ -148,25 +165,40 @@ function PendingRow({
           {c.designationLabel} · {money(c.amountCents)} · {day(c.when)}
           {c.level ? ` · ${c.level}` : ""}
         </div>
+        {ownWall && (
+          <div style={{ fontSize: "0.8rem", color: "#9b2818" }}>
+            Goes on the Hall of Fame wall, not the membership wall.
+          </div>
+        )}
       </td>
       <td>
         <form method="post" action="/api/board/donor-wall">
           <input type="hidden" name="name" value={c.name} />
           <input type="hidden" name="action" value="accept" />
           <select name="tier" defaultValue={suggested} aria-label={`Tier for ${c.name}`}>
-            <option value="">Tier to be confirmed</option>
-            {(["sponsorship", "membership"] as const).map((kind) => (
-              <optgroup
-                key={kind}
-                label={kind === "sponsorship" ? "Sponsorships" : "Memberships"}
-              >
-                {CANONICAL_TIERS.filter((t) => t.kind === kind).map((t) => (
-                  <option key={t.name} value={t.name}>
-                    {t.name}
-                  </option>
+            <option value="">
+              {ownWall ? HOF_FALLBACK_TIER : "Tier to be confirmed"}
+            </option>
+            {ownWall
+              ? hofTierOrder()
+                  .filter((rung) => rung !== HOF_FALLBACK_TIER)
+                  .map((rung) => (
+                    <option key={rung} value={rung}>
+                      {rung}
+                    </option>
+                  ))
+              : (["sponsorship", "membership"] as const).map((kind) => (
+                  <optgroup
+                    key={kind}
+                    label={kind === "sponsorship" ? "Sponsorships" : "Memberships"}
+                  >
+                    {CANONICAL_TIERS.filter((t) => t.kind === kind).map((t) => (
+                      <option key={t.name} value={t.name}>
+                        {t.name}
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
-              </optgroup>
-            ))}
           </select>{" "}
           <button className="slotab-btn" type="submit" disabled={!canWrite}>
             Add to wall

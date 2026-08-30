@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HofCeremonyStrip from "../components/HofCeremonyStrip";
+import HofDonorWall from "../components/HofDonorWall";
 import HofFund, { HofLegacyStrip } from "../components/HofFund";
 import InducteeGrid from "../components/InducteeGrid";
 import PageHeader from "../components/PageHeader";
@@ -43,6 +44,12 @@ export default function HallOfFamePage() {
           in #185 so the unlisted review page renders the same strip, not a
           copy of it that drifts the next time the venue moves. */}
       <HofCeremonyStrip />
+
+      {/* The fund's own thank-you wall (#212). After the ask and the
+          save-the-date, because it answers "who else has?" — a question
+          somebody asks once they have already read the request, not before it.
+          Renders nothing while the wall is empty. */}
+      <HofDonorWall />
 
       {/* Legacy photo strip — after the save-the-date, as the transition from
           the ask into what the Hall of Fame actually is. */}
