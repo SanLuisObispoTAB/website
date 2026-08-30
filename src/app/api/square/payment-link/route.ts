@@ -3,6 +3,13 @@ import teamsData from "../../../data/teams.json";
 import { sponsorTierById, levelForGift } from "../../../data/sponsor-tiers";
 import { specialFund, fundLevelForAmount } from "../../../data/special-funds";
 import {
+  PASS_SEASONS,
+  passLineLabel,
+  passTypeById,
+  type PassSeason,
+  type PassSelection,
+} from "../../../data/passes";
+import {
   createPaymentLink,
   SquareError,
   isSquareConfigured,
@@ -108,6 +115,58 @@ function normalisePhone(raw: string): string | undefined {
   return e164.length <= 17 && digits.length >= 8 ? e164 : undefined;
 }
 
+/** Game passes bundled onto a gift — the add-on Trina asked for (#208), now
+ *  billable on the same order (#214).
+ *
+ *  THE RULE, SAME AS EVERY OTHER PRICE HERE: the client names a pass and a
+ *  quantity, and the server looks up what that pass costs. A posted price would
+ *  be a posted price. `maxQty` is enforced here too, not just in the stepper —
+ *  a disabled button is a courtesy, not a control.
+ *
+ *  A season is REQUIRED for a pass that needs one. An order for "a Single
+ *  Season Pass, season unspecified" is one the club cannot fulfil: somebody
+ *  would have to print a pass and guess which season it was for. Rejected
+ *  rather than defaulted, because a wrong guess reaches the gate. */
+function parsePasses(
+  raw: unknown,
+): { ok: true; passes: PassSelection[] } | { ok: false; error: string } {
+  if (raw === undefined) return { ok: true, passes: [] };
+  if (!Array.isArray(raw)) return { ok: false, error: "Invalid pass selection" };
+  const passes: PassSelection[] = [];
+  for (const entry of raw) {
+    if (typeof entry !== "object" || entry === null) {
+      return { ok: false, error: "Invalid pass selection" };
+    }
+    const { passId, qty, season } = entry as Record<string, unknown>;
+    const type = typeof passId === "string" ? passTypeById(passId) : undefined;
+    if (!type) return { ok: false, error: `Unknown pass: ${String(passId)}` };
+    if (passes.some((p) => p.passId === type.id)) {
+      return { ok: false, error: `Duplicate pass: ${type.name}` };
+    }
+    if (typeof qty !== "number" || !Number.isInteger(qty) || qty < 1) {
+      return { ok: false, error: `Invalid quantity for ${type.name}` };
+    }
+    if (qty > type.maxQty) {
+      return {
+        ok: false,
+        error: `At most ${type.maxQty} of ${type.name} through this form — email us for a larger block`,
+      };
+    }
+    if (type.needsSeason) {
+      if (
+        typeof season !== "string" ||
+        !(PASS_SEASONS as readonly string[]).includes(season)
+      ) {
+        return { ok: false, error: `Choose a season for ${type.name}` };
+      }
+      passes.push({ passId: type.id, qty, season: season as PassSeason });
+    } else {
+      passes.push({ passId: type.id, qty });
+    }
+  }
+  return { ok: true, passes };
+}
+
 function bad(message: string, status = 400) {
   return NextResponse.json({ error: message }, { status });
 }
@@ -187,6 +246,13 @@ export async function POST(req: Request) {
   let amountCents: number;
   let note: string;
   const metadata: Record<string, string> = { source: "slotab-website" };
+  // Extra lines on the same order. Only donations carry passes today; a
+  // sponsorship is a fixed package and adding to it would misprice the tier.
+  let additionalItems: {
+    name: string;
+    quantity: number;
+    amountCents: number;
+  }[] = [];
 
   if (kind === "sponsorship") {
     const tier = typeof body.tierId === "string" ? sponsorTierById(body.tierId) : undefined;
@@ -345,6 +411,44 @@ export async function POST(req: Request) {
     if (!isGeneral && !fund) metadata.split = "75-25";
     if (fund?.qbClass) metadata.qbClass = fund.qbClass;
     if (tribute) metadata.tribute = tribute;
+
+    // ------------------------------------------------------- bundled passes
+    const parsedPasses = parsePasses(body.passes);
+    if (!parsedPasses.ok) return bad(parsedPasses.error);
+    if (parsedPasses.passes.length) {
+      additionalItems = parsedPasses.passes.map((sel) => {
+        const type = passTypeById(sel.passId)!;
+        return {
+          // The season is in the NAME, not only in metadata, for the same
+          // reason the designation is (#181): Square's hosted checkout renders
+          // the line item name and nothing else, and "Single Season Pass" alone
+          // is three different products to whoever issues it.
+          name: passLineLabel(sel),
+          quantity: sel.qty,
+          // Server-side, per unit. Square multiplies by quantity.
+          amountCents: type.price * 100,
+        };
+      });
+      const passTotalCents = additionalItems.reduce(
+        (sum, i) => sum + i.amountCents * i.quantity,
+        0,
+      );
+      note +=
+        ` — plus ${additionalItems
+          .map((i) => `${i.quantity}× ${i.name}`)
+          .join(", ")} ($${passTotalCents / 100})`;
+      // ONE key, encoded, not one per pass type. Square caps order metadata at
+      // ten pairs and a Hall of Fame gift already lands on ten; a key per pass
+      // would push `designation` or `test` off the end, and those are what the
+      // Treasurer's report is keyed on.
+      //
+      // Placed BEFORE the donor block below, so if anything is dropped by
+      // `sanitizeMetadata` it is a phone number rather than the record of what
+      // somebody paid for.
+      metadata.passes = parsedPasses.passes
+        .map((s) => `${s.passId}:${s.qty}${s.season ? `@${s.season}` : ""}`)
+        .join(",");
+    }
   } else {
     return bad("Unknown request kind");
   }
@@ -406,6 +510,7 @@ export async function POST(req: Request) {
         buyerPhone,
         buyerFirstName,
         buyerLastName,
+        ...(additionalItems.length ? { additionalItems } : {}),
         redirectUrl: redirectUrl.toString(),
       },
       { previewUnlock },

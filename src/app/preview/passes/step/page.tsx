@@ -10,7 +10,17 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function PassStepPreviewPage() {
+// Dynamic because the unlock arrives as a query parameter — see the
+// `previewToken` note in PassFlowPrototype. Without `?token=` the page is
+// exactly what it was: a prototype that stops before Square.
+export const dynamic = "force-dynamic";
+
+export default async function PassStepPreviewPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ token?: string }>;
+}) {
+  const { token } = await searchParams;
   return (
     <>
       <section className="slotab-draft-banner">
@@ -52,7 +62,7 @@ export default function PassStepPreviewPage() {
           </div>
 
           <div className="slotab-donate-card">
-            <PassFlowPrototype variant="step" />
+            <PassFlowPrototype variant="step" previewToken={token} />
           </div>
         </div>
       </section>

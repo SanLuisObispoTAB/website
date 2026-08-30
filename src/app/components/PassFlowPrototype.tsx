@@ -91,10 +91,21 @@ type Step = "gift" | "passes" | "details" | "review";
 
 export default function PassFlowPrototype({
   variant,
+  previewToken,
 }: {
   /** "inline" — passes are a fieldset inside the one-page form.
    *  "step"   — passes get their own screen after the level is chosen. */
   variant: "inline" | "step";
+  /** Set only when the page was opened with `?token=<SQUARE_PREVIEW_SLUG>`.
+   *
+   *  Without it this prototype still stops at the review screen, which is what
+   *  a board member clicking through should get: no checkout, nothing charged.
+   *  With it, the review screen grows a button that mints the REAL Square
+   *  checkout for the combined order — the same unlock `/donate/preview/[slug]`
+   *  uses, and the only request shape allowed to use sandbox credentials on the
+   *  live site. Same warning applies as on that page: against a production
+   *  token this is a real charge on a real card. */
+  previewToken?: string;
 }) {
   const [amount, setAmount] = useState<number>(50);
   const [other, setOther] = useState("");
@@ -108,6 +119,9 @@ export default function PassFlowPrototype({
   // The step variant walks these in order; the inline variant sits on "gift"
   // until it reaches the review screen, which both share.
   const [step, setStep] = useState<Step>("gift");
+  const [minting, setMinting] = useState(false);
+  const [mintError, setMintError] = useState<string | null>(null);
+  const [checkoutUrl, setCheckoutUrl] = useState<string | null>(null);
 
   const effectiveAmount = useMemo(() => {
     const parsed = other ? Number(other) : amount;
@@ -429,20 +443,113 @@ export default function PassFlowPrototype({
     </div>
   );
 
+  /** Mint the real checkout for the combined order. Only reachable with the
+   *  preview token — see the prop note. The pass prices are NOT sent: the
+   *  server looks each one up, the same rule the sponsorship tiers follow. */
+  async function mintCheckout() {
+    setMintError(null);
+    setMinting(true);
+    try {
+      const res = await fetch("/api/square/payment-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "donation",
+          previewToken,
+          designation: team,
+          amountCents: Math.round(effectiveAmount * 100),
+          email: donorEmail,
+          name: donorName,
+          phone: donorPhone,
+          displayOnWall,
+          passes: activePasses(passes).map((s) => ({
+            passId: s.passId,
+            qty: s.qty,
+            ...(s.season ? { season: s.season } : {}),
+          })),
+        }),
+      });
+      const data = (await res.json()) as { url?: string; error?: string };
+      if (res.ok && data.url) {
+        setCheckoutUrl(data.url);
+        return;
+      }
+      setMintError(
+        data.error ??
+          (res.status === 503
+            ? "Square is not configured for this environment."
+            : "Could not create the checkout."),
+      );
+    } catch {
+      setMintError("Could not reach the checkout API.");
+    } finally {
+      setMinting(false);
+    }
+  }
+
   // ------------------------------------------------------------ review screen
   // Shared by both variants: this is where the prototype stops.
   if (step === "review") {
     return (
       <div className="slotab-donate-form">
         <div className="slotab-proto-stop" role="status">
-          <span className="slotab-proto-stop-flag">Prototype stops here</span>
+          <span className="slotab-proto-stop-flag">
+            {previewToken ? "Live checkout unlocked" : "Prototype stops here"}
+          </span>
           <p>
-            On the real site this button would open Square&apos;s secure
-            checkout for <strong>{MONEY.format(orderTotal)}</strong>. Nothing
-            was sent and no payment link exists — everything below is what
-            Square <em>would</em> be asked for.
+            {previewToken ? (
+              <>
+                This page is unlocked, so the button below creates a{" "}
+                <strong>real Square checkout</strong> for the whole order —{" "}
+                <strong>{MONEY.format(orderTotal)}</strong>, gift and passes on
+                one order. Against a production token that is a{" "}
+                <strong>real charge on a real card</strong>; against a sandbox
+                token nothing moves.
+              </>
+            ) : (
+              <>
+                On the real site this button would open Square&apos;s secure
+                checkout for <strong>{MONEY.format(orderTotal)}</strong>.
+                Nothing was sent and no payment link exists — everything below
+                is what Square <em>would</em> be asked for.
+              </>
+            )}
           </p>
         </div>
+
+        {previewToken && (
+          <div className="slotab-proto-mint">
+            {checkoutUrl ? (
+              <>
+                <p className="slotab-donate-handoff-lead">
+                  Checkout created. Both lines are on the one order.
+                </p>
+                <p>
+                  <a href={checkoutUrl} className="slotab-btn">
+                    Open the Square checkout →
+                  </a>
+                </p>
+              </>
+            ) : (
+              <button
+                type="button"
+                className="slotab-btn slotab-donate-submit"
+                disabled={minting}
+                aria-busy={minting}
+                onClick={mintCheckout}
+              >
+                {minting
+                  ? "Creating checkout…"
+                  : `Create the real checkout — ${MONEY.format(orderTotal)}`}
+              </button>
+            )}
+            {mintError && (
+              <p className="slotab-donate-warning" role="alert">
+                {mintError}
+              </p>
+            )}
+          </div>
+        )}
 
         <h3 className="slotab-proto-head">The order</h3>
         <table className="slotab-proto-table">
@@ -492,11 +599,17 @@ export default function PassFlowPrototype({
         <h3 className="slotab-proto-head">What is still to build</h3>
         <ul className="slotab-proto-todo">
           <li>
-            <strong>A second line item.</strong> <code>lib/square.ts</code>{" "}
-            builds exactly one, quantity 1. Passes need one line per type with a
-            real quantity — a small change, but it is the reason this stops here
-            rather than opening a checkout that quietly charged for the gift
-            alone.
+            <strong>
+              <s>A second line item.</s> Done (#214).
+            </strong>{" "}
+            <code>lib/square.ts</code> built exactly one, quantity 1; it now
+            takes as many as the order needs, and the pass prices are looked up
+            server-side rather than posted. Erik was right that two Square
+            items can share an order — the limit was ours, not Square&apos;s.
+            Still open: whether the pass line should reference the club&apos;s{" "}
+            <em>catalogue</em> item (so it reports alongside storefront pass
+            sales, with the season as a real modifier) rather than being priced
+            ad hoc. That needs the production catalogue IDs.
           </li>
           <li>
             <strong>Fulfilment.</strong> A paid pass has to reach a human. The

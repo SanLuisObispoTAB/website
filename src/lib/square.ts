@@ -43,6 +43,31 @@ export type PaymentLinkInput = {
    *  is off and a donation has nothing to ship. */
   buyerFirstName?: string;
   buyerLastName?: string;
+  /** Further line items on the SAME order, billed alongside the primary one.
+   *
+   *  Added for #214, when Erik pushed back on my claim that a pass could not
+   *  ride along with a membership gift: *"They are both items so I'd think they
+   *  could be combined."* He was right — `order.line_items` is an array, and
+   *  the only thing stopping it was this function building exactly one.
+   *
+   *  These are AD-HOC items: a name and a unit price, no `catalog_object_id`.
+   *  Referencing the club's real catalogue objects is the better version — it
+   *  reports against the same Square item the storefront sells, and the
+   *  season could ride as a real `modifiers` entry — but it needs the
+   *  production catalogue IDs, which are not on the public store page and not
+   *  in the sandbox catalogue. Ad-hoc first, catalogue-backed when those IDs
+   *  are in hand; the shape here does not have to change for that, only gain
+   *  an optional id.
+   *
+   *  `quantity` is a count, so it is stringified for Square, which types it as
+   *  a decimal string. The PRICE IS PER UNIT — Square multiplies. Passing a
+   *  line total here would charge quantity-squared. */
+  additionalItems?: {
+    name: string;
+    quantity: number;
+    /** Whole cents, PER UNIT. */
+    amountCents: number;
+  }[];
   /** Where Square returns the buyer after payment. */
   redirectUrl: string;
 };
@@ -228,6 +253,14 @@ function buildBody(input: PaymentLinkInput, locationId: string, idempotencyKey: 
           quantity: "1",
           base_price_money: { amount: input.amountCents, currency: "USD" },
         },
+        // Anything bundled onto the same order — a game pass bought alongside a
+        // membership gift, today. The primary item stays first: it is what
+        // `description` above names, and it is the heading a buyer reads.
+        ...(input.additionalItems ?? []).map((item) => ({
+          name: item.name.slice(0, 500),
+          quantity: String(item.quantity),
+          base_price_money: { amount: item.amountCents, currency: "USD" },
+        })),
       ],
       ...(input.metadata ? { metadata: sanitizeMetadata(input.metadata) } : {}),
     },

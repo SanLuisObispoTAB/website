@@ -4996,3 +4996,12 @@ a.slotab-platinum-slide:hover {
   line-height: 1.6;
   color: var(--slotab-muted);
 }
+
+/* The unlocked mint button on the passes prototype (#214). Sits under the stop
+   panel, which is red-bordered — this block is deliberately plain so the
+   warning above it stays the loudest thing on the screen. */
+.slotab-proto-mint {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
