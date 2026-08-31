@@ -46,7 +46,22 @@ export type SponsorTier = {
   perks: string[];
 };
 
-// Sports-credit counts (5 / 4 / 3 / 2 / 1 down the ladder) were read off the
+// SPORTS-CREDIT COUNTS ARE NOW THE BOARD'S, DECIDED 2026-08-30 (#215):
+// Champion 4 · Gold 3 · Silver 2 · Tiger Pride 1 · Varsity 1.
+//
+// This supersedes the flat 3/3/3/0/0 taken from the #170 sheet, and it settles
+// two things that had been sitting open. **Silver's card no longer contradicts
+// itself** — it read "Banners at 2 sport locations" beside "Choose up to three
+// sports", live on production since #170; Silver is 2. And **Tiger Pride and
+// Varsity can designate again**, at one sport each, where the sheet had given
+// them none.
+//
+// The board also ruled that **no general membership may designate a sport** —
+// see `GENERAL_MEMBERSHIPS` below, where that is now an explicit `0` rather
+// than an absent field. That is the half with teeth: it gates `/donate`.
+//
+// Historical note, kept because it explains where the old numbers came from:
+// counts of 5 / 4 / 3 / 2 / 1 down the ladder were read off the
 // live storefront items on 2026-08-20, not inferred. They were missing from the
 // #88 transcription entirely, so `/membership` described banners, passes and
 // scoreboard ads while saying nothing about the one perk a business has to make
@@ -83,7 +98,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     name: "Champion Sponsor",
     annual: 10000,
     adPerks: true,
-    sportsCredit: 3,
+    sportsCredit: 4,
     passesIncluded: 10,
     perks: [
       "Logo on ALL student-athlete T-shirts for the full year",
@@ -112,7 +127,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     id: "silver",
     name: "Silver Sponsor",
     annual: 2500,
-    sportsCredit: 3,
+    sportsCredit: 2,
     passesIncluded: 6,
     perks: [
       "Banners at 2 sport locations of your choice for 1 year",
@@ -127,7 +142,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     id: "tiger-pride",
     name: "Tiger Pride",
     annual: 1000,
-    sportsCredit: 0,
+    sportsCredit: 1,
     passesIncluded: 4,
     perks: [
       "Recognition on SLOTAB website",
@@ -137,7 +152,7 @@ export const SPONSOR_TIERS: SponsorTier[] = [
     id: "varsity",
     name: "Varsity",
     annual: 500,
-    sportsCredit: 0,
+    sportsCredit: 1,
     passesIncluded: 2,
     perks: [
       "Recognition on SLOTAB website",
@@ -185,24 +200,47 @@ export type MembershipTier = {
   annual?: number;
   monthly?: number;
   anyAmount?: boolean;
+  /** How many sports a gift at this level may designate.
+   *
+   *  **Explicit, and explicitly zero.** Its absence was the whole bug: with no
+   *  field here, a general membership had no way to *say* it may not designate,
+   *  because nothing ever asked (see `docs/sport-designation-plan.md` §1). The
+   *  donate form offered a sport to every donor and the route accepted it, so a
+   *  $125 gift could be recorded at "Family" while sending 75% to a team — the
+   *  contradiction #206 found in a real gift.
+   *
+   *  Board decision 2026-08-30 (#215): all three are 0. Every level on the
+   *  ladder now carries this field, which is what lets one function answer the
+   *  question for both halves. */
+  sportsCredit: number;
   perks: string[];
 };
 
 export const GENERAL_MEMBERSHIPS: MembershipTier[] = [
+  // "Supports all sports" is gone from all three, and its removal is not
+  // cosmetic. It was the false half of the notification #206 flagged: the
+  // Membership VP was told, four lines apart, that a Family membership
+  // "supports all sports" and that $93.75 of it was designated to Wrestling.
+  // Under the board's rule the second sentence cannot happen — so the first is
+  // now simply true, and saying it alongside a designation is impossible.
+  // Replaced with the plain fact, which is also the reason the rule exists.
   {
     name: "Family",
     annual: 125,
-    perks: ["Tiger news & event updates", "Supports all sports"],
+    sportsCredit: 0,
+    perks: ["Tiger news & event updates", "Supports every Tigers team"],
   },
   {
     name: "Individual",
     annual: 50,
-    perks: ["Tiger news & event updates", "Supports all sports"],
+    sportsCredit: 0,
+    perks: ["Tiger news & event updates", "Supports every Tigers team"],
   },
   {
     name: "Tiger Friend",
     anyAmount: true,
-    perks: ["Tiger news & event updates", "Supports all sports"],
+    sportsCredit: 0,
+    perks: ["Tiger news & event updates", "Supports every Tigers team"],
   },
 ];
 
@@ -275,7 +313,14 @@ export function levelByName(name: string): LevelDetail | undefined {
   }
   const membership = GENERAL_MEMBERSHIPS.find((m) => m.name === name);
   return membership
-    ? { name: membership.name, perks: membership.perks, kind: "membership" }
+    ? {
+        name: membership.name,
+        perks: membership.perks,
+        kind: "membership",
+        // Carried for both halves now, so `sportsAllowedForLevel` has one
+        // question to ask rather than two shapes to special-case.
+        sportsCredit: membership.sportsCredit,
+      }
     : undefined;
 }
 
@@ -303,6 +348,50 @@ function rankedLevels(): Threshold[] {
  *  Silver, Gold and Champion — are simply skipped when matching monthly, so a
  *  monthly pledge can never be credited against a price the club does not
  *  publish. */
+/** How many sports a gift at this level may designate. **The only place this
+ *  question is answered** (`docs/sport-designation-plan.md` §3, step 2).
+ *
+ *  Before #215 the answer was spread across four places that had never been
+ *  reconciled: the sponsorship picker enforced a limit, the donation route
+ *  enforced nothing at all, and the general memberships had no field to
+ *  consult. Every consumer now asks this instead of deciding for itself — the
+ *  form, the payment route, the notification and the Treasurer's report.
+ *
+ *  An unknown level name returns 0. Failing closed is right for a rule about
+ *  who may direct money: a name we cannot place is not a name we should be
+ *  granting a perk to. */
+export function sportsAllowedForLevel(levelName: string | null): number {
+  if (!levelName) return 0;
+  return levelByName(levelName)?.sportsCredit ?? 0;
+}
+
+/** The smallest one-time gift that may designate a sport — derived from the
+ *  ladder, never typed.
+ *
+ *  Shown to a donor whose gift is below it, so the rule is stated as a number
+ *  they can act on rather than as a refusal. Derived because the board moves
+ *  these figures: when Varsity's price or its allowance changes, this follows
+ *  in the same edit instead of becoming a stale "$500" in three components. */
+export function minimumForDesignation(): number | null {
+  const eligible = [
+    ...SPONSOR_TIERS.filter((t) => t.sportsCredit > 0).map((t) => t.annual),
+    ...GENERAL_MEMBERSHIPS.filter(
+      (t) => t.sportsCredit > 0 && t.annual != null,
+    ).map((t) => t.annual as number),
+  ];
+  return eligible.length ? Math.min(...eligible) : null;
+}
+
+/** Whether a gift of `amount` may designate a sport at all. The donation flow's
+ *  gate: a donation designates exactly one team, so the question is only ever
+ *  "any?", while the sponsorship flow uses the count. */
+export function canDesignateSport(
+  amount: number,
+  mode: "one-time" | "monthly" = "one-time",
+): boolean {
+  return sportsAllowedForLevel(levelForGift(amount, mode)) > 0;
+}
+
 export function levelForGift(
   amount: number,
   mode: "one-time" | "monthly" = "one-time",

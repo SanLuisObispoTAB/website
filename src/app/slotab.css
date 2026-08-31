@@ -5005,3 +5005,20 @@ a.slotab-platinum-slide:hover {
   gap: 0.5rem;
   margin: 0.75rem 0;
 }
+
+/* The designation box when the gift's level may not name a sport (#215). Sits
+   inside the gold `.slotab-donate-designate` box, replacing the select — the
+   rule is stated where the control was, rather than the control vanishing. */
+.slotab-donate-nodesignate {
+  display: grid;
+  gap: 0.4rem;
+}
+.slotab-donate-nodesignate p:first-child {
+  margin: 0;
+  font-size: 0.95rem;
+}
+/* The zero-allowance bullet on a general membership card. Muted: it states a
+   limit, and it should not compete with the perks above it. */
+.slotab-tier-nosport {
+  color: var(--slotab-muted);
+}

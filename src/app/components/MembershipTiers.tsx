@@ -66,8 +66,16 @@ function TierCard({ t }: { t: SponsorTier | MembershipTier }) {
             credits is true either way. Reading it from `sponsor` would make the
             perk disappear whenever SQUARE_LIVE_DONATE is off, which is exactly
             the state the live site is in today. */}
-        {"sportsCredit" in t && sportsCreditPerk(t.sportsCredit) && (
+        {/* Every level carries `sportsCredit` since #215, so this renders on
+            BOTH halves of the sheet. A general membership shows the zero case
+            in words — the sheet has to state the rule, or /donate is the first
+            place anyone learns it, which is one screen too late. */}
+        {sportsCreditPerk(t.sportsCredit) ? (
           <li>{sportsCreditPerk(t.sportsCredit)}</li>
+        ) : (
+          <li className="slotab-tier-nosport">
+            Supports all teams — no single sport designated
+          </li>
         )}
       </ul>
           </div>

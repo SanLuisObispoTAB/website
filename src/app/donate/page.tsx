@@ -1,6 +1,13 @@
 import { Suspense } from "react";
 import DonateForm from "../components/DonateForm";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
+import { minimumForDesignation } from "../data/sponsor-tiers";
+
+const MONEY = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 export const metadata = {
   title: "Donate — SLOTAB",
@@ -19,8 +26,8 @@ export default function DonatePage() {
           <div className="slotab-donate-intro slotab-prose">
             <h2>Every gift fuels a real Tiger.</h2>
             <p>
-              <strong>75%</strong> of every designated gift goes directly
-              to the team you choose. <strong>25%</strong> goes to the
+              <strong>75%</strong> of a designated gift goes directly to the
+              sport you choose. <strong>25%</strong> goes to the
               SLOTAB General Fund &mdash; not overhead, but the shared
               programs that benefit every Tigers team: Hudl streaming,
               senior banners, T-shirts, sectional fees, and support for
@@ -29,12 +36,19 @@ export default function DonatePage() {
             <p>
               Any donation makes you a SLOTAB member. Pick a tier on the
               right, or enter your own amount &mdash; every gift is
-              tax-deductible and goes straight to the sport you choose.
+              tax-deductible.
             </p>
             <ul className="slotab-donate-bullets">
               <li>Minimum gift: $25</li>
               <li>Tax-deductible 501(c)(3)</li>
-              <li>75% to your sport, 25% to shared programs</li>
+              {/* #215. The old bullet read "75% to your sport" to every
+                  reader, including the majority whose gift supports all of
+                  them — the claim the board's rule retired. */}
+              <li>
+                Designating a sport starts at{" "}
+                {MONEY.format(minimumForDesignation() ?? 500)}
+              </li>
+              <li>Below that, 100% supports every Tigers team</li>
             </ul>
           </div>
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ZoomablePhotos from "./ZoomablePhotos";
+import { minimumForDesignation } from "../data/sponsor-tiers";
 
 type RosterEntry = {
   /** Jersey number. Optional, because plenty of rosters don't have one:
@@ -164,6 +165,12 @@ function formatYear(year: string): string {
   const trimmed = year.trim();
   return /^\d{1,2}$/.test(trimmed) ? `Gr. ${trimmed}` : trimmed;
 }
+
+const DESIGNATION_MONEY = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 export default function TeamPage({ team }: { team: Team }) {
   // A team may declare one head coach or several (cross country runs boys and
@@ -344,12 +351,22 @@ export default function TeamPage({ team }: { team: Team }) {
           <div className="slotab-section-title">
             <span className="slotab-kicker">Support the Team</span>
             <h2>Donate to {team.sport}</h2>
+            {/* #215 — this used to promise every reader that 75% of their
+                gift went to this program. Since the board's rule that is true
+                only at the Varsity level and above; below it a gift supports
+                every team through the general fund. Twenty-one team pages made
+                the old promise, which is exactly the kind of prose the change
+                plan warned would drift from the code. Threshold derived, not
+                typed. */}
             <p style={{ maxWidth: 640, margin: "1rem auto 0" }}>
-              <strong>75%</strong> of your gift goes directly to the{" "}
-              {team.sport.toLowerCase()} program.{" "}
-              <strong>25%</strong> goes to the SLOTAB general fund that
-              pays for things every Tigers team uses — Hudl streaming,
-              senior banners, T-shirts, and more.
+              <strong>
+                From {DESIGNATION_MONEY.format(minimumForDesignation() ?? 500)}
+              </strong>
+              , <strong>75%</strong> of your gift goes directly to the{" "}
+              {team.sport.toLowerCase()} program and <strong>25%</strong> to the
+              SLOTAB general fund that pays for what every Tigers team uses —
+              Hudl streaming, senior banners, T-shirts, and more. Below that,
+              your gift supports all Tigers teams through the general fund.
             </p>
           </div>
           <div

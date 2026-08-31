@@ -156,6 +156,12 @@ export default function BusinessSponsorPanel() {
             {sportsCreditPerk(tier.sportsCredit) && (
               <li>{sportsCreditPerk(tier.sportsCredit)}</li>
             )}
+            {/* Every sponsorship tier credits at least one sport since #215, so
+                this branch is unreachable today — kept because the panel must
+                not simply fall silent if the board ever zeroes one again. */}
+            {!sportsCreditPerk(tier.sportsCredit) && (
+              <li>Not credited to a specific sport</li>
+            )}
           </ul>
         </div>
       </fieldset>

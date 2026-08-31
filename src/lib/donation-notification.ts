@@ -178,7 +178,20 @@ export function composeDonationEmail(gift: DonationPayment): DonationEmail {
   const actionablePerks = (level?.perks ?? [])
     .map((p) => ({ perk: p, action: perkAction(p) }))
     .filter((x): x is { perk: string; action: string } => Boolean(x.action));
-  const passivePerks = (level?.perks ?? []).filter((p) => !perkAction(p));
+  // A designated gift never carries the "supports every Tigers team" line.
+  //
+  // This is the #206 contradiction, closed at the source: the Membership VP was
+  // told four lines apart that a Family membership supports all sports and that
+  // $93.75 of it was designated to Wrestling. Since #215 the route refuses that
+  // combination outright, so it should no longer be reachable — this stays as
+  // the belt to that braces, because a gift taken BEFORE the gate shipped can
+  // still arrive here through the webhook, and the sentence would be as wrong
+  // then as it was in August.
+  const designatedAtASport =
+    Boolean(gift.designation) && !isUnsplitDesignation(gift.designation);
+  const passivePerks = (level?.perks ?? [])
+    .filter((p) => !perkAction(p))
+    .filter((p) => !(designatedAtASport && /all sports|every tigers team/i.test(p)));
   // "Tiger news & event updates" is not a benefit with a dollar value; passes,
   // banners and scoreboard ads are. Only the sponsorship half of the ladder
   // carries anything the IRS would call goods or services.

@@ -218,8 +218,9 @@ export default function ClassicHomePage() {
                 <div className="tiger-impact-card-eyebrow">The Split</div>
                 <div className="tiger-impact-card-num">75 / 25</div>
                 <div className="tiger-impact-card-sub">
-                  75% to the team you designate · 25% to the general fund
-                  every Tigers team draws on
+                  75% to a designated sport · 25% to the general fund every
+                  Tigers team draws on. Naming a sport starts at the Varsity
+                  level; below it, gifts support all teams.
                 </div>
               </div>
             </div>

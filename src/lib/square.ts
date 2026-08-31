@@ -45,10 +45,19 @@ export type PaymentLinkInput = {
   buyerLastName?: string;
   /** Further line items on the SAME order, billed alongside the primary one.
    *
+   *  **No caller today, and that is a decision rather than an oversight.**
    *  Added for #214, when Erik pushed back on my claim that a pass could not
    *  ride along with a membership gift: *"They are both items so I'd think they
    *  could be combined."* He was right — `order.line_items` is an array, and
-   *  the only thing stopping it was this function building exactly one.
+   *  the only thing stopping it was this function building exactly one. It was
+   *  proved end to end against the sandbox: one order carrying a $50 donation,
+   *  an annual pass and two Winter passes, totalling $550.
+   *
+   *  Then the board settled the question the other way (#215): passes stay on
+   *  their own purchase flow for now, so the bundling was taken back OUT of the
+   *  payment route and the prototypes were deleted. This stayed, because it is
+   *  the proven part, it has no reachable surface of its own, and "for now" is
+   *  the board's own wording. If bundling never comes back, delete it.
    *
    *  These are AD-HOC items: a name and a unit price, no `catalog_object_id`.
    *  Referencing the club's real catalogue objects is the better version — it

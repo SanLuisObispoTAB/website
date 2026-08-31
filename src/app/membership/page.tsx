@@ -5,6 +5,13 @@ import { SPONSOR_SEASON } from "../data/sponsors";
 import { DONOR_WALL, orderedTiers } from "../data/donors";
 import TigerPageHeader from "../components/tiger/TigerPageHeader";
 import { SponsorshipMarker } from "../components/ConsentGate";
+import { minimumForDesignation } from "../data/sponsor-tiers";
+
+const MONEY = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
 export const metadata = {
   title: "Sponsors & Membership — SLOTAB",
@@ -50,8 +57,19 @@ export default function MembershipPage() {
           <p>
             Per the 2026 board decision, every donation enrolls you as a
             SLOTAB member. There&apos;s no separate signup form &mdash; pick
-            an amount, designate a team (or the general fund), and your
-            membership lands at the matching tier automatically.
+            an amount, and your membership lands at the matching tier
+            automatically.
+          </p>
+          {/* The rule, on the page where people join — #215. It used to say
+              the opposite ("designate a team (or the general fund)"), which is
+              the sentence the board's decision overturned. The figure is
+              derived, so it moves with the ladder rather than going stale. */}
+          <p>
+            <strong>Naming a single sport starts at{" "}
+            {MONEY.format(minimumForDesignation() ?? 500)}</strong>, the Varsity
+            level. General memberships &mdash; Family, Individual and Tiger
+            Friend &mdash; support every Tigers team through the General Fund
+            rather than one sport.
           </p>
           <p style={{ color: "var(--tiger-graphite)" }}>
             <strong>Businesses &amp; individuals:</strong> the Sponsorship

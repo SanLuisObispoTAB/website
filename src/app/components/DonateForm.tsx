@@ -15,7 +15,11 @@ import BusinessSponsorPanel from "./BusinessSponsorPanel";
 // One source of truth with /membership, across BOTH halves of the sheet —
 // businesses enrol through this same form, so a gift has to be placed
 // against the sponsorship tiers as well as the general memberships.
-import { levelForGift } from "../data/sponsor-tiers";
+import {
+  levelForGift,
+  canDesignateSport,
+  minimumForDesignation,
+} from "../data/sponsor-tiers";
 // Designations that are neither a team nor the general fund — the Hall of Fame
 // push is the first. Imported rather than special-cased here so the split rule
 // stays identical to the one the Treasurer's report applies.
@@ -134,6 +138,14 @@ export default function DonateForm({
       : "",
   );
   const [team, setTeam] = useState<string>(initialTeam);
+  // The team a `?team=` link asked for, kept for the life of the form.
+  //
+  // Every team page's donate button arrives here with a slug and the $50
+  // default amount, which under #215 is a level that may not designate. The
+  // choice is between dropping their intent silently and holding it: this holds
+  // it, so raising the amount to the threshold restores the team they came for
+  // rather than making them find it again in a 30-item dropdown.
+  const [requestedSlug] = useState<string>(initialTeam);
   // Raised only when someone tries to submit without designating. Deliberately
   // not a disabled button: a dead control gives no reason, and the reason is
   // the whole problem here.
@@ -198,22 +210,43 @@ export default function DonateForm({
   }, [amount, other]);
 
   const tier = levelForGift(effectiveAmount, mode);
+
+  // MAY THIS GIFT NAME A SPORT? (#215)
+  //
+  // Board rule, 2026-08-30: no general membership designates a sport, and a
+  // donation's level comes from its amount — so the answer moves as the donor
+  // moves the amount. Asked of `canDesignateSport` rather than compared against
+  // a number here, because the ladder is the board's to change and a threshold
+  // typed into a component is the copy that goes stale.
+  const mayDesignate = canDesignateSport(effectiveAmount, mode);
+  const designationFloor = minimumForDesignation();
   const teamShare = effectiveAmount * 0.75;
   const generalShare = effectiveAmount * 0.25;
-  const isGeneral = team === "general";
-  const fund = specialFund(team);
+  // The designation this gift will actually carry.
+  //
+  // DERIVED, NOT STORED, and deliberately so: a `useEffect` that force-set the
+  // state when the amount dropped would fight the donor's own edits and trips
+  // the repo's set-state-in-effect rule. Deriving means the team a donor chose
+  // (or arrived with) survives while they experiment with the amount, and comes
+  // back the moment the gift reaches a level that may designate.
+  //
+  // Below that level it is the General Fund — the true answer, not a silent
+  // one: the box below says so where the picker used to be.
+  const effectiveTeam = mayDesignate ? team : "general";
+  const isGeneral = effectiveTeam === "general";
+  const fund = specialFund(effectiveTeam);
   // Whether ANY of the gift is split off to the general fund. A named fund
   // keeps all of it, same as a general gift — so the 75/25 preview, which is
   // the club's promise to the donor, must not appear for either.
-  const unsplit = isUnsplitDesignation(team);
-  const hasDesignation = team !== "";
+  const unsplit = isUnsplitDesignation(effectiveTeam);
+  const hasDesignation = effectiveTeam !== "";
   const tooLow = effectiveAmount > 0 && effectiveAmount < floor;
 
   const teamLabel = isGeneral
     ? "SLOTAB General Fund"
     : fund
       ? fund.label
-      : TEAMS.find((t) => t.slug === team)?.name ?? "your team";
+      : TEAMS.find((t) => t.slug === effectiveTeam)?.name ?? "your team";
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donorEmail);
   const donorComplete = donorName.trim().length > 0 && emailValid;
@@ -234,7 +267,7 @@ export default function DonateForm({
     handedOff &&
     handoffMode === "storefront" &&
     hasDesignation &&
-    !hasOwnSquareItem(team)
+    !hasOwnSquareItem(effectiveTeam)
   ) {
     unrecordedIntent.push(
       `Gift is designated ${teamLabel} — the storefront has no tile for it, so the payment will show as GENERAL ATHLETICS`,
@@ -456,6 +489,38 @@ export default function DonateForm({
           between a gift reaching a sport and landing in the general pot. */}
       <fieldset className="slotab-donate-fieldset slotab-donate-designate">
         <legend>Designate your gift</legend>
+        {!mayDesignate ? (
+          /* The rule, stated where the control was (#215). Not a hidden
+             fieldset: a donor who came from a team page, or who used this form
+             last season, needs to know why the sport list is gone — and a
+             control that simply vanishes reads as a bug, not as a policy. */
+          <div className="slotab-donate-nodesignate">
+            <p>
+              <strong>This gift supports every Tigers team</strong> through the
+              SLOTAB General Fund.
+            </p>
+            <p className="slotab-donate-hint">
+              {designationFloor
+                ? `Naming a single sport starts at ${MONEY.format(designationFloor)} — that is the ${levelForGift(designationFloor, mode) ?? "sponsorship"} level. Below it, gifts go to the fund that supports all of them.`
+                : "Naming a single sport isn't available at this level."}
+            </p>
+            {/* Only when they actually came for a team. Naming it is the
+                difference between a rule and a rebuff — and it is the team the
+                form will restore if they raise the amount. */}
+            {requestedSlug &&
+              TEAMS.some((t) => t.slug === requestedSlug) &&
+              designationFloor && (
+                <p className="slotab-donate-hint">
+                  You arrived from{" "}
+                  <strong>
+                    {TEAMS.find((t) => t.slug === requestedSlug)?.name}
+                  </strong>
+                  . Raise your gift to {MONEY.format(designationFloor)} and it
+                  goes back to them automatically.
+                </p>
+              )}
+          </div>
+        ) : (
         <select
           id="donate-designation"
           ref={teamSelectRef}
@@ -494,7 +559,8 @@ export default function DonateForm({
             </option>
           ))}
         </select>
-        {teamError ? (
+        )}
+        {teamError && mayDesignate ? (
           <p
             className="slotab-donate-warning"
             id="donate-designation-error"
@@ -503,7 +569,7 @@ export default function DonateForm({
             Please choose a sport — or the SLOTAB General Fund — before
             donating.
           </p>
-        ) : (
+        ) : mayDesignate ? (
           <p className="slotab-donate-hint" id="donate-designation-hint">
             {fund
               ? fund.blurb
@@ -511,7 +577,7 @@ export default function DonateForm({
                 ? "You can change this any time before checkout."
                 : "Pick the team you want to support, or give to the General Fund."}
           </p>
-        )}
+        ) : null}
       </fieldset>
 
       {/* Tribute — only for a fund that offers one. Sent to Square as order
@@ -706,7 +772,7 @@ export default function DonateForm({
               body: JSON.stringify({
                 kind: "donation",
                 ...(previewToken ? { previewToken } : {}),
-                designation: team,
+                designation: effectiveTeam,
                 // Only ever set for a fund that asked for one; the server
                 // ignores it otherwise.
                 ...(fund?.tribute && tribute.trim()
@@ -754,7 +820,7 @@ export default function DonateForm({
               setHandoffMode("storefront");
               setHandedOff(true);
               window.open(
-                squareDonateUrl(team),
+                squareDonateUrl(effectiveTeam),
                 "_blank",
                 "noopener,noreferrer",
               );

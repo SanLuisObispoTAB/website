@@ -1,21 +1,35 @@
 # Sport designation — change plan
 
-> **Status:** §§1–4 and §6 are a **plan — not implemented**, waiting on the
-> board's answer to Erik's proposal about the 2026-27 sport designations.
-> **No donation behaviour has changed.** The donate form still offers a sport
-> to everyone, and the payment route still accepts it.
+> **Status: IMPLEMENTED 2026-08-30 (#215).** The board answered, and the answer
+> was the one §4 called "Erik's stated rule" plus a re-cut of the sponsorship
+> numbers:
 >
-> **One thing here HAS shipped** (§5): `/board/square-report` now *flags* the
-> gifts already affected. It is read-only — it reports, corrects nothing, and
-> touches nothing in Square. It shipped ahead of the rest because the affected
-> gifts could not be listed from this repo at all, and because the board needs
-> that list to answer the very question the rest of this plan is waiting on.
+> | Level | Sports it may designate |
+> |---|---|
+> | Champion Sponsor | 4 |
+> | Gold Sponsor | 3 |
+> | Silver Sponsor | 2 |
+> | Tiger Pride | 1 |
+> | Varsity | 1 |
+> | Family · Individual · Tiger Friend | **0** |
 >
-> **Purpose:** make the board's answer a *data edit*, not a code hunt. Today
-> the rule is spread across 18 places in 4 categories; this plan converges it
-> to one, and lists every surface that has to follow.
+> Steps 1–3 and 5 shipped together, server before client, prose in the same
+> commit. **Step 4 (collapsing the duplicated 0.75/0.25) did NOT ship** — it is
+> independent of the board's decision and mixing it into a change that gates
+> money would have made the diff harder to read. It stays open.
 >
-> Written 2026-08-27.
+> **Two things this settled on the way.** Silver's card no longer contradicts
+> itself (2 banners, 2 sports). And §5's "boundary worth confirming" is now
+> decided the other way: `/board/square-report` flags on **zero allowance**
+> rather than on the three general-membership names, because Tiger Pride and
+> Varsity have gone from 0 to 1 and the two definitions have come apart.
+>
+> **§2 E — still true, and still not fixable by a deploy.** The storefront's 27
+> per-sport donation items let anyone designate a sport at any amount, bypassing
+> this gate entirely. The website now enforces the rule; the Square store does
+> not. That is a dashboard job.
+>
+> Written 2026-08-27; status rewritten 2026-08-30.
 
 ---
 

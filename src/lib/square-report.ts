@@ -14,7 +14,11 @@
 // Read-only: it creates and changes nothing in Square.
 
 import teamsData from "../app/data/teams.json";
-import { sponsorTierById, GENERAL_MEMBERSHIPS } from "../app/data/sponsor-tiers";
+import {
+  sponsorTierById,
+  GENERAL_MEMBERSHIPS,
+  SPONSOR_TIERS,
+} from "../app/data/sponsor-tiers";
 import { specialFund, isUnsplitDesignation } from "../app/data/special-funds";
 
 const SQUARE_VERSION = "2025-06-18";
@@ -66,10 +70,24 @@ export type FlaggedGift = {
   createdAt?: string;
 };
 
-/** Level names that may not designate a sport. Read off `GENERAL_MEMBERSHIPS`
- *  rather than typed here, so the day the board moves a level between halves
- *  of the ladder this follows without an edit. */
-const GENERAL_LEVEL_NAMES = new Set(GENERAL_MEMBERSHIPS.map((m) => m.name));
+/** Level names that may not designate a sport.
+ *
+ *  Keyed on the ALLOWANCE, not on which half of the sheet a level sits in
+ *  (#215). The plan flagged this as a boundary worth confirming: the old set
+ *  was the three general memberships, which happened to be the same thing
+ *  while Tiger Pride and Varsity carried `sportsCredit: 0`. The board has since
+ *  given both of them 1, so the two definitions have come apart — and the one
+ *  that means what the report is actually asking is "levels that may not
+ *  designate", which is this.
+ *
+ *  Follows the board without an edit either way: set a sponsorship tier back to
+ *  zero and its gifts start being flagged; give a general membership an
+ *  allowance and they stop. */
+const GENERAL_LEVEL_NAMES = new Set(
+  [...SPONSOR_TIERS, ...GENERAL_MEMBERSHIPS]
+    .filter((t) => t.sportsCredit === 0)
+    .map((t) => t.name),
+);
 
 /** Does this gift combine a general-membership level with a team designation —
  *  the combination the board's rule forbids?
