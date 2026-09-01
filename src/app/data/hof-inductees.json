@@ -7,12 +7,6 @@
       "sport": "Basketball, Track"
     },
     {
-      "name": "Andrew Ecklund",
-      "yearsAtSLOHS": "1994-1998",
-      "yearInducted": "2024",
-      "sport": "Football"
-    },
-    {
       "name": "AnneMarie Lee",
       "yearsAtSLOHS": "1953-1978",
       "yearInducted": "2024",
@@ -49,65 +43,10 @@
       "sport": "Cross Country, Track"
     },
     {
-      "name": "Joseph Diefenderfer",
-      "yearsAtSLOHS": "1995-1999",
-      "yearInducted": "2024",
-      "sport": "Baseball"
-    },
-    {
       "name": "Julian Demalleville",
       "yearsAtSLOHS": "2005-2009",
       "yearInducted": "2024",
       "sport": "Basketball"
-    },
-    {
-      "name": "Katie Hicks",
-      "yearsAtSLOHS": "1998-2002",
-      "yearInducted": "2024",
-      "sport": "Multi-Sport",
-      "note": "12 Varsity Letters"
-    },
-    {
-      "name": "Larry Lee",
-      "yearsAtSLOHS": "1975-1979",
-      "yearInducted": "2024",
-      "sport": "Football, Baseball"
-    },
-    {
-      "name": "Michael Lee",
-      "yearsAtSLOHS": "1965-1969",
-      "yearInducted": "2024",
-      "sport": "Football"
-    },
-    {
-      "name": "Phil Prijatel",
-      "yearsAtSLOHS": "1950-1984",
-      "yearInducted": "2024",
-      "sport": "Coach, Athletic Director"
-    },
-    {
-      "name": "Rick Ernstrom",
-      "yearsAtSLOHS": "1969-2022",
-      "yearInducted": "2024",
-      "sport": "Coach"
-    },
-    {
-      "name": "Steve Boaz",
-      "yearsAtSLOHS": "1987",
-      "yearInducted": "2024",
-      "sport": "Cross Country, Track & Field"
-    },
-    {
-      "name": "Travis Hasson",
-      "yearsAtSLOHS": "1995-1998",
-      "yearInducted": "2024",
-      "sport": "Tennis"
-    },
-    {
-      "name": "Virginia Parsons",
-      "yearsAtSLOHS": "1958-1975",
-      "yearInducted": "2024",
-      "sport": "Charter Member"
     },
     {
       "name": "Gil Stork",
@@ -279,5 +218,79 @@
       "yearInducted": "1950",
       "sport": "Baseball"
     }
-  ]
+  ],
+  "unverified": [
+    {
+      "name": "Andrew Ecklund",
+      "yearsAtSLOHS": "1994-1998",
+      "yearInducted": "2024",
+      "sport": "Football",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Joseph Diefenderfer",
+      "yearsAtSLOHS": "1995-1999",
+      "yearInducted": "2024",
+      "sport": "Baseball",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Katie Hicks",
+      "yearsAtSLOHS": "1998-2002",
+      "yearInducted": "2024",
+      "sport": "Multi-Sport",
+      "note": "12 Varsity Letters",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Larry Lee",
+      "yearsAtSLOHS": "1975-1979",
+      "yearInducted": "2024",
+      "sport": "Football, Baseball",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Michael Lee",
+      "yearsAtSLOHS": "1965-1969",
+      "yearInducted": "2024",
+      "sport": "Football",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Phil Prijatel",
+      "yearsAtSLOHS": "1950-1984",
+      "yearInducted": "2024",
+      "sport": "Coach, Athletic Director",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Rick Ernstrom",
+      "yearsAtSLOHS": "1969-2022",
+      "yearInducted": "2024",
+      "sport": "Coach",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Steve Boaz",
+      "yearsAtSLOHS": "1987",
+      "yearInducted": "2024",
+      "sport": "Cross Country, Track & Field",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Travis Hasson",
+      "yearsAtSLOHS": "1995-1998",
+      "yearInducted": "2024",
+      "sport": "Tennis",
+      "was": "Class of 2024"
+    },
+    {
+      "name": "Virginia Parsons",
+      "yearsAtSLOHS": "1958-1975",
+      "yearInducted": "2024",
+      "sport": "Charter Member",
+      "was": "Class of 2024"
+    }
+  ],
+  "_note": "CLASS OF 2024 CORRECTED 2026-09-01 (decision #204). The Athletic Director flagged errors in the roll and is preparing a scrubbed list; in the meantime he named the eight people who ARE the Class of 2024: AnneMarie Lee, Julian Demalleville, AB Torres, Chalon Tietje, Bruce Tedone, Jenna Kingma, Brooke Ecklund and Brian Waterbury. The roll had eighteen names under that year, so the other ten moved to `unverified` — OFF the public page, STILL IN THE DATA, each carrying `was` so it is clear where they sat. They were NOT deleted: all 46 names came from a scrape of the school's Hall of Fame page, and the tell is that the attribution is wrong rather than the people (a Charter Member cannot be a 2024 inductee), so these are most likely real inductees of earlier classes whose year the scrape got wrong. Erik confirmed this reading on 2026-09-01 — \"we know the 2024 list is accurate; the others must be for different years\" — so these ten are AWAITING A YEAR, NOT A VERDICT. Re-file each under the class the AD's list gives it; do not delete one without him saying that person does not belong in the Hall at all. Names are reproduced EXACTLY as the roll had them and were not re-typed from the AD's message — his note spells two of them differently (\"Annamarie\" for AnneMarie Lee, \"Booke\" for Brooke Ecklund); the scrubbed list settles which spelling each person uses."
 }

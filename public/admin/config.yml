@@ -841,7 +841,7 @@ collections:
       - name: inductees
         label: "Inductee Roster"
         file: "src/app/data/hof-inductees.json"
-        description: "Full roster of SLOHS Hall of Fame inductees. Add new inductees after each class is announced."
+        description: "Full roster of SLOHS Hall of Fame inductees. Add new inductees after each class is announced. The Athletic Director flagged errors in the roll on 2026-09-01 and is preparing a scrubbed list — until it arrives, ten names sit in \"Awaiting the AD's list\" below rather than under a class heading."
         fields:
           - name: inductees
             label: "Inductees"
@@ -858,6 +858,37 @@ collections:
                   required: false,
                   hint: "E.g. 'Posthumous', '12 Varsity Letters', 'CIF in Dodger Stadium'",
                 }
+          - name: unverified
+            label: "Awaiting the AD's list — not shown on the site"
+            widget: list
+            required: false
+            summary: "{{fields.name}}"
+            label_singular: "Inductee"
+            hint: "Names taken off the public Hall of Fame page until the Athletic Director's scrubbed list says which class they belong to. They are NOT shown at /hall-of-fame. All 46 names came from a scrape of the school's page, and the year is what looks wrong rather than the person — a Charter Member cannot be a 2024 inductee — so these are most likely real inductees of earlier classes. Move one back up to \"Inductees\" only when the AD's list gives its year; delete one only if he says the person does not belong in the Hall at all."
+            fields:
+              - {
+                  name: name,
+                  label: "Name",
+                  widget: string,
+                  hint: "Exactly as the roll had them. Don't re-type a name to tidy it — this is a public honor roll and the AD's list settles the spelling.",
+                }
+              - { name: yearsAtSLOHS, label: "Years at SLOHS", widget: string }
+              - { name: yearInducted, label: "Year inducted (disputed)", widget: string, required: false }
+              - { name: sport, label: "Sport(s)", widget: string }
+              - {
+                  name: note,
+                  label: "Note (optional)",
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: was,
+                  label: "Old heading (for context only)",
+                  widget: string,
+                  required: false,
+                  hint: "The class heading they used to sit under.",
+                }
+          - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
 
   # ---------------------------------------------------------------
   # SLOTAB booster events (meetings, fundraisers, Spring Social)
