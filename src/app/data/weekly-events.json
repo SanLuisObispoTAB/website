@@ -6,7 +6,7 @@
       "gid": "1838572917"
     }
   ],
-  "fetchedAt": "2026-08-31T19:47:32.558Z",
+  "fetchedAt": "2026-09-02T17:31:32.370Z",
   "events": [
     {
       "id": "weekly-2026-09-02-flag-football--santa-maria-jv-nipomo-v-",
@@ -47,6 +47,19 @@
       "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
     },
     {
+      "id": "weekly-2026-09-03-cheer-jv-game-day-frosh-vs-indepe",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-09-03T16:00:00",
+      "title": "Cheer JV Gold — Game Day (Frosh) vs Independence",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Game Day (Frosh) vs Independence",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
+    },
+    {
       "id": "weekly-2026-09-04-girls-water-polo--girls-water-polo-tournam",
       "category": "girls-water-polo",
       "categoryLabel": "Girls Water Polo",
@@ -83,16 +96,28 @@
       "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
     },
     {
-      "id": "weekly-2026-09-04-cheer-jvvarsity-game-day-independence-hs",
+      "id": "weekly-2026-09-04-cheer-varsity-game-day-independence-hs",
       "category": "cheer",
       "categoryLabel": "Cheer",
       "isSport": true,
       "date": "2026-09-04T19:30:00",
-      "title": "Cheer, V & JV Black @ Game Day @ Independence HS (Varsity only)",
-      "detail": "Independence (Bakersfield) · JV & Varsity",
+      "title": "Varsity Cheer @ Game Day @ Independence HS",
+      "detail": "Independence · Varsity",
       "isHome": false,
-      "opponent": "Game Day @ Independence HS (Varsity only)",
-      "level": "JV & Varsity",
+      "opponent": "Game Day @ Independence HS",
+      "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
+    },
+    {
+      "id": "weekly-2026-09-05-cross-country--big-ditch-invitational",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-09-05T08:00:00",
+      "title": "Cross Country — Big Ditch Invitational",
+      "detail": "Tally Fields",
+      "isHome": false,
+      "opponent": "Big Ditch Invitational",
       "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
     },
     {
@@ -129,18 +154,6 @@
       "detail": "Pioneer Valley",
       "isHome": false,
       "opponent": "Pioneer Valley Tournament (JV)",
-      "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
-    },
-    {
-      "id": "weekly-2026-09-05-cross-country--big-ditch-invitational",
-      "category": "cross-country",
-      "categoryLabel": "Cross Country",
-      "isSport": true,
-      "date": "2026-09-05T12:00:00",
-      "title": "Cross Country — Big Ditch Invitational",
-      "detail": "Tally Fields",
-      "isHome": false,
-      "opponent": "Big Ditch Invitational",
       "sourceTab": "Weekly Athletics Schedule Aug 31 - Sep 5"
     }
   ]
