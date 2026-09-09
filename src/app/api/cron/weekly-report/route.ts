@@ -28,7 +28,15 @@ export const maxDuration = 60;
 const MONEY = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 const money = (cents: number) => MONEY.format(cents / 100);
 
-const TREASURER_EMAIL = "slotabtreas@gmail.com";
+// Who gets the Monday report. The Treasurer owns the numbers; Erik is on it
+// because the report is the ONLY place the cumulative Hall of Fame figure is
+// computed, and the thermometer he maintains stops publishing if it is not
+// refreshed (#188) — so a report only Trina can see makes a weekly job depend
+// on a weekly forward. Asking "have there been any Hall of Fame gifts?" and
+// having to route the question through someone else's inbox is what prompted
+// this (#218). Add an address here rather than forwarding by hand; everyone on
+// this list sees donor names and amounts, so it is a board-level list.
+const REPORT_RECIPIENTS = ["slotabtreas@gmail.com", "eramberg@gmail.com"];
 
 // The day the Hall of Fame designation went live on the donate form (#184).
 // The thermometer needs a CUMULATIVE total, not this email's trailing week, so
@@ -198,7 +206,7 @@ export async function GET(req: Request) {
   // would throw that away and report "not configured" with nothing to read.
   const weekEnding = until.toISOString().slice(0, 10);
   const result = await sendEmail({
-    to: TREASURER_EMAIL,
+    to: REPORT_RECIPIENTS,
     subject: `SLOTAB donations — week ending ${weekEnding}`,
     text: compose(report, hofReport, siteUrl),
   });

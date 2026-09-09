@@ -17,10 +17,20 @@ export type EmailResult =
   | { status: "failed"; reason: string };
 
 export type EmailMessage = {
-  to: string;
+  /** One address, or several. An array is what a board report needs: the
+   *  Treasurer owns the numbers, but a report only one person can see is one
+   *  person's memory — #218 added a second recipient for exactly that reason.
+   *  Every existing caller passes a single string and is unaffected. */
+  to: string | string[];
   subject: string;
   text: string;
 };
+
+/** Normalized recipient list — one place, so the log line and the request
+ *  body can never disagree about who a message went to. */
+function recipients(to: string | string[]): string[] {
+  return (Array.isArray(to) ? to : [to]).map((a) => a.trim()).filter(Boolean);
+}
 
 /** Whether outbound mail is wired up. Exposed so a caller can decide whether
  *  a feature is worth advertising, rather than discovering it at send time. */
@@ -31,6 +41,15 @@ export function isEmailConfigured(): boolean {
 export async function sendEmail(msg: EmailMessage): Promise<EmailResult> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
+  const to = recipients(msg.to);
+
+  // An empty recipient list is a caller bug, and Resend would reject it with a
+  // 422 that reads like a From-domain problem — the one failure this file's
+  // comments already warn is hard to diagnose. Name it here instead.
+  if (to.length === 0) {
+    console.error(`[email] no recipients for "${msg.subject}" — not sent`);
+    return { status: "failed", reason: "no recipients" };
+  }
 
   if (!apiKey || !from) {
     // Not an error — the club may genuinely not have set this up yet. Loud, so
@@ -50,7 +69,7 @@ export async function sendEmail(msg: EmailMessage): Promise<EmailResult> {
         : `\n${msg.text}`;
     console.warn(
       "[email] not configured (RESEND_API_KEY / EMAIL_FROM unset) — message NOT sent:\n" +
-        `  to: ${msg.to}\n  subject: ${msg.subject}\n${detail}`,
+        `  to: ${to.join(", ")}\n  subject: ${msg.subject}\n${detail}`,
     );
     return { status: "skipped", reason: "email not configured" };
   }
@@ -64,7 +83,7 @@ export async function sendEmail(msg: EmailMessage): Promise<EmailResult> {
       },
       body: JSON.stringify({
         from,
-        to: [msg.to],
+        to,
         subject: msg.subject,
         text: msg.text,
       }),
