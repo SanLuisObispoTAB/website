@@ -6,18 +6,18 @@
       "gid": "2991467"
     },
     {
-      "name": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19",
+      "name": "Weekly Athletics Schedule Sep 14 - Sep 19",
       "gid": "1074877354"
     }
   ],
-  "fetchedAt": "2026-09-07T18:31:40.927Z",
+  "fetchedAt": "2026-09-09T17:27:03.695Z",
   "events": [
     {
       "id": "weekly-2026-09-08-girls-golf--oahs-sjhs",
       "category": "girls-golf",
       "categoryLabel": "Girls Golf",
       "isSport": true,
-      "date": "2026-09-08T12:00:00",
+      "date": "2026-09-08T13:00:00",
       "title": "Girls Golf @ OAHS, SJHS",
       "detail": "Orcutt hosts",
       "isHome": false,
@@ -245,7 +245,7 @@
       "detail": "Cabrillo",
       "isHome": false,
       "opponent": "Cabrillo/Santa Ynez",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-15-girls-tennis-varsity-arroyo-grande",
@@ -258,7 +258,7 @@
       "isHome": false,
       "opponent": "Arroyo Grande",
       "level": "Varsity",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-15-girls-tennis-jv-arroyo-grande",
@@ -271,7 +271,7 @@
       "isHome": true,
       "opponent": "Arroyo Grande",
       "level": "JV",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-15-girls-volleyball--arroyo-grande-",
@@ -283,7 +283,7 @@
       "detail": "AGHS",
       "isHome": false,
       "opponent": "Arroyo Grande*",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-15-flag-football--templeton",
@@ -295,7 +295,7 @@
       "detail": "Templeton",
       "isHome": false,
       "opponent": "Templeton",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-17-girls-tennis-varsity-atascadero",
@@ -308,7 +308,7 @@
       "isHome": true,
       "opponent": "Atascadero",
       "level": "Varsity",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-17-girls-tennis-jv-atascadero",
@@ -321,7 +321,7 @@
       "isHome": false,
       "opponent": "Atascadero",
       "level": "JV",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-17-girls-volleyball--atascadero-",
@@ -333,7 +333,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Atascadero*",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-17-football-frosh-pioneer-valley",
@@ -346,7 +346,7 @@
       "isHome": true,
       "opponent": "Pioneer Valley",
       "level": "Frosh",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-18-boys-water-polo--slo-jv-tournament",
@@ -358,7 +358,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "SLO JV Tournament",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-18-football--pioneer-valley",
@@ -370,7 +370,7 @@
       "detail": "Pioneer Valley",
       "isHome": false,
       "opponent": "Pioneer Valley",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-19-boys-water-polo--slo-jv-tournament",
@@ -382,7 +382,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "SLO JV Tournament",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
       "id": "weekly-2026-09-19-cross-country--ojai-invitational",
@@ -394,7 +394,7 @@
       "detail": "Lake Casitas",
       "isHome": false,
       "opponent": "Ojai Invitational",
-      "sourceTab": "Copy of Weekly Athletics Schedule Sep 14 - Sep 19"
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     }
   ]
 }
