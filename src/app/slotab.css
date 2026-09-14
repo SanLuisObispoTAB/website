@@ -4352,6 +4352,47 @@ a.slotab-platinum-slide:hover {
 
 .slotab-biz-invoice p { font-size: 0.87rem; margin: 0 0 0.7rem; }
 
+/* The paper-form route (blank at the top of the box, filled-in at the foot).
+   Set apart with a tinted card so a sponsor who only wants to print sees it
+   before any input — it is a complete path, not a footnote. */
+.slotab-biz-paper {
+  margin-bottom: 1.25rem;
+  padding: 0.9rem 1rem;
+  background: rgba(230, 181, 42, 0.12);
+  border-left: 4px solid var(--slotab-gold);
+}
+
+.slotab-biz-paper-lead {
+  margin: 0 0 0.3rem;
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.slotab-biz-paper p { font-size: 0.87rem; margin: 0 0 0.7rem; }
+
+.slotab-biz-paper .slotab-biz-paper-hint {
+  margin: 0.7rem 0 0;
+  color: var(--slotab-muted);
+}
+
+.slotab-biz-paper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.slotab-biz-paper-actions .slotab-btn {
+  padding: 0.65rem 1.1rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.slotab-biz-paper-actions .slotab-btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* Amount under the tier buttons (#221): the tier is derived from it. */
+.slotab-biz-amount { margin-top: 0.75rem; }
+.slotab-biz-amount-help { font-size: 0.8rem; margin: 0.35rem 0 0.75rem; }
+
 /* --------------------------------------------------------------------------
    BOARD DONATION REPORT (/board/square-report)
    -------------------------------------------------------------------------- */
@@ -4466,6 +4507,12 @@ a.slotab-platinum-slide:hover {
 .slotab-tier-group-cta {
   text-align: center;
   margin: 1.25rem 0 0;
+  /* Flex so the sponsorship row's second button (the printable form) wraps
+     under the first on a phone instead of butting against it. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
 }
 
 /* A merch tile that links to its product page. Only `.is-linked` tiles get the

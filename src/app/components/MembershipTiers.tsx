@@ -9,6 +9,7 @@ import {
   type SponsorTier,
   type MembershipTier,
 } from "../data/sponsor-tiers";
+import { SPONSOR_FORM_URL } from "@/lib/sponsor-form-pdf";
 
 // Tier prices live in `data/sponsor-tiers.ts` because they are charged as well
 // as displayed — this component renders them and the payment-link route bills
@@ -107,6 +108,15 @@ export default function MembershipTiers() {
           <Link href="/donate?tab=sponsorship" className="slotab-btn">
             Sponsor the Tigers →
           </Link>
+          {/* For sponsors who fill out a form and mail a check. */}
+          <a
+            href={SPONSOR_FORM_URL}
+            target="_blank"
+            rel="noopener"
+            className="slotab-btn dark"
+          >
+            Printable form (PDF)
+          </a>
         </p>
       </div>
 
@@ -132,6 +142,12 @@ export default function MembershipTiers() {
           <strong className="slotab-mail-address">
             SLOTAB, PO Box 16025, San&nbsp;Luis&nbsp;Obispo,&nbsp;CA&nbsp;93406
           </strong>
+          . Sponsoring an amount between levels? You receive the benefits of
+          the highest level at or below it. Sponsors mailing a check, please
+          include the{" "}
+          <a href={SPONSOR_FORM_URL} target="_blank" rel="noopener">
+            printable sponsorship form
+          </a>
           .
         </p>
         <p className="slotab-tier-join-cta no-print">

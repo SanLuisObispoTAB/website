@@ -164,6 +164,21 @@ export function sponsorTierById(id: string): SponsorTier | undefined {
   return SPONSOR_TIERS.find((t) => t.id === id);
 }
 
+/** The sponsorship tier an amount qualifies for: the highest tier priced **at
+ *  or below** it. `undefined` below the cheapest tier.
+ *
+ *  Why a sponsor may pay an amount between tiers (Erik, 2026-09-14, #221):
+ *  businesses sponsor from a budget line, and a $3,000 line should not have to
+ *  become $2,500 or $5,000 to fit the sheet. It is the same rule a donation
+ *  already follows in `levelForGift`, so a business gets the same answer
+ *  whichever tab it uses. Used by the sponsorship form, the payment-link route
+ *  (which derives the tier from the amount itself) and the printable form. */
+export function sponsorTierForAmount(dollars: number): SponsorTier | undefined {
+  return [...SPONSOR_TIERS]
+    .sort((a, b) => b.annual - a.annual)
+    .find((t) => dollars >= t.annual);
+}
+
 /** A tier's perks with the generated bullets folded back in, in the order the
  *  sheet prints them — the pass line last, where it was typed by hand until
  *  #208 moved the count into `passesIncluded`.
