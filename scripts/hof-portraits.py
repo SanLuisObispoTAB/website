@@ -32,6 +32,13 @@ whole design constraint here. Nothing below sharpens a face into existence:
              reduction: grain and 8x8 JPEG blocking shrink below the
              threshold of visibility. Detail is not added — it is that the
              damage stops being resolvable.
+  GOLD       The school burns each inductee's name into the photo in gold
+             cursive. That lettering is KEPT IN COLOUR over the monochrome
+             portrait — the board's call, and it suits a page whose accent
+             colour is already gold. The mask that finds it has to be tight,
+             because a sepia print sits in the same hue band: what separates
+             them is saturation, since toning is a wash and lettering is
+             pigment.
   LEVELS     Faded scans are low-contrast. A clipped percentile stretch
              restores black and white points without crushing either end.
   SHARPEN    Unsharp mask AFTER the downsize, never before: sharpening first
@@ -45,6 +52,7 @@ USAGE
     python3 scripts/hof-portraits.py                 # audit photo-inbox/, write nothing
     python3 scripts/hof-portraits.py --process       # write into public/photos/
     python3 scripts/hof-portraits.py --process --no-pair   # treat inputs as single portraits
+    python3 scripts/hof-portraits.py --process --no-gold   # grayscale the gold lettering too
 
 Requires Pillow (`pip install pillow`). Deliberately not ImageMagick: the
 per-half analysis below needs pixel access, and a shell pipeline of that
@@ -315,7 +323,54 @@ def to_monochrome(img: Image.Image) -> Image.Image:
     return Image.frombytes("L", rgb.size, mixed)
 
 
-def restore(img: Image.Image, target_width: int) -> Image.Image:
+# The burned-in inductee names are gold cursive. Kept in colour against an
+# otherwise monochrome portrait (Erik's call), which suits a page whose accent
+# colour is already gold.
+#
+# THE TRAP, AND IT IS THE WHOLE REASON THESE THRESHOLDS ARE TIGHT: a sepia
+# print occupies the SAME HUE BAND as gold. Masking on hue alone would keep
+# the entire vintage half in colour and defeat the conversion. What separates
+# them is saturation — toning is a wash (typically S < 0.3), lettering is
+# pigment (S > 0.45) — so the mask demands high saturation as well as hue, and
+# a value floor keeps dark warm shadows out.
+GOLD_HUE_DEG = (30, 68)
+GOLD_SAT_MIN = 0.45
+GOLD_VAL_MIN = 0.35
+
+
+def gold_mask(rgb: Image.Image) -> Image.Image:
+    """Mask of pixels that read as gold lettering rather than warm photo."""
+    h, s, v = rgb.convert("HSV").split()
+    lo = int(GOLD_HUE_DEG[0] / 360 * 255)
+    hi = int(GOLD_HUE_DEG[1] / 360 * 255)
+    in_hue = h.point(lambda p: 255 if lo <= p <= hi else 0)
+    in_sat = s.point(lambda p: 255 if p >= GOLD_SAT_MIN * 255 else 0)
+    in_val = v.point(lambda p: 255 if p >= GOLD_VAL_MIN * 255 else 0)
+    mask = ImageChops.multiply(ImageChops.multiply(in_hue, in_sat), in_val)
+
+    # OPEN BEFORE DILATING — erode, then grow back. Dilating the raw mask
+    # sprayed orange specks around the edge of a face: skin sits just outside
+    # the gold band, but its anti-aliased and JPEG-ringed boundary pixels
+    # stray inside it, and growing the mask turned each stray pixel into a
+    # visible dot. An erosion deletes anything thinner than the kernel, which
+    # is every one of those specks, while a letter stroke — continuous and
+    # several pixels wide — survives and is restored by the dilation after it.
+    mask = mask.filter(ImageFilter.MinFilter(size=3))
+    mask = mask.filter(ImageFilter.MaxFilter(size=3))
+
+    # Then grow a hair and feather, so anti-aliased stroke edges are not cut
+    # off mid-letter.
+    mask = mask.filter(ImageFilter.MaxFilter(size=3))
+    return mask.filter(ImageFilter.GaussianBlur(radius=0.6))
+
+
+def keep_gold_over(mono: Image.Image, colour: Image.Image) -> Image.Image:
+    """Composite the gold lettering back over the monochrome portrait."""
+    colour = colour.convert("RGB").resize(mono.size, Image.Resampling.LANCZOS)
+    return Image.composite(colour, mono.convert("RGB"), gold_mask(colour))
+
+
+def restore(img: Image.Image, target_width: int, *, keep_gold: bool = True) -> Image.Image:
     """Denoise, downsize, re-level, sharpen — in that order, all of it mild.
 
     NEVER upscales. Enlarging a poor scan is the exact inverse of what is
@@ -372,6 +427,11 @@ def restore(img: Image.Image, target_width: int) -> Image.Image:
     # resample softened" setting, not a sharpening effect; threshold 3 leaves
     # flat areas (skin, sky, paper) untouched so residual grain stays down.
     work = work.filter(ImageFilter.UnsharpMask(radius=1.4, percent=55, threshold=3))
+    if keep_gold:
+        # Composited last, from the ORIGINAL colour pixels, so the lettering
+        # never picks up the denoise, the level stretch or the sharpening
+        # applied to the photograph underneath it.
+        return keep_gold_over(work, img)
     return work
 
 
@@ -402,7 +462,9 @@ def compose_pair(left: Image.Image, right: Image.Image, total_width: int) -> Ima
 
     l_fit, r_fit = crop_center(l_fit), crop_center(r_fit)
     width = half_w * 2 + GUTTER_PX
-    canvas = Image.new("L", (width, height), 255)
+    mode = "RGB" if "RGB" in (l_fit.mode, r_fit.mode) else "L"
+    fill = (255, 255, 255) if mode == "RGB" else 255
+    canvas = Image.new(mode, (width, height), fill)
     canvas.paste(l_fit, (0, 0))
     canvas.paste(r_fit, (half_w + GUTTER_PX, 0))
     return canvas
@@ -427,14 +489,16 @@ class Result:
     size: tuple[int, int]
 
 
-def process_one(src: Path, out_dir: Path, *, pair: bool, write: bool) -> Result:
+def process_one(
+    src: Path, out_dir: Path, *, pair: bool, write: bool, keep_gold: bool = True
+) -> Result:
     with Image.open(src) as raw:
         raw = ImageOps.exif_transpose(raw)  # honour rotation before stripping it
         raw.load()
         seam = find_seam(raw) if pair else None
 
         if seam is None:
-            final = restore(raw, TARGET_WIDTH)
+            final = restore(raw, TARGET_WIDTH, keep_gold=keep_gold)
             verdict, swapped, paired = None, False, False
         else:
             left, right = split_pair(raw, seam)
@@ -445,7 +509,9 @@ def process_one(src: Path, out_dir: Path, *, pair: bool, write: bool) -> Result:
                 left, right = right, left
             half_target = (TARGET_WIDTH - GUTTER_PX) // 2
             final = compose_pair(
-                restore(left, half_target), restore(right, half_target), TARGET_WIDTH
+                restore(left, half_target, keep_gold=keep_gold),
+                restore(right, half_target, keep_gold=keep_gold),
+                TARGET_WIDTH,
             )
             paired = True
 
@@ -467,6 +533,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--process", action="store_true", help="write output (default: audit only)")
     ap.add_argument("--no-pair", action="store_true", help="treat every input as a single portrait")
+    ap.add_argument(
+        "--no-gold",
+        action="store_true",
+        help="convert the burned-in gold lettering to grayscale along with the photo",
+    )
     ap.add_argument("--in", dest="in_dir", default=str(INBOX), help="source directory")
     ap.add_argument("--out", dest="out_dir", default=str(OUT_DIR), help="destination directory")
     args = ap.parse_args()
@@ -485,7 +556,13 @@ def main() -> int:
     print(f"{'WRITING' if args.process else 'AUDIT (no files written)'} — {len(sources)} image(s)\n")
     needs_eyes: list[Result] = []
     for src in sources:
-        r = process_one(src, out_dir, pair=not args.no_pair, write=args.process)
+        r = process_one(
+            src,
+            out_dir,
+            pair=not args.no_pair,
+            write=args.process,
+            keep_gold=not args.no_gold,
+        )
         if not r.paired:
             print(f"  {src.name}\n      single portrait -> {r.size[0]}x{r.size[1]}")
         else:

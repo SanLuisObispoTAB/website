@@ -858,6 +858,13 @@ collections:
                   required: false,
                   hint: "E.g. 'Posthumous', '12 Varsity Letters', 'CIF in Dodger Stadium'",
                 }
+              - {
+                  name: photo,
+                  label: "Then-and-now photo (optional)",
+                  widget: image,
+                  required: false,
+                  hint: "The school's side-by-side pair as ONE image, older photo on the LEFT. Leave empty for the older classes that have no portrait — the card simply shows no picture. Do not upload the school's file directly: run it through scripts/hof-portraits.py first, which converts the photo to black and white, keeps the gold name lettering in colour, and puts the halves in the right order.",
+                }
           - name: unverified
             label: "Awaiting the AD's list — not shown on the site"
             widget: list

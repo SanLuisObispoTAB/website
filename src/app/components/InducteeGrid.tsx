@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import inducteesJson from "../data/hof-inductees.json";
 
@@ -9,6 +10,16 @@ type Inductee = {
   yearInducted: string;
   sport: string;
   note?: string;
+  /** The school's side-by-side pair — playing-days photo beside a current
+   *  one, in ONE image, the way slohs.slcusd.org publishes them.
+   *
+   *  Optional, and that is what keeps this to the newest class without a
+   *  per-year rule anywhere: the board attaches photos to the class that has
+   *  them, and the thirty-odd older records that will never have a portrait
+   *  render exactly as they do today. `scripts/hof-portraits.py` produces the
+   *  file and guarantees the halves run OLDER LEFT, CURRENT RIGHT — the whole
+   *  point of normalizing them, since the school's page mixes both orders. */
+  photo?: string;
 };
 
 const ALL_INDUCTEES = inducteesJson.inductees as Inductee[];
@@ -131,9 +142,37 @@ export default function InducteeGrid() {
               {grouped.get(year)!.length} {grouped.get(year)!.length === 1 ? "inductee" : "inductees"}
             </span>
           </h3>
-          <div className="slotab-hof-cards">
+          <div
+            className={`slotab-hof-cards${
+              grouped.get(year)!.some((i) => i.photo) ? " with-photos" : ""
+            }`}
+          >
             {grouped.get(year)!.map((i) => (
-              <div key={`${i.name}-${i.yearInducted}`} className="slotab-hof-card">
+              <div
+                key={`${i.name}-${i.yearInducted}`}
+                className={`slotab-hof-card${i.photo ? " has-photo" : ""}`}
+              >
+                {i.photo && (
+                  <figure className="slotab-hof-card-photo">
+                    <Image
+                      src={i.photo}
+                      alt={`${i.name} at SLOHS and today`}
+                      width={1200}
+                      height={600}
+                      sizes="(max-width: 720px) 100vw, (max-width: 1100px) 45vw, 340px"
+                      loading="lazy"
+                    />
+                    {/* Names the convention rather than trusting the reader to
+                        infer it. The school's page runs both orders, which is
+                        what prompted normalizing them; labelling the halves
+                        makes the fixed order legible and makes any pair that
+                        slipped through backwards obvious at a glance. */}
+                    <figcaption aria-hidden="true">
+                      <span>Then</span>
+                      <span>Now</span>
+                    </figcaption>
+                  </figure>
+                )}
                 <div className="slotab-hof-card-name">{i.name}</div>
                 <div className="slotab-hof-card-sport">{i.sport}</div>
                 <div className="slotab-hof-card-years">
