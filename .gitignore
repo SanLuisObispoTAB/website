@@ -63,3 +63,6 @@ next-env.d.ts
 # Microsoft Word lock/owner files (~$foo.docx) left behind by the Word
 # versions of the CMS guides in docs/.
 ~$*
+
+# Python bytecode from scripts/hof-portraits.py
+__pycache__/
