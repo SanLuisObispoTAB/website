@@ -848,9 +848,21 @@ collections:
             widget: list
             fields:
               - { name: name, label: "Name", widget: string }
-              - { name: yearsAtSLOHS, label: "Years at SLOHS", widget: string }
+              - {
+                  name: yearsAtSLOHS,
+                  label: "Years at SLOHS",
+                  widget: string,
+                  required: false,
+                  hint: "Optional — a class is announced before its details are. Leave empty and the line simply does not appear on the card.",
+                }
               - { name: yearInducted, label: "Year inducted", widget: string }
-              - { name: sport, label: "Sport(s)", widget: string, hint: "Comma-separated if multiple. 'Coach' for coach inductees." }
+              - {
+                  name: sport,
+                  label: "Sport(s)",
+                  widget: string,
+                  required: false,
+                  hint: "Comma-separated if multiple. 'Coach' for coach inductees. Optional — leave empty until the Athletic Director supplies it, and the inductee joins no sport filter rather than landing in an 'Other' bucket.",
+                }
               - {
                   name: note,
                   label: "Note (optional)",

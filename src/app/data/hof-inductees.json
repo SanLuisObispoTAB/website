@@ -1,6 +1,36 @@
 {
   "inductees": [
     {
+      "name": "Carey Casciola",
+      "yearInducted": "2026",
+      "sport": "Softball"
+    },
+    {
+      "name": "Brian Medigovitch",
+      "yearInducted": "2026",
+      "sport": "Track"
+    },
+    {
+      "name": "Kennedy Meany",
+      "yearInducted": "2026",
+      "sport": "Softball"
+    },
+    {
+      "name": "Antonia Amaral",
+      "yearInducted": "2026",
+      "sport": "Track"
+    },
+    {
+      "name": "John Durant",
+      "yearInducted": "2026",
+      "sport": "Football"
+    },
+    {
+      "name": "Baker Krukow",
+      "yearInducted": "2026",
+      "sport": "Baseball"
+    },
+    {
       "name": "Abrianna (AB) Torres (Rose)",
       "yearsAtSLOHS": "2008-2011",
       "yearInducted": "2024",
@@ -291,5 +321,5 @@
       "was": "Class of 2024"
     }
   ],
-  "_note": "CLASS OF 2024 CORRECTED 2026-09-01 (decision #204). The Athletic Director flagged errors in the roll and is preparing a scrubbed list; in the meantime he named the eight people who ARE the Class of 2024: AnneMarie Lee, Julian Demalleville, AB Torres, Chalon Tietje, Bruce Tedone, Jenna Kingma, Brooke Ecklund and Brian Waterbury. The roll had eighteen names under that year, so the other ten moved to `unverified` — OFF the public page, STILL IN THE DATA, each carrying `was` so it is clear where they sat. They were NOT deleted: all 46 names came from a scrape of the school's Hall of Fame page, and the tell is that the attribution is wrong rather than the people (a Charter Member cannot be a 2024 inductee), so these are most likely real inductees of earlier classes whose year the scrape got wrong. Erik confirmed this reading on 2026-09-01 — \"we know the 2024 list is accurate; the others must be for different years\" — so these ten are AWAITING A YEAR, NOT A VERDICT. Re-file each under the class the AD's list gives it; do not delete one without him saying that person does not belong in the Hall at all. FIRST ONE RE-FILED 2026-09-04 (#219): Erik gave Travis Hasson's year as 2015, so he moved back into `inductees` as the Class of 2015 and his `was` breadcrumb was dropped — nine names still held. That is the pattern for the rest: supply a year, move the record up, drop `was`. Note Erik typed the name \"Travis Hansson\"; the roll's spelling \"Travis Hasson\" was KEPT rather than re-typed, since the instruction was about the year and the scrubbed list settles spellings. Names are reproduced EXACTLY as the roll had them and were not re-typed from the AD's message — his note spells two of them differently (\"Annamarie\" for AnneMarie Lee, \"Booke\" for Brooke Ecklund); the scrubbed list settles which spelling each person uses."
+  "_note": "CLASS OF 2024 CORRECTED 2026-09-01 (decision #204). The Athletic Director flagged errors in the roll and is preparing a scrubbed list; in the meantime he named the eight people who ARE the Class of 2024: AnneMarie Lee, Julian Demalleville, AB Torres, Chalon Tietje, Bruce Tedone, Jenna Kingma, Brooke Ecklund and Brian Waterbury. The roll had eighteen names under that year, so the other ten moved to `unverified` — OFF the public page, STILL IN THE DATA, each carrying `was` so it is clear where they sat. They were NOT deleted: all 46 names came from a scrape of the school's Hall of Fame page, and the tell is that the attribution is wrong rather than the people (a Charter Member cannot be a 2024 inductee), so these are most likely real inductees of earlier classes whose year the scrape got wrong. Erik confirmed this reading on 2026-09-01 — \"we know the 2024 list is accurate; the others must be for different years\" — so these ten are AWAITING A YEAR, NOT A VERDICT. Re-file each under the class the AD's list gives it; do not delete one without him saying that person does not belong in the Hall at all. FIRST ONE RE-FILED 2026-09-04 (#219): Erik gave Travis Hasson's year as 2015, so he moved back into `inductees` as the Class of 2015 and his `was` breadcrumb was dropped — nine names still held. That is the pattern for the rest: supply a year, move the record up, drop `was`. Note Erik typed the name \"Travis Hansson\"; the roll's spelling \"Travis Hasson\" was KEPT rather than re-typed, since the instruction was about the year and the scrubbed list settles spellings. Names are reproduced EXACTLY as the roll had them and were not re-typed from the AD's message — his note spells two of them differently (\"Annamarie\" for AnneMarie Lee, \"Booke\" for Brooke Ecklund); the scrubbed list settles which spelling each person uses. CLASS OF 2026 ADDED 2026-09-15 (#222): six names, read off the school's Hall of Fame page by Erik because they are burned into the inductee photos as GOLD CURSIVE — the worst case for OCR, and the school host is blocked by the sandbox egress proxy so no machine here could read them anyway. Recorded in the order he gave, which is the order the school's page lists them. Sports were supplied the same day and are recorded. They still carry NO `yearsAtSLOHS`, which was not on offer — the field is optional and self-hides, because a placeholder like 'Years TBD' under a name on a public honor roll is worse than a line that is not there. `sport` is optional for the same reason, and a record without one joins no filter chip rather than inventing an 'Other' bucket. Add the SLOHS years when the AD supplies them. SPELLINGS ARE ERIK'S READING, not the AD's list: this roll has already produced three disputes (Annamarie/AnneMarie, Booke/Brooke, Hansson/Hasson), so check these six against the scrubbed list when it arrives, especially Medigovitch, Casciola and Meany."
 }

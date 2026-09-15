@@ -6,9 +6,15 @@ import inducteesJson from "../data/hof-inductees.json";
 
 type Inductee = {
   name: string;
-  yearsAtSLOHS: string;
   yearInducted: string;
-  sport: string;
+  /** Both optional, because a class is announced before its details are.
+   *  A newly announced inductee is a real, verified name with a real year and
+   *  nothing else yet; the alternative to optional fields is a placeholder,
+   *  and "Sport TBD" printed under somebody's name on a public honor roll is
+   *  worse than a line that isn't there. Each self-hides, the same way `note`
+   *  already does. */
+  yearsAtSLOHS?: string;
+  sport?: string;
   note?: string;
   /** The school's side-by-side pair — playing-days photo beside a current
    *  one, in ONE image, the way slohs.slcusd.org publishes them.
@@ -26,7 +32,12 @@ const ALL_INDUCTEES = inducteesJson.inductees as Inductee[];
 
 // Normalize sport labels to a small set of filter categories so "Track" /
 // "Track and Field" / "Track & Field" don't each get their own chip.
-function normalizeCategory(sport: string): string[] {
+function normalizeCategory(sport: string | undefined): string[] {
+  // No sport recorded yet → no categories, so the record joins no chip and
+  // invents no "Other" bucket. Nothing on the roll falls to "Other" today,
+  // and a chip reading "Other 6" would be the only thing on the page
+  // announcing that the data is incomplete.
+  if (!sport) return [];
   const s = sport.toLowerCase();
   const cats = new Set<string>();
   if (/coach/.test(s)) cats.add("Coach");
@@ -74,7 +85,7 @@ export default function InducteeGrid() {
       const q = query.toLowerCase();
       if (
         !i.name.toLowerCase().includes(q) &&
-        !i.sport.toLowerCase().includes(q) &&
+        !(i.sport ?? "").toLowerCase().includes(q) &&
         !String(i.yearInducted).includes(q)
       ) {
         return false;
@@ -174,10 +185,14 @@ export default function InducteeGrid() {
                   </figure>
                 )}
                 <div className="slotab-hof-card-name">{i.name}</div>
-                <div className="slotab-hof-card-sport">{i.sport}</div>
-                <div className="slotab-hof-card-years">
-                  SLOHS {i.yearsAtSLOHS}
-                </div>
+                {i.sport && (
+                  <div className="slotab-hof-card-sport">{i.sport}</div>
+                )}
+                {i.yearsAtSLOHS && (
+                  <div className="slotab-hof-card-years">
+                    SLOHS {i.yearsAtSLOHS}
+                  </div>
+                )}
                 {i.note && (
                   <div className="slotab-hof-card-note">{i.note}</div>
                 )}
