@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import teamsData from "../../../data/teams.json";
 import {
+  SPONSOR_TIERS,
   sponsorTierById,
+  sponsorTierForAmount,
   levelForGift,
   sportsAllowedForLevel,
   minimumForDesignation,
@@ -235,11 +237,42 @@ export async function POST(req: Request) {
         ? body.businessName.trim().slice(0, 120)
         : "";
 
-    // Server-derived. The request said which tier, not what it costs.
-    amountCents = tier.annual * 100;
+    // The amount. Absent means the tier's own price, which is what every
+    // request sent before #221. Present means a business sponsoring from a
+    // budget that sits between tiers — and then the TIER is derived from the
+    // amount, never trusted from the request: $600 posted with `tierId: gold`
+    // is refused, because the perks are what the money buys.
+    let dollars = tier.annual;
+    if (body.amountCents !== undefined) {
+      const raw = body.amountCents;
+      if (typeof raw !== "number" || !Number.isInteger(raw) || raw % 100 !== 0) {
+        return bad("Sponsorship amount must be a whole-dollar amount");
+      }
+      if (raw > MAX_CENTS) {
+        return bad(
+          `Sponsorships above $${(MAX_CENTS / 100).toLocaleString()} can't be paid online — please request an invoice`,
+        );
+      }
+      const qualifies = sponsorTierForAmount(raw / 100);
+      if (!qualifies) {
+        const floor = Math.min(...SPONSOR_TIERS.map((t) => t.annual));
+        return bad(`Sponsorships start at $${floor.toLocaleString()}`);
+      }
+      if (qualifies.id !== tier.id) {
+        return bad(
+          `$${(raw / 100).toLocaleString()} is the ${qualifies.name} level, not ${tier.name}`,
+        );
+      }
+      dollars = raw / 100;
+    }
+
+    // Server-derived: the price is the tier's, or an amount checked against it.
+    amountCents = dollars * 100;
     lineItemName = `${tier.name} — 2026-27 business sponsorship`;
     note =
-      `SLOTAB business sponsorship — ${tier.name} ($${tier.annual}/year)` +
+      (dollars === tier.annual
+        ? `SLOTAB business sponsorship — ${tier.name} ($${tier.annual}/year)`
+        : `SLOTAB business sponsorship — $${dollars.toLocaleString()} at the ${tier.name} level ($${tier.annual.toLocaleString()}+)`) +
       (businessName ? ` — ${businessName}` : "") +
       (sportLabels.length
         ? ` — credited to ${sportLabels.join(", ")}`

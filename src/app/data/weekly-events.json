@@ -2,239 +2,12 @@
   "source": "https://docs.google.com/spreadsheets/d/1lzPklHuK6CzaxW9k3czS8ZmlTjNFNVO6ZZkvo4xuG3c/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule Sep 7 - Sep 12",
-      "gid": "2991467"
-    },
-    {
       "name": "Weekly Athletics Schedule Sep 14 - Sep 19",
       "gid": "1074877354"
     }
   ],
-  "fetchedAt": "2026-09-09T17:27:03.695Z",
+  "fetchedAt": "2026-09-14T18:58:39.765Z",
   "events": [
-    {
-      "id": "weekly-2026-09-08-girls-golf--oahs-sjhs",
-      "category": "girls-golf",
-      "categoryLabel": "Girls Golf",
-      "isSport": true,
-      "date": "2026-09-08T13:00:00",
-      "title": "Girls Golf @ OAHS, SJHS",
-      "detail": "Orcutt hosts",
-      "isHome": false,
-      "opponent": "OAHS, SJHS",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-08-boys-water-polo--redwood",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-09-08T15:00:00",
-      "title": "Boys Water Polo vs Redwood",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Redwood",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-08-girls-tennis-varsity-lompoc",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-09-08T15:30:00",
-      "title": "Girls Tennis @ Lompoc",
-      "detail": "Lompoc · Varsity",
-      "isHome": false,
-      "opponent": "Lompoc",
-      "level": "Varsity",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-08-girls-tennis-jv-lompoc",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-09-08T15:30:00",
-      "title": "Girls Tennis vs Lompoc",
-      "detail": "SLOHS · JV",
-      "isHome": true,
-      "opponent": "Lompoc",
-      "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-08-girls-volleyball--mission-college-prep-",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-09-08T17:00:00",
-      "title": "Girls Volleyball @ Mission College Prep*",
-      "detail": "MCP",
-      "isHome": false,
-      "opponent": "Mission College Prep*",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-08-girls-water-polo--redwood",
-      "category": "girls-water-polo",
-      "categoryLabel": "Girls Water Polo",
-      "isSport": true,
-      "date": "2026-09-08T17:00:00",
-      "title": "Girls Water Polo vs Redwood",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Redwood",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-10-girls-tennis-varsity-templeton",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-09-10T15:30:00",
-      "title": "Girls Tennis vs Templeton",
-      "detail": "SLOHS · Varsity",
-      "isHome": true,
-      "opponent": "Templeton",
-      "level": "Varsity",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-10-girls-tennis-jv-templeton",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-09-10T15:30:00",
-      "title": "Girls Tennis @ Templeton",
-      "detail": "Templeton · JV",
-      "isHome": false,
-      "opponent": "Templeton",
-      "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-10-girls-volleyball--paso-robles-",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-09-10T16:00:00",
-      "title": "Girls Volleyball vs Paso Robles*",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Paso Robles*",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-10-flag-football--pioneer-valley-jv-morro-",
-      "category": "flag-football",
-      "categoryLabel": "Girls Flag Football",
-      "isSport": true,
-      "date": "2026-09-10T16:30:00",
-      "title": "Flag Football vs Pioneer Valley (JV)/Morro Bay (V) (Future Tiger Night)",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Pioneer Valley (JV)/Morro Bay (V) (Future Tiger Night)",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-10-cheer-jv-game-day-flag-vs-morro-b",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-09-10T18:00:00",
-      "title": "Cheer JV Gold — Game Day (Flag) vs Morro Bay",
-      "detail": "SLOHS · JV",
-      "isHome": true,
-      "opponent": "Game Day (Flag) vs Morro Bay",
-      "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-11-girls-volleyball--slo-town-showdown-varsit",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-09-11T12:00:00",
-      "title": "Girls Volleyball — SLO Town Showdown (Varsity)",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "SLO Town Showdown (Varsity)",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-11-boys-water-polo---thrills-in-the-hills-",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-09-11T12:00:00",
-      "title": "Boys Water Polo @ \"Thrills in the Hills\"",
-      "detail": "Chino Hills High School",
-      "isHome": false,
-      "opponent": "\"Thrills in the Hills\"",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-11-girls-water-polo-jv-ag-jv-tournament",
-      "category": "girls-water-polo",
-      "categoryLabel": "Girls Water Polo",
-      "isSport": true,
-      "date": "2026-09-11T12:00:00",
-      "title": "Girls Water Polo — AG JV Tournament",
-      "detail": "Arroyo Grande HS · JV",
-      "isHome": false,
-      "opponent": "AG JV Tournament",
-      "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-11-football--atascadero-hall-of-fame-",
-      "category": "football",
-      "categoryLabel": "Football",
-      "isSport": true,
-      "date": "2026-09-11T16:00:00",
-      "title": "Football vs Atascadero (Hall of Fame / Alumni Night)",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Atascadero (Hall of Fame / Alumni Night)",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-11-cheer-jvvarsity-game-day-vs-atascadero-h",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-09-11T16:00:00",
-      "title": "Cheer — Game Day vs Atascadero HS (Hall of Fame / Alumni Night)",
-      "detail": "SLOHS · JV & Varsity",
-      "isHome": true,
-      "opponent": "Game Day vs Atascadero HS (Hall of Fame / Alumni Night)",
-      "level": "JV & Varsity",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-12-cross-country--morro-bay-invitational",
-      "category": "cross-country",
-      "categoryLabel": "Cross Country",
-      "isSport": true,
-      "date": "2026-09-12T08:00:00",
-      "title": "Cross Country — Morro Bay Invitational",
-      "detail": "Morro Bay High School",
-      "isHome": false,
-      "opponent": "Morro Bay Invitational",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
-    {
-      "id": "weekly-2026-09-12-flag-football--aptos",
-      "category": "flag-football",
-      "categoryLabel": "Girls Flag Football",
-      "isSport": true,
-      "date": "2026-09-12T11:00:00",
-      "title": "Flag Football vs Aptos",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Aptos",
-      "sourceTab": "Weekly Athletics Schedule Sep 7 - Sep 12"
-    },
     {
       "id": "weekly-2026-09-14-girls-golf--cabrillo-santa-ynez",
       "category": "girls-golf",
@@ -242,7 +15,7 @@
       "isSport": true,
       "date": "2026-09-14T12:00:00",
       "title": "Girls Golf @ Cabrillo/Santa Ynez",
-      "detail": "Cabrillo",
+      "detail": "Mission Club - Cabrillo",
       "isHome": false,
       "opponent": "Cabrillo/Santa Ynez",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
@@ -253,24 +26,11 @@
       "categoryLabel": "Girls Tennis",
       "isSport": true,
       "date": "2026-09-15T15:30:00",
-      "title": "Varsity Tennis @ Arroyo Grande",
+      "title": "Girls Varsity Tennis @ Arroyo Grande",
       "detail": "Arroyo Grande · Varsity",
       "isHome": false,
       "opponent": "Arroyo Grande",
       "level": "Varsity",
-      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
-    },
-    {
-      "id": "weekly-2026-09-15-girls-tennis-jv-arroyo-grande",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-09-15T15:30:00",
-      "title": "JV Tennis vs Arroyo Grande",
-      "detail": "SLOHS · JV",
-      "isHome": true,
-      "opponent": "Arroyo Grande",
-      "level": "JV",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
@@ -279,10 +39,23 @@
       "categoryLabel": "Girls Volleyball",
       "isSport": true,
       "date": "2026-09-15T16:00:00",
-      "title": "Volleyball @ Arroyo Grande*",
+      "title": "Girls Volleyball @ Arroyo Grande*",
       "detail": "AGHS",
       "isHome": false,
       "opponent": "Arroyo Grande*",
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
+    },
+    {
+      "id": "weekly-2026-09-15-girls-tennis-jv-arroyo-grande",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-09-15T16:15:00",
+      "title": "Girls JV Tennis vs Arroyo Grande",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Arroyo Grande",
+      "level": "JV",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
@@ -291,23 +64,10 @@
       "categoryLabel": "Girls Flag Football",
       "isSport": true,
       "date": "2026-09-15T18:00:00",
-      "title": "Flag @ Templeton",
+      "title": "Flag Football @ Templeton",
       "detail": "Templeton",
       "isHome": false,
       "opponent": "Templeton",
-      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
-    },
-    {
-      "id": "weekly-2026-09-17-girls-tennis-varsity-atascadero",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-09-17T15:30:00",
-      "title": "Varsity Tennis vs Atascadero",
-      "detail": "SLOHS · Varsity",
-      "isHome": true,
-      "opponent": "Atascadero",
-      "level": "Varsity",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
@@ -316,11 +76,24 @@
       "categoryLabel": "Girls Tennis",
       "isSport": true,
       "date": "2026-09-17T15:30:00",
-      "title": "JV Tennis @ Atascadero",
+      "title": "Girls JV Tennis @ Atascadero",
       "detail": "Atascadero · JV",
       "isHome": false,
       "opponent": "Atascadero",
       "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
+    },
+    {
+      "id": "weekly-2026-09-17-girls-tennis-varsity-atascadero",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-09-17T15:30:00",
+      "title": "Girls Varsity Tennis vs Atascadero",
+      "detail": "SLOHS · Varsity",
+      "isHome": true,
+      "opponent": "Atascadero",
+      "level": "Varsity",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
@@ -329,7 +102,7 @@
       "categoryLabel": "Girls Volleyball",
       "isSport": true,
       "date": "2026-09-17T16:00:00",
-      "title": "Volleyball vs Atascadero*",
+      "title": "Girls Volleyball vs Atascadero*",
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Atascadero*",
@@ -349,6 +122,19 @@
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
+      "id": "weekly-2026-09-17-cheer-jv-game-day-frosh-vs-pionee",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-09-17T16:30:00",
+      "title": "Cheer JV Gold — Game Day (Frosh) vs Pioneer Valley",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Game Day (Frosh) vs Pioneer Valley",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
+    },
+    {
       "id": "weekly-2026-09-18-boys-water-polo--slo-jv-tournament",
       "category": "boys-water-polo",
       "categoryLabel": "Boys Water Polo",
@@ -358,6 +144,18 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "SLO JV Tournament",
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
+    },
+    {
+      "id": "weekly-2026-09-18-girls-water-polo--morro-bay-jv-tournament",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-09-18T12:00:00",
+      "title": "Girls Water Polo — Morro Bay JV Tournament",
+      "detail": "Morro Bay HS",
+      "isHome": false,
+      "opponent": "Morro Bay JV Tournament",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
@@ -373,6 +171,31 @@
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
+      "id": "weekly-2026-09-18-cheer-jvvarsity-game-day-pioneer-valley",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-09-18T16:00:00",
+      "title": "Cheer, Varsity & JV Black @ Game Day @ Pioneer Valley",
+      "detail": "Pioneer Valley · JV & Varsity",
+      "isHome": false,
+      "opponent": "Game Day @ Pioneer Valley",
+      "level": "JV & Varsity",
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
+    },
+    {
+      "id": "weekly-2026-09-19-cross-country--ojai-invitational",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-09-19T07:45:00",
+      "title": "Cross Country — Ojai Invitational",
+      "detail": "Lake Casitas",
+      "isHome": false,
+      "opponent": "Ojai Invitational",
+      "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
+    },
+    {
       "id": "weekly-2026-09-19-boys-water-polo--slo-jv-tournament",
       "category": "boys-water-polo",
       "categoryLabel": "Boys Water Polo",
@@ -385,15 +208,15 @@
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     },
     {
-      "id": "weekly-2026-09-19-cross-country--ojai-invitational",
-      "category": "cross-country",
-      "categoryLabel": "Cross Country",
+      "id": "weekly-2026-09-19-girls-water-polo--morro-bay-jv-tournament",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
       "isSport": true,
       "date": "2026-09-19T12:00:00",
-      "title": "XCountry — Ojai Invitational",
-      "detail": "Lake Casitas",
+      "title": "Girls Water Polo — Morro Bay JV Tournament",
+      "detail": "Morro Bay HS",
       "isHome": false,
-      "opponent": "Ojai Invitational",
+      "opponent": "Morro Bay JV Tournament",
       "sourceTab": "Weekly Athletics Schedule Sep 14 - Sep 19"
     }
   ]
