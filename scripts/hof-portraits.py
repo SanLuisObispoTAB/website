@@ -450,23 +450,39 @@ def compose_pair(left: Image.Image, right: Image.Image, total_width: int) -> Ima
         return im.resize((half_w, max(1, round(im.size[1] * ratio))), Image.Resampling.LANCZOS)
 
     l_fit, r_fit = fit(left), fit(right)
-    # Crop both to the SHORTER height rather than padding the shorter one.
-    # Padding left white bands above and below one face while the other ran
-    # full-bleed, which looked like a layout bug. Trimming from the top and
-    # bottom equally keeps each face centred and gives a flush two-up.
-    height = min(l_fit.size[1], r_fit.size[1])
+    lh, rh = l_fit.size[1], r_fit.size[1]
 
-    def crop_center(im: Image.Image) -> Image.Image:
-        top = (im.size[1] - height) // 2
-        return im.crop((0, top, im.size[0], top + height))
+    # CROP OR PAD, decided by how far apart the two shapes are.
+    #
+    # Cropping to the shorter height gives the cleanest flush two-up, and where
+    # the halves are of similar proportion the few pixels it trims are
+    # background. But they are not always similar. The committee's slide deck
+    # pairs a LANDSCAPE action shot with a SQUARE headshot; fitted to the same
+    # width those differ in height by nearly a factor of two, and cropping
+    # there took the top and bottom off the headshot — which on a portrait
+    # means cutting off somebody's head.
+    #
+    # So crop only within a tight tolerance and otherwise CONTAIN: keep every
+    # pixel of both and pad the shorter one. A white band is a cosmetic
+    # imperfection; a decapitated inductee is not.
+    CROP_TOLERANCE = 1.08
+    if max(lh, rh) / max(1, min(lh, rh)) <= CROP_TOLERANCE:
+        height = min(lh, rh)
 
-    l_fit, r_fit = crop_center(l_fit), crop_center(r_fit)
+        def crop_center(im: Image.Image) -> Image.Image:
+            top = (im.size[1] - height) // 2
+            return im.crop((0, top, im.size[0], top + height))
+
+        l_fit, r_fit = crop_center(l_fit), crop_center(r_fit)
+    else:
+        height = max(lh, rh)
+
     width = half_w * 2 + GUTTER_PX
     mode = "RGB" if "RGB" in (l_fit.mode, r_fit.mode) else "L"
     fill = (255, 255, 255) if mode == "RGB" else 255
     canvas = Image.new(mode, (width, height), fill)
-    canvas.paste(l_fit, (0, 0))
-    canvas.paste(r_fit, (half_w + GUTTER_PX, 0))
+    canvas.paste(l_fit, (0, (height - l_fit.size[1]) // 2))
+    canvas.paste(r_fit, (half_w + GUTTER_PX, (height - r_fit.size[1]) // 2))
     return canvas
 
 
@@ -538,11 +554,53 @@ def main() -> int:
         action="store_true",
         help="convert the burned-in gold lettering to grayscale along with the photo",
     )
+    ap.add_argument(
+        "--compose",
+        nargs=2,
+        metavar=("OLDER", "CURRENT"),
+        help=(
+            "compose two SEPARATE files into one pair, older first. For sources "
+            "that never were a composite — the committee's slide deck holds each "
+            "photo as its own image — where the order is known rather than "
+            "guessed, so the age vote is skipped entirely."
+        ),
+    )
+    ap.add_argument("--name", help="output slug for --compose (written as hof-<name>.jpg)")
     ap.add_argument("--in", dest="in_dir", default=str(INBOX), help="source directory")
     ap.add_argument("--out", dest="out_dir", default=str(OUT_DIR), help="destination directory")
     args = ap.parse_args()
 
-    in_dir, out_dir = Path(args.in_dir), Path(args.out_dir)
+    out_dir = Path(args.out_dir)
+
+    if args.compose:
+        # Explicit pairing. The caller states which half is older, so nothing is
+        # inferred: judge_age exists for composites whose order is unknown, and
+        # using it here would be second-guessing a fact already in hand.
+        if not args.name:
+            sys.exit("--compose requires --name")
+        older_p, current_p = (Path(x) for x in args.compose)
+        for q in (older_p, current_p):
+            if not q.is_file():
+                sys.exit(f"No such file: {q}")
+        half = (TARGET_WIDTH - GUTTER_PX) // 2
+        with Image.open(older_p) as a, Image.open(current_p) as b:
+            a, b = ImageOps.exif_transpose(a), ImageOps.exif_transpose(b)
+            a.load(); b.load()
+            final = compose_pair(
+                restore(a, half, keep_gold=not args.no_gold),
+                restore(b, half, keep_gold=not args.no_gold),
+                TARGET_WIDTH,
+            )
+        dest = out_dir / f"hof-{args.name}.jpg"
+        print(f"{older_p.name}  +  {current_p.name}  ->  {final.size[0]}x{final.size[1]}")
+        if args.process:
+            save(final, dest)
+            print(f"  wrote {dest}")
+        else:
+            print("  (audit only — re-run with --process to write)")
+        return 0
+
+    in_dir = Path(args.in_dir)
     if not in_dir.is_dir():
         sys.exit(f"No such directory: {in_dir}")
 
