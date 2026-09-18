@@ -26,6 +26,13 @@ type Inductee = {
    *  file and guarantees the halves run OLDER LEFT, CURRENT RIGHT — the whole
    *  point of normalizing them, since the school's page mixes both orders. */
   photo?: string;
+  /** Set when `photo` is ONE portrait rather than a then-and-now pair, which
+   *  suppresses the THEN / NOW caption under it. The caption is a claim about
+   *  the image: printing it over a single photo tells the reader the right
+   *  half is a current picture of someone when there is no right half. The
+   *  flag sits on the exception rather than on the five normal cards, so a
+   *  pair stays the thing you get by default. */
+  singlePhoto?: boolean;
 };
 
 const ALL_INDUCTEES = inducteesJson.inductees as Inductee[];
@@ -167,7 +174,11 @@ export default function InducteeGrid() {
                   <figure className="slotab-hof-card-photo">
                     <Image
                       src={i.photo}
-                      alt={`${i.name} at SLOHS and today`}
+                      alt={
+                        i.singlePhoto
+                          ? `${i.name} at SLOHS`
+                          : `${i.name} at SLOHS and today`
+                      }
                       width={1200}
                       height={600}
                       sizes="(max-width: 720px) 100vw, (max-width: 1100px) 45vw, 340px"
@@ -178,10 +189,12 @@ export default function InducteeGrid() {
                         what prompted normalizing them; labelling the halves
                         makes the fixed order legible and makes any pair that
                         slipped through backwards obvious at a glance. */}
-                    <figcaption aria-hidden="true">
-                      <span>Then</span>
-                      <span>Now</span>
-                    </figcaption>
+                    {!i.singlePhoto && (
+                      <figcaption aria-hidden="true">
+                        <span>Then</span>
+                        <span>Now</span>
+                      </figcaption>
+                    )}
                   </figure>
                 )}
                 <div className="slotab-hof-card-name">{i.name}</div>

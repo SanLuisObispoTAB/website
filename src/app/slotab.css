@@ -2189,10 +2189,21 @@
 .slotab-hof-card-photo {
   margin: 0 -1.15rem 0.85rem;
 }
+/* A FIXED 3:2 BOX, not the image's own aspect ratio (#228).
+   The composed pairs come out between 1.38 and 1.56 wide-to-tall, because
+   each one is sized by its two originals and no two of those match. Letting
+   each image set its own height made the row ragged, and Durant — a single
+   tall portrait, the only inductee with no "now" photo — ran his card half a
+   page longer than its neighbours. So the box is fixed and `contain` fits the
+   picture inside it: nothing is cropped (decision #226 stands), and the
+   letterboxing is invisible because the pad colour IS the card's background. */
 .slotab-hof-card-photo img {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  background: #fff;
 }
 /* THEN / NOW under the halves. The school's page publishes these pairs in
    both orders; ours are normalized older-left by the import script, and
