@@ -7,6 +7,15 @@ Everything in this folder except this README is gitignored, so raws never get
 committed or deployed by accident. (That accidental pile-up is exactly what
 decisions #74–#76 cleaned up.)
 
+> **This folder does NOT reach a Claude session running in the cloud** (#230).
+> A web or remote session works on a *fresh clone in its own container*, and
+> because this folder is gitignored, a photo dropped into a local checkout
+> never appears there — the agent sees an empty inbox and there is nothing in
+> the repo to tell it a file was meant to exist. This has now cost two rounds
+> on one photo. **Attach the file to the chat message instead**, which puts it
+> in the session's upload directory; the inbox workflow below is for a Claude
+> running on the same machine as the files.
+
 ## Hall of Fame inductee portraits — use the other script
 
 The school's Hall of Fame page publishes each inductee as a **side-by-side

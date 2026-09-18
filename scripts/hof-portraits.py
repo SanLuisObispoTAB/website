@@ -54,9 +54,21 @@ USAGE
     python3 scripts/hof-portraits.py --process --no-pair   # treat inputs as single portraits
     python3 scripts/hof-portraits.py --process --no-gold   # grayscale the gold lettering too
 
-Requires Pillow (`pip install pillow`). Deliberately not ImageMagick: the
-per-half analysis below needs pixel access, and a shell pipeline of that
-shape would be far harder to read than it is to write.
+    # two SEPARATE files whose order you already know (the committee's deck):
+    python3 scripts/hof-portraits.py --compose OLD.png NOW.png --name meaney --process
+    # one photo, for an inductee with no current picture — sidebarred to match:
+    python3 scripts/hof-portraits.py --single PHOTO.jpg --name durant --process
+
+EVERY OUTPUT IS THE SAME SIZE (816x520), because a wall of cards that each
+took their proportions from their own two originals read as a scrapbook
+rather than a set. See `fit_to_box`.
+
+Requires Pillow (`pip install pillow`). OpenCV is OPTIONAL and worth having:
+`pip install opencv-python-headless` enables the face pass that decides where
+each photograph is cropped. Without it the framing falls back to a centred
+crop — worse, but never wrong. Deliberately not ImageMagick: the per-half
+analysis below needs pixel access, and a shell pipeline of that shape would
+be far harder to read than it is to write.
 """
 
 from __future__ import annotations
@@ -83,6 +95,39 @@ OUT_DIR = REPO_ROOT / "public" / "photos"
 TARGET_WIDTH = 1200
 JPEG_QUALITY = 88  # a touch above the repo's 82: faces show banding first
 GUTTER_PX = 16  # white rule between the two halves, applied uniformly
+
+# EVERY CARD IS THE SAME SHAPE (#230). Sizing each pair from its own two
+# originals is what made the class row look like a scrapbook: no two cards
+# agreed on proportion, and a face could land twice the size of the face
+# beside it. So the frame is fixed and the photographs are fitted into it.
+#
+# 400x520 per half is chosen against the DISPLAY, not against the sources. A
+# card is about 340 CSS px wide, so a half shows at ~162 px — 324 device px
+# on a 2x screen. 400 clears that with room to spare, and asking for more
+# would only mean upscaling small originals further for pixels nobody sees.
+HALF_W, HALF_H = 400, 520
+PAIR_W = HALF_W * 2 + GUTTER_PX  # 816
+PAIR_H = HALF_H
+
+# How much of the frame's height a face should occupy. Portrait convention,
+# and the second half of what "normalize" means here: matching the frames
+# without matching the subjects inside them still reads as a scrapbook.
+FACE_TARGET_SHARE = 0.26
+# Eyes about two fifths down rather than dead centre — the standard portrait
+# placement, and it leaves headroom instead of a haircut.
+FACE_VERTICAL_ANCHOR = 0.40
+# How far the FRAME may enlarge a weak source to fill its half. Generous on
+# purpose. The instinct is to cap this hard and pad the leftovers, and that
+# instinct is wrong here: the card shows a half at ~162 CSS px, so a 105px
+# original is being enlarged past 3x by the BROWSER no matter what this
+# script writes. Padding therefore buys no sharpness at all and costs the
+# uniformity that is the whole point — one inset half beside one full-bleed
+# half is exactly the scrapbook look.
+MAX_UPSCALE = 4.0
+# How far the face-zoom may tighten in. Separate from the fill cap, and
+# tighter: filling a frame from a weak source is forced, but cropping further
+# INTO one is a choice, and there is no reason to make a bad original worse.
+MAX_ZOOM = 2.6
 
 # Below this margin the age vote is too close to trust. Such a pair is
 # reported and passed through in its ORIGINAL order rather than swapped on a
@@ -435,54 +480,209 @@ def restore(img: Image.Image, target_width: int, *, keep_gold: bool = True) -> I
     return work
 
 
-def compose_pair(left: Image.Image, right: Image.Image, total_width: int) -> Image.Image:
-    """Rebuild the two-up at a uniform height with a clean gutter.
+_CASCADES: list | None = None
 
-    Both halves are set to the SAME width — the narrower of the two, capped
-    at half the target — so neither is upscaled and the pair reads as one
-    object rather than a big photo next to a small one. The published width
-    therefore floats down to whatever the weaker source can honestly carry.
+
+def _cascades():
+    """Haar cascades, loaded once. Optional: no OpenCV means no face pass.
+
+    The fit below degrades to a centred crop with a top bias without them,
+    which is a worse frame but never a wrong one — so a missing dependency
+    costs quality, not correctness.
     """
-    half_w = min((total_width - GUTTER_PX) // 2, left.size[0], right.size[0])
+    global _CASCADES
+    if _CASCADES is None:
+        try:
+            import cv2  # noqa: PLC0415 - optional, and only wanted if present
 
-    def fit(im: Image.Image) -> Image.Image:
-        ratio = half_w / im.size[0]
-        return im.resize((half_w, max(1, round(im.size[1] * ratio))), Image.Resampling.LANCZOS)
+            d = cv2.data.haarcascades
+            _CASCADES = [
+                cv2.CascadeClassifier(d + n)
+                for n in (
+                    "haarcascade_frontalface_alt2.xml",
+                    "haarcascade_frontalface_default.xml",
+                    "haarcascade_profileface.xml",
+                )
+            ]
+        except Exception:  # pragma: no cover - absence is a supported state
+            _CASCADES = []
+    return _CASCADES
 
-    l_fit, r_fit = fit(left), fit(right)
-    lh, rh = l_fit.size[1], r_fit.size[1]
 
-    # CROP OR PAD, decided by how far apart the two shapes are.
-    #
-    # Cropping to the shorter height gives the cleanest flush two-up, and where
-    # the halves are of similar proportion the few pixels it trims are
-    # background. But they are not always similar. The committee's slide deck
-    # pairs a LANDSCAPE action shot with a SQUARE headshot; fitted to the same
-    # width those differ in height by nearly a factor of two, and cropping
-    # there took the top and bottom off the headshot — which on a portrait
-    # means cutting off somebody's head.
-    #
-    # So crop only within a tight tolerance and otherwise CONTAIN: keep every
-    # pixel of both and pad the shorter one. A white band is a cosmetic
-    # imperfection; a decapitated inductee is not.
-    CROP_TOLERANCE = 1.08
-    if max(lh, rh) / max(1, min(lh, rh)) <= CROP_TOLERANCE:
-        height = min(lh, rh)
+def find_face(img: Image.Image) -> tuple[int, int, int, int] | None:
+    """The largest face in the image, or None.
 
-        def crop_center(im: Image.Image) -> Image.Image:
-            top = (im.size[1] - height) // 2
-            return im.crop((0, top, im.size[0], top + height))
+    Largest rather than first: these are portraits with one subject, and the
+    other detections are teammates, spectators and the occasional false
+    positive on a bit of background texture. Profiles are run on the mirror
+    image too, because the cascade only knows one direction.
+    """
+    cascades = _cascades()
+    if not cascades:
+        return None
+    try:
+        import cv2  # noqa: PLC0415
+        import numpy as np  # noqa: PLC0415
+    except Exception:  # pragma: no cover
+        return None
 
-        l_fit, r_fit = crop_center(l_fit), crop_center(r_fit)
+    # Haar wants pixels. Several of the deck's originals are barely 100px
+    # wide, and the same face that is missed at native size is found reliably
+    # on a 2x copy — so small sources get enlarged for the DETECTION only.
+    # Nothing downstream sees the enlarged copy; only the box comes back.
+    k = 2 if img.size[0] < 300 else 1
+    probe = img.convert("RGB")
+    if k > 1:
+        probe = probe.resize((probe.size[0] * k, probe.size[1] * k), Image.Resampling.LANCZOS)
+
+    gray = cv2.cvtColor(np.array(probe), cv2.COLOR_RGB2GRAY)
+    gray = cv2.equalizeHist(gray)
+    found: list[tuple[int, int, int, int]] = []
+    for c in cascades:
+        found += [tuple(map(int, r)) for r in c.detectMultiScale(gray, 1.05, 3, minSize=(20, 20))]
+    mirrored = cv2.flip(gray, 1)
+    for x, y, w, h in cascades[-1].detectMultiScale(mirrored, 1.05, 3, minSize=(20, 20)):
+        found.append((int(gray.shape[1] - x - w), int(y), int(w), int(h)))
+
+    # Back to source coordinates, then discard the implausible. Loosening the
+    # cascade parameters above is what finds the faces in the small sources;
+    # it also invites specks. A real portrait subject's face is a meaningful
+    # fraction of the frame, and the 12px hits on somebody's shin are not —
+    # rejecting them is what keeps the fallback (a centred crop) in play
+    # instead of framing the picture around a shoe.
+    iw = img.size[0]
+    plausible = [
+        (x // k, y // k, w // k, h // k)
+        for (x, y, w, h) in found
+        if 0.10 * iw * k <= w <= 0.85 * iw * k
+    ]
+    return max(plausible, key=lambda r: r[2] * r[3]) if plausible else None
+
+
+def fit_to_box(img: Image.Image, box_w: int, box_h: int) -> Image.Image:
+    """Frame one photograph into a fixed box, around its subject's face.
+
+    THIS REPLACES the crop-or-pad rule of #226, and it is worth saying why,
+    because #226 was right about the danger it named. Cropping two halves to
+    a common height decapitated people when the halves' proportions differed
+    wildly, and the fix then was to stop cropping and pad instead. That is
+    safe and it is ugly: every card ended up a different shape, and the class
+    row read as a scrapbook.
+
+    The real problem was never the crop — it was cropping BLIND. A crop that
+    knows where the face is can be tight and safe at the same time, so:
+
+      * the crop window is the target aspect, sized so the face fills about
+        `FACE_TARGET_SHARE` of the height — which normalizes the SUBJECTS,
+        not just the frames;
+      * it is placed with the face centred horizontally and its centre
+        `FACE_VERTICAL_ANCHOR` down, the ordinary portrait placement;
+      * it is then pushed back inside the image, and widened if it would
+        clip the detected face at all. The face is a hard constraint: the
+        window grows or slides, never cuts.
+
+    With no face found it falls back to the largest centred crop with a top
+    bias, since a head is nearly always in the upper half of a photograph.
+
+    It WILL enlarge a small source, which the restore path deliberately never
+    does — uniform frames are not obtainable otherwise. Past `MAX_UPSCALE` it
+    gives up and pads: a blurred smear is worse than a smaller picture.
+    """
+    iw, ih = img.size
+    aspect = box_w / box_h
+    face = find_face(img)
+
+    if face:
+        fx, fy, fw, fh = face
+        want_h = fh / FACE_TARGET_SHARE
+        want_w = want_h * aspect
+        # Never ask for more than the image has, and keep the aspect exact.
+        scale = min(1.0, iw / want_w, ih / want_h)
+        crop_w, crop_h = want_w * scale, want_h * scale
+        # Nor ask for so little that the fit has to enlarge past the cap.
+        floor_w = min(iw, box_w / MAX_ZOOM)
+        if crop_w < floor_w:
+            grow = min(floor_w / crop_w, iw / crop_w, ih / crop_h)
+            crop_w, crop_h = crop_w * grow, crop_h * grow
+        cx = fx + fw / 2
+        cy = fy + fh / 2
+        left = cx - crop_w / 2
+        top = cy - crop_h * FACE_VERTICAL_ANCHOR
+        # The face is a hard constraint, so widen before sliding: a window
+        # that cannot contain it at this size is the wrong size.
+        need = max(
+            (fx + fw) - (left + crop_w), left - fx,
+            (fy + fh) - (top + crop_h), top - fy,
+        )
+        if need > 0:
+            grow = min((crop_w + 2 * need) / crop_w, iw / crop_w, ih / crop_h)
+            crop_w, crop_h = crop_w * grow, crop_h * grow
+            left, top = cx - crop_w / 2, cy - crop_h * FACE_VERTICAL_ANCHOR
+        left = max(0.0, min(left, iw - crop_w))
+        top = max(0.0, min(top, ih - crop_h))
     else:
-        height = max(lh, rh)
+        scale = min(iw / aspect, ih) if (iw / ih) > aspect else min(iw, ih * aspect)
+        crop_w = min(iw, ih * aspect)
+        crop_h = min(ih, iw / aspect)
+        left = (iw - crop_w) / 2
+        top = (ih - crop_h) * 0.38  # heads sit above centre
 
-    width = half_w * 2 + GUTTER_PX
+    cut = img.crop((round(left), round(top), round(left + crop_w), round(top + crop_h)))
+
+    # Cap the enlargement, then letterbox whatever is left over.
+    upscale = box_w / cut.size[0]
+    if upscale > MAX_UPSCALE:
+        w = max(1, round(cut.size[0] * MAX_UPSCALE))
+        h = max(1, round(cut.size[1] * MAX_UPSCALE))
+    else:
+        w, h = box_w, box_h
+    cut = cut.resize((w, h), Image.Resampling.LANCZOS)
+    if (w, h) == (box_w, box_h):
+        return cut
+    fill = (255, 255, 255) if cut.mode == "RGB" else 255
+    canvas = Image.new(cut.mode, (box_w, box_h), fill)
+    canvas.paste(cut, ((box_w - w) // 2, (box_h - h) // 2))
+    return canvas
+
+
+def prepare_half(img: Image.Image, *, keep_gold: bool = True) -> Image.Image:
+    """Frame one photograph, then restore it — in that order, deliberately.
+
+    The crop happens at the SOURCE's full resolution, so the framing decision
+    is made with every pixel the original has, and the single resample down
+    to the half box does the noise averaging that `restore` would otherwise
+    do itself. Restoring first would mean cropping an image that had already
+    been thrown away down to 400px wide.
+    """
+    return restore(fit_to_box(img, HALF_W, HALF_H), HALF_W, keep_gold=keep_gold)
+
+
+def compose_pair(left: Image.Image, right: Image.Image, total_width: int = PAIR_W) -> Image.Image:
+    """Two prepared halves, side by side, with the gutter between."""
+    l_fit = left if left.size == (HALF_W, HALF_H) else fit_to_box(left, HALF_W, HALF_H)
+    r_fit = right if right.size == (HALF_W, HALF_H) else fit_to_box(right, HALF_W, HALF_H)
     mode = "RGB" if "RGB" in (l_fit.mode, r_fit.mode) else "L"
     fill = (255, 255, 255) if mode == "RGB" else 255
-    canvas = Image.new(mode, (width, height), fill)
-    canvas.paste(l_fit, (0, (height - l_fit.size[1]) // 2))
-    canvas.paste(r_fit, (half_w + GUTTER_PX, (height - r_fit.size[1]) // 2))
+    canvas = Image.new(mode, (PAIR_W, PAIR_H), fill)
+    canvas.paste(l_fit.convert(mode), (0, 0))
+    canvas.paste(r_fit.convert(mode), (HALF_W + GUTTER_PX, 0))
+    return canvas
+
+
+def compose_single(img: Image.Image) -> Image.Image:
+    """One photograph on the same canvas as a pair, with sidebars.
+
+    For the inductee who has no current photo. Framing it to one HALF and
+    centring it — rather than letting it span the full width — is the point:
+    his face then lands at the same size as everybody else's, and his card is
+    the same shape as its neighbours. Stretching the single photo across the
+    whole frame would match the outline while doubling the face.
+    """
+    fitted = img if img.size == (HALF_W, HALF_H) else fit_to_box(img, HALF_W, HALF_H)
+    mode = fitted.mode if fitted.mode in ("RGB", "L") else "RGB"
+    fill = (255, 255, 255) if mode == "RGB" else 255
+    canvas = Image.new(mode, (PAIR_W, PAIR_H), fill)
+    canvas.paste(fitted.convert(mode), ((PAIR_W - HALF_W) // 2, 0))
     return canvas
 
 
@@ -514,7 +714,7 @@ def process_one(
         seam = find_seam(raw) if pair else None
 
         if seam is None:
-            final = restore(raw, TARGET_WIDTH, keep_gold=keep_gold)
+            final = compose_single(prepare_half(raw, keep_gold=keep_gold))
             verdict, swapped, paired = None, False, False
         else:
             left, right = split_pair(raw, seam)
@@ -523,11 +723,9 @@ def process_one(
             swapped = verdict.confident and not verdict.left_is_older
             if swapped:
                 left, right = right, left
-            half_target = (TARGET_WIDTH - GUTTER_PX) // 2
             final = compose_pair(
-                restore(left, half_target, keep_gold=keep_gold),
-                restore(right, half_target, keep_gold=keep_gold),
-                TARGET_WIDTH,
+                prepare_half(left, keep_gold=keep_gold),
+                prepare_half(right, keep_gold=keep_gold),
             )
             paired = True
 
@@ -565,12 +763,43 @@ def main() -> int:
             "guessed, so the age vote is skipped entirely."
         ),
     )
-    ap.add_argument("--name", help="output slug for --compose (written as hof-<name>.jpg)")
+    ap.add_argument(
+        "--single",
+        metavar="PHOTO",
+        help=(
+            "frame ONE photo onto the same canvas a pair gets, centred with "
+            "sidebars. For an inductee with no current photo: the card then "
+            "matches its neighbours in shape AND in how big the face reads, "
+            "which spanning the single photo across the full width would not."
+        ),
+    )
+    ap.add_argument(
+        "--name", help="output slug for --compose / --single (written as hof-<name>.jpg)"
+    )
     ap.add_argument("--in", dest="in_dir", default=str(INBOX), help="source directory")
     ap.add_argument("--out", dest="out_dir", default=str(OUT_DIR), help="destination directory")
     args = ap.parse_args()
 
     out_dir = Path(args.out_dir)
+
+    if args.single:
+        if not args.name:
+            sys.exit("--single requires --name")
+        src = Path(args.single)
+        if not src.is_file():
+            sys.exit(f"No such file: {src}")
+        with Image.open(src) as im:
+            im = ImageOps.exif_transpose(im)
+            im.load()
+            final = compose_single(prepare_half(im, keep_gold=not args.no_gold))
+        dest = out_dir / f"hof-{args.name}.jpg"
+        print(f"{src.name}  ->  {final.size[0]}x{final.size[1]}  (single, sidebarred)")
+        if args.process:
+            save(final, dest)
+            print(f"  wrote {dest}")
+        else:
+            print("  (audit only — re-run with --process to write)")
+        return 0
 
     if args.compose:
         # Explicit pairing. The caller states which half is older, so nothing is
@@ -582,14 +811,12 @@ def main() -> int:
         for q in (older_p, current_p):
             if not q.is_file():
                 sys.exit(f"No such file: {q}")
-        half = (TARGET_WIDTH - GUTTER_PX) // 2
         with Image.open(older_p) as a, Image.open(current_p) as b:
             a, b = ImageOps.exif_transpose(a), ImageOps.exif_transpose(b)
             a.load(); b.load()
             final = compose_pair(
-                restore(a, half, keep_gold=not args.no_gold),
-                restore(b, half, keep_gold=not args.no_gold),
-                TARGET_WIDTH,
+                prepare_half(a, keep_gold=not args.no_gold),
+                prepare_half(b, keep_gold=not args.no_gold),
             )
         dest = out_dir / f"hof-{args.name}.jpg"
         print(f"{older_p.name}  +  {current_p.name}  ->  {final.size[0]}x{final.size[1]}")

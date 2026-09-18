@@ -179,8 +179,8 @@ export default function InducteeGrid() {
                           ? `${i.name} at SLOHS`
                           : `${i.name} at SLOHS and today`
                       }
-                      width={1200}
-                      height={600}
+                      width={816}
+                      height={520}
                       sizes="(max-width: 720px) 100vw, (max-width: 1100px) 45vw, 340px"
                       loading="lazy"
                     />
