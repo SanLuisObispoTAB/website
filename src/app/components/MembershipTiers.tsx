@@ -156,13 +156,18 @@ export default function MembershipTiers() {
             Email the Membership VP
           </a>{" "}
           or{" "}
-          <button
-            type="button"
+          {/* Opens the Membership team's official form (#234). This used to
+              call window.print(), which printed the website's own rendering
+              of the tiers — a second, older-looking "sheet" competing with
+              the one the club actually hands out. */}
+          <a
+            href={SPONSOR_FORM_URL}
+            target="_blank"
+            rel="noopener"
             className="slotab-tier-print"
-            onClick={() => window.print()}
           >
-            print this sheet
-          </button>
+            print the sponsorship form
+          </a>
           .
         </p>
       </div>

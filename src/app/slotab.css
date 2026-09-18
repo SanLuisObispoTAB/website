@@ -681,8 +681,9 @@
   cursor: pointer;
 }
 
-/* Print: when someone hits "print this sheet" we strip nav/footer/
-   chrome and hand them just the tier benefits + sponsor wall. The
+/* Print: when someone prints a page from the browser we strip nav/footer/
+   chrome and hand them just the tier benefits + sponsor wall. (The /membership
+   "print" link now opens the official PDF instead — #234.) The
    sponsor logos pictures themselves are skipped (they don't print
    well) and replaced by a compact name list. */
 @media print {
