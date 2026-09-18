@@ -848,15 +848,42 @@ collections:
             widget: list
             fields:
               - { name: name, label: "Name", widget: string }
-              - { name: yearsAtSLOHS, label: "Years at SLOHS", widget: string }
+              - {
+                  name: yearsAtSLOHS,
+                  label: "Years at SLOHS",
+                  widget: string,
+                  required: false,
+                  hint: "Optional — a class is announced before its details are. Leave empty and the line simply does not appear on the card.",
+                }
               - { name: yearInducted, label: "Year inducted", widget: string }
-              - { name: sport, label: "Sport(s)", widget: string, hint: "Comma-separated if multiple. 'Coach' for coach inductees." }
+              - {
+                  name: sport,
+                  label: "Sport(s)",
+                  widget: string,
+                  required: false,
+                  hint: "Comma-separated if multiple. 'Coach' for coach inductees. Optional — leave empty until the Athletic Director supplies it, and the inductee joins no sport filter rather than landing in an 'Other' bucket.",
+                }
               - {
                   name: note,
                   label: "Note (optional)",
                   widget: string,
                   required: false,
                   hint: "E.g. 'Posthumous', '12 Varsity Letters', 'CIF in Dodger Stadium'",
+                }
+              - {
+                  name: photo,
+                  label: "Then-and-now photo (optional)",
+                  widget: image,
+                  required: false,
+                  hint: "The school's side-by-side pair as ONE image, older photo on the LEFT. Leave empty for the older classes that have no portrait — the card simply shows no picture. Do not upload the school's file directly: run it through scripts/hof-portraits.py first, which converts the photo to black and white, keeps the gold name lettering in colour, and puts the halves in the right order.",
+                }
+              - {
+                  name: singlePhoto,
+                  label: "That photo is one picture, not a pair",
+                  widget: boolean,
+                  required: false,
+                  default: false,
+                  hint: "Tick this when only one photo exists for the inductee, so the THEN / NOW labels under it are hidden. Leave it off for a normal side-by-side pair.",
                 }
           - name: unverified
             label: "Awaiting the AD's list — not shown on the site"

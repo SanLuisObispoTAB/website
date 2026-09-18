@@ -1,21 +1,50 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import inducteesJson from "../data/hof-inductees.json";
 
 type Inductee = {
   name: string;
-  yearsAtSLOHS: string;
   yearInducted: string;
-  sport: string;
+  /** Both optional, because a class is announced before its details are.
+   *  A newly announced inductee is a real, verified name with a real year and
+   *  nothing else yet; the alternative to optional fields is a placeholder,
+   *  and "Sport TBD" printed under somebody's name on a public honor roll is
+   *  worse than a line that isn't there. Each self-hides, the same way `note`
+   *  already does. */
+  yearsAtSLOHS?: string;
+  sport?: string;
   note?: string;
+  /** The school's side-by-side pair — playing-days photo beside a current
+   *  one, in ONE image, the way slohs.slcusd.org publishes them.
+   *
+   *  Optional, and that is what keeps this to the newest class without a
+   *  per-year rule anywhere: the board attaches photos to the class that has
+   *  them, and the thirty-odd older records that will never have a portrait
+   *  render exactly as they do today. `scripts/hof-portraits.py` produces the
+   *  file and guarantees the halves run OLDER LEFT, CURRENT RIGHT — the whole
+   *  point of normalizing them, since the school's page mixes both orders. */
+  photo?: string;
+  /** Set when `photo` is ONE portrait rather than a then-and-now pair, which
+   *  suppresses the THEN / NOW caption under it. The caption is a claim about
+   *  the image: printing it over a single photo tells the reader the right
+   *  half is a current picture of someone when there is no right half. The
+   *  flag sits on the exception rather than on the five normal cards, so a
+   *  pair stays the thing you get by default. */
+  singlePhoto?: boolean;
 };
 
 const ALL_INDUCTEES = inducteesJson.inductees as Inductee[];
 
 // Normalize sport labels to a small set of filter categories so "Track" /
 // "Track and Field" / "Track & Field" don't each get their own chip.
-function normalizeCategory(sport: string): string[] {
+function normalizeCategory(sport: string | undefined): string[] {
+  // No sport recorded yet → no categories, so the record joins no chip and
+  // invents no "Other" bucket. Nothing on the roll falls to "Other" today,
+  // and a chip reading "Other 6" would be the only thing on the page
+  // announcing that the data is incomplete.
+  if (!sport) return [];
   const s = sport.toLowerCase();
   const cats = new Set<string>();
   if (/coach/.test(s)) cats.add("Coach");
@@ -63,7 +92,7 @@ export default function InducteeGrid() {
       const q = query.toLowerCase();
       if (
         !i.name.toLowerCase().includes(q) &&
-        !i.sport.toLowerCase().includes(q) &&
+        !(i.sport ?? "").toLowerCase().includes(q) &&
         !String(i.yearInducted).includes(q)
       ) {
         return false;
@@ -131,14 +160,61 @@ export default function InducteeGrid() {
               {grouped.get(year)!.length} {grouped.get(year)!.length === 1 ? "inductee" : "inductees"}
             </span>
           </h3>
-          <div className="slotab-hof-cards">
+          <div
+            className={`slotab-hof-cards${
+              grouped.get(year)!.some((i) => i.photo) ? " with-photos" : ""
+            }`}
+          >
             {grouped.get(year)!.map((i) => (
-              <div key={`${i.name}-${i.yearInducted}`} className="slotab-hof-card">
+              <div
+                key={`${i.name}-${i.yearInducted}`}
+                className={`slotab-hof-card${i.photo ? " has-photo" : ""}`}
+              >
+                {i.photo && (
+                  <figure className="slotab-hof-card-photo">
+                    <Image
+                      src={i.photo}
+                      alt={
+                        i.singlePhoto
+                          ? `${i.name} at SLOHS`
+                          : `${i.name} at SLOHS and today`
+                      }
+                      width={1296}
+                      height={832}
+                      /* MEASURED in a real browser at six widths, not
+                         estimated. The card holds two columns from about
+                         760px up and one below it, so the pair renders at
+                         537 CSS px on a desktop, 517 at 1100, 417 at 900,
+                         and 655 at the 700px single-column breakpoint. The
+                         old final entry said 340px, which under-served the
+                         srcset on every desktop — Next picked a candidate
+                         narrower than the slot and the browser stretched
+                         it. Re-measure if the grid's minmax() changes. */
+                      sizes="(max-width: 720px) 100vw, (max-width: 1150px) 48vw, 540px"
+                      loading="lazy"
+                    />
+                    {/* Names the convention rather than trusting the reader to
+                        infer it. The school's page runs both orders, which is
+                        what prompted normalizing them; labelling the halves
+                        makes the fixed order legible and makes any pair that
+                        slipped through backwards obvious at a glance. */}
+                    {!i.singlePhoto && (
+                      <figcaption aria-hidden="true">
+                        <span>Then</span>
+                        <span>Now</span>
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
                 <div className="slotab-hof-card-name">{i.name}</div>
-                <div className="slotab-hof-card-sport">{i.sport}</div>
-                <div className="slotab-hof-card-years">
-                  SLOHS {i.yearsAtSLOHS}
-                </div>
+                {i.sport && (
+                  <div className="slotab-hof-card-sport">{i.sport}</div>
+                )}
+                {i.yearsAtSLOHS && (
+                  <div className="slotab-hof-card-years">
+                    SLOHS {i.yearsAtSLOHS}
+                  </div>
+                )}
                 {i.note && (
                   <div className="slotab-hof-card-note">{i.note}</div>
                 )}

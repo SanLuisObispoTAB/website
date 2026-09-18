@@ -1,6 +1,49 @@
 {
   "inductees": [
     {
+      "name": "Carey Casciola",
+      "yearInducted": "2026",
+      "sport": "Softball",
+      "yearsAtSLOHS": "2003-2006",
+      "photo": "/photos/hof-casciola.jpg"
+    },
+    {
+      "name": "Brian Medigovich",
+      "yearInducted": "2026",
+      "sport": "Track",
+      "yearsAtSLOHS": "2002-2005",
+      "photo": "/photos/hof-medigovich.jpg"
+    },
+    {
+      "name": "Kennedy Meaney",
+      "yearInducted": "2026",
+      "sport": "Volleyball",
+      "yearsAtSLOHS": "2008-2011",
+      "photo": "/photos/hof-meaney.jpg"
+    },
+    {
+      "name": "Antonia Amaral",
+      "yearInducted": "2026",
+      "sport": "Track",
+      "yearsAtSLOHS": "2006-2009",
+      "photo": "/photos/hof-amaral.jpg"
+    },
+    {
+      "name": "John Durant",
+      "yearInducted": "2026",
+      "sport": "Coach (Football)",
+      "yearsAtSLOHS": "1974-2015",
+      "photo": "/photos/hof-durant.jpg",
+      "singlePhoto": true
+    },
+    {
+      "name": "Baker Krukow",
+      "yearInducted": "2026",
+      "sport": "Baseball",
+      "yearsAtSLOHS": "1999-2002",
+      "photo": "/photos/hof-krukow.jpg"
+    },
+    {
       "name": "Abrianna (AB) Torres (Rose)",
       "yearsAtSLOHS": "2008-2011",
       "yearInducted": "2024",
@@ -291,5 +334,5 @@
       "was": "Class of 2024"
     }
   ],
-  "_note": "CLASS OF 2024 CORRECTED 2026-09-01 (decision #204). The Athletic Director flagged errors in the roll and is preparing a scrubbed list; in the meantime he named the eight people who ARE the Class of 2024: AnneMarie Lee, Julian Demalleville, AB Torres, Chalon Tietje, Bruce Tedone, Jenna Kingma, Brooke Ecklund and Brian Waterbury. The roll had eighteen names under that year, so the other ten moved to `unverified` — OFF the public page, STILL IN THE DATA, each carrying `was` so it is clear where they sat. They were NOT deleted: all 46 names came from a scrape of the school's Hall of Fame page, and the tell is that the attribution is wrong rather than the people (a Charter Member cannot be a 2024 inductee), so these are most likely real inductees of earlier classes whose year the scrape got wrong. Erik confirmed this reading on 2026-09-01 — \"we know the 2024 list is accurate; the others must be for different years\" — so these ten are AWAITING A YEAR, NOT A VERDICT. Re-file each under the class the AD's list gives it; do not delete one without him saying that person does not belong in the Hall at all. FIRST ONE RE-FILED 2026-09-04 (#219): Erik gave Travis Hasson's year as 2015, so he moved back into `inductees` as the Class of 2015 and his `was` breadcrumb was dropped — nine names still held. That is the pattern for the rest: supply a year, move the record up, drop `was`. Note Erik typed the name \"Travis Hansson\"; the roll's spelling \"Travis Hasson\" was KEPT rather than re-typed, since the instruction was about the year and the scrubbed list settles spellings. Names are reproduced EXACTLY as the roll had them and were not re-typed from the AD's message — his note spells two of them differently (\"Annamarie\" for AnneMarie Lee, \"Booke\" for Brooke Ecklund); the scrubbed list settles which spelling each person uses."
+  "_note": "CLASS OF 2024 CORRECTED 2026-09-01 (decision #204). The Athletic Director flagged errors in the roll and is preparing a scrubbed list; in the meantime he named the eight people who ARE the Class of 2024: AnneMarie Lee, Julian Demalleville, AB Torres, Chalon Tietje, Bruce Tedone, Jenna Kingma, Brooke Ecklund and Brian Waterbury. The roll had eighteen names under that year, so the other ten moved to `unverified` — OFF the public page, STILL IN THE DATA, each carrying `was` so it is clear where they sat. They were NOT deleted: all 46 names came from a scrape of the school's Hall of Fame page, and the tell is that the attribution is wrong rather than the people (a Charter Member cannot be a 2024 inductee), so these are most likely real inductees of earlier classes whose year the scrape got wrong. Erik confirmed this reading on 2026-09-01 — \"we know the 2024 list is accurate; the others must be for different years\" — so these ten are AWAITING A YEAR, NOT A VERDICT. Re-file each under the class the AD's list gives it; do not delete one without him saying that person does not belong in the Hall at all. FIRST ONE RE-FILED 2026-09-04 (#219): Erik gave Travis Hasson's year as 2015, so he moved back into `inductees` as the Class of 2015 and his `was` breadcrumb was dropped — nine names still held. That is the pattern for the rest: supply a year, move the record up, drop `was`. Note Erik typed the name \"Travis Hansson\"; the roll's spelling \"Travis Hasson\" was KEPT rather than re-typed, since the instruction was about the year and the scrubbed list settles spellings. Names are reproduced EXACTLY as the roll had them and were not re-typed from the AD's message — his note spells two of them differently (\"Annamarie\" for AnneMarie Lee, \"Booke\" for Brooke Ecklund); the scrubbed list settles which spelling each person uses. CLASS OF 2026 ADDED 2026-09-15 (#225): six names, read off the school's Hall of Fame page by Erik because they are burned into the inductee photos as GOLD CURSIVE — the worst case for OCR, and the school host is blocked by the sandbox egress proxy so no machine here could read them anyway. Recorded in the order he gave, which is the order the school's page lists them. Sports were supplied the same day and are recorded. They still carry NO `yearsAtSLOHS`, which was not on offer — the field is optional and self-hides, because a placeholder like 'Years TBD' under a name on a public honor roll is worse than a line that is not there. `sport` is optional for the same reason, and a record without one joins no filter chip rather than inventing an 'Other' bucket. Add the SLOHS years when the AD supplies them. SPELLINGS ARE ERIK'S READING, not the AD's list: this roll has already produced three disputes (Annamarie/AnneMarie, Booke/Brooke, Hansson/Hasson), so check these six against the scrubbed list when it arrives, especially Medigovitch, Casciola and Meany. PHOTOS + YEARS FROM THE COMMITTEE'S SLIDE DECK, 2026-09-18 (#227): Erik supplied the 2026 Hall of Fame presentation, whose embedded images are the ORIGINALS — the school's web page publishes them as side-by-side composites, but the deck holds each photo separately, so the pairs here were composed rather than split, with the order STATED by Erik rather than inferred. `yearsAtSLOHS` is DERIVED from the deck's 'Class of <year>' line: Erik's convention is that the last year is the graduation year, and every existing record spans four years, so the start is graduation minus three. If anyone attended a different number of years, that is where to correct it. John Durant is a COACH — the deck reads 'Football Coach 1974-2015' — so his span is taken verbatim and his sport uses the roll's existing coach form, which also files him under the Coach filter rather than Football. JOHN DURANT HAS ONE PHOTO, NOT A PAIR: the deck's slide for him holds a single image — a phone snapshot of a framed print, cap and jersey, wall edge and flash glare included — where every other inductee has two. His record therefore carries `singlePhoto`, which hides the THEN / NOW labels under the picture; printing them over one photo tells a reader the right half is a current picture of him when there is no right half. The image was cropped to the print (dropping the wall and the frame) and then to head-and-shoulders at 3:2, the ratio the composed pairs land on, so his card matches its neighbours. The flash glare was LEFT IN — patching it with blurred background was tried and traded a crisp highlight for a grey smudge and a visible seam. Replace the whole thing if a better photo of him turns up. BAKER KRUKOW'S PHOTO LANDED 2026-09-18 (#232), ON THE THIRD ATTEMPT: the deck's playing-days half for him was the WRONG MAN — its own author flagged it ('Might not be right pic?'), and it showed a bearded batter in a current-era Nevada uniform against Krukow's four years at Reno after 2002. Erik supplied the correct photo, a clean-shaven Nevada batter of that era, at 2000x1562 — the sharpest source in the class, and the only playing-days half that is DOWNSCALED rather than enlarged. It took three tries and only the third route works: pasting an image into chat writes nothing to disk, and dropping it in photo-inbox/ puts it in a gitignored folder of a LOCAL checkout that an agent on a fresh clone in a cloud container cannot see; ATTACHING IT AS A FILE lands it in the session's upload directory. That is recorded in photo-inbox/README.md now. His card is composed against the deck's current headshot of him (image10.jpg), which was always correct. PRIMARY SPORT, NOT EVERY SPORT (#231, 2026-09-18): the deck lists multi-sport athletes in full, and Erik's rule for which ONE the card shows is \"the one listed for the most number of years, or the one they did after graduating in college\". Applied to all six, it changes exactly one — and changes it away from an error. KENNEDY MEANEY WAS FILED UNDER SOFTBALL, WHICH SHE PLAYED FOR ONE YEAR: the deck gives her volleyball 4 years, water polo 4, swimming 2, softball 1, then four years of volleyball at Cal Lutheran against one of water polo, and she is now SLO High's varsity volleyball coach. Both halves of the rule point at VOLLEYBALL. The other five already agreed with it: Casciola softball (over volleyball — four-year starting shortstop at USD), Krukow baseball (3 varsity years to football's 2, then four years at Nevada), Amaral track only, Durant coaching. Medigovich is the one genuinely ambiguous case — track and cross country in high school, a national indoor 5000m title (track) in college, and a head cross country coaching job now — and it does not matter here, because `normalizeCategory` files track and cross country under the same \"Track & Field / XC\" chip either way. SPELLINGS SETTLED 2026-09-18 (#229): Erik came back from the AD with four names — Kennedy MEANEY, John DURANT, Brian MEDIGOVICH, Antonia AMARAL. The deck and the roll had disagreed on all four; the ruling splits them, siding with the DECK on Meaney and Medigovich and with the ROLL on Durant and Antonia (the deck read Durrant and Tonie). Two records were renamed and their photo files renamed with them — hof-meany.jpg to hof-meaney.jpg, hof-medigovitch.jpg to hof-medigovich.jpg. Casciola and Krukow were never in dispute. This closes the three-year run of spelling disputes on this roll (Annamarie/AnneMarie, Booke/Brooke, Hansson/Hasson) for the Class of 2026, but not for the ten names still held in `unverified` — those wait on the scrubbed list."
 }

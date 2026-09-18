@@ -7,6 +7,36 @@ Everything in this folder except this README is gitignored, so raws never get
 committed or deployed by accident. (That accidental pile-up is exactly what
 decisions #74–#76 cleaned up.)
 
+> **This folder does NOT reach a Claude session running in the cloud** (#230).
+> A web or remote session works on a *fresh clone in its own container*, and
+> because this folder is gitignored, a photo dropped into a local checkout
+> never appears there — the agent sees an empty inbox and there is nothing in
+> the repo to tell it a file was meant to exist. This has now cost two rounds
+> on one photo. **Attach the file to the chat message instead**, which puts it
+> in the session's upload directory; the inbox workflow below is for a Claude
+> running on the same machine as the files.
+
+## Hall of Fame inductee portraits — use the other script
+
+The school's Hall of Fame page publishes each inductee as a **side-by-side
+pair**: their playing-days photo beside a current one. Those do NOT go through
+`photo-intake` — it would resize the pair as one wide photo and leave the
+inconsistent left/right order alone.
+
+Drop them here and run:
+
+```
+pip install pillow
+python3 scripts/hof-portraits.py              # audit, writes nothing
+python3 scripts/hof-portraits.py --process    # write into public/photos/
+```
+
+It converts to B&W, denoises, downsizes, and rebuilds every pair
+**older-left / current-right**. A pair it cannot confidently order is reported
+and left untouched — check those by eye, because printing somebody's photos in
+the wrong order is a factual error about a person. Output is named
+`hof-<slug>.jpg`, outside the `<b|g|c><sport>-` convention below.
+
 ## Workflow
 
 1. Drop image files (`.jpg` / `.jpeg` / `.png`) into this folder.

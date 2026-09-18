@@ -2166,6 +2166,62 @@
   font-style: italic;
 }
 
+/* INDUCTEE PORTRAITS (#224)
+   Only the newest class carries photos — the roll goes back to 1950 and most
+   of it never will — so every rule here hangs off `.has-photo` / `.with-photos`
+   and the thirty-odd text-only cards are untouched.
+
+   The wider column applies to the PHOTO ROW ONLY. The pair is two faces in one
+   image, so a 250px card would render each of them at ~120px; 360px keeps a
+   face legible without forcing the text-only classes into a layout sized for
+   pictures they do not have. */
+/* auto-FILL, not auto-fit. With auto-fit the empty tracks collapse, so a class
+   holding one inductee — or any filter that narrows to one — stretched a
+   two-face photo across the full page width. auto-fill keeps the empty tracks,
+   so a lone card stays one column wide and the row fills left to right. */
+.slotab-hof-cards.with-photos {
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+}
+.slotab-hof-card.has-photo {
+  padding-top: 0;
+  overflow: hidden; /* keeps the full-bleed image inside the gold left rule */
+}
+.slotab-hof-card-photo {
+  margin: 0 -1.15rem 0.85rem;
+}
+/* A FIXED BOX AT THE COMPOSER'S OWN RATIO (#228, retuned in #230).
+   Every file `hof-portraits.py` writes is now exactly 1296x832 — two 640x832
+   halves and a 16px gutter — so this declares that same ratio rather than
+   guessing one. It stays as a guard: a hand-made file of some other shape
+   letterboxes into the box instead of pushing the row out of alignment, and
+   `contain` means it is never cropped to fit. The pad is invisible because
+   it is the card's own background. */
+.slotab-hof-card-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1296 / 832;
+  object-fit: contain;
+  background: #fff;
+}
+/* THEN / NOW under the halves. The school's page publishes these pairs in
+   both orders; ours are normalized older-left by the import script, and
+   saying so is what makes that normalization visible to a reader — and makes
+   any pair that slipped through backwards obvious. `aria-hidden` because the
+   alt text already says the same thing in a sentence, and a screen reader
+   should not hear two disembodied words. */
+.slotab-hof-card-photo figcaption {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 1.15rem 0;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slotab-muted);
+}
+
 /* Draft banner — the unlisted review page at /preview/hof-fund (#185).
    Loud on purpose: a reviewer who mistakes a proposal for the live site gives
    feedback on the wrong thing. Not themed like the rest of the site for the
