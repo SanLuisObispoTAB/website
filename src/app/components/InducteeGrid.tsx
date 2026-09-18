@@ -179,9 +179,18 @@ export default function InducteeGrid() {
                           ? `${i.name} at SLOHS`
                           : `${i.name} at SLOHS and today`
                       }
-                      width={816}
-                      height={520}
-                      sizes="(max-width: 720px) 100vw, (max-width: 1100px) 45vw, 340px"
+                      width={1296}
+                      height={832}
+                      /* MEASURED in a real browser at six widths, not
+                         estimated. The card holds two columns from about
+                         760px up and one below it, so the pair renders at
+                         537 CSS px on a desktop, 517 at 1100, 417 at 900,
+                         and 655 at the 700px single-column breakpoint. The
+                         old final entry said 340px, which under-served the
+                         srcset on every desktop — Next picked a candidate
+                         narrower than the slot and the browser stretched
+                         it. Re-measure if the grid's minmax() changes. */
+                      sizes="(max-width: 720px) 100vw, (max-width: 1150px) 48vw, 540px"
                       loading="lazy"
                     />
                     {/* Names the convention rather than trusting the reader to

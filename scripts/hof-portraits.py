@@ -59,7 +59,7 @@ USAGE
     # one photo, for an inductee with no current picture — sidebarred to match:
     python3 scripts/hof-portraits.py --single PHOTO.jpg --name durant --process
 
-EVERY OUTPUT IS THE SAME SIZE (816x520), because a wall of cards that each
+EVERY OUTPUT IS THE SAME SIZE (1296x832), because a wall of cards that each
 took their proportions from their own two originals read as a scrapbook
 rather than a set. See `fit_to_box`.
 
@@ -101,33 +101,33 @@ GUTTER_PX = 16  # white rule between the two halves, applied uniformly
 # agreed on proportion, and a face could land twice the size of the face
 # beside it. So the frame is fixed and the photographs are fitted into it.
 #
-# 400x520 per half is chosen against the DISPLAY, not against the sources. A
-# card is about 340 CSS px wide, so a half shows at ~162 px — 324 device px
-# on a 2x screen. 400 clears that with room to spare, and asking for more
-# would only mean upscaling small originals further for pixels nobody sees.
-HALF_W, HALF_H = 400, 520
-PAIR_W = HALF_W * 2 + GUTTER_PX  # 816
+# Sized against the DISPLAY — and the display was MEASURED, not assumed.
+# The first pass at this reasoned that a card is "about 340 CSS px" and set a
+# 400px half accordingly. It is not: driving a real browser at six viewport
+# widths puts the pair at 537 CSS px on a desktop and 655 px at the 700px
+# single-column breakpoint, so a half is up to 655 DEVICE px on a 2x screen.
+# A 400px half was therefore being enlarged ~1.6x by the browser on top of
+# any enlargement done here, which is the visible softness Erik reported.
+#
+# 640 covers the widest real case. Measure again if the card's CSS changes;
+# guessing this number is what cost a round.
+HALF_W, HALF_H = 640, 832
+PAIR_W = HALF_W * 2 + GUTTER_PX  # 1296
 PAIR_H = HALF_H
 
-# How much of the frame's height a face should occupy. Portrait convention,
-# and the second half of what "normalize" means here: matching the frames
-# without matching the subjects inside them still reads as a scrapbook.
-FACE_TARGET_SHARE = 0.26
 # Eyes about two fifths down rather than dead centre — the standard portrait
 # placement, and it leaves headroom instead of a haircut.
 FACE_VERTICAL_ANCHOR = 0.40
-# How far the FRAME may enlarge a weak source to fill its half. Generous on
-# purpose. The instinct is to cap this hard and pad the leftovers, and that
-# instinct is wrong here: the card shows a half at ~162 CSS px, so a 105px
-# original is being enlarged past 3x by the BROWSER no matter what this
-# script writes. Padding therefore buys no sharpness at all and costs the
-# uniformity that is the whole point — one inset half beside one full-bleed
-# half is exactly the scrapbook look.
-MAX_UPSCALE = 4.0
-# How far the face-zoom may tighten in. Separate from the fill cap, and
-# tighter: filling a frame from a weak source is forced, but cropping further
-# INTO one is a choice, and there is no reason to make a bad original worse.
-MAX_ZOOM = 2.6
+# How far the FRAME may enlarge a weak source to fill its half. Effectively
+# off, and deliberately: a half displays at up to 655 device px, so the two
+# weakest originals in the Class of 2026 — 105x145 and 208x312 — are being
+# enlarged 6x and 3x BY THE BROWSER whatever this script writes. Refusing to
+# enlarge here and padding instead buys no sharpness at all and costs the
+# uniformity that is the whole point: one inset half beside one full-bleed
+# half is exactly the scrapbook look. Doing the enlargement once, with
+# Lanczos, beats leaving it to the browser. The cap survives only to catch a
+# pathological input (a 40px thumbnail), not to make a quality judgement.
+MAX_UPSCALE = 8.0
 
 # Below this margin the age vote is too close to trust. Such a pair is
 # reported and passed through in its ORIGINAL order rather than swapped on a
@@ -509,13 +509,64 @@ def _cascades():
     return _CASCADES
 
 
-def find_face(img: Image.Image) -> tuple[int, int, int, int] | None:
-    """The largest face in the image, or None.
+def _skin_fraction(rgb: Image.Image, box: tuple[int, int, int, int]) -> float:
+    """How much of a box looks like skin, in YCbCr.
 
-    Largest rather than first: these are portraits with one subject, and the
-    other detections are teammates, spectators and the occasional false
-    positive on a bit of background texture. Profiles are run on the mirror
-    image too, because the cascade only knows one direction.
+    The classic chrominance window (77<=Cb<=127, 133<=Cr<=173). It is crude
+    and it does not need to be anything else: it is not deciding WHERE a face
+    is, only refereeing between candidates a cascade already proposed, and
+    the things it has to reject here — an outfield wall, a pinstriped jersey,
+    a patch of sky — are nowhere near skin in chrominance regardless of how
+    light or dark the person is.
+    """
+    x, y, w, h = box
+    patch = rgb.crop((x, y, x + w, y + h)).convert("YCbCr")
+    if patch.size[0] * patch.size[1] == 0:
+        return 0.0
+    if patch.size[0] > 64:  # sampling is plenty for a ratio
+        patch = patch.resize((64, 64), Image.Resampling.BILINEAR)
+    px = patch.getdata()
+    hits = sum(1 for (_, cb, cr) in px if 77 <= cb <= 127 and 133 <= cr <= 173)
+    return hits / max(1, len(px))
+
+
+def _is_monochrome(rgb: Image.Image) -> bool:
+    """True when the image carries no usable colour, so skin cannot be read."""
+    probe = rgb.resize((48, 48), Image.Resampling.BILINEAR).convert("YCbCr")
+    spread = max(
+        max(abs(cb - 128), abs(cr - 128)) for (_, cb, cr) in probe.getdata()
+    )
+    return spread < 12
+
+
+def find_face(img: Image.Image) -> tuple[int, int, int, int] | None:
+    """The most face-like detection in the image, or None.
+
+    NOT simply the largest, which is what the first version did and what
+    Krukow's photograph disproved: on a batting action shot the cascades
+    returned a 314px false positive on the flat green outfield wall, four
+    more on the pinstripes of his jersey, and one 86px hit on his actual
+    face. Picking by area framed the card on the wall and cut his head off —
+    the very failure #226 was written about, arriving through a different
+    door. Agreement between cascades does not rescue it either: two of the
+    jersey false positives agreed with each other and his face was found
+    once.
+
+    So candidates are SCORED rather than ranked by size, on three signals
+    that a false positive rarely satisfies together:
+
+      skin      the decisive one. A wall, a jersey and a patch of sky are
+                nowhere near skin in chrominance. Ignored entirely when no
+                candidate shows skin, which is how an already-monochrome
+                source still works.
+      height    heads are in the upper part of a photograph far more often
+                than not, and every false positive here sat lower than the
+                face did.
+      size      a weak preference only, on a cube root, so it can break a
+                tie but never overrule the other two.
+
+    Profiles are run on the mirror image too, because the cascade only knows
+    one direction.
     """
     cascades = _cascades()
     if not cascades:
@@ -550,80 +601,98 @@ def find_face(img: Image.Image) -> tuple[int, int, int, int] | None:
     # fraction of the frame, and the 12px hits on somebody's shin are not —
     # rejecting them is what keeps the fallback (a centred crop) in play
     # instead of framing the picture around a shoe.
-    iw = img.size[0]
+    iw, ih = img.size
+    # A relative floor of 10% was tried and was itself the bug: Krukow's face
+    # is a legitimate 86px in a 2000px frame — 4.3% — so the filter threw away
+    # the only true detection and left the 314px wall as the sole candidate.
+    # The floor is now loose, because rejecting specks is the SCORE's job.
     plausible = [
         (x // k, y // k, w // k, h // k)
         for (x, y, w, h) in found
-        if 0.10 * iw * k <= w <= 0.85 * iw * k
+        if 0.035 * iw * k <= w <= 0.85 * iw * k
     ]
-    return max(plausible, key=lambda r: r[2] * r[3]) if plausible else None
+    if not plausible:
+        return None
+
+    rgb = img.convert("RGB")
+    skins = [_skin_fraction(rgb, b) for b in plausible]
+
+    if not _is_monochrome(rgb):
+        # Skin is a VETO, not a tiebreak. A detection that is not skin-coloured
+        # is not a face, and every false positive that has bitten this script —
+        # an outfield wall, pinstripes, a patch of turf — fails it outright. If
+        # nothing passes, the answer is "no face", which puts the safe centred
+        # crop back in play rather than framing a card on a wall.
+        keep = [(b, s) for b, s in zip(plausible, skins) if s >= 0.15]
+        if not keep:
+            return None
+    else:
+        # Nothing to read: an already-monochrome source makes every candidate
+        # score zero, so the signal is dropped instead of vetoing the face.
+        keep = [(b, 1.0) for b in plausible]
+
+    def score(box: tuple[int, int, int, int], skin: float) -> float:
+        _, y, w, h = box
+        cy = (y + h / 2) / ih
+        height_prior = max(0.35, 1.2 - cy)  # 1.2 at the top, 0.35 at the foot
+        size_term = (w / iw) ** (1 / 3)  # weak: breaks ties, never decides
+        return skin * height_prior * size_term
+
+    return max(keep, key=lambda p: score(*p))[0]
 
 
 def fit_to_box(img: Image.Image, box_w: int, box_h: int) -> Image.Image:
-    """Frame one photograph into a fixed box, around its subject's face.
+    """Frame one photograph into a fixed box, positioned by its subject's face.
 
     THIS REPLACES the crop-or-pad rule of #226, and it is worth saying why,
     because #226 was right about the danger it named. Cropping two halves to
     a common height decapitated people when the halves' proportions differed
-    wildly, and the fix then was to stop cropping and pad instead. That is
-    safe and it is ugly: every card ended up a different shape, and the class
-    row read as a scrapbook.
+    wildly, and the fix then was to stop cropping and pad instead. Safe, and
+    ugly: every card ended up a different shape and the row read as a
+    scrapbook. The real problem was never the crop — it was cropping BLIND.
 
-    The real problem was never the crop — it was cropping BLIND. A crop that
-    knows where the face is can be tight and safe at the same time, so:
+    THE CROP IS THE LARGEST THE ASPECT ALLOWS. It is never tightened around
+    the subject, and the reason is a lesson from Krukow's batting photograph:
+    an earlier version sized the window so the detected face filled a target
+    share of the height, which works only if the detector's box is the whole
+    head. On that photograph — a batting helmet, a turned face — the cascade
+    returned an 86px box over one cheek of a head nearly 400px tall, so the
+    "face-sized" window came out four times too tight and cropped the helmet
+    off. Haar box POSITION is dependable; Haar box SIZE is not, and sizing
+    the frame from it stakes the whole composition on the unreliable half.
 
-      * the crop window is the target aspect, sized so the face fills about
-        `FACE_TARGET_SHARE` of the height — which normalizes the SUBJECTS,
-        not just the frames;
-      * it is placed with the face centred horizontally and its centre
-        `FACE_VERTICAL_ANCHOR` down, the ordinary portrait placement;
-      * it is then pushed back inside the image, and widened if it would
-        clip the detected face at all. The face is a hard constraint: the
-        window grows or slides, never cuts.
+    Taking the largest crop instead is also what Erik asked for outright —
+    "use more of the original so they look better" — and it is strictly
+    better for sharpness: every pixel the crop keeps is one the output does
+    not have to invent. Subjects still land at comparable sizes, because a
+    photographer framing a portrait or an action shot has already done that
+    job; the normalizing this function owes the page is the FRAME.
 
-    With no face found it falls back to the largest centred crop with a top
-    bias, since a head is nearly always in the upper half of a photograph.
+    The face decides WHERE that window sits: centred on it horizontally,
+    with the face `FACE_VERTICAL_ANCHOR` down — the ordinary portrait
+    placement, which leaves headroom instead of a haircut — then pushed back
+    inside the image. With no face found it falls back to a centred crop
+    with a top bias, since a head is nearly always in the upper half.
 
     It WILL enlarge a small source, which the restore path deliberately never
-    does — uniform frames are not obtainable otherwise. Past `MAX_UPSCALE` it
-    gives up and pads: a blurred smear is worse than a smaller picture.
+    does; uniform frames are not obtainable otherwise, and the browser would
+    do that enlargement anyway. Past `MAX_UPSCALE` it pads instead.
     """
     iw, ih = img.size
     aspect = box_w / box_h
     face = find_face(img)
 
+    # The biggest window of the right shape that fits inside the source.
+    crop_w = min(iw, ih * aspect)
+    crop_h = min(ih, iw / aspect)
+
     if face:
         fx, fy, fw, fh = face
-        want_h = fh / FACE_TARGET_SHARE
-        want_w = want_h * aspect
-        # Never ask for more than the image has, and keep the aspect exact.
-        scale = min(1.0, iw / want_w, ih / want_h)
-        crop_w, crop_h = want_w * scale, want_h * scale
-        # Nor ask for so little that the fit has to enlarge past the cap.
-        floor_w = min(iw, box_w / MAX_ZOOM)
-        if crop_w < floor_w:
-            grow = min(floor_w / crop_w, iw / crop_w, ih / crop_h)
-            crop_w, crop_h = crop_w * grow, crop_h * grow
-        cx = fx + fw / 2
-        cy = fy + fh / 2
-        left = cx - crop_w / 2
-        top = cy - crop_h * FACE_VERTICAL_ANCHOR
-        # The face is a hard constraint, so widen before sliding: a window
-        # that cannot contain it at this size is the wrong size.
-        need = max(
-            (fx + fw) - (left + crop_w), left - fx,
-            (fy + fh) - (top + crop_h), top - fy,
-        )
-        if need > 0:
-            grow = min((crop_w + 2 * need) / crop_w, iw / crop_w, ih / crop_h)
-            crop_w, crop_h = crop_w * grow, crop_h * grow
-            left, top = cx - crop_w / 2, cy - crop_h * FACE_VERTICAL_ANCHOR
+        left = (fx + fw / 2) - crop_w / 2
+        top = (fy + fh / 2) - crop_h * FACE_VERTICAL_ANCHOR
         left = max(0.0, min(left, iw - crop_w))
         top = max(0.0, min(top, ih - crop_h))
     else:
-        scale = min(iw / aspect, ih) if (iw / ih) > aspect else min(iw, ih * aspect)
-        crop_w = min(iw, ih * aspect)
-        crop_h = min(ih, iw / aspect)
         left = (iw - crop_w) / 2
         top = (ih - crop_h) * 0.38  # heads sit above centre
 

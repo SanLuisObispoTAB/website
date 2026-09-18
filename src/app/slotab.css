@@ -2190,7 +2190,7 @@
   margin: 0 -1.15rem 0.85rem;
 }
 /* A FIXED BOX AT THE COMPOSER'S OWN RATIO (#228, retuned in #230).
-   Every file `hof-portraits.py` writes is now exactly 816x520 — two 400x520
+   Every file `hof-portraits.py` writes is now exactly 1296x832 — two 640x832
    halves and a 16px gutter — so this declares that same ratio rather than
    guessing one. It stays as a guard: a hand-made file of some other shape
    letterboxes into the box instead of pushing the row out of alignment, and
@@ -2200,7 +2200,7 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 816 / 520;
+  aspect-ratio: 1296 / 832;
   object-fit: contain;
   background: #fff;
 }
