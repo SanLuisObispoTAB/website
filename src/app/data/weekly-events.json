@@ -6,7 +6,7 @@
       "gid": "1456026824"
     }
   ],
-  "fetchedAt": "2026-09-21T13:51:14.173Z",
+  "fetchedAt": "2026-09-21T19:00:15.823Z",
   "events": [
     {
       "id": "weekly-2026-09-21-girls-golf--mountain-league-midseaso",
@@ -229,6 +229,18 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "FUTURE TIGER CLINICS!",
+      "sourceTab": "Weekly Athletics Schedule Sep 21 - Sep 26"
+    },
+    {
+      "id": "weekly-2026-09-26-boys-water-polo--clovis-high-jv",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-09-26T09:40:00",
+      "title": "Boys Water Polo @ Clovis High JV",
+      "detail": "Clovis High",
+      "isHome": false,
+      "opponent": "Clovis High JV",
       "sourceTab": "Weekly Athletics Schedule Sep 21 - Sep 26"
     }
   ]
