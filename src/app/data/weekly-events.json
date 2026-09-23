@@ -4,9 +4,13 @@
     {
       "name": "Weekly Athletics Schedule Sep 21 - Sep 26",
       "gid": "1456026824"
+    },
+    {
+      "name": "Weekly Athletics Schedule Sep 28 - Oct 3",
+      "gid": "1554501520"
     }
   ],
-  "fetchedAt": "2026-09-21T19:00:15.823Z",
+  "fetchedAt": "2026-09-23T18:06:35.880Z",
   "events": [
     {
       "id": "weekly-2026-09-21-girls-golf--mountain-league-midseaso",
@@ -242,6 +246,239 @@
       "isHome": false,
       "opponent": "Clovis High JV",
       "sourceTab": "Weekly Athletics Schedule Sep 21 - Sep 26"
+    },
+    {
+      "id": "weekly-2026-09-28-girls-golf--lompoc-atascadero",
+      "category": "girls-golf",
+      "categoryLabel": "Girls Golf",
+      "isSport": true,
+      "date": "2026-09-28T14:30:00",
+      "title": "Girls Golf @ Lompoc/Atascadero",
+      "detail": "Dairy Creek",
+      "isHome": false,
+      "opponent": "Lompoc/Atascadero",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-28-boys-water-polo--paso-robles",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-09-28T15:00:00",
+      "title": "Boys Water Polo vs Paso Robles",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Paso Robles",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-28-girls-water-polo--paso-robles",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-09-28T17:00:00",
+      "title": "Girls Water Polo vs Paso Robles",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Paso Robles",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-29-girls-tennis-varsity-st-joe-s",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-09-29T15:30:00",
+      "title": "Varsity Tennis vs St. Joe's",
+      "detail": "SLOHS · Varsity",
+      "isHome": true,
+      "opponent": "St. Joe's",
+      "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-29-girls-tennis-jv-st-joe-s",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-09-29T15:30:00",
+      "title": "JV Tennis @ St. Joe's",
+      "detail": "St. Joe's · JV",
+      "isHome": false,
+      "opponent": "St. Joe's",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-29-girls-volleyball--st-joe-s-",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-09-29T16:00:00",
+      "title": "Volleyball vs St. Joe's*",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "St. Joe's*",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-29-flag-football--santa-ynez-",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-09-29T16:30:00",
+      "title": "Flag Football vs Santa Ynez*",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Santa Ynez*",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-30-boys-water-polo--morro-bay",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-09-30T15:00:00",
+      "title": "Boys Water Polo vs Morro Bay",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Morro Bay",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-09-30-girls-water-polo--morro-bay",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-09-30T17:00:00",
+      "title": "Girls Water Polo vs Morro Bay",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Morro Bay",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-01-girls-water-polo--ag-varsity-girls-tournam",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-01T12:00:00",
+      "title": "Girls Water Polo — AG Varsity Girls Tournament",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "AG Varsity Girls Tournament",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-01-girls-tennis-varsity-lompoc",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-01T15:30:00",
+      "title": "Varsity Tennis vs Lompoc",
+      "detail": "SLOHS · Varsity",
+      "isHome": true,
+      "opponent": "Lompoc",
+      "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-01-girls-tennis-jv-lompoc",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-01T15:30:00",
+      "title": "JV Tennis @ Lompoc",
+      "detail": "Lompoc · JV",
+      "isHome": false,
+      "opponent": "Lompoc",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-01-girls-volleyball--mission-future-tiger-nig",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-10-01T17:00:00",
+      "title": "Volleyball vs Mission (Future Tiger Night)*",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Mission (Future Tiger Night)*",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-01-flag-football--paso-robles-",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-10-01T18:00:00",
+      "title": "Flag Football @ Paso Robles*",
+      "detail": "Paso Robles",
+      "isHome": false,
+      "opponent": "Paso Robles*",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-02-girls-water-polo--ag-varsity-girls-tournam",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-02T12:00:00",
+      "title": "Girls Water Polo — AG Varsity Girls Tournament",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "AG Varsity Girls Tournament",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-02-football-frosh-mission-college-prep",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-10-02T16:00:00",
+      "title": "Frosh Football vs Mission College Prep",
+      "detail": "SLOHS · Frosh",
+      "isHome": true,
+      "opponent": "Mission College Prep",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-02-football--mission-college-prep-hom",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-10-02T19:00:00",
+      "title": "Football vs Mission College Prep (Homecoming)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Mission College Prep (Homecoming)",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-03-cross-country--midseason-league-meet",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-10-03T08:30:00",
+      "title": "Cross Country — Midseason League Meet",
+      "detail": "Fairbanks",
+      "isHome": false,
+      "opponent": "Midseason League Meet",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-03-girls-water-polo--ag-varsity-girls-tournam",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-03T12:00:00",
+      "title": "Girls Water Polo — AG Varsity Girls Tournament",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "AG Varsity Girls Tournament",
+      "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
     }
   ]
 }
