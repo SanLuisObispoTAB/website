@@ -2,7 +2,7 @@
 // Team page completeness audit for the SLOTAB site.
 //
 // Reports what each team page is still missing — coach bios, squad
-// portraits, action shots, liaisons — and writes the result to
+// portraits, action shots, liaisons, rosters, captains, wishlists — and writes the result to
 // `docs/team-page-gaps.md` so the board has one list to work from.
 //
 // WHY THIS EXISTS: /teams/cross-country is the reference page (decisions
@@ -42,6 +42,12 @@ const EXPECTED_SQUADS = {
   "track-field": ["Boys", "Girls"],
 };
 
+/** The only fields a roster row may carry. Publishing is cleared for
+ *  athletes' names and grade levels (AD, 2026-09-29) and the board chose to
+ *  publish exactly that — so a jersey number, position or student ID in a
+ *  team file is a violation even though TeamPage would not render it. */
+const ROSTER_FIELDS = new Set(["name", "year", "squad"]);
+
 /** A posed squad portrait sitting in an action slot. Portraits are named
  *  with a `-team-` segment by the photo convention in CLAUDE.md. */
 const isPortrait = (p) => typeof p === "string" && /-team[-.]/.test(p);
@@ -67,6 +73,13 @@ function assess(t) {
     (l) => l.name && !/TBD/i.test(l.name),
   );
 
+  const roster = t.roster ?? [];
+  const extraRosterFields = [
+    ...new Set(
+      roster.flatMap((r) => Object.keys(r).filter((k) => !ROSTER_FIELDS.has(k))),
+    ),
+  ];
+
   // Squads we expect a portrait for but don't have one for yet.
   const expected = EXPECTED_SQUADS[t.slug] ?? [];
   const haveLabels = new Set(
@@ -90,6 +103,9 @@ function assess(t) {
       "coach bio": heads.length > 0 && heads.some((c) => !c.bio),
       "coach email": heads.length > 0 && heads.some((c) => !c.email),
       liaison: liaisons.length === 0,
+      roster: roster.length === 0,
+      captains: (t.captains ?? []).length === 0,
+      wishlist: (t.wishlist ?? []).length === 0,
     },
     // Rule violations — these are bugs, not missing content.
     violations: [
@@ -99,6 +115,14 @@ function assess(t) {
       ...gallery
         .filter(isPortrait)
         .map((g) => `gallery contains a posed portrait (${g})`),
+      ...(extraRosterFields.length
+        ? [
+            `roster carries fields beyond name + grade (${extraRosterFields.join(", ")}) — strip them at intake`,
+          ]
+        : []),
+      ...(roster.some((r) => !r.name || !String(r.year ?? "").trim())
+        ? ["roster has a row missing a name or grade"]
+        : []),
       ...(t.heroPhoto && t.heroPhoto === t.teamPhoto
         ? ["heroPhoto and teamPhoto are the same file (shows twice)"]
         : []),
@@ -111,6 +135,7 @@ function assess(t) {
       gallery: gallery.length,
       portraits: portraits.length,
       liaisons: liaisons.length,
+      roster: roster.length,
     },
   };
 }
@@ -127,6 +152,9 @@ const FIELDS = [
   "coach bio",
   "coach email",
   "liaison",
+  "roster",
+  "captains",
+  "wishlist",
 ];
 
 function table(rows) {
@@ -158,6 +186,10 @@ lines.push(
   "`/teams/cross-country` is the reference page (decisions #108, #109): head coaches with roles and bios, assistants listed, a labelled squad portrait, and action shots only in the action slots. Everything below is content the board supplies — no code change is needed for any of it.",
 );
 lines.push("");
+lines.push(
+  "**Rosters are name + grade only** (AD approval 2026-09-29, decision #235). Strip jersey numbers, positions and student IDs at intake; the audit flags any that reach a team file.",
+);
+lines.push("");
 lines.push(`## Standard teams (${standard.length})`);
 lines.push("");
 lines.push(table(standard));
@@ -187,7 +219,8 @@ for (const t of standard) {
       ` _(${t.counts.coaches} head coach${t.counts.coaches === 1 ? "" : "es"}, ` +
       `${t.counts.assistants} assistant${t.counts.assistants === 1 ? "" : "s"}, ` +
       `${t.counts.gallery} action shot${t.counts.gallery === 1 ? "" : "s"}, ` +
-      `${t.counts.portraits} portrait${t.counts.portraits === 1 ? "" : "s"})_`,
+      `${t.counts.portraits} portrait${t.counts.portraits === 1 ? "" : "s"}, ` +
+      `${t.counts.roster} on roster)_`,
   );
 }
 lines.push("");
@@ -220,7 +253,7 @@ lines.push("## Rule violations");
 lines.push("");
 if (violations.length === 0) {
   lines.push(
-    "None. No posed portrait is sitting in an action slot, and no page shows the same photo twice.",
+    "None. No posed portrait is sitting in an action slot, no page shows the same photo twice, and every roster is name + grade only.",
   );
 } else {
   for (const t of violations) {
@@ -253,6 +286,6 @@ if (violations.length) {
   for (const t of violations)
     for (const v of t.violations) console.log(`   ${t.slug}: ${v}`);
 } else {
-  console.log("\n✓ No rule violations — no portraits in action slots.");
+  console.log("\n✓ No rule violations — no portraits in action slots, rosters name + grade only.");
 }
 console.log("");
