@@ -17,8 +17,8 @@ function alphaPath(originalLogo: string): string {
 }
 
 function Tile({ s }: { s: Sponsor }) {
-  // max-height is controlled by tier-specific CSS (.champion-tier
-  // .tiger-sponsor-tile img, etc.) so each tier scales independently.
+  // Tile and logo sizing is shared with the /membership wall — see
+  // SPONSOR WALL SIZING in slotab.css.
   //
   // A sponsor with no artwork yet gets their name set as a wordmark. They
   // have paid; being absent from the wall is the one outcome that is
@@ -30,9 +30,12 @@ function Tile({ s }: { s: Sponsor }) {
       alt={s.name}
       width={300}
       height={144}
+      // Same sizing as SponsorWall's tiles, so a logo renders at the same
+      // size on both walls; the per-tier cap is --sp-logo-max-h (slotab.css).
       style={{
-        maxWidth: "100%",
         objectFit: "contain",
+        width: "100%",
+        height: "100%",
       }}
     />
   ) : (
@@ -68,12 +71,12 @@ export default function TigerSponsorWall({ mode = "full" }: Props) {
   );
 
   return (
-    <div>
+    <div className="tiger-sponsor-wall">
       {tiers.map(({ tier, sponsors }) => {
         const cls = tierSlug(tier);
         return (
           <div key={tier} className={`tiger-sponsors-tier ${cls}-tier`}>
-            <div className="tiger-sponsors-tier-label">{tier}</div>
+            <div className="tiger-sponsors-tier-label">{tier} Sponsors</div>
             <div className={`tiger-sponsors-grid ${cls}`}>
               {sponsors.map((s) => (
                 <Tile key={`${tier}-${s.name}`} s={s} />

@@ -1825,6 +1825,7 @@
   margin-bottom: 36px;
 }
 .tiger-sponsors-tier-label {
+  text-align: center; /* matches the /membership wall's centred tier headings */
   font-family: var(--tiger-mono);
   font-size: 10px;
   letter-spacing: 0.22em;
@@ -1832,52 +1833,14 @@
   color: var(--tiger-gold);
   margin-bottom: 18px;
 }
-.tiger-sponsors-grid {
-  display: grid;
-  gap: 24px;
-  align-items: center;
-}
-/* Tier-scaled grids — Champion is largest, then Gold, Silver, Varsity.
-   Doubled champion (240→480), 1.5x gold (180→270) per Erik feedback. */
-.tiger-sponsors-grid.champion {
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 24px;
-}
-.tiger-sponsors-grid.gold {
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 20px;
-}
-.tiger-sponsors-grid.silver {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-.tiger-sponsors-grid.varsity {
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-}
-
-/* Tier-specific tile + logo sizing */
-.tiger-sponsors-tier.champion-tier .tiger-sponsor-tile {
-  min-height: 200px;
-  padding: 28px;
-}
-.tiger-sponsors-tier.champion-tier .tiger-sponsor-tile img {
-  max-height: 144px;
-}
-.tiger-sponsors-tier.gold-tier .tiger-sponsor-tile {
-  min-height: 160px;
-  padding: 22px;
-}
-.tiger-sponsors-tier.gold-tier .tiger-sponsor-tile img {
-  max-height: 108px;
-}
+/* Grid, tile and logo sizing is shared with the /membership wall — see
+   SPONSOR WALL SIZING in slotab.css. Only the dark-section look is here. */
 .tiger-sponsor-tile {
   background: #ffffff;
   border: 1px solid var(--tiger-bone);
-  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  min-height: 120px;
   text-decoration: none;
   transition: transform 0.2s, border-color 0.2s, background 0.2s;
 }
@@ -1899,16 +1862,6 @@
 .tiger-sponsors-tier.gold-tier .tiger-sponsor-wordmark { font-size: 1.25rem; }
 .tiger-sponsors-tier.varsity-tier .tiger-sponsor-wordmark { font-size: 0.95rem; }
 
-/* A tier holding one or two sponsors would otherwise stretch each tile
-   across the whole row — `minmax(X, 1fr)` has no upper bound. Invisible
-   while every tier held sixteen logos; very visible on the sparse 2026-27
-   wall, where Gold opened with a single sponsor. Capping the tile (the grid
-   centres it) fixes 1- and 2-sponsor tiers and changes nothing at 3+, where
-   the track is already narrower than the cap. */
-.tiger-sponsors-grid { justify-items: center; }
-.tiger-sponsor-tile { width: 100%; max-width: 340px; }
-.tiger-sponsors-tier.champion-tier .tiger-sponsor-tile { max-width: 460px; }
-.tiger-sponsors-tier.gold-tier .tiger-sponsor-tile { max-width: 380px; }
 .tiger-sponsor-tile:hover {
   transform: translateY(-2px);
   border-color: var(--tiger-gold);
@@ -1917,11 +1870,6 @@
 /* Logos use pre-processed alpha PNGs from /sponsors/alpha/ (whites
    removed via ImageMagick). On parchment tiles the original colors
    render naturally without filters. */
-.tiger-sponsor-tile img {
-  max-width: 100%;
-  max-height: 72px;
-  object-fit: contain;
-}
 .tiger-sponsors-foot {
   text-align: center;
   margin-top: 36px;
@@ -1941,38 +1889,6 @@
   }
   .tiger-sponsors-head h2 {
     font-size: 36px;
-  }
-  /* Force every tier to 2-up on phones so the wall isn't a 50-tile
-     vertical scroll. Larger tiers (platinum/gold) stay larger via
-     min-height; bronze/silver shrink further. */
-  .tiger-sponsors-grid,
-  .tiger-sponsors-grid.champion,
-  .tiger-sponsors-grid.gold,
-  .tiger-sponsors-grid.silver,
-  .tiger-sponsors-grid.varsity {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .tiger-sponsors-tier.champion-tier .tiger-sponsor-tile {
-    min-height: 130px;
-    padding: 14px;
-  }
-  .tiger-sponsors-tier.champion-tier .tiger-sponsor-tile img {
-    max-height: 80px;
-  }
-  .tiger-sponsors-tier.gold-tier .tiger-sponsor-tile {
-    min-height: 110px;
-    padding: 12px;
-  }
-  .tiger-sponsors-tier.gold-tier .tiger-sponsor-tile img {
-    max-height: 70px;
-  }
-  .tiger-sponsor-tile {
-    min-height: 90px;
-    padding: 12px;
-  }
-  .tiger-sponsor-tile img {
-    max-height: 56px;
   }
 }
 

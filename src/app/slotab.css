@@ -112,6 +112,7 @@
 .tiger-section-head.center,
 .tiger-two-note,
 .tiger-sponsors-foot,
+.tiger-sponsors-tier-label,
 .tiger-cta-inner,
 .slotab-notfound,
 .slotab-thanks,
@@ -833,7 +834,6 @@
 .slotab-tier li { margin: 0; }
 
 /* Sponsor wall (logo grid) */
-.slotab-sponsor-wall { max-width: 1200px; margin: 0 auto; }
 .slotab-sponsor-tier { margin-bottom: 3rem; }
 .slotab-sponsor-tier h3 {
   text-align: center;
@@ -849,32 +849,9 @@
   background: var(--slotab-gold);
   margin: 0.6rem auto 0;
 }
-.slotab-sponsor-grid {
-  display: grid;
-  gap: 1.25rem;
-  justify-items: center;
-  align-items: center;
-}
-.slotab-sponsor-tier.champion .slotab-sponsor-grid {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-.slotab-sponsor-tier.gold .slotab-sponsor-grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-.slotab-sponsor-tier.silver .slotab-sponsor-grid {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
-.slotab-sponsor-tier.tigerpride .slotab-sponsor-grid {
-  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-}
-.slotab-sponsor-tier.varsity .slotab-sponsor-grid {
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-}
 .slotab-sponsor-logo {
   background: #fff;
   border: 1px solid var(--slotab-border);
-  padding: 1rem;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -904,33 +881,95 @@
 .slotab-sponsor-tier.champion .slotab-sponsor-wordmark { font-size: 1.35rem; }
 .slotab-sponsor-tier.gold .slotab-sponsor-wordmark { font-size: 1.15rem; }
 .slotab-sponsor-tier.varsity .slotab-sponsor-wordmark { font-size: 0.9rem; }
-/* A tier holding one or two sponsors would otherwise stretch each tile
-   across the whole row — `minmax(X, 1fr)` has no upper bound. Invisible
-   while every tier held sixteen logos; very visible on the sparse 2026-27
-   wall, where Gold opened with a single sponsor and Silver with one
-   wordmark. The grid already centres its items, so capping the tile is
-   enough; at 3+ per tier the track is narrower than the cap and nothing
-   changes. */
-.slotab-sponsor-logo { max-width: 420px; }
-.slotab-sponsor-tier.champion .slotab-sponsor-logo { max-width: 520px; }
-
-/* Bound the logo height per tier, the way the homepage wall already does.
-   Nothing capped it here, so tile height followed each logo's aspect ratio
-   — a tall square logo next to a wide banner gave a row of 108 / 202 / 259
-   px tiles. Harmless when a tier held sixteen small logos; conspicuous at
-   three across. */
-.slotab-sponsor-tier.champion .slotab-sponsor-logo img { max-height: 160px; }
-.slotab-sponsor-tier.gold .slotab-sponsor-logo img { max-height: 110px; }
-.slotab-sponsor-tier.silver .slotab-sponsor-logo img { max-height: 88px; }
-.slotab-sponsor-tier.tigerpride .slotab-sponsor-logo img { max-height: 76px; }
-.slotab-sponsor-tier.varsity .slotab-sponsor-logo img { max-height: 64px; }
-
-.slotab-sponsor-tier.champion .slotab-sponsor-logo { min-height: 200px; padding: 1.25rem; }
-.slotab-sponsor-tier.gold .slotab-sponsor-logo { min-height: 150px; }
-.slotab-sponsor-tier.silver .slotab-sponsor-logo { min-height: 120px; }
+/* ==========================================================================
+   SPONSOR WALL SIZING — one source for BOTH walls (#237)
+   The homepage wall (TigerSponsorWall, .tiger-*) and the /membership wall
+   (SponsorWall, .slotab-*) used to carry their own copies of these numbers,
+   and they drifted: when Tiger Pride was added (#129) only the membership
+   copy got a grid rule, so on the homepage that tier fell back to a single
+   column, and Silver ran 6 across there against 5 here. Every tier's
+   columns, tile size, logo height and padding now live here as custom
+   properties that both walls read. Colours, borders and headings stay in
+   each wall's own stylesheet — the homepage section is dark, this one cream.
+   A new tier needs ONE entry below, not two.
+   ========================================================================== */
+.slotab-sponsor-tier,
+.tiger-sponsors-tier {
+  --sp-col: 180px;       /* narrowest a column may get before wrapping */
+  --sp-tile-max: 420px;  /* cap, so a 1- or 2-sponsor tier doesn't stretch */
+  --sp-tile-min-h: 120px;
+  --sp-logo-max-h: 88px;
+  --sp-pad: 1rem;
+}
+.slotab-sponsor-tier.champion,
+.tiger-sponsors-tier.champion-tier {
+  --sp-col: 320px; --sp-tile-max: 520px;
+  --sp-tile-min-h: 200px; --sp-logo-max-h: 160px; --sp-pad: 1.25rem;
+}
+.slotab-sponsor-tier.gold,
+.tiger-sponsors-tier.gold-tier {
+  --sp-col: 240px; --sp-tile-min-h: 150px; --sp-logo-max-h: 110px;
+}
+/* Silver takes the defaults above. */
 /* Tiger Pride ($1,000) sits between Silver and Varsity on the ladder. */
-.slotab-sponsor-tier.tigerpride .slotab-sponsor-logo { min-height: 108px; padding: 0.85rem; }
-.slotab-sponsor-tier.varsity .slotab-sponsor-logo { min-height: 95px; padding: 0.75rem; }
+.slotab-sponsor-tier.tigerpride,
+.tiger-sponsors-tier.tigerpride-tier {
+  --sp-col: 165px; --sp-tile-min-h: 108px; --sp-logo-max-h: 76px; --sp-pad: 0.85rem;
+}
+.slotab-sponsor-tier.varsity,
+.tiger-sponsors-tier.varsity-tier {
+  --sp-col: 150px; --sp-tile-min-h: 95px; --sp-logo-max-h: 64px; --sp-pad: 0.75rem;
+}
+
+/* Same outer width on both pages — column count depends on it as much as
+   on --sp-col (a 1200px wall fits six 180px Silver columns, 1160px fits
+   five). */
+.slotab-sponsor-wall,
+.tiger-sponsor-wall {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.slotab-sponsor-grid,
+.tiger-sponsors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--sp-col), 1fr));
+  gap: 1.25rem;
+  justify-items: center;
+  align-items: center;
+}
+.slotab-sponsor-logo,
+.tiger-sponsor-tile {
+  width: 100%;
+  max-width: var(--sp-tile-max);
+  min-height: var(--sp-tile-min-h);
+  padding: var(--sp-pad);
+}
+.slotab-sponsor-logo img,
+.tiger-sponsor-tile img {
+  max-height: var(--sp-logo-max-h);
+}
+
+/* Phones: every tier 2-up on both walls, so ~30 sponsors aren't a
+   one-column scroll. The bigger tiers stay bigger via tile height. */
+@media (max-width: 720px) {
+  .slotab-sponsor-grid,
+  .tiger-sponsors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .slotab-sponsor-tier,
+  .tiger-sponsors-tier {
+    --sp-tile-min-h: 90px; --sp-logo-max-h: 56px; --sp-pad: 12px;
+  }
+  .slotab-sponsor-tier.champion,
+  .tiger-sponsors-tier.champion-tier {
+    --sp-tile-min-h: 130px; --sp-logo-max-h: 80px; --sp-pad: 14px;
+  }
+  .slotab-sponsor-tier.gold,
+  .tiger-sponsors-tier.gold-tier {
+    --sp-tile-min-h: 110px; --sp-logo-max-h: 70px;
+  }
+}
 
 /* Sport merch grid */
 .slotab-merch-grid {
