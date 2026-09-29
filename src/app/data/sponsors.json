@@ -13,6 +13,15 @@
           "name": "SLO Safe Ride",
           "logo": "/sponsors/gold/SLO-Safe-Ride.png",
           "website": "https://slosaferide.com/"
+        },
+        {
+          "name": "Five O Driving School",
+          "logo": "/sponsors/gold/Five-O-Driving-School.png",
+          "website": "https://www.fiveods.com/"
+        },
+        {
+          "name": "Navi",
+          "logo": "/sponsors/gold/Navi.png"
         }
       ]
     },
@@ -20,11 +29,67 @@
       "tier": "Silver",
       "sponsors": [
         {
-          "name": "Premium Meat Market"
+          "name": "Premium Meat Market",
+          "logo": "/sponsors/silver/Premium-Meat-Market.png"
         },
         {
           "name": "Crocker Coastal Construction",
           "logo": "/sponsors/silver/Crocker-Coastal-Construction-pdf.jpg"
+        },
+        {
+          "name": "Cannon",
+          "logo": "/sponsors/silver/Cannon.png",
+          "website": "https://cannoncorp.us/"
+        },
+        {
+          "name": "Tera Dubé, Better Homes and Gardens Real Estate Haven Properties",
+          "logo": "/sponsors/silver/Tera-Dube-BHGRE.png"
+        },
+        {
+          "name": "G.F. Garcia & Sons",
+          "logo": "/sponsors/silver/GF-Garcia-and-Sons.png"
+        },
+        {
+          "name": "The Family Financial Legacy Organizer",
+          "logo": "/sponsors/silver/Family-FLO.png",
+          "website": "https://family-flo.com/"
+        },
+        {
+          "name": "Garrett Orthodontics",
+          "logo": "/sponsors/silver/Garrett-Orthodontics.png",
+          "website": "https://garrettortho.com/"
+        },
+        {
+          "name": "J.W. Design & Construction",
+          "logo": "/sponsors/silver/JW-Design-and-Construction.png"
+        },
+        {
+          "name": "Red Tail Bikes",
+          "logo": "/sponsors/silver/Red-Tail-Bikes.png"
+        },
+        {
+          "name": "Banc of California",
+          "logo": "/sponsors/silver/Banc-of-California.png"
+        },
+        {
+          "name": "Pasadena Private Financial Group",
+          "logo": "/sponsors/silver/Pasadena-Private-Financial-Group.png"
+        },
+        {
+          "name": "Quaglino Roofing",
+          "logo": "/sponsors/silver/Quaglino-Roofing.png"
+        },
+        {
+          "name": "Hufton Law",
+          "logo": "/sponsors/silver/Hufton-Law.png"
+        },
+        {
+          "name": "Kramer Events",
+          "logo": "/sponsors/silver/kramer-events.png"
+        },
+        {
+          "name": "Old San Luis BBQ",
+          "logo": "/sponsors/silver/Old-San-Luis-BBQ.png"
         }
       ]
     },
@@ -38,6 +103,19 @@
         {
           "name": "San Luis Obispo Heart",
           "logo": "/sponsors/tigerpride/San-Luis-Obispo-Heart.jpg"
+        },
+        {
+          "name": "April Dean, Realtor",
+          "logo": "/sponsors/tigerpride/April-Dean.png"
+        },
+        {
+          "name": "Coastal Pediatric Dentistry",
+          "logo": "/sponsors/tigerpride/Coastal-Pediatric-Dentistry.png"
+        },
+        {
+          "name": "Acacia Creek Home Staging",
+          "logo": "/sponsors/tigerpride/Acacia-Creek-Home-Staging.png",
+          "website": "https://www.acaciacreekstaging.com/"
         }
       ]
     },
@@ -45,13 +123,24 @@
       "tier": "Varsity",
       "sponsors": [
         {
-          "name": "The Center Studio & Boutique"
+          "name": "The Center Studio & Boutique",
+          "logo": "/sponsors/varsity/The-Center-Yoga-and-Movement.png"
         },
         {
-          "name": "Carstairs Energy"
+          "name": "Carstairs Energy",
+          "logo": "/sponsors/varsity/Carstairs-Energy.png"
         },
         {
-          "name": "Britton Real Estate"
+          "name": "Britton Real Estate Group",
+          "logo": "/sponsors/varsity/Britton-Real-Estate-Group.png"
+        },
+        {
+          "name": "Gillett Law",
+          "logo": "/sponsors/varsity/Gillett-Law.png"
+        },
+        {
+          "name": "Molly Trapp, Realtor",
+          "logo": "/sponsors/varsity/Molly-Trapp-Realtor.png"
         }
       ]
     }
