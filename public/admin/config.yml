@@ -406,16 +406,18 @@ collections:
           - name: roster
             label: "Roster"
             widget: list
+            # Name and grade only, by policy (AD approval 2026-09-29). No
+            # jersey numbers, positions or student IDs — see TeamPage's
+            # RosterEntry and `npm run team-audit`.
             fields:
-              - { name: number, label: "Number", widget: number, value_type: int }
-              - { name: name, label: "Player name", widget: string }
+              - { name: name, label: "Athlete name", widget: string }
               - {
                   name: year,
-                  label: "Year",
+                  label: "Grade",
                   widget: select,
-                  options: ["Freshman", "Sophomore", "Junior", "Senior"],
+                  options: ["9", "10", "11", "12"],
                 }
-              - { name: position, label: "Position", widget: string }
+              - { name: squad, label: "Squad (optional, e.g. Varsity / JV)", widget: string, required: false }
           - name: wishlist
             label: "Wishlist"
             widget: list

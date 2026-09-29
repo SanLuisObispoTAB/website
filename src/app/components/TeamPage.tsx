@@ -3,18 +3,18 @@ import Link from "next/link";
 import ZoomablePhotos from "./ZoomablePhotos";
 import { minimumForDesignation } from "../data/sponsor-tiers";
 
+/** A roster row is a name and a grade — nothing else, by policy. The AD
+ *  cleared publishing athletes' names and grade levels (29 Sep 2026), and
+ *  the board chose to publish exactly that: no jersey numbers, no positions,
+ *  no student IDs. Keeping the type this narrow is the enforcement — a field
+ *  that isn't here can't render, and `npm run team-audit` flags any team
+ *  file that carries one anyway. */
 type RosterEntry = {
-  /** Jersey number. Optional, because plenty of rosters don't have one:
-   *  cheer doesn't issue numbers at all, and flag football's practice
-   *  players hadn't been given a uniform when the coach sent the list. */
-  number?: number;
   name: string;
   /** Grade level. A bare number renders as "Gr. 12" so a lone "12" in the
    *  corner of a card isn't ambiguous; anything else renders verbatim, for
    *  a team that sends "Senior" or "Sr." instead. */
   year: string;
-  /** Optional — a JV list often arrives before positions are settled. */
-  position?: string;
   /** Squad name, for a program fielding more than one (Varsity / JV Black /
    *  JV Gold). Rows group under it, in first-appearance order. Absent on
    *  every entry means one flat list, which is how a single-squad team
@@ -187,12 +187,8 @@ export default function TeamPage({ team }: { team: Team }) {
 
   // Roster rows, grouped into squads. A program may field one list (no
   // `squad` anywhere) or several; both render through the same path, the
-  // single-squad case simply producing one unnamed group.
-  //
-  // Within a group, numbered athletes sort by number and unnumbered ones
-  // fall to the end in name order — so a flag football JV list with three
-  // practice players still reads as a jersey-ordered roster with the
-  // not-yet-issued names after it, rather than putting them first.
+  // single-squad case simply producing one unnamed group. Within a group,
+  // athletes are listed in name order.
   const roster = team.roster ?? [];
   const rosterSquads: Array<{ label?: string; players: RosterEntry[] }> = [];
   for (const p of roster) {
@@ -204,12 +200,7 @@ export default function TeamPage({ team }: { team: Team }) {
     group.players.push(p);
   }
   for (const g of rosterSquads) {
-    g.players.sort((a, b) => {
-      if (a.number != null && b.number != null) return a.number - b.number;
-      if (a.number != null) return -1;
-      if (b.number != null) return 1;
-      return a.name.localeCompare(b.name);
-    });
+    g.players.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   // The quick-facts band holds coach / captains / liaisons. Teams awaiting
@@ -409,22 +400,10 @@ export default function TeamPage({ team }: { team: Team }) {
                 <div className="slotab-team-roster">
                   {g.players.map((p) => (
                     <div
-                      key={`${g.label ?? ""}-${p.number ?? ""}-${p.name}`}
-                      className={`slotab-team-roster-row${
-                        p.number == null ? " no-num" : ""
-                      }`}
+                      key={`${g.label ?? ""}-${p.name}`}
+                      className="slotab-team-roster-row"
                     >
-                      {p.number != null && (
-                        <span className="slotab-team-roster-num">
-                          #{p.number}
-                        </span>
-                      )}
                       <span className="slotab-team-roster-name">{p.name}</span>
-                      {p.position && (
-                        <span className="slotab-team-roster-position">
-                          {p.position}
-                        </span>
-                      )}
                       <span className="slotab-team-roster-year">
                         {formatYear(p.year)}
                       </span>

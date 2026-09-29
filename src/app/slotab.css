@@ -1607,20 +1607,11 @@
 }
 .slotab-team-roster-row {
   display: grid;
-  grid-template-columns: 3.2rem 1fr auto;
-  grid-template-rows: auto auto;
+  grid-template-columns: 1fr auto;
   column-gap: 0.75rem;
   padding: 0.65rem 0;
   border-bottom: 1px solid var(--slotab-border);
   align-items: baseline;
-}
-.slotab-team-roster-num {
-  grid-row: 1 / 3;
-  font-family: var(--font-slotab-heading), sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--slotab-gold-dark);
-  align-self: center;
 }
 .slotab-team-roster-name {
   font-family: var(--font-slotab-heading), sans-serif;
@@ -1633,32 +1624,6 @@
   color: var(--slotab-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  grid-column: 3;
-  grid-row: 1;
-}
-.slotab-team-roster-position {
-  grid-column: 2;
-  grid-row: 2;
-  font-size: 0.85rem;
-  color: var(--slotab-ink);
-}
-/* A roster with no jersey numbers (cheer doesn't issue them) would otherwise
-   keep an empty 3.2rem gutter down the left of every row. Drop the column
-   and shift the three remaining fields one across. */
-.slotab-team-roster-row.no-num {
-  grid-template-columns: 1fr auto;
-}
-.slotab-team-roster-row.no-num .slotab-team-roster-name {
-  grid-column: 1;
-  grid-row: 1;
-}
-.slotab-team-roster-row.no-num .slotab-team-roster-position {
-  grid-column: 1;
-  grid-row: 2;
-}
-.slotab-team-roster-row.no-num .slotab-team-roster-year {
-  grid-column: 2;
-  grid-row: 1;
 }
 
 /* Squad blocks, for a program fielding more than one roster (flag football
