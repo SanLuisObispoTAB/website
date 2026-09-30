@@ -21,7 +21,8 @@
         },
         {
           "name": "Navi",
-          "logo": "/sponsors/gold/Navi.png"
+          "logo": "/sponsors/gold/Navi.png",
+          "website": "https://navi.app/"
         }
       ]
     },
