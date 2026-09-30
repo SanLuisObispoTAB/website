@@ -74,6 +74,24 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          // A Content-Security-Policy, but only the three directives that
+          // cannot break a page (#240). The full policy — `script-src` and
+          // friends — is still the deferred #73 item, because the site loads
+          // Decap from unpkg, Hudl from blueframetech, Google Fonts and
+          // Vercel analytics, and Next itself needs inline scripts; getting
+          // that list wrong blanks the page. These three touch none of it:
+          //   frame-ancestors 'none' — the CSP form of X-Frame-Options DENY
+          //     above, which browsers now prefer and which also covers the
+          //     `/admin.html` and `/api/decap/*` pages that the Next headers
+          //     reach but older clickjacking guidance sometimes misses.
+          //   base-uri 'self'      — an injected <base> tag cannot redirect
+          //     every relative script and form on the page elsewhere.
+          //   object-src 'none'    — no Flash-era plugin embeds, which the
+          //     site has never used.
+          {
+            key: "Content-Security-Policy",
+            value: "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+          },
         ],
       },
     ];

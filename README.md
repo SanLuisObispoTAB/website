@@ -117,6 +117,23 @@ the domain cuts over to slotab.org), a few things need to be filled in:
    cutover lands at slotab.org. The flag is there now so the staging
    URL isn't indexed before the real domain is live.
 
+## Dependencies and security updates
+
+Dependabot opens pull requests on Mondays for any npm package with a
+newer version (`.github/dependabot.yml`, decision #240). `next` and
+`eslint-config-next` arrive together in one PR because they are pinned
+to the same version. Vercel builds a preview for every PR.
+
+**A human merges them.** For a routine bump, check the preview built and
+merge. For a `next` bump, also open `/board` (should redirect to the
+login) and `/donate` on the preview before merging — those are the two
+pages a framework regression would hurt most.
+
+If a PR has sat for more than a couple of weeks, run `npm audit` locally.
+The 2026-09-30 review found the framework several minor versions behind
+with a critical advisory open, and nothing in the repo or the deploy had
+said so. See `docs/security-review-2026-09-30.md`.
+
 ## Structure
 
 ```

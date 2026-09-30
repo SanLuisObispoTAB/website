@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { isAllowedAdminOrigin } from "../origin-allowlist";
 
@@ -15,6 +16,27 @@ import { isAllowedAdminOrigin } from "../origin-allowlist";
 // supports admin access via both the canonical vercel.app URL and the
 // slotab.ravens-peak-consulting.com CNAME alias — without this, board
 // members on the alias would see the login pop up and hang forever.
+//
+// HARDENED IN #240. The success page carries a live GitHub token in its
+// body, so it is the most sensitive HTML this site ever serves:
+//   · `Cache-Control: no-store` — never let a browser or proxy keep a copy.
+//   · The two handshake cookies are cleared on the way out. They were
+//     single-use by intent and ten-minute by TTL; now they are single-use in
+//     fact.
+//   · The nonce is compared in constant time.
+//   · `<` is escaped inside the inline script, so no value — however it got
+//     there — can close the `<script>` element early.
+
+/** JSON that is safe to inline inside a `<script>`: `<` becomes `<`, so
+ *  a `</script>` inside a value cannot end the element, and the two
+ *  line-separator characters that are legal in JSON but not in JS source are
+ *  escaped too. */
+function scriptSafeJson(value: unknown): string {
+  return JSON.stringify(value)
+    .replace(/</g, "\\u003c")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
 
 function htmlResponse(
   parentOrigin: string,
@@ -36,8 +58,8 @@ function htmlResponse(
 <p>Finishing GitHub sign-in…</p>
 <script>
 (function () {
-  var ORIGIN = ${JSON.stringify(parentOrigin)};
-  var message = ${JSON.stringify(body)};
+  var ORIGIN = ${scriptSafeJson(parentOrigin)};
+  var message = ${scriptSafeJson(body)};
   function receive(e) {
     if (e.origin !== ORIGIN) return;
     if (!e.data || typeof e.data !== 'string') return;
@@ -54,10 +76,26 @@ function htmlResponse(
 </body>
 </html>`;
 
-  return new NextResponse(html, {
+  const res = new NextResponse(html, {
     status: status === "success" ? 200 : 400,
-    headers: { "Content-Type": "text/html; charset=utf-8" },
+    headers: {
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "no-store",
+    },
   });
+  // The handshake is over, whichever way it went. Same path as they were set
+  // with, or the browser treats it as a different cookie and keeps the first.
+  for (const name of ["decap_oauth_nonce", "decap_parent_origin"]) {
+    res.cookies.set({ name, value: "", path: "/api/decap", maxAge: 0 });
+  }
+  return res;
+}
+
+function nonceMatches(saved: string | undefined, returned: string | undefined) {
+  if (!saved || !returned) return false;
+  const a = Buffer.from(saved);
+  const b = Buffer.from(returned);
+  return a.length === b.length && timingSafeEqual(a, b);
 }
 
 export async function GET(req: NextRequest) {
@@ -85,7 +123,7 @@ export async function GET(req: NextRequest) {
   const returnedState = req.nextUrl.searchParams.get("state") ?? "";
   const [returnedNonce] = returnedState.split(":", 2);
 
-  if (!savedNonce || !returnedNonce || savedNonce !== returnedNonce) {
+  if (!nonceMatches(savedNonce, returnedNonce)) {
     return htmlResponse(parentOrigin, "error", {
       error: "OAuth state mismatch — possible CSRF. Please try logging in again.",
     });

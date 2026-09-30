@@ -1,0 +1,48 @@
+# Dependabot — keeps the framework patched without anyone having to remember.
+#
+# WHY (#240): the 2026-09-30 security review found `next` sitting on 16.1.6
+# with a CRITICAL advisory set open against it (an unauthenticated RCE in the
+# image optimiser this site uses, and a bypass of the very proxy that gates
+# /board). Nothing in the repo or the deploy pipeline was going to say so; it
+# was only found because someone ran `npm audit` by hand. This turns that into
+# a pull request that arrives on its own.
+#
+# WHAT IT DOES: once a week, opens a PR for any npm dependency with a newer
+# version, grouped so a routine week is one PR rather than ten. Vercel builds a
+# preview for every PR. Merging is still a human's job — see the README for
+# who, and for the rule that a `next` bump gets a look at /board and /donate on
+# the preview before it merges.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      # One PR for the framework and its lint config, which must move together
+      # (`next` and `eslint-config-next` are pinned to the same version).
+      nextjs:
+        patterns:
+          - "next"
+          - "eslint-config-next"
+      # Everything else in one PR.
+      dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "next"
+          - "eslint-config-next"
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "dependencies"
+
+  # The Actions used by the weekly events scraper workflow.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"

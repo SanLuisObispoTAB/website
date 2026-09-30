@@ -409,6 +409,20 @@ export function allocateCents(
   return { toTeamCents, toGeneralCents: grossCents - toTeamCents };
 }
 
+/** One CSV cell, RFC 4180 style: always quoted, embedded quotes doubled.
+ *
+ *  Two things this guards against (#240). A stray `"` in a value used to
+ *  break the row — every field here is server-derived today, but `key` and
+ *  `levels` are read back from Square metadata, which the club could in
+ *  principle edit by hand. And a value starting with `=`, `+`, `-` or `@` is
+ *  executed as a formula when the file is opened in Excel; a leading
+ *  apostrophe makes it plain text without changing what the Treasurer sees. */
+function csvCell(value: string | number): string {
+  let s = String(value);
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+  return `"${s.replace(/"/g, '""')}"`;
+}
+
 export function reportToCsv(report: Report): string {
   const money = (c: number) => (c / 100).toFixed(2);
   return [
@@ -421,10 +435,12 @@ export function reportToCsv(report: Report): string {
         money(r.grossCents),
         money(r.toTeamCents),
         money(r.toGeneralCents),
-        `"${r.levels.join("; ")}"`,
-        `"${r.sports.join("; ")}"`,
-        `"${r.qbClass}"`,
-      ].join(","),
+        r.levels.join("; "),
+        r.sports.join("; "),
+        r.qbClass,
+      ]
+        .map(csvCell)
+        .join(","),
     ),
   ].join("\n") + "\n";
 }

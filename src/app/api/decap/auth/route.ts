@@ -63,7 +63,13 @@ export async function GET(req: NextRequest) {
   // scope would hand the browser-held token write access to every
   // private repo the OAuth app can see — unnecessary blast radius if the
   // token ever leaks. Keep this as public_repo unless the repo goes private.
-  authorizeUrl.searchParams.set("scope", "public_repo,user");
+  //
+  // `read:user`, not `user` (#240): Decap only ever reads the signed-in
+  // profile (login, name, avatar) to label commits. The `user` scope also
+  // grants WRITE to the profile, which nothing here needs. Same reasoning as
+  // the `repo` → `public_repo` cut in #73: a leaked token should be able to
+  // do exactly what the CMS does and nothing more.
+  authorizeUrl.searchParams.set("scope", "public_repo,read:user");
   authorizeUrl.searchParams.set("state", combinedState);
 
   const response = NextResponse.redirect(authorizeUrl.toString());

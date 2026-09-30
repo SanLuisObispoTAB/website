@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit, clientKey } from "../../../../lib/rate-limit";
 
 // Stub API route for the SLOTAB "Join Online" form on the Membership page.
 //
@@ -6,6 +7,13 @@ import { NextRequest, NextResponse } from "next/server";
 // this route POSTs the payload to Springly's contact/member endpoint.
 // Without them it returns a clear 200 response that the form can render
 // so the board can demo the flow without real Springly credentials.
+
+// Throttled since #240. Once the Springly key lands, every request here
+// creates a CRM contact; unthrottled, a script could fill the club's CRM with
+// junk in minutes. Five a minute per address is more than any real household
+// needs and less than any script wants. Per-instance, see lib/rate-limit.ts.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60_000;
 
 type JoinPayload = {
   name?: unknown;
@@ -24,6 +32,14 @@ function isEmail(s: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(`springly:${clientKey(req)}`, RATE_LIMIT, RATE_WINDOW_MS);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests — please wait a moment and try again." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfter) } },
+    );
+  }
+
   let body: JoinPayload;
   try {
     body = (await req.json()) as JoinPayload;

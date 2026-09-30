@@ -1,27 +1,52 @@
 import { NextRequest, NextResponse } from "next/server";
 // Session validation lives in lib/ so API routes serving board-only data can
 // use the same check — the proxy does not cover /api/board/*.
-import { BOARD_COOKIE, isBoardCookieValid } from "./lib/board-auth";
+import { BOARD_COOKIE, isBoardCookieValid, isGatedPath } from "./lib/board-auth";
 
 // Three jobs:
-//   1. Password-gates the SLOTAB Board Hub at /board/*.
+//   1. Password-gates the SLOTAB Board Hub at /board/* (and /admin-portal —
+//      see GATED_PREFIXES in lib/board-auth.ts).
 //   2. Marks every non-slotab.org host `noindex` (see INDEXABLE_HOSTS).
 //   3. Redirects pre-cutover WordPress URLs, and evicts the stale browser
 //      cache they arrive with (see LEGACY_WP_URLS).
 //
-// Password-gates the SLOTAB Board Hub at /board/*. Set BOARD_PASSWORD as a
-// Vercel env var to enable. The login form at /board/login posts to
-// /api/board/login, which sets a signed cookie (HMAC-SHA256 over the
-// expiry timestamp, keyed by BOARD_PASSWORD itself — rotating the
-// password at board handover automatically invalidates old sessions).
+// Set BOARD_PASSWORD as a Vercel env var to enable the gate. The login form
+// at /board/login posts to /api/board/login, which sets a signed cookie
+// (HMAC-SHA256 over the expiry timestamp, keyed by BOARD_PASSWORD itself —
+// rotating the password at board handover automatically invalidates old
+// sessions).
 //
 // Uses the Next.js 16 "proxy" file convention (renamed from middleware).
 
 // Runs on every page request (static assets and anything with a file
 // extension are excluded) so the canonical-host check below can tag
-// non-slotab.org responses. Board gating still applies only to /board/*.
+// non-slotab.org responses.
+//
+// THE GATED PREFIXES ARE MATCHED A SECOND TIME, WITHOUT THE DOT EXCLUSION.
+// The catch-all pattern skips any path containing a `.` so that images and
+// fonts don't pay for a proxy hop. That is fine for the index policy and it
+// was a hole for the gate: a request for `/board/anything.with.a.dot` never
+// reached this file at all. Nothing under /board serves such a path today,
+// but Next's own internals do generate dotted sub-paths (the App Router's
+// segment-prefetch requests, `…/page.segments/…`), and a proxy bypass through
+// exactly that shape is GHSA-26hh-7cqf-hhc6 — one of the advisories the #240
+// upgrade closed. The explicit matchers below mean the gate no longer depends
+// on the framework getting that right: anything under a gated prefix, dotted
+// or not, comes through here and is checked.
+//
+// Written out as literals because Next reads `config` statically at build
+// time — it must be a plain object of plain strings, so this list cannot be
+// derived from GATED_PREFIXES. Keep the two in step by hand; `isGatedPath`
+// below is what actually decides, so a prefix missing here is merely
+// un-hardened against dotted paths, not ungated.
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\..*).*)",
+    "/board",
+    "/board/:path*",
+    "/admin-portal",
+    "/admin-portal/:path*",
+  ],
 };
 
 // Hosts allowed to be indexed. Everything else — the vercel.app URL, the
@@ -134,8 +159,9 @@ export async function proxy(req: NextRequest) {
   const legacy = legacyWordPressRedirect(pathname, req);
   if (legacy) return withIndexPolicy(legacy, req);
 
-  // Everything outside /board/* is public — it only needs the index policy.
-  if (!pathname.startsWith("/board")) {
+  // Everything outside the gated prefixes is public — it only needs the
+  // index policy.
+  if (!isGatedPath(pathname)) {
     return withIndexPolicy(NextResponse.next(), req);
   }
 

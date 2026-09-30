@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimit, clientKey } from "../../../../lib/rate-limit";
 
 // Stub API route for the "Become a Business Sponsor" form. Same design as
 // /api/springly/member — sanitizes input, echoes back in stub mode when
 // Springly env vars aren't set, or forwards to Springly's contacts endpoint
 // when they are.
+//
+// NOTE (#240): nothing in `src/` calls this route any more — the sponsor
+// enquiry moved to the Square checkout and the mailed form. It stays because
+// the Springly wiring is still an open backlog item, but it is a public,
+// unlinked endpoint that will write to the CRM once configured, so it gets
+// the same throttle as the member route. Delete it if Springly is dropped.
+
+// Same throttle and reasoning as /api/springly/member.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60_000;
 
 type SponsorPayload = {
   business?: unknown;
@@ -23,6 +34,14 @@ function isEmail(s: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = rateLimit(`springly:${clientKey(req)}`, RATE_LIMIT, RATE_WINDOW_MS);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests — please wait a moment and try again." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfter) } },
+    );
+  }
+
   let body: SponsorPayload;
   try {
     body = (await req.json()) as SponsorPayload;

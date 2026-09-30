@@ -12,6 +12,11 @@ import { buildSquareReport, reportToCsv, defaultRange } from "../../../../lib/sq
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** `YYYY-MM-DD` and nothing else. Both values end up inside a response
+ *  header (the CSV filename) and inside a Square query, so the shape is pinned
+ *  here rather than trusted to survive `new Date()` (#240). */
+const ISO_DAY = /^\d{4}-\d{2}-\d{2}$/;
+
 export async function GET(req: Request) {
   if (!(await requestHasBoardSession(req))) {
     return NextResponse.json({ error: "Not authorised" }, { status: 401 });
@@ -21,6 +26,12 @@ export async function GET(req: Request) {
   const fallback = defaultRange();
   const since = url.searchParams.get("since") ?? fallback.since.slice(0, 10);
   const until = url.searchParams.get("until") ?? fallback.until.slice(0, 10);
+  if (!ISO_DAY.test(since) || !ISO_DAY.test(until)) {
+    return NextResponse.json(
+      { error: "Dates must be YYYY-MM-DD" },
+      { status: 400 },
+    );
+  }
 
   try {
     const report = await buildSquareReport(

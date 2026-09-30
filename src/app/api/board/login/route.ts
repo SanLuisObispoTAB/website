@@ -1,57 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
+import {
+  BOARD_COOKIE_TTL_MS,
+  boardCookieOptions,
+  constantTimeEqual,
+  isGatedPath,
+  isSameOriginRequest,
+  makeBoardCookieValue,
+} from "../../../../lib/board-auth";
+import { rateLimit, clientKey } from "../../../../lib/rate-limit";
 
 // POST handler for the Board Hub login form. Validates the submitted
-// password against BOARD_PASSWORD env var and sets a signed cookie if
-// it matches. Cookie signing is shared with src/proxy.ts: HMAC-SHA256
-// over the expiry timestamp, keyed by BOARD_PASSWORD itself.
+// password against the BOARD_PASSWORD env var and sets a signed cookie if
+// it matches. Signing, comparison and the cookie shape all come from
+// lib/board-auth.ts — the same code the proxy validates with — so the two
+// sides cannot drift (#240).
 
-const COOKIE_NAME = "slotab_board";
-const COOKIE_TTL_MS = 60 * 60 * 24 * 30 * 1000; // 30 days
-
-function base64urlEncode(bytes: ArrayBuffer): string {
-  const u8 = new Uint8Array(bytes);
-  let binary = "";
-  for (let i = 0; i < u8.length; i++) binary += String.fromCharCode(u8[i]);
-  return btoa(binary)
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
-}
-
-function constantTimeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return diff === 0;
-}
-
-async function hmacSign(secret: string, msg: string): Promise<string> {
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
-  const sig = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(msg),
-  );
-  return base64urlEncode(sig);
-}
+// BRUTE-FORCE THROTTLE (#240)
+// One shared password with no attempt limit is an offline-dictionary problem
+// made online: nothing stopped a script from trying a few hundred thousand
+// guesses an hour. Ten failures per address per fifteen minutes turns that
+// into forty an hour, which is no longer an attack, only a nuisance.
+//
+// Only FAILED attempts count. A board member who types the password
+// correctly the first time is never throttled, and one who fumbles it nine
+// times is still let in on the tenth if it is right — the counter is checked
+// before the compare and only incremented on a miss.
+//
+// Same limiter as the payment-link route, with the same honest caveat in
+// lib/rate-limit.ts: it is per-instance, so a distributed sprayer gets more
+// than ten. The real fix is a shared store; this closes the trivial case,
+// which was wide open.
+const FAILED_ATTEMPTS = 10;
+const FAILED_WINDOW_MS = 15 * 60_000;
 
 type LoginPayload = { password?: unknown; next?: unknown };
 
 function sanitizeNext(raw: unknown): string {
   if (typeof raw !== "string") return "/board";
-  // Allow only relative redirects under /board to prevent open-redirect.
-  if (!raw.startsWith("/board")) return "/board";
-  if (raw.includes("\n") || raw.includes("\r")) return "/board";
+  // Only a relative path inside the gated area — never an absolute URL, never
+  // a protocol-relative `//host`, never a header-splitting newline. Anything
+  // else lands on the hub's front page.
+  if (!raw.startsWith("/") || raw.startsWith("//")) return "/board";
+  if (/[\r\n]/.test(raw)) return "/board";
+  const pathOnly = raw.split(/[?#]/)[0];
+  if (!isGatedPath(pathOnly)) return "/board";
   return raw;
 }
 
 export async function POST(req: NextRequest) {
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ ok: false, error: "Forbidden." }, { status: 403 });
+  }
+
   let body: LoginPayload;
   try {
     body = (await req.json()) as LoginPayload;
@@ -76,26 +76,34 @@ export async function POST(req: NextRequest) {
       { status: 503 },
     );
   }
+
+  // Peek at the counter without spending an attempt: a client already over
+  // the limit is refused before the password is even looked at.
+  const key = `board-login:${clientKey(req)}`;
+  const peek = rateLimit(key, FAILED_ATTEMPTS, FAILED_WINDOW_MS, { peek: true });
+  if (!peek.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Too many incorrect attempts — please wait a few minutes and try again.",
+      },
+      { status: 429, headers: { "Retry-After": String(peek.retryAfter) } },
+    );
+  }
+
   if (!submitted || !constantTimeEqual(submitted, expected)) {
+    rateLimit(key, FAILED_ATTEMPTS, FAILED_WINDOW_MS);
     return NextResponse.json(
       { ok: false, error: "Incorrect password." },
       { status: 401 },
     );
   }
 
-  const expiry = Date.now() + COOKIE_TTL_MS;
-  const sig = await hmacSign(expected, String(expiry));
-  const cookieValue = `${expiry}.${sig}`;
-
   const res = NextResponse.json({ ok: true, next });
   res.cookies.set({
-    name: COOKIE_NAME,
-    value: cookieValue,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: Math.floor(COOKIE_TTL_MS / 1000),
+    ...boardCookieOptions(),
+    value: await makeBoardCookieValue(expected),
+    maxAge: Math.floor(BOARD_COOKIE_TTL_MS / 1000),
   });
   return res;
 }

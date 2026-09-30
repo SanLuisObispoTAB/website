@@ -12,8 +12,9 @@
 //   · `GITHUB_TOKEN` should be a FINE-GRAINED token scoped to this repository
 //     only, with Contents: read and write and nothing else. Not a classic PAT,
 //     which is account-wide.
-//   · This module writes exactly one path, `ALLOWED_PATH`, and refuses any
-//     other. A caller cannot ask it to rewrite a route handler.
+//   · This module writes exactly the paths in `ALLOWED_PATHS` — the two donor
+//     wall files — and refuses any other. A caller cannot ask it to rewrite a
+//     route handler.
 //   · The caller (`/api/board/donor-wall`) checks the board session AND
 //     re-derives the pending list from Square, refusing any name that is not
 //     genuinely waiting. So the worst this token can do, in the hands of
@@ -21,8 +22,20 @@
 //     consent — or mark one dismissed.
 //   · Absent token means the buttons are disabled and say so. It never fails
 //     halfway.
+//
+// WHY TWO PATHS (#240)
+// This started as one constant, `donors.json`. Then #212 gave the Hall of Fame
+// fund its own wall in `hof-donors.json` and routed accepts there through the
+// same two functions — which refused every one of them with "path not
+// allowed", because nobody widened the allowlist. The security review caught
+// it: the control worked exactly as written and the feature behind it had
+// never once succeeded. Any new fund wall must be added here as well as to
+// `FUND_WALL_PATHS`, or its Accept button will fail the same way.
 
-const ALLOWED_PATH = "src/app/data/donors.json";
+const ALLOWED_PATHS: ReadonlySet<string> = new Set([
+  "src/app/data/donors.json",
+  "src/app/data/hof-donors.json",
+]);
 
 export type CommitResult =
   | { ok: true; sha: string }
@@ -63,7 +76,7 @@ async function gh(path: string, init?: RequestInit) {
 export async function readJsonFile(
   path: string,
 ): Promise<{ ok: true; json: unknown; sha: string } | { ok: false; reason: string }> {
-  if (path !== ALLOWED_PATH) return { ok: false, reason: "path not allowed" };
+  if (!ALLOWED_PATHS.has(path)) return { ok: false, reason: "path not allowed" };
   if (!isRepoWriteConfigured()) return { ok: false, reason: "GITHUB_TOKEN not set" };
   const res = await gh(
     `/repos/${repoSlug()}/contents/${encodeURIComponent(path)}?ref=${branch()}`,
@@ -89,7 +102,7 @@ export async function writeJsonFile(
   sha: string,
   message: string,
 ): Promise<CommitResult> {
-  if (path !== ALLOWED_PATH) return { ok: false, reason: "path not allowed" };
+  if (!ALLOWED_PATHS.has(path)) return { ok: false, reason: "path not allowed" };
   if (!isRepoWriteConfigured()) return { ok: false, reason: "GITHUB_TOKEN not set" };
   // Trailing newline so the committed file matches what an editor would write
   // and the diff stays one line rather than "\\ No newline at end of file".

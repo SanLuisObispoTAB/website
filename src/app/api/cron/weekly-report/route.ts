@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "node:crypto";
 import {
   buildSquareReport,
   designationLabel,
@@ -166,12 +167,21 @@ function compose(report: Report, hof: Report | null, siteUrl: string): string {
   return lines.join("\n");
 }
 
+/** `Authorization: Bearer <secret>`, compared in constant time. A plain `!==`
+ *  short-circuits on the first wrong byte, which leaks how much of a guess was
+ *  right; `timingSafeEqual` does not, but throws on a length mismatch, hence
+ *  the length check first (#240). */
+function bearerMatches(header: string | null, secret: string): boolean {
+  const expected = Buffer.from(`Bearer ${secret}`);
+  const received = Buffer.from(header ?? "");
+  return expected.length === received.length && timingSafeEqual(expected, received);
+}
+
 export async function GET(req: Request) {
   // Vercel Cron sends `Authorization: Bearer $CRON_SECRET`. Fail closed when
   // the secret is unset — an unconfigured gate is a closed gate.
   const cronSecret = process.env.CRON_SECRET;
-  const auth = req.headers.get("authorization");
-  if (!cronSecret || auth !== `Bearer ${cronSecret}`) {
+  if (!cronSecret || !bearerMatches(req.headers.get("authorization"), cronSecret)) {
     return new Response("Unauthorized", { status: 401 });
   }
 
