@@ -1,0 +1,41 @@
+{
+  "review_date": "2026-09-30",
+  "created_at_utc": "2026-09-30T17:55:13.775240+00:00",
+  "original_checkout": "5b3e4f4d7e4dc58b7e08db8a7dc92dee4d3ab352",
+  "current_public_main_reviewed": "c5f385731f1ca232571d192169ec7f560badc383",
+  "preexisting_security_commit": "d65bf170de0b6ea63b98dfd496c50dbb99848785",
+  "source_sha256": {
+    "package.json": "c805775cc25026b32b9e58bd0be85dba405eca345302b5bfa2041f78ba8d2e77",
+    "package-lock.json": "770d7660adc16b64ab67b9759fce6dab87ac75bde39d7c37b5f011887e873ff2",
+    "next.config.ts": "165cc81e2474746c076af122e19b87759eed823ab1ac4160fae8b6e64d9f3a28",
+    "public/admin.html": "ee2555d8490241ec22849c49cc3a8e2a9876c6fe7fa0edc2e46cabc110657366",
+    "public/admin/config.yml": "b4ed0555a610b365da81101cca46be36bbe809330a9874f96204531f0b8373d5",
+    "src/proxy.ts": "37043e279ef537fd6a9e72322d40ed0c17145a81b46f289a265d4cc4f1a083d3",
+    "src/lib/board-auth.ts": "f9014071cf3f6b077fd142402163becbc8d2147e3435eb965e5a98bff0ecfff3",
+    "src/lib/rate-limit.ts": "ad357b4231fe3d60747cffba22868d1745f46f165e184a97eb2cc5dae15b4967",
+    "src/lib/square.ts": "e22e53557ea35f2ec080a3d11d6dabc785431fd2ff55fa3acea8ff9db4298534",
+    "src/lib/square-report.ts": "df97652b12877d6e7ba75d8b831b8463aa8a0e4dfa81332714bf12f7e6b7eb2a",
+    "src/lib/donor-wall.ts": "ab5fe147896486b5b42f121bc19f03ef5713f126b956b782d51fa2fdadf539f3",
+    "src/lib/github-commit.ts": "66d35f2e67fe3b7ff73d8a1abb90395b5fd20b833eb5557222ad60cba942b49e",
+    "src/lib/email.ts": "4b36d0b9419e3b396b824723fee3f481f993fce6b934f84b282b40497dac8e3c",
+    "src/app/api/board/login/route.ts": "b51dfa9e39e7e1ebb7d8f69b10cf08535da102486f1627fc02df2458469a7118",
+    "src/app/api/board/logout/route.ts": "67b545bae7ef07f0bf0106a5f1193f3b6563564ecc6c0f7cb9f5cb47ec3d146d",
+    "src/app/api/board/donor-wall/route.ts": "d9769a309d1cdd7c285ebadeee6a712e1adeea7dce57140de9cdc7dbdb11632b",
+    "src/app/api/square/webhook/route.ts": "f62f80e83c87ebaeb6c99f3968431739f08b5fe976cb1a8ad046abf34c4af7da",
+    "src/app/api/decap/auth/route.ts": "4dc58426b0536146f59ff148557c14579bd8ff49a48894ed2ab03192e2fbf72c",
+    "src/app/api/decap/callback/route.ts": "d7c4244b711fdf1857b3d6752e93a230a27f25c1701e7cdafa6dc099ce721e04"
+  },
+  "evidence_sha256": {
+    "isolated-checks.cjs": "a1baef22af02af383834083645b96aced0f6139968bd4c59982002f899912664",
+    "live-headers.json": "5871fc101535fc75c9d1553d167c96b2952040e8ae3fb9644fc1f90b590fb46d",
+    "live-admin.json": "451bc6843364afbadafd18c09b2481af37fdca9f04c56478964f6ff9bbcbeb2a",
+    "local-check-results.json": "ce35f16a026b3a97279ff54d71f689ba4c1c618ffcb06a266adfd2cea3414a44",
+    "npm-audit-current.json": "6752704034daebd4846cb881938aa445bd323d4657d13e6423479f4db41458e1",
+    "npm-audit-original.json": "f29bf4ade64fedf21efd97fde5888da7101dc852c45f647f629c06272ca50ba1"
+  },
+  "notes": [
+    "No production credentials used. All local write/send effects were mocked.",
+    "Live version is not independently tied to a Vercel deployment SHA.",
+    "No remediation performed."
+  ]
+}

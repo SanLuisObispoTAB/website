@@ -1,0 +1,106 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/html; charset=utf-8",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Matched-Path": "/"
+    }
+  },
+  {
+    "path": "/admin",
+    "status": 200,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/html; charset=utf-8",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Matched-Path": "/admin.html"
+    }
+  },
+  {
+    "path": "/board",
+    "status": 307,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/plain",
+      "Location": "/board/login",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY"
+    }
+  },
+  {
+    "path": "/board/cms-access",
+    "status": 307,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/plain",
+      "Location": "/board/login?next=%2Fboard%2Fcms-access",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY"
+    }
+  },
+  {
+    "path": "/board/cms-access.rsc",
+    "status": 307,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/plain",
+      "Location": "/board/login?next=%2Fboard%2Fcms-access",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY"
+    }
+  },
+  {
+    "path": "/admin-portal",
+    "status": 307,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/plain",
+      "Location": "/board/login?next=%2Fadmin-portal",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY"
+    }
+  },
+  {
+    "path": "/api/board/square-report",
+    "status": 401,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "application/json",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Matched-Path": "/api/board/square-report"
+    }
+  },
+  {
+    "path": "/api/cron/weekly-report",
+    "status": 401,
+    "headers": {
+      "Cache-Control": "public, max-age=0, must-revalidate",
+      "Content-Security-Policy": "frame-ancestors 'none'; base-uri 'self'; object-src 'none'",
+      "Content-Type": "text/plain;charset=UTF-8",
+      "Strict-Transport-Security": "max-age=31536000",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "X-Matched-Path": "/api/cron/weekly-report"
+    }
+  }
+]

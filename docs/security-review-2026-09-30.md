@@ -126,3 +126,31 @@ Two things you may notice, both expected:
   before.
 - If you mistype the board password ten times in a row, the login will
   refuse you for fifteen minutes. Typing it correctly is never blocked.
+
+## Addendum, same evening: the independent review
+
+Erik had Codex review this pass independently. Its report is
+`docs/security-review-2026-09-30-independent.md`, with a reproduction
+harness and raw evidence alongside it. It confirmed every fix above and
+found six residual issues. All six were real. Two were gaps this review
+should have closed the first time (the origin check was on the login
+route but not on the donor-wall route, which is the one that writes; and
+the origin comparison ignored the scheme).
+
+| Codex ID | Finding | Done (#248–#251) | Parked (#252) |
+|---|---|---|---|
+| SEC-01 | Decap preview pane XSS advisory, version 3.3.3 | Preview pane disabled for every collection; Decap 3.16.3 with a new integrity hash | |
+| SEC-02 | Rate limiter is per instance and a key flood cleared blocks | Eviction keeps active blocks; login counters in their own namespace | Shared store or Vercel firewall rate limiting |
+| SEC-03 | Donor-wall write had no origin check | Origin check with scheme on donor-wall, logout and login | |
+| SEC-04 | Logout cannot revoke a copied cookie | Sessions 14 days; `BOARD_SESSION_SALT` signs everyone out without a new password | Per-device revocation and individual logins need a store and a board decision |
+| SEC-05 | CMS token covers every public repo the editor can write to | | GitHub App installed only on the website repo |
+| SEC-06 | Replayed webhook sent duplicate mail | Resend `Idempotency-Key` per payment and mail kind | |
+| REL-01 | Mail or order-lookup failure was acknowledged with 200, so Square never retried | Both now return 503 and Square retries; the idempotency key makes that safe | |
+
+Codex's other points stand and are worth repeating. The "critical" label
+on the framework advisory came from the advisory database; no exploit
+was demonstrated against this site. Everything under `src/app/data`,
+including board handoff notes and the carried-over donor names, is in a
+public repository: the board password gates the rendered page, not the
+data behind it. And the Decap script comes from a CDN, so Dependabot
+cannot see it; the bump recipe is now in a comment in `public/admin.html`.

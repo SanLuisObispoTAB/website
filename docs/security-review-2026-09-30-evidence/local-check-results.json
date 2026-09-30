@@ -1,0 +1,60 @@
+[
+  {
+    "check": "session_replay_after_logout",
+    "logoutStatus": 200,
+    "logoutClearsBrowserCookie": true,
+    "previouslyIssuedCookieStillAccepted": true,
+    "lifetimeDays": 30
+  },
+  {
+    "check": "rate_limit_state_loss",
+    "firstInstanceBlocks": true,
+    "independentModuleInstanceAllows": true,
+    "capacityClearAllows": true
+  },
+  {
+    "check": "login_local_throttle_positive_control",
+    "statuses": [
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      401,
+      429
+    ]
+  },
+  {
+    "check": "donor_wall_cross_origin_form_with_valid_cookie",
+    "status": 303,
+    "mockedGithubWrites": 1,
+    "syntheticNameWritten": true,
+    "caveat": "Handler-level proof; browser exploit requires an attacker-controlled same-site origin and a logged-in board member."
+  },
+  {
+    "check": "webhook_replay",
+    "invalidSignatureStatus": 401,
+    "identicalSignedRequestStatuses": [
+      200,
+      200
+    ],
+    "mockedEmailSends": 2
+  },
+  {
+    "check": "webhook_acknowledges_downstream_failure",
+    "mailFailureHttpStatus": 200,
+    "mailFailureResponse": {
+      "ok": true,
+      "email": "failed"
+    },
+    "orderFailureHttpStatus": 200,
+    "orderFailureResponse": {
+      "ok": true,
+      "ignored": "not from the website"
+    }
+  }
+]
