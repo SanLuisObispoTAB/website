@@ -4,9 +4,13 @@
     {
       "name": "Weekly Athletics Schedule Sep 28 - Oct 3",
       "gid": "1554501520"
+    },
+    {
+      "name": "Weekly Athletics Schedule Oct 5 - Oct 10",
+      "gid": "584259124"
     }
   ],
-  "fetchedAt": "2026-09-28T20:20:37.675Z",
+  "fetchedAt": "2026-09-30T18:44:19.913Z",
   "events": [
     {
       "id": "weekly-2026-09-28-non-sport--rally",
@@ -15,7 +19,7 @@
       "isSport": false,
       "date": "2026-09-28T12:00:00",
       "title": "All Sports vs Rally",
-      "detail": "SlOHS",
+      "detail": "SLOHS",
       "isHome": true,
       "opponent": "Rally",
       "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
@@ -265,6 +269,242 @@
       "isHome": true,
       "opponent": "AG Varsity Girls Tournament",
       "sourceTab": "Weekly Athletics Schedule Sep 28 - Oct 3"
+    },
+    {
+      "id": "weekly-2026-10-06-girls-tennis-jv-templeton",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-06T15:30:00",
+      "title": "Girls Tennis vs Templeton",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Templeton",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-06-boys-water-polo--righetti",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-06T16:00:00",
+      "title": "Boys Water Polo @ Righetti",
+      "detail": "Righetti",
+      "isHome": false,
+      "opponent": "Righetti",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-06-girls-water-polo--righetti",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-06T17:00:00",
+      "title": "Girls Water Polo @ Righetti",
+      "detail": "Righetti",
+      "isHome": false,
+      "opponent": "Righetti",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-07-flag-football--lompoc-",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-10-07T16:30:00",
+      "title": "Flag Football vs Lompoc*",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Lompoc*",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-girls-water-polo--arroyo-grande",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-08T15:00:00",
+      "title": "Girls Water Polo vs Arroyo Grande",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Arroyo Grande",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-girls-tennis-jv-arroyo-grande",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-08T15:30:00",
+      "title": "Girls Tennis @ Arroyo Grande",
+      "detail": "Arroyo Grande · JV",
+      "isHome": false,
+      "opponent": "Arroyo Grande",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-girls-tennis-varsity-arroyo-grande",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-08T15:30:00",
+      "title": "Girls Tennis vs Arroyo Grande",
+      "detail": "SLOHS · Varsity",
+      "isHome": true,
+      "opponent": "Arroyo Grande",
+      "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-girls-volleyball--arroyo-grande-bca-night-",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-10-08T16:00:00",
+      "title": "Girls Volleyball vs Arroyo Grande (BCA Night)*",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Arroyo Grande (BCA Night)*",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-flag-football--morro-bay-jv-arroyo-gran",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-10-08T16:30:00",
+      "title": "Flag Football vs Morro Bay(JV)/Arroyo Grande(V)*",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Morro Bay(JV)/Arroyo Grande(V)*",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-football-frosh-arroyo-grande",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-10-08T17:00:00",
+      "title": "Frosh Football @ Arroyo Grande",
+      "detail": "Arroyo Grande · Frosh",
+      "isHome": false,
+      "opponent": "Arroyo Grande",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-boys-water-polo--arroyo-grande",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-08T17:00:00",
+      "title": "Boys Water Polo vs Arroyo Grande",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Arroyo Grande",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-cheer-jvvarsity-gvb-game-day-vs-ag",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-08T18:00:00",
+      "title": "Cheer — GVB Game Day vs AG",
+      "detail": "SLOHS · JV & Varsity",
+      "isHome": true,
+      "opponent": "GVB Game Day vs AG",
+      "level": "JV & Varsity",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-08-cheer-jv-game-day-flag-vs-arroyo-",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-08T18:00:00",
+      "title": "Cheer — Game Day (Flag) vs Arroyo Grande",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Game Day (Flag) vs Arroyo Grande",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-09-cross-country--clovis-invite",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-10-09T12:00:00",
+      "title": "Cross Country @ Clovis Invite",
+      "detail": "Woodward Park, Clovis",
+      "isHome": false,
+      "opponent": "Clovis Invite",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-09-boys-water-polo--slo-town-showdown",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-09T12:00:00",
+      "title": "Boys Water Polo — SLO-Town Showdown",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "SLO-Town Showdown",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-09-football--arroyo-grande-band-dance",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-10-09T16:00:00",
+      "title": "Football vs Arroyo Grande (Band/Dance Senior Night)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Arroyo Grande (Band/Dance Senior Night)",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-09-cheer-jvvarsity-game-day-vs-arroyo-grand",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-09T16:00:00",
+      "title": "Cheer — Game Day vs Arroyo Grande HS (Band & Dance Senior Night)",
+      "detail": "SLOHS · JV & Varsity",
+      "isHome": true,
+      "opponent": "Game Day vs Arroyo Grande HS (Band & Dance Senior Night)",
+      "level": "JV & Varsity",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-10-girls-volleyball-frosh-morro-bay-tournament-fro",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-10-10T12:00:00",
+      "title": "Girls Volleyball — Morro Bay Tournament (Frosh)",
+      "detail": "MBHS · Frosh",
+      "isHome": false,
+      "opponent": "Morro Bay Tournament (Frosh)",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+    },
+    {
+      "id": "weekly-2026-10-10-boys-water-polo--slo-town-showdown",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-10T12:00:00",
+      "title": "Boys Water Polo — SLO-Town Showdown",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "SLO-Town Showdown",
+      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
     }
   ]
 }
