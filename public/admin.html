@@ -26,9 +26,18 @@
       editor UI. This file is intentionally a plain static page with
       zero framework code so nothing fights with Decap's DOM takeover.
     -->
+    <!--
+      Pinned + SRI. Dependabot does NOT see this script (it only reads the
+      npm lockfile), so bumping it is a manual job: change the version,
+      recompute the hash with
+        curl -sL https://unpkg.com/decap-cms@<ver>/dist/decap-cms.js \
+          | openssl dgst -sha384 -binary | openssl base64 -A
+      and load /admin once to confirm the config still parses. 3.3.3 ->
+      3.16.3 on 2026-09-30 (#249, from the independent review's SEC-01).
+    -->
     <script
-      src="https://unpkg.com/decap-cms@3.3.3/dist/decap-cms.js"
-      integrity="sha384-Ch3bpZcxxjHMuIde+QMTyDdxGqjtafFkpoGgvLjf50nHhptNH7bZyPTyKSkOvEo+"
+      src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"
+      integrity="sha384-A/Gdn928CNLufmnGWGs9RM4Q9o8bSNLeJERqBFrBjwzL7FRpoLT3MPF8Tl0+Wd2p"
       crossorigin="anonymous"
     ></script>
   </body>

@@ -4,7 +4,11 @@
 // Vercel runs each serverless instance with its own memory, so this counter is
 // per-instance and resets on cold start. A determined attacker spraying across
 // instances gets more than `limit` requests through. It is a speed bump, not a
-// gate.
+// gate. The independent review (2026-09-30, SEC-02) proved both halves of
+// that with the real module: a second instance admits a key the first has
+// blocked, and — before #248 — filling one instance with junk keys cleared
+// its existing blocks too. The second half is fixed below; the first needs a
+// shared store (Vercel KV / Upstash) and is on the backlog.
 //
 // It is here because `/api/square/payment-link` mints real Square orders, and
 // the deferred hardening item in #73 correctly names exactly this shape of
@@ -18,15 +22,15 @@
 // there is a shared store". There still isn't one, but a per-instance counter
 // closes the single-source case those routes were wide open to, and the call
 // signature is the one a KV-backed limiter would want.
-//
-// The real fix is the shared counter #73 already calls for (Vercel KV or
-// Upstash). When that lands, swap the Map for it.
 
-type Window = { count: number; resetAt: number };
+type Window = { count: number; resetAt: number; limit: number };
 
-const hits = new Map<string, Window>();
+/** One Map per namespace (#248). The login counters live apart from the
+ *  public-form counters so that a flood on the donation or Springly routes
+ *  can never fill the map that holds a blocked password-guesser. */
+const namespaces = new Map<string, Map<string, Window>>();
 
-/** Bounds the Map so a spray of unique keys can't grow it without limit. */
+/** Bounds each Map so a spray of unique keys can't grow it without limit. */
 const MAX_TRACKED_KEYS = 10_000;
 
 export type RateLimitResult = {
@@ -41,7 +45,33 @@ export type RateLimitOptions = {
    *  outcome it actually wants to throttle — the login route counts failures,
    *  not attempts, so a correct password is never refused. */
   peek?: boolean;
+  /** Which Map the key lives in. Routes whose limit is a security control
+   *  (the board login) get their own, so nothing public can evict it. */
+  namespace?: string;
 };
+
+function bucket(namespace: string): Map<string, Window> {
+  let m = namespaces.get(namespace);
+  if (!m) {
+    m = new Map();
+    namespaces.set(namespace, m);
+  }
+  return m;
+}
+
+/** Make room in a full Map. Expired entries go first. If that frees nothing,
+ *  entries that are NOT over their limit go next — they are plain counters
+ *  that lose nothing by being forgotten. Only if the Map is full of *active
+ *  blocks* is it cleared, and ten thousand distinct blocked addresses in one
+ *  instance is a flood on a scale this limiter was never going to hold back.
+ *  Before #248 the fallback was an unconditional clear, which let a spray of
+ *  junk keys forget a blocked client (independent review, SEC-02). */
+function evict(hits: Map<string, Window>, now: number): void {
+  for (const [k, w] of hits) if (now >= w.resetAt) hits.delete(k);
+  if (hits.size < MAX_TRACKED_KEYS) return;
+  for (const [k, w] of hits) if (w.count <= w.limit) hits.delete(k);
+  if (hits.size >= MAX_TRACKED_KEYS) hits.clear();
+}
 
 export function rateLimit(
   key: string,
@@ -50,18 +80,13 @@ export function rateLimit(
   opts: RateLimitOptions = {},
 ): RateLimitResult {
   const now = Date.now();
+  const hits = bucket(opts.namespace ?? "shared");
   const existing = hits.get(key);
 
   if (!existing || now >= existing.resetAt) {
     if (opts.peek) return { ok: true, retryAfter: 0 };
-    if (hits.size >= MAX_TRACKED_KEYS) {
-      // Cheapest correct thing: drop expired entries, and if that frees
-      // nothing, clear outright. Losing counters fails open, which is the
-      // right direction for a nuisance-tier limiter guarding a donation form.
-      for (const [k, w] of hits) if (now >= w.resetAt) hits.delete(k);
-      if (hits.size >= MAX_TRACKED_KEYS) hits.clear();
-    }
-    hits.set(key, { count: 1, resetAt: now + windowMs });
+    if (hits.size >= MAX_TRACKED_KEYS) evict(hits, now);
+    hits.set(key, { count: 1, resetAt: now + windowMs, limit });
     return { ok: true, retryAfter: 0 };
   }
 

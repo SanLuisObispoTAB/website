@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Not shipped: the design mockups and the security-review harness
+    // (#248). They are reference material, not code that builds.
+    "docs/**",
   ]),
 ]);
 

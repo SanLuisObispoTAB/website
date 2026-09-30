@@ -10,8 +10,9 @@
 // implementation, imported by both.
 //
 // The cookie is an HMAC-SHA256 over the expiry timestamp, keyed by
-// BOARD_PASSWORD itself — so rotating the password at board handover
-// invalidates every existing session for free.
+// BOARD_PASSWORD (plus BOARD_SESSION_SALT when set — see `signingKey`), so
+// rotating the password at board handover invalidates every existing session
+// for free.
 //
 // 2026-09-30 security review (#240): the login route used to carry its own
 // copy of `hmacSign` / `constantTimeEqual` / the cookie name — the exact drift
@@ -20,10 +21,12 @@
 
 export const BOARD_COOKIE = "slotab_board";
 
-/** How long a board session lasts. Thirty days: the board meets monthly and a
- *  re-prompt more often than that is friction on a volunteer, less often than
- *  that is a stale device holding the hub open. */
-export const BOARD_COOKIE_TTL_MS = 60 * 60 * 24 * 30 * 1000;
+/** How long a board session lasts. Fourteen days (#250, was thirty): the
+ *  board meets monthly, so most members will type the password about once a
+ *  meeting either way, and a cookie copied off a device stops working in
+ *  half the time. A shared password with no per-device revocation makes the
+ *  lifetime the only lever short of rotating it — see `signingKey`. */
+export const BOARD_COOKIE_TTL_MS = 60 * 60 * 24 * 14 * 1000;
 
 /** Every path the board password protects. The proxy gates these; the login
  *  route only ever redirects back into one of them (open-redirect guard).
@@ -42,6 +45,27 @@ export function isGatedPath(pathname: string): boolean {
   return GATED_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
+}
+
+/** The HMAC key. The password alone, unless BOARD_SESSION_SALT is set, in
+ *  which case the two are joined.
+ *
+ *  WHY A SALT (#250, from the independent review's SEC-04)
+ *  A session cookie is stateless: nothing on the server remembers issuing it,
+ *  so logout can only clear the browser's copy. A cookie copied off a stolen
+ *  laptop keeps working until it expires. The one server-side lever was
+ *  rotating the password, which means telling every board member a new one.
+ *  Changing BOARD_SESSION_SALT in Vercel signs everyone out just the same,
+ *  and nobody has to learn anything new — they type the password they already
+ *  know and get a fresh cookie. It is an incident-response knob, not a daily
+ *  one. Unset means the key is the bare password, so deploying this signed
+ *  nobody out.
+ *
+ *  Still not per-device revocation. That needs a session store, which is on
+ *  the backlog with the shared rate-limit counter — same infrastructure. */
+function signingKey(password: string): string {
+  const salt = process.env.BOARD_SESSION_SALT?.trim();
+  return salt ? `${password}\n${salt}` : password;
 }
 
 function base64urlEncode(bytes: ArrayBuffer): string {
@@ -81,9 +105,9 @@ export async function hmacSign(secret: string, msg: string): Promise<string> {
 }
 
 /** Mints a fresh session cookie value: `<expiry ms>.<hmac(expiry)>`. */
-export async function makeBoardCookieValue(secret: string): Promise<string> {
+export async function makeBoardCookieValue(password: string): Promise<string> {
   const expiry = Date.now() + BOARD_COOKIE_TTL_MS;
-  const sig = await hmacSign(secret, String(expiry));
+  const sig = await hmacSign(signingKey(password), String(expiry));
   return `${expiry}.${sig}`;
 }
 
@@ -101,7 +125,7 @@ export function boardCookieOptions() {
 
 export async function isBoardCookieValid(
   cookieValue: string | undefined,
-  secret: string,
+  password: string,
 ): Promise<boolean> {
   if (!cookieValue) return false;
   const dot = cookieValue.indexOf(".");
@@ -110,7 +134,7 @@ export async function isBoardCookieValid(
   const sig = cookieValue.slice(dot + 1);
   const expiry = Number(expiryStr);
   if (!Number.isFinite(expiry) || expiry < Date.now()) return false;
-  const expectedSig = await hmacSign(secret, expiryStr);
+  const expectedSig = await hmacSign(signingKey(password), expiryStr);
   return constantTimeEqual(sig, expectedSig);
 }
 
@@ -130,28 +154,46 @@ export async function requestHasBoardSession(req: Request): Promise<boolean> {
 }
 
 /** Defence in depth against cross-site request forgery on the board's
- *  state-changing routes.
+ *  state-changing routes: login, logout, and the donor-wall write.
  *
- *  The session cookie is `SameSite=Lax`, which already keeps it off a
- *  cross-site POST — that is the primary control. This is the second one: a
- *  browser sends `Origin` on every POST, so a request whose `Origin` names a
- *  different host than the one it arrived at was not made by our own page.
+ *  The session cookie is `SameSite=Lax`, which keeps it off a POST from an
+ *  unrelated site — that is the primary control. It does NOT keep it off a
+ *  POST from a *sibling* origin under the same registrable domain (the
+ *  independent review's SEC-03): a page on any other subdomain of slotab.org
+ *  or ravens-peak-consulting.com could post here with the cookie attached.
+ *  Nobody hostile holds such a subdomain today; this check is what makes that
+ *  not matter.
+ *
+ *  A browser sends `Origin` on every POST, so a request whose `Origin` does
+ *  not name exactly this host, over HTTPS, was not made by our own page.
+ *  Scheme is part of the comparison (#248): `http://slotab.org` is not us.
+ *  `x-forwarded-proto` is what Vercel sets; outside Vercel (a local dev
+ *  server) there is no such header and the request's own scheme is used.
  *
  *  A request with NO `Origin` header is allowed through. That is not a gap:
  *  the routes this guards also require the session cookie, and a cross-site
  *  browser POST always carries `Origin`. Requiring it would only break a
  *  future curl-based board tool for no gain.
  *
- *  Compared by host rather than by a fixed origin list, because the hub is
- *  reachable on the canonical domain AND the SLOHS-firewall alias, and a
- *  board member on the alias posts from the alias. */
+ *  Compared against the request's own host rather than a fixed list, because
+ *  the hub is reachable on the canonical domain AND the SLOHS-firewall alias,
+ *  and a board member on the alias posts from the alias. */
 export function isSameOriginRequest(req: Request): boolean {
   const origin = req.headers.get("origin");
   if (!origin) return true;
   const host = req.headers.get("host")?.toLowerCase();
   if (!host) return false;
+  let scheme: string;
   try {
-    return new URL(origin).host.toLowerCase() === host;
+    scheme =
+      req.headers.get("x-forwarded-proto")?.split(",")[0].trim().toLowerCase() ||
+      new URL(req.url).protocol.replace(/:$/, "");
+  } catch {
+    return false;
+  }
+  try {
+    const o = new URL(origin);
+    return o.host.toLowerCase() === host && o.protocol === `${scheme}:`;
   } catch {
     return false;
   }

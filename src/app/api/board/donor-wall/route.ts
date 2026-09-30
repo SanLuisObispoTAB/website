@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { requestHasBoardSession } from "../../../../lib/board-auth";
+import {
+  isSameOriginRequest,
+  requestHasBoardSession,
+} from "../../../../lib/board-auth";
 import {
   buildDonorWallQueue,
   SEASON_START,
@@ -62,6 +65,13 @@ function back(note: string, ok: boolean) {
 export async function POST(req: Request) {
   if (!(await requestHasBoardSession(req))) {
     return NextResponse.json({ error: "Not authorised" }, { status: 401 });
+  }
+  // The independent review (SEC-03) posted a valid carry-over form here from
+  // a foreign origin with a real cookie and the handler wrote it. The cookie
+  // is SameSite=Lax, which stops an unrelated site but not a sibling
+  // subdomain; this is the check that stops the sibling (#248).
+  if (!isSameOriginRequest(req)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const form = await req.formData();

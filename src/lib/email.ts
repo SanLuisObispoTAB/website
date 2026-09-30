@@ -24,6 +24,13 @@ export type EmailMessage = {
   to: string | string[];
   subject: string;
   text: string;
+  /** Sent as Resend's `Idempotency-Key`. Two sends with the same key inside
+   *  24 hours produce ONE email — Resend answers the second with the first's
+   *  response and does not send again. The webhook keys on the Square payment
+   *  id, so a retried or replayed delivery cannot double-mail the Membership
+   *  VP (#251, from the independent review's SEC-06). Optional: the weekly
+   *  report passes none, because a re-run of the cron *should* send again. */
+  idempotencyKey?: string;
 };
 
 /** Normalized recipient list — one place, so the log line and the request
@@ -80,6 +87,7 @@ export async function sendEmail(msg: EmailMessage): Promise<EmailResult> {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
+        ...(msg.idempotencyKey ? { "Idempotency-Key": msg.idempotencyKey } : {}),
       },
       body: JSON.stringify({
         from,

@@ -43,6 +43,17 @@ public_folder: "/uploads"
 # Save as drafts first; click publish to commit.
 publish_mode: editorial_workflow
 
+# No preview pane, for every collection (#249). Two reasons. Every
+# collection here is a JSON table of strings and lists, so the generic
+# preview shows nothing an editor cannot see in the form itself. And the
+# preview pane is where CVE-2025-57520 (stored XSS in Decap's admin, all
+# versions through at least 3.8.3, no fix published) executes: content one
+# author saves runs as script when another editor previews it. Nothing to
+# render means nothing to exploit. Re-enable per collection with
+# `editor: { preview: true }` only if a collection gains a real preview.
+editor:
+  preview: false
+
 site_url: https://slotab.org
 display_url: https://slotab.org
 logo_url: https://slotab.org/logos/slotab-booster-club.png

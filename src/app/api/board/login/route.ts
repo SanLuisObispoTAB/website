@@ -79,8 +79,12 @@ export async function POST(req: NextRequest) {
 
   // Peek at the counter without spending an attempt: a client already over
   // the limit is refused before the password is even looked at.
-  const key = `board-login:${clientKey(req)}`;
-  const peek = rateLimit(key, FAILED_ATTEMPTS, FAILED_WINDOW_MS, { peek: true });
+  // Own namespace (#248): the public-form limiters share a Map that a flood
+  // can fill; this one holds blocked password-guessers and must not be
+  // evictable by traffic on any other route.
+  const key = clientKey(req);
+  const LIMITER = { namespace: "board-login" } as const;
+  const peek = rateLimit(key, FAILED_ATTEMPTS, FAILED_WINDOW_MS, { ...LIMITER, peek: true });
   if (!peek.ok) {
     return NextResponse.json(
       {
@@ -92,7 +96,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (!submitted || !constantTimeEqual(submitted, expected)) {
-    rateLimit(key, FAILED_ATTEMPTS, FAILED_WINDOW_MS);
+    rateLimit(key, FAILED_ATTEMPTS, FAILED_WINDOW_MS, LIMITER);
     return NextResponse.json(
       { ok: false, error: "Incorrect password." },
       { status: 401 },

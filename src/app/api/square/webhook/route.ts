@@ -174,7 +174,23 @@ export async function POST(req: Request) {
 
   // Order metadata is where the sponsorship details live — see the
   // payment-link route, which sets kind/tier/business/sports/test.
-  const metadata = await fetchOrderMetadata(payment.order_id);
+  //
+  // A LOOKUP FAILURE IS NOT "NO METADATA" (#251, independent review REL-01).
+  // Before this, a Square 5xx or a network blip on the order fetch came back
+  // as `{}`, was read as "not from the website", and was acknowledged with
+  // 200 — so Square never retried, and the Membership VP's handoff for a real
+  // sponsorship was silently lost while the payment sat in Square looking
+  // fine. A 503 here makes Square retry (it does, with backoff, for days),
+  // and the idempotency key on the send below means a retry that reaches the
+  // mail step cannot double-send.
+  const order = await fetchOrderMetadata(payment.order_id);
+  if (!order.ok) {
+    return NextResponse.json(
+      { ok: false, retry: "order lookup failed" },
+      { status: 503 },
+    );
+  }
+  const metadata = order.metadata;
 
   if (metadata.kind === "donation") {
     return handleDonation(payment, metadata);
@@ -215,16 +231,42 @@ export async function POST(req: Request) {
     to: FULFILMENT_INBOX,
     subject: email.subject,
     text: email.text,
+    idempotencyKey: mailKey(payment, "sponsorship"),
   });
   console.log(
     `[square-webhook] fulfilment email for ${payment.id}: ${result.status}` +
       (result.status === "sent" && result.id ? ` resend_id=${result.id}` : ""),
   );
+  return acknowledge(result);
+}
 
-  // 200 regardless of the mail result: the payment is real either way, and a
-  // non-2xx makes Square retry, which would re-send a mail that may well have
-  // gone out. Send failures are logged (and `sendEmail` logs the whole body
-  // when unconfigured), so nothing is lost.
+/** One key per payment per mail kind. Resend suppresses a second send with
+ *  the same key for 24 hours, which is what makes the 503-on-failure below
+ *  safe: a Square retry that reaches the mail step again sends nothing new.
+ *  It also blanks the replay the independent review demonstrated (SEC-06):
+ *  the same signed delivery posted twice used to produce two emails. */
+function mailKey(payment: SquarePayment, kind: "sponsorship" | "donation") {
+  return `slotab-square-${kind}-${payment.id ?? "unknown"}`;
+}
+
+/** What to tell Square once the mail step has run.
+ *
+ *  This used to be 200 whatever happened, on the argument that a retry might
+ *  re-send a mail that had already gone out. With the idempotency key that
+ *  argument is gone, and the cost of the old choice was real: a Resend
+ *  outage or a 422 on the From domain meant the handoff was logged once and
+ *  lost, while Square — told 200 — never tried again (REL-01).
+ *
+ *  So: `sent` and `skipped` (mailer not configured — a retry cannot help)
+ *  are 200. `failed` (the provider refused or could not be reached) is 503,
+ *  and Square retries with backoff for days. */
+function acknowledge(result: Awaited<ReturnType<typeof sendEmail>>) {
+  if (result.status === "failed") {
+    return NextResponse.json(
+      { ok: false, email: result.status, retry: result.reason },
+      { status: 503 },
+    );
+  }
   return NextResponse.json({ ok: true, email: result.status });
 }
 
@@ -284,22 +326,30 @@ async function handleDonation(
     to: DONATION_INBOX,
     subject: email.subject,
     text: email.text,
+    idempotencyKey: mailKey(payment, "donation"),
   });
   console.log(
     `[square-webhook] donation email for ${payment.id}: ${result.status}` +
       (result.status === "sent" && result.id ? ` resend_id=${result.id}` : ""),
   );
-  return NextResponse.json({ ok: true, email: result.status });
+  return acknowledge(result);
 }
 
 /** Square's payment webhook carries no order metadata, so fetch the order.
- *  Returns an empty object on any failure — the caller treats "no metadata"
- *  as "not a sponsorship", which is the safe direction to fail. */
+ *
+ *  Three outcomes, and the caller must be able to tell them apart (#251):
+ *    · `ok: true` with metadata — the normal case.
+ *    · `ok: true` with `{}` — the order genuinely has none (a card reader at
+ *      a game, an invoice), or there is no order id / no token to ask with.
+ *      Nothing to send; acknowledge and move on.
+ *    · `ok: false` — Square answered 5xx/4xx or the request threw. The order
+ *      may well be a sponsorship; the caller answers 503 so Square retries.
+ *  Collapsing the third into the second is how a handoff got lost (REL-01). */
 async function fetchOrderMetadata(
   orderId?: string,
-): Promise<Record<string, string>> {
+): Promise<{ ok: true; metadata: Record<string, string> } | { ok: false }> {
   const token = process.env.SQUARE_ACCESS_TOKEN;
-  if (!orderId || !token) return {};
+  if (!orderId || !token) return { ok: true, metadata: {} };
   try {
     const res = await fetch(`${squareApiBase()}/v2/orders/${orderId}`, {
       headers: {
@@ -308,15 +358,15 @@ async function fetchOrderMetadata(
       },
     });
     if (!res.ok) {
-      console.error(`[square-webhook] order fetch failed ${res.status}`);
-      return {};
+      console.error(`[square-webhook] order fetch failed ${res.status} — asking Square to retry`);
+      return { ok: false };
     }
     const json = (await res.json()) as {
       order?: { metadata?: Record<string, string> };
     };
-    return json.order?.metadata ?? {};
+    return { ok: true, metadata: json.order?.metadata ?? {} };
   } catch (err) {
-    console.error("[square-webhook] order fetch threw:", err);
-    return {};
+    console.error("[square-webhook] order fetch threw — asking Square to retry:", err);
+    return { ok: false };
   }
 }

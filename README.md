@@ -132,7 +132,18 @@ pages a framework regression would hurt most.
 If a PR has sat for more than a couple of weeks, run `npm audit` locally.
 The 2026-09-30 review found the framework several minor versions behind
 with a critical advisory open, and nothing in the repo or the deploy had
-said so. See `docs/security-review-2026-09-30.md`.
+said so. See `docs/security-review-2026-09-30.md` and the independent
+review beside it, `docs/security-review-2026-09-30-independent.md`.
+
+**One dependency Dependabot cannot see:** the Decap CMS script in
+`public/admin.html` loads from a CDN, not the lockfile. Bump it by hand a
+couple of times a year; the recipe (new version, new integrity hash, load
+`/admin` once) is in a comment next to the script tag.
+
+**If a board laptop is lost:** set or change `BOARD_SESSION_SALT` in
+Vercel's environment variables and redeploy. Every board session is
+signed out at once; everyone logs back in with the password they already
+have. Nothing else needs to change.
 
 ## Structure
 
