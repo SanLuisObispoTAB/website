@@ -2,250 +2,24 @@
   "source": "https://docs.google.com/spreadsheets/d/1lzPklHuK6CzaxW9k3czS8ZmlTjNFNVO6ZZkvo4xuG3c/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule Oct 5 - Oct 10",
-      "gid": "584259124"
-    },
-    {
-      "name": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17",
+      "name": "Weekly Athletics Schedule Oct 12 - Oct 17",
       "gid": "144835833"
     }
   ],
-  "fetchedAt": "2026-10-07T19:39:38.957Z",
+  "fetchedAt": "2026-10-12T16:38:50.504Z",
   "events": [
     {
-      "id": "weekly-2026-10-06-boys-water-polo--righetti",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-10-06T15:00:00",
-      "title": "Boys Water Polo @ Righetti",
-      "detail": "Righetti",
-      "isHome": false,
-      "opponent": "Righetti",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-06-girls-volleyball--paso-robles-",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-10-06T16:00:00",
-      "title": "Girls Volleyball @ Paso Robles*",
-      "detail": "Paso Robles",
-      "isHome": false,
-      "opponent": "Paso Robles*",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-06-girls-water-polo--righetti",
-      "category": "girls-water-polo",
-      "categoryLabel": "Girls Water Polo",
-      "isSport": true,
-      "date": "2026-10-06T17:00:00",
-      "title": "Girls Water Polo @ Righetti",
-      "detail": "Righetti",
-      "isHome": false,
-      "opponent": "Righetti",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-07-flag-football--lompoc-",
-      "category": "flag-football",
-      "categoryLabel": "Girls Flag Football",
-      "isSport": true,
-      "date": "2026-10-07T18:00:00",
-      "title": "Flag Football vs Lompoc*",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Lompoc*",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-girls-water-polo--arroyo-grande",
-      "category": "girls-water-polo",
-      "categoryLabel": "Girls Water Polo",
-      "isSport": true,
-      "date": "2026-10-08T15:00:00",
-      "title": "Girls Water Polo vs Arroyo Grande",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Arroyo Grande",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-girls-tennis-jv-arroyo-grande",
+      "id": "weekly-202-10-15T-girls-tennis-jv-santa-ynez",
       "category": "girls-tennis",
       "categoryLabel": "Girls Tennis",
       "isSport": true,
-      "date": "2026-10-08T15:30:00",
-      "title": "Girls Tennis @ Arroyo Grande",
-      "detail": "Arroyo Grande · JV",
-      "isHome": false,
-      "opponent": "Arroyo Grande",
-      "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-girls-tennis-varsity-arroyo-grande",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-10-08T15:30:00",
-      "title": "Girls Tennis vs Arroyo Grande",
-      "detail": "SLOHS · Varsity",
-      "isHome": true,
-      "opponent": "Arroyo Grande",
-      "level": "Varsity",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-girls-volleyball--arroyo-grande-bca-night-",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-10-08T16:00:00",
-      "title": "Girls Volleyball vs Arroyo Grande (BCA Night)*",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Arroyo Grande (BCA Night)*",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-flag-football--morro-bay-jv-arroyo-gran",
-      "category": "flag-football",
-      "categoryLabel": "Girls Flag Football",
-      "isSport": true,
-      "date": "2026-10-08T16:30:00",
-      "title": "Flag Football vs Morro Bay(JV)/Arroyo Grande(V)*",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Morro Bay(JV)/Arroyo Grande(V)*",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-football-frosh-arroyo-grande",
-      "category": "football",
-      "categoryLabel": "Football",
-      "isSport": true,
-      "date": "2026-10-08T17:00:00",
-      "title": "Frosh Football @ Arroyo Grande",
-      "detail": "Arroyo Grande · Frosh",
-      "isHome": false,
-      "opponent": "Arroyo Grande",
-      "level": "Frosh",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-boys-water-polo--arroyo-grande",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-10-08T17:00:00",
-      "title": "Boys Water Polo vs Arroyo Grande",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Arroyo Grande",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-cheer-jvvarsity-gvb-game-day-vs-ag",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-10-08T18:00:00",
-      "title": "Cheer — GVB Game Day vs AG",
-      "detail": "SLOHS · JV & Varsity",
-      "isHome": true,
-      "opponent": "GVB Game Day vs AG",
-      "level": "JV & Varsity",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-08-cheer-jv-game-day-flag-vs-arroyo-",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-10-08T18:00:00",
-      "title": "Cheer — Game Day (Flag) vs Arroyo Grande",
+      "date": "202-10-15T15:30:00",
+      "title": "Girls Tennis vs Santa Ynez",
       "detail": "SLOHS · JV",
       "isHome": true,
-      "opponent": "Game Day (Flag) vs Arroyo Grande",
+      "opponent": "Santa Ynez",
       "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-09-cross-country--clovis-invite",
-      "category": "cross-country",
-      "categoryLabel": "Cross Country",
-      "isSport": true,
-      "date": "2026-10-09T12:00:00",
-      "title": "Cross Country @ Clovis Invite",
-      "detail": "Woodward Park, Clovis",
-      "isHome": false,
-      "opponent": "Clovis Invite",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-09-boys-water-polo--slo-town-showdown",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-10-09T12:00:00",
-      "title": "Boys Water Polo — SLO-Town Showdown",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "SLO-Town Showdown",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-09-football--arroyo-grande-band-dance",
-      "category": "football",
-      "categoryLabel": "Football",
-      "isSport": true,
-      "date": "2026-10-09T16:00:00",
-      "title": "Football vs Arroyo Grande (Band/Dance Senior Night)",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Arroyo Grande (Band/Dance Senior Night)",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-09-cheer-jvvarsity-game-day-vs-arroyo-grand",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-10-09T16:00:00",
-      "title": "Cheer — Game Day vs Arroyo Grande HS (Band & Dance Senior Night)",
-      "detail": "SLOHS · JV & Varsity",
-      "isHome": true,
-      "opponent": "Game Day vs Arroyo Grande HS (Band & Dance Senior Night)",
-      "level": "JV & Varsity",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-10-girls-volleyball-frosh-morro-bay-tournament-fro",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-10-10T12:00:00",
-      "title": "Girls Volleyball — Morro Bay Tournament (Frosh)",
-      "detail": "MBHS · Frosh",
-      "isHome": false,
-      "opponent": "Morro Bay Tournament (Frosh)",
-      "level": "Frosh",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
-    },
-    {
-      "id": "weekly-2026-10-10-boys-water-polo--slo-town-showdown",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-10-10T12:00:00",
-      "title": "Boys Water Polo — SLO-Town Showdown",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "SLO-Town Showdown",
-      "sourceTab": "Weekly Athletics Schedule Oct 5 - Oct 10"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-12-girls-water-polo--atascadero",
@@ -257,7 +31,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Atascadero",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-12-boys-water-polo--atascadero",
@@ -269,7 +43,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Atascadero",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-13-girls-golf--arroyo-grande",
@@ -281,7 +55,7 @@
       "detail": "Arroyo Grande hosts",
       "isHome": false,
       "opponent": "Arroyo Grande",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-13-girls-tennis--atascadero",
@@ -293,7 +67,7 @@
       "detail": "Atascadero",
       "isHome": false,
       "opponent": "Atascadero",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-13-girls-tennis-jv-atascadero",
@@ -306,7 +80,7 @@
       "isHome": true,
       "opponent": "Atascadero",
       "level": "JV",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-13-girls-volleyball--atascadero-",
@@ -318,7 +92,7 @@
       "detail": "Atascadero",
       "isHome": false,
       "opponent": "Atascadero*",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-13-flag-football--righetti-",
@@ -330,7 +104,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Righetti*",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-13-cheer-jv-game-day-flag-vs-righett",
@@ -343,7 +117,7 @@
       "isHome": true,
       "opponent": "Game Day (Flag) vs Righetti",
       "level": "JV",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-14-girls-tennis--templeton",
@@ -355,7 +129,20 @@
       "detail": "Templeton",
       "isHome": false,
       "opponent": "Templeton",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
+    },
+    {
+      "id": "weekly-2026-10-14-girls-tennis-jv-templeton",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-14T15:30:00",
+      "title": "Girls Tennis vs Templeton",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Templeton",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-14-girls-water-polo--paso-robles",
@@ -367,7 +154,7 @@
       "detail": "Paso Robles",
       "isHome": false,
       "opponent": "Paso Robles",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-14-boys-water-polo--paso-robles",
@@ -379,7 +166,7 @@
       "detail": "Paso Robles",
       "isHome": false,
       "opponent": "Paso Robles",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-14-flag-football--santa-ynez-",
@@ -391,7 +178,7 @@
       "detail": "Santa Ynez",
       "isHome": false,
       "opponent": "Santa Ynez*",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-15-girls-tennis--santa-ynez",
@@ -403,20 +190,7 @@
       "detail": "Santa Ynez HS",
       "isHome": false,
       "opponent": "Santa Ynez",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
-    },
-    {
-      "id": "weekly-2026-10-15-girls-tennis-jv-santa-ynez",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-10-15T15:30:00",
-      "title": "Girls Tennis vs Santa Ynez",
-      "detail": "SLOHS · JV",
-      "isHome": true,
-      "opponent": "Santa Ynez",
-      "level": "JV",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-15-girls-volleyball--santa-ynez-",
@@ -428,7 +202,7 @@
       "detail": "Santa Ynez",
       "isHome": false,
       "opponent": "Santa Ynez*",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-15-football-frosh-paso-robles",
@@ -441,7 +215,7 @@
       "isHome": false,
       "opponent": "Paso Robles",
       "level": "Frosh",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-16-boys-water-polo--battle-in-the-creek",
@@ -450,10 +224,10 @@
       "isSport": true,
       "date": "2026-10-16T13:00:00",
       "title": "Boys Water Polo @ Battle in the Creek",
-      "detail": "Los Lomas High School",
+      "detail": "Las Lomas High School",
       "isHome": false,
       "opponent": "Battle in the Creek",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-16-cross-country--goose-chase-invitational",
@@ -465,7 +239,7 @@
       "detail": "Waller Park",
       "isHome": false,
       "opponent": "Goose Chase Invitational",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-16-football--templeton",
@@ -477,7 +251,7 @@
       "detail": "Templeton",
       "isHome": false,
       "opponent": "Templeton",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     },
     {
       "id": "weekly-2026-10-17-girls-water-polo--slo-jv-round-robin-games",
@@ -489,7 +263,7 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "SLO JV Round Robin Games",
-      "sourceTab": "Copy of Weekly Athletics Schedule Oct 12 - Oct 17"
+      "sourceTab": "Weekly Athletics Schedule Oct 12 - Oct 17"
     }
   ]
 }
