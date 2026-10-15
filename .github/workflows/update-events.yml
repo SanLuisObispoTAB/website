@@ -1,14 +1,14 @@
 name: SLOTAB — refresh weekly events
 
 # Refreshes src/app/data/weekly-events.json from the public
-# SLOHS Athletic Department Google Sheet every Sunday night and on Monday
-# mornings. The job commits any diff, which triggers a Vercel redeploy.
+# SLOHS Athletic Department Google Sheet on Monday mornings and again
+# mid-week. The job commits any diff, which triggers a Vercel redeploy.
 
 on:
   schedule:
-    # Sunday 11pm Pacific = Monday 07:00 UTC (roughly; ignoring DST nuance)
-    - cron: "0 7 * * 1"
-    # Monday 06:00 Pacific = Monday 14:00 UTC — catches any post-Sunday fixes
+    # Monday 06:00 Pacific = Monday 14:00 UTC — the weekly refresh. This runs
+    # late enough to pick up Sunday-night fixes to the sheet, so it replaces
+    # the former Monday 07:00 UTC run rather than supplementing it.
     - cron: "0 14 * * 1"
     # Wednesday 14:00 UTC — picks up any mid-week schedule changes
     - cron: "0 14 * * 3"
@@ -42,5 +42,5 @@ jobs:
           git config user.name "Erik Ramberg"
           git config user.email "erik@ravens-peak-consulting.com"
           git add $FILES
-          git commit -m "slotab: refresh weekly events and TNN videos"
+          git commit -m "slotab: refresh weekly events"
           git push
