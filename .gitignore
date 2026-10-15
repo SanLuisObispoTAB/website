@@ -47,11 +47,14 @@ next-env.d.ts
 !/photo-inbox/README.md
 
 # Raw photographer dumps held in /public/photos/originals/ for
-# future re-curation. The committed contents of that directory
-# (per decision #54) are archival low-volume files; the SLOHS
-# Sports Photographs-part-* folders are multi-GB raw output and
-# must NOT be tracked or deployed.
-/public/photos/originals/SLOHS Sports Photographs-part-*/
+# future re-curation. Nothing in that directory is tracked: the
+# committed full-res archive (the #54 keep-originals norm) moved to
+# /archive/photos/originals/ in decision #253, because anything under
+# public/ ships to the CDN in every deployment and the site only serves
+# 1200px copies. Ignoring the whole directory, not just the multi-GB
+# SLOHS Sports Photographs-part-* folders, stops a loose original
+# dropped here from being committed and deployed again.
+/public/photos/originals/
 
 # Raw team-portrait drops from the school photographer. Same rule as
 # photo-inbox: originals stay local, only the resized 1200px versions
