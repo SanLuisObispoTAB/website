@@ -19,7 +19,7 @@
 //   node scripts/photo-intake.mjs --process       # resize conformant drops into public/photos
 //   node scripts/photo-intake.mjs --process --keep-originals
 //                                                 # also archive each full-res source to
-//                                                 # public/photos/originals/<stem>-original.<ext>
+//                                                 # archive/photos/originals/<stem>-original.<ext>
 //   node scripts/photo-intake.mjs --process --force
 //                                                 # allow overwriting an existing public/photos file
 //                                                 # of the SAME name but different content
@@ -42,7 +42,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..");
 const INBOX = path.join(REPO_ROOT, "photo-inbox");
 const PHOTOS = path.join(REPO_ROOT, "public/photos");
-const ORIGINALS = path.join(PHOTOS, "originals");
+// The full-res archive lives outside public/ (decision #253). It is still
+// committed per the #54 keep-originals norm, but anything under public/ ships
+// to the CDN in every deployment, and the site only ever serves 1200px copies.
+const ORIGINALS = path.join(REPO_ROOT, "archive/photos/originals");
 
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png"]);
 const TARGET_WIDTH = 1200;
@@ -102,8 +105,8 @@ function human(bytes) {
   return `${(bytes / 1024 / 1024).toFixed(1)}M`;
 }
 
-// Recursively list image files under a dir (skips the originals/ archive's
-// gitignored raw-dump subfolders, which are large and irrelevant here).
+// Recursively list image files under a dir (skips the gitignored raw-dump
+// subfolders under public/photos/originals/, which are large and irrelevant here).
 function listImages(dir, { recurse = true } = {}) {
   const out = [];
   if (!fs.existsSync(dir)) return out;
@@ -263,9 +266,14 @@ if (drops.length === 0) {
   process.exit(0);
 }
 
-// Build a content-hash index of everything already in public/photos (incl.
-// originals/), so we can spot exact duplicates of files already in the repo.
-const existing = listImages(PHOTOS, { recurse: true });
+// Build a content-hash index of everything already in public/photos plus the
+// full-res archive, so we can spot exact duplicates of files already in the
+// repo. The archive must be listed explicitly: it no longer sits under PHOTOS,
+// and a re-delivered photographer original should still be caught here.
+const existing = [
+  ...listImages(PHOTOS, { recurse: true }),
+  ...listImages(ORIGINALS, { recurse: true }),
+];
 const hashIndex = new Map(); // md5 -> repo-relative path
 for (const f of existing) {
   const h = md5(f);
@@ -438,7 +446,7 @@ for (const p of plan) {
     const stem = path.basename(p.pub, ext);
     const origDest = path.join(ORIGINALS, `${stem}-original${ext}`);
     fs.copyFileSync(p.src, origDest);
-    note += c.dim(` + originals/${stem}-original${ext}`);
+    note += c.dim(` + archive/photos/originals/${stem}-original${ext}`);
   }
   console.log(`  ${c.green("✓")} ${c.cyan(p.name)} ${note}`);
   processed++;
@@ -448,6 +456,6 @@ console.log(
   c.bold(`\nProcessed ${processed} file(s).`) +
     c.dim(
       "\nThe inbox copies are left in place (photo-inbox/ is gitignored) — delete them once you've" +
-        "\nconfirmed the results. Review `git status public/photos/`, then commit.\n",
+        "\nconfirmed the results. Review `git status public/photos/ archive/photos/`, then commit.\n",
     ),
 );
