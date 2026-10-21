@@ -4,9 +4,13 @@
     {
       "name": "Weekly Athletics Schedule Oct 19 - Oct 24",
       "gid": "276636585"
+    },
+    {
+      "name": "Weekly Athletics Schedule Oct 26 - Oct 31",
+      "gid": "292526178"
     }
   ],
-  "fetchedAt": "2026-10-19T19:35:50.580Z",
+  "fetchedAt": "2026-10-21T18:19:01.414Z",
   "events": [
     {
       "id": "weekly-2026-10-19-girls-golf--mountain-league-champion",
@@ -118,6 +122,18 @@
       "isHome": true,
       "opponent": "Game Day (Flag) vs Paso Robles",
       "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 19 - Oct 24"
+    },
+    {
+      "id": "weekly-2026-10-21-boys-water-polo--dos-pueblos-jv-only-",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-21T16:00:00",
+      "title": "Boys Water Polo @ Dos Pueblos (JV only)",
+      "detail": "Dos Pueblos",
+      "isHome": false,
+      "opponent": "Dos Pueblos (JV only)",
       "sourceTab": "Weekly Athletics Schedule Oct 19 - Oct 24"
     },
     {
@@ -243,6 +259,250 @@
       "opponent": "League Finals",
       "level": "Varsity",
       "sourceTab": "Weekly Athletics Schedule Oct 19 - Oct 24"
+    },
+    {
+      "id": "weekly-2026-10-26-girls-golf--cif-area",
+      "category": "girls-golf",
+      "categoryLabel": "Girls Golf",
+      "isSport": true,
+      "date": "2026-10-26T09:00:00",
+      "title": "Girls Golf @ CIF Area",
+      "detail": "Lemoore GC",
+      "isHome": false,
+      "opponent": "CIF Area",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-26-boys-water-polo--league-jv-tournament",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-26T12:00:00",
+      "title": "Boys Water Polo — League JV Tournament",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "League JV Tournament",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-26-girls-water-polo--league-jv-tournament",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-26T12:00:00",
+      "title": "Girls Water Polo — League JV Tournament",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "League JV Tournament",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-26-girls-tennis--cif-playoffs-team-",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-26T15:30:00",
+      "title": "Girls Tennis @ CIF Playoffs (Team)",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Playoffs (Team)",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-27-boys-water-polo--mtn-league-tourney-preli",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-27T12:00:00",
+      "title": "Boys Water Polo @ Mtn League Tourney -Prelims",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "Mtn League Tourney -Prelims",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-27-girls-water-polo--mtn-league-tournament",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-27T12:00:00",
+      "title": "Girls Water Polo — Mtn League Tournament",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "Mtn League Tournament",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-27-girls-tennis--cif-playoffs-team-",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-27T15:30:00",
+      "title": "Girls Tennis @ CIF Playoffs (Team)",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Playoffs (Team)",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-27-flag-football--cif-playoff-tbd",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-10-27T18:00:00",
+      "title": "Flag Football @ CIF playoff TBD",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF playoff TBD",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-27-girls-volleyball--cif-first-round",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-10-27T18:00:00",
+      "title": "Girls Volleyball @ CIF First Round",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF First Round",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-27-cheer-jv-cif-playoff-flag-",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-27T18:00:00",
+      "title": "Cheer @ CIF playoff (Flag)",
+      "detail": "TBD · JV",
+      "isHome": false,
+      "opponent": "CIF playoff (Flag)",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-boys-water-polo--mtn-league-finals",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-29T12:00:00",
+      "title": "Boys Water Polo @ Mtn League Finals",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "Mtn League Finals",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-cheer-jv-cif-playoff-flag-",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-29T12:00:00",
+      "title": "Cheer @ CIF playoff (Flag)",
+      "detail": "TBD · JV",
+      "isHome": false,
+      "opponent": "CIF playoff (Flag)",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-girls-water-polo--mtn-league-tournament",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-29T12:00:00",
+      "title": "Girls Water Polo — Mtn League Tournament",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "Mtn League Tournament",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-girls-tennis--cif-playoffs-team-",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-10-29T15:30:00",
+      "title": "Girls Tennis @ CIF Playoffs (Team)",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Playoffs (Team)",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-football-frosh-moorpark",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-10-29T16:00:00",
+      "title": "Frosh Football @ Moorpark",
+      "detail": "Moorpark · Frosh",
+      "isHome": false,
+      "opponent": "Moorpark",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-flag-football--cif-playoff-tbd",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-10-29T18:00:00",
+      "title": "Flag Football @ CIF playoff TBD",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF playoff TBD",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-girls-volleyball--cif-quarterfinals",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-10-29T18:00:00",
+      "title": "Girls Volleyball @ CIF Quarterfinals",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Quarterfinals",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-30-football--st-joseph-football-cheer",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-10-30T16:00:00",
+      "title": "Football vs St. Joseph (Football/Cheer Senior Night)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "St. Joseph (Football/Cheer Senior Night)",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-30-cheer-jvvarsity-st-joseph-football-cheer",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-30T16:00:00",
+      "title": "Cheer vs St. Joseph (Football/Cheer Senior Night)",
+      "detail": "SLOHS · JV & Varsity",
+      "isHome": true,
+      "opponent": "St. Joseph (Football/Cheer Senior Night)",
+      "level": "JV & Varsity",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-31-cross-country--slo-county-meet-senior-r",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-10-31T12:00:00",
+      "title": "Cross Country — SLO County Meet, Senior Recognition",
+      "detail": "All",
+      "isHome": false,
+      "opponent": "SLO County Meet, Senior Recognition",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
     }
   ]
 }
