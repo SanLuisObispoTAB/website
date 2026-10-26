@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import teamsData from "../../data/teams.json";
 import { TEAM_PHOTO_BY_SLUG as PHOTO_BY_SLUG } from "../../data/team-photos";
 import { currentSeason, teamInSeason, teamSeasons } from "../../data/seasons";
+import { spreadBySport } from "../../data/spread-by-sport";
 
 type Team = {
   slug: string;
@@ -23,6 +24,13 @@ function teamHref(t: Team): string {
   return t.hasPage ? `/teams/${t.slug}` : "/teams";
 }
 
+/** The sport, ignoring gender and squad: both water polo teams are "Water
+ *  Polo", and Tiger Cheer, Tiger Winter Cheer and Traditional Competitive
+ *  Cheer are all "Cheer". */
+function sportFamily(t: Team): string {
+  return t.name.replace(/^(Tiger( Winter)?|Traditional Competitive) /, "");
+}
+
 function teamLabel(t: Team): string {
   if (!t.gender || t.gender === "Co-ed") return t.name;
   return `${t.gender} ${t.name}`;
@@ -30,8 +38,11 @@ function teamLabel(t: Team): string {
 
 export default function TeamsCarousel() {
   const season = currentSeason();
-  const teams: Team[] = (teamsData.teams as Team[]).filter(
-    (t) => teamInSeason(t, season),
+  // Boys and girls squads of one sport sit together in teams.json, so spread
+  // them apart: the same sport never takes two neighbouring cards.
+  const teams: Team[] = spreadBySport(
+    (teamsData.teams as Team[]).filter((t) => teamInSeason(t, season)),
+    sportFamily,
   );
   const trackRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);

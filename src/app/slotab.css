@@ -106,6 +106,8 @@
 .slotab-tier-foot,
 .slotab-platinum-head,
 .slotab-event-intro,
+.slotab-news-weeks,
+.slotab-team-news-more,
 .slotab-consent-actions .slotab-btn,
 /* tiger.css centered blocks — listed here so the rule lives in one place */
 .tiger-footer-bottom,
@@ -5129,4 +5131,132 @@ a.slotab-platinum-slide:hover {
    limit, and it should not compete with the perks above it. */
 .slotab-tier-nosport {
   color: var(--slotab-muted);
+}
+
+/* ==========================================================================
+   ATHLETICS NEWS — /news, the home "This Week" strip, team-page recaps
+   --------------------------------------------------------------------------
+   Weekly recaps quoted from the SLOHS newsletter (src/app/data/
+   athletics-news.json). Left-aligned on purpose: these are paragraphs of
+   prose, and centered paragraphs this long are hard to read.
+   ========================================================================== */
+.slotab-news-weeks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 820px;
+  margin: 0 auto 3rem;
+}
+.slotab-scope .slotab-news-weeks a {
+  font-family: var(--tiger-sans);
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--slotab-border);
+  border-radius: 999px;
+  background: #fff;
+}
+.slotab-scope .slotab-news-weeks a:hover {
+  border-color: var(--tiger-gold);
+}
+.slotab-news-issues {
+  max-width: 820px;
+  margin: 0 auto;
+  display: grid;
+  gap: 3.5rem;
+}
+.slotab-news-issue {
+  scroll-margin-top: 6rem;
+  text-wrap: pretty;
+}
+.slotab-news-issue-head {
+  border-bottom: 3px solid var(--slotab-gold);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.slotab-news-issue-head .slotab-kicker {
+  display: block;
+  color: var(--slotab-gold-dark);
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.75rem;
+}
+.slotab-scope .slotab-news-issue-head h2 {
+  margin: 0.25rem 0 0.35rem;
+}
+.slotab-news-source {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--slotab-muted);
+}
+.slotab-news-recap {
+  margin: 0 0 1.15rem;
+  line-height: 1.65;
+}
+.slotab-scope .slotab-news-lead {
+  font-weight: 700;
+  color: var(--tiger-ink);
+}
+.slotab-scope a.slotab-news-lead {
+  text-decoration: underline;
+  text-decoration-color: var(--tiger-gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.slotab-news-empty {
+  color: var(--slotab-muted);
+  font-style: italic;
+}
+.slotab-news-notice {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--slotab-bg-alt);
+  border-left: 4px solid var(--slotab-gold);
+}
+.slotab-scope .slotab-news-notice h3 {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+.slotab-news-notice p {
+  margin: 0;
+}
+.slotab-news-notice ul {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+.slotab-scope a.slotab-news-link {
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: var(--tiger-gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Team page: the team's latest recaps */
+.slotab-team-news {
+  max-width: 820px;
+  margin: 0 auto;
+  text-wrap: pretty;
+}
+.slotab-team-news-date {
+  display: block;
+  font-family: var(--tiger-sans);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slotab-gold-dark);
+  margin-bottom: 0.25rem;
+}
+.slotab-team-news-more {
+  text-align: center;
+  margin-top: 1.5rem;
 }

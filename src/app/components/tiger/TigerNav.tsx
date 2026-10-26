@@ -75,6 +75,7 @@ const BASE_NAV: NavItem[] = [
     label: "Events",
     children: [
       { href: "/upcoming", label: "Upcoming" },
+      { href: "/news", label: "Athletics News" },
       { href: "/back-to-school", label: "Back to School Day" },
       { href: "/booster-bash", label: "Booster Bash" },
     ],

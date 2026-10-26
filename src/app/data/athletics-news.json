@@ -1,0 +1,723 @@
+{
+  "note": "Weekly athletics recaps from the 'Athletics' section of the SLOHS weekly newsletter (ParentSquare, Sundays). Text is quoted as the school wrote it; only duplicate paragraphs and doubled team-name lead-ins are removed. Not a scoreboard: no score field, and a team the newsletter skips has no entry. Edited at /admin → Athletics News. See src/app/data/athletics-news.ts.",
+  "issues": [
+    {
+      "date": "2026-10-25",
+      "title": "SLOHS Newsletter, 10.25.26",
+      "items": [
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf took 4th place in the Mountain League championship on Monday. Julia Schroeter Heptig will move on to the area tournament as an individual. Great job, Tigers!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis celebrated Senior Night in style on Monday, sweeping Morro Bay 9–0. The Tigers kept their winning streak rolling on Tuesday with another 9–0 victory over St. Joseph, capping off an undefeated league season! With their sights now set on the postseason, the Tigers will host a second-round CIF playoff match on Thursday. Congratulations on an outstanding regular season, Tigers! Keep serving up those wins!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball capped off an outstanding regular season with a pair of 3–0 sweeps! On Tuesday, the Tigers celebrated Senior Night with a victory over Nipomo, clinching the Mountain League Championship. They carried that momentum into Thursday, sweeping St. Joseph to finish league play with an impressive 13–1 record. The Tigers now look to bump their success to the next level as they head into the CIF playoffs! They will host Clovis North at 6:00 PM in the Big Gym. Come out, pack the gym, and cheer on our Tigers as they look to keep their winning streak alive!"
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo closed out the regular season with a pair of victories! On Tuesday, the Tigers defeated Morro Bay 13–6 before returning home on Thursday to celebrate Senior Night with a commanding 13–3 victory over Righetti. The Tigers finished Mountain League play with a 4–4 record and will look to carry their momentum into the Central Coast Athletic Association Tournament on Tuesday. Way to finish strong, Tigers!"
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo continued their winning ways this week with a pair of impressive victories! On Tuesday, the Tigers defeated Morro Bay 13–9 before returning home on Thursday to celebrate Senior Night with a 20–12 victory over Righetti. The Tigers capped off an outstanding regular season with a perfect 10–0 league record, securing the Mountain League Championship! Congratulations to our seniors and the entire team on an undefeated run through league play. Way to go, Tigers! They will play in the Central Coast Athletic Association Tournament on Thursday before the CIF playoffs start."
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football wrapped up an outstanding regular season with two exciting victories and a second consecutive Mountain League Championship! On Tuesday, the Tigers defeated the Paso Robles Bearcats to clinch the league title. They followed that up on Thursday with a thrilling 21–19 victory over the Braves to close out the regular season on a high note. Congratulations to our Tigers on going back-to-back as league champions! Now, the Tigers are ready to make history as they enter the Central Section's inaugural CIF Flag Football Playoffs! They will host Kennedy High School on Tuesday at 6:00 PM. Come out and cheer on our Tigers as they look to carry their championship momentum into the postseason. Let's go, Tigers!"
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hit the road on Friday and delivered a commanding 51–7 victory over the Righetti Warriors! The Tigers put together an impressive performance in all three phases of the game as they rolled to another big win. The Tigers return to Holt Field this Friday to close out the regular season against St. Joseph. Before kickoff, we will honor our seniors and recognize their dedication and contributions to Tiger Football. Come out, pack the stands, and help us celebrate our seniors as the Tigers look to finish the regular season on a high note!"
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country traveled to Clovis to compete in the Clovis North Twilight Invitational, where the Tigers turned in strong performances under the lights! On the boys' side, Rodolfo Uribe (9:48.0) and Gavin Wells (9:59.5) both broke the 10-minute barrier on the two-mile course. Leading the way for the girls were Kasey Abercromby (11:43.0) and Claire Folden (12:12.3). With the postseason approaching, the Tigers are hitting their stride at just the right time. Keep up the great work, Tigers!"
+        }
+      ],
+      "notices": [
+        {
+          "title": "Athletic Clearances",
+          "body": "Basketball, Soccer, Wrestling and Competitive Cheer are offered as winter sports at SLO High. Practices and tryouts start next week. Before participating, students must create a Home Campus profile and upload a current athletic clearance completed by a licensed medical professional (MD, PA, or NP).",
+          "links": [
+            {
+              "label": "Home Campus Instructions",
+              "url": "https://drive.google.com/file/d/1o8fOjgWiXrdCDJ3fhhAz9eIRRFAA7Cze/view"
+            },
+            {
+              "label": "Winter 26 Tryout Schedule",
+              "url": "https://docs.google.com/spreadsheets/d/1356OdDfDk0bZpKUD7Wn3l3CJmB3Q6sRc-t1uR4WXXk8/edit?usp=sharing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-10-18",
+      "title": "SLOHS Newsletter, 10.18.26",
+      "items": [
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo had a busy week, falling to Atascadero, but then defeating Paso Robles 13-5. They have a few games left before the league tournament and post-season play begins."
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo defeated Atascadero and Paso Robles this week, improving their league record to 8-0, and staying in first place in league! Nice job, boys!"
+        },
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf had a close match, narrowly falling to Arroyo Grande. They play in the league championship tournament on Monday, so wish them luck!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis swept both Atascadero and Templeton 9-0, and then beat Santa Ynez 8-1 improving their league record to 12-0. Amazing job, Tigers!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball defeated Atascadero and Santa Ynez 3-0 to remain in first place in the Mountain League. Awesome!"
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football went 1-1 this week beating Righetti 39-0 on Senior Night, followed by a hard-fought game where they fell short to Santa Ynez. The Tigers remain in first place in the league standings with just a few games to play."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football headed up to Templeton on Friday night where they defeated the Eagles 21-13. The Tigers are in 3rd place in the Mountain League with two huge games coming up."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country traveled to the Goose Chase Invitational at Waller Park on Friday where the boys finished 5th and the girls finished 2nd. Next up for them is a trip to the Clovis Twilight meet this coming Friday."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "title": "SLOHS Newsletter, 10.11.26",
+      "items": [
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hosted the Arroyo Grande Eagles on Friday. After spotting the Eagles a 14 -0 lead, the defense went on lockdown mode allowing just 7 points the rest of the game. Unfortunately, the Tigers could not claw their way back, falling to Eagles 21-14 in a hard-fought contest. The Tigers are 1 - 1 in Mountain League play."
+        },
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf had a break from competition this week but kept their focus on the fairway, spending the week fine-tuning their swings and sharpening their skills for the upcoming matches."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis defeated Arroyo Grande 7 -2 on Thursday keeping them in first place in league play."
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football pulled off a come from behind victory against Lompoc on Wednesday. They were down by one score with under a minute to go but found their way to the endzone in the closing seconds and came away with a 13-12 victory over the Braves. On Friday, the Tigers shut out the Arroyo Grande Eagles 37 - 0."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country hit the ground running at the 47th ASICS Clovis Invitational at Woodward Park in Clovis on Friday. Competing against a strong field of runners, the girls finished an impressive 7th out of 29 schools, while the boys raced to 8th out of 33 schools. A special shoutout to Emiri Sarabia, who led the pack and took 1st place in the frosh/sophmore race! Way to go, Tigers!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball moved to 9 -1 in league play with a pair of 3 -0 sweeps this week. On Tuesday they visited Paso Robles where they beat the heat and the Bearcats. On Thursday the Tigers hosted Arroyo Grande on Breast Cancer Awareness Night. The Tigers took all three sets from the Eagles, but more importantly, they raised money to help defeat breast cancer. Great job, Tigers, making a difference both on and off the court!"
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Tiger Cheer",
+          "body": "Tiger Cheer led the pink-clad crowd with cheers and stunts during Thursday’s volleyball game and Friday’s Football Game! From the gym to Holt Field, our cheerleaders brought the Tiger spirit all week long. Clap your hands and stomp your feet, Tiger Cheer can’t be beat!"
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo played strong this week defeating Righetti 16 -5 on Tuesday. On Thursday the Tigers took on perennial powerhouse Arroyo Grande. The Tigers played strong and went to halftime with down 5 - 4. They eventually lost 11 -5."
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo continues to dominate in league play, improving to a perfect 6–0 with two more victories this week. On Tuesday, the Tigers defeated Righetti 21–15 before making a splash against Arroyo Grande with a convincing 17–7 win on Thursday. The Tigers kept the momentum rolling on Friday, defeating a strong Garces squad 16 –7 in the SLOTown Showdown. They opened Saturday's competition with a 14–10 victory over Del Oro. The Tigers defeated Westview 10-9 in the final contest."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "title": "SLOHS Newsletter, 10.4.26",
+      "items": [
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football welcomed Mission College Prep to Holt Field for the Tigers’ Homecoming matchup. After a slow start, the Tigers went into halftime trailing 21–14. The defense shut out the Royals in the second half, while the offense scored 21 unanswered points to complete the comeback and earn a 35–21 victory. Great Homecoming win, Tigers!"
+        },
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf finished 2nd at Dairy Creek, led by Julia Schroeder-Heptig and Addison Hopple, who posted the Tigers’ top two scores. Another strong day on the course. Way to drive it home, Tigers!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis kept its undefeated league season rolling this week with a pair of shutout victories. On Tuesday, the Tigers defeated St. Joe’s 9–0, then followed it up on Thursday with another 9–0 victory over Santa Ynez. The Tigers remain undefeated in league play as they continue their impressive season."
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football squeaked out a pair of hard-fought victories this week to remain perfect in league play at 4–0. On Tuesday, the Tigers edged Santa Ynez 13–12 at home before traveling to Paso Robles on Thursday and holding off the Bearcats for an 18–12 victory. Two close games, two Tiger wins!"
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Boys and Girls Cross Country kept their win streak running, with both teams taking 1st place overall at the Central Coast Athletic Association meet on the Fairbanks course. The Tigers continue to set the pace as they race through the season!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball had a perfect week at home, earning a pair of 3–0 sweeps over St. Joseph and Mission Prep. Thursday’s victory over Mission was especially satisfying, as the Tigers avenged an early-season loss to the Royals. Great week for the Tigers!"
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Tiger Cheer",
+          "body": "Tiger Cheer added some extra flair to Homecoming Week with a great halftime performance on Friday night. Throughout the game, the Tigers kept the crowd fired up with high-energy stunts and celebrated every Tiger score with their signature surfboard push-ups. Great energy from the Cheer teams throughout the whole game."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo got back in the win column in a big way this week, evening its league record at 2–2. On Monday, the Tigers cruised past Paso Robles 15–2, then followed it up with another victory over Morro Bay on Thursday! Over the weekend, the Tigers co-hosted the Arroyo Grande Fall Classic, where they faced a pair of highly ranked Bay Area teams, falling to Menlo School and Leigh. A big thank you to all of our parents who helped make the tournament possible!"
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo continues to make waves in league play, moving to 4–0 with two more victories this week. On Monday, the Tigers defeated Paso Robles 19–9, then followed it up with a 22–5 win over Morro Bay on Thursday. The Tigers are off to a great start!"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "title": "SLOHS Newsletter, 9.27.26",
+      "items": [
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf played in the Mountain League Midseason tournament. The girls played strong and finished in 5th place. On Monday, they will host Lompoc and Atascadero at Dairy Creek."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis continued its dominant run on the court this week. On Tuesday, the Tigers defeated Santa Ynez 8–1, then followed it up on Thursday with a 9–0 shutout of Morro Bay. With two more impressive victories, the Tigers remain undefeated in league play. This week they will host St. Joe’s on Tuesday at 3:30."
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football visited Arroyo Grande and Righetti this week. On Tuesday, the Tigers shut out the Arroyo Grande Eagles 60-0. On Thursday the Tigers held off the Righetti Warriors 12-0. They will host Santa Ynez on Tuesday at 4:30 JV and 6:00 for varsity."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football had a bye this week and will return to action on Friday, October 2, when the Tigers host Mission College Prep for the annual Homecoming Game. This crosstown rivalry always brings plenty of excitement, and this year should be no different. Kickoff is set for 7:00 PM at Holt Field."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country had a bye this week and will return to action on Saturday, October 3, at the Mid-Season League Meet at the Fairbanks course. The first race gets underway at 8:00 AM, so stop by and cheer on our Tiger runners!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball picked up two more wins this week. On Tuesday, the Tigers hosted the Santa Ynez Pirates and came away with a 3–0 victory. On Thursday, they hit the road and defeated the Nipomo Titans 3–1.\n\nThis week, the Tigers host St. Joseph on Tuesday and Mission College Prep on Thursday, with both matches starting at 6:00 PM. Thursday is a big one as the Tigers look to avenge their only league loss. Let’s pack the gym and bring the Tiger energy!"
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer had a bye this week."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo opened league play this week with a pair of tough matchups. On Tuesday, the Tigers fell to Arroyo Grande 15–6, followed by a 14–10 loss to Atascadero on Thursday. On Friday and Saturday the team went 4 and 0 in the Grizzly Classic in Granite Bay. The Tigers will look to bounce back in league play at home this week, hosting Paso Robles on Monday and Morro Bay on Wednesday."
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo jumped into league play this week with a pair of victories. On Tuesday, the Tigers raced out to a commanding 9–0 lead against Arroyo Grande before securing an 11–7 victory. On Thursday, they battled Atascadero and came away with a 12–10 win. Great start to league play as the Tigers open 2–0! This week, they return home to host Paso Robles on Monday and Morro Bay on Wednesday."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "title": "SLOHS Newsletter, 9.20.26",
+      "items": [
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf traveled to Mission Country Club to take on Santa Ynez and Cabrillo. The Tigers finished in second place, with Julia Schroeter Heptig posting the lowest score of the day."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis continued to dominate on the court, defeating Arroyo Grande 9–0 on Tuesday. On Thursday, the Tigers turned in another 9–0 shutout, this time against Atascadero. The Tigers remain undefeated in league play."
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football edged out the Templeton Eagles 20 - 18 on Tuesday."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football journeyed to Santa Maria to take on the Pioneer Valley Panthers. The Tigers offense found the end zone 7 times en route to a 48-8 victory."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country traveled to the Ojai Invitational on Saturday and came home with a pair of team victories. The boys finished 1st overall with 56 points, edging Arroyo Grande by just two points, while the girls also took 1st place with 67 points. A great day of racing and a strong team performance by the Tigers!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball traveled to Arroyo Grande on Tuesday and swept the Eagles 3–0. The Tigers returned home Thursday night and kept rolling, sweeping Atascadero 3–0."
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer joined the Football team at Pioneer Valley and kept the crowd engaged with several entertaining stunts."
+        },
+        {
+          "teams": [
+            "girls-water-polo",
+            "boys-water-polo"
+          ],
+          "heading": "Girls and Boys Varsity Water Polo",
+          "body": "Girls and Boys Varsity Water Polo had the week off and will jump into league play Tuesday at Arroyo Grande."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-13",
+      "title": "SLOHS Newsletter, 9.13.26",
+      "items": [
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Varsity Water Polo",
+          "body": "Boys Varsity Water Polo went 3-1 and placed 2nd Overall in the Platinum Division of the \"Thrills in the Hills\" Tournament. They lost to Royal in the Championship game by just 1 point. Their record is now 9-2 heading into League. On Tuesday, they hosted the Rangers of Redwood and came away with a 13 -11 victory."
+        },
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf traveled to Rancho Maria Golf Course on Tuesday for a match against Orcutt Academy and St. Joseph. The Tigers put together a solid round and finished second in the three-team match."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo fell short against Redwood on Tuesday losing 10 - 5. The Tigers will start league play against Arroyo Grande on September 22."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis took the court twice this week and came away perfect. On Tuesday, the Tigers traveled to Lompoc and held serve with a 9–0 victory. On Thursday, they returned home to host Templeton and delivered another 9–0 win, completing a dominant week without dropping a match."
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football had a tough night on Tuesday against the Pirates, falling 20–6 after the offense struggled to find its rhythm in the first half. The Tigers bounced back in a big way on Saturday as they hosted Aptos. The defense led the charge, recording five interceptions, including two returned for touchdowns, to help secure a 19–12 victory over the Mariners."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hosted the Atascadero Greyhounds on Friday for the annual Alumni Game, with six Tiger alumni honored during a special halftime recognition. On the gridiron, the Tigers bounced back from last week’s loss with a convincing 38–14 victory over Atascadero."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country traveled to the Morro Bay Invitational on Saturday and turned in a strong showing. The varsity boys captured 1st place in Division 3, while the varsity girls earned an impressive 3rd-place finish in Division 3. Great day on the course for the Tigers!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball opened league play on Tuesday against crosstown rival Mission. The Tigers battled hard but came up short, 3–1. On Thursday, they bounced back at home with a 3–0 sweep of Paso Robles. On Friday and Saturday, the volleyball program hosted 16 top teams for the annual SLOTown Showdown, including four teams ranked among the top 50 in California. The Tigers went 5-1 to earn 2nd place at the SLO Town Showdown. Frankie Morrow and Hazel Williams were honored on the All-Tournament Team. Huge thank you to all of the JV/Frosh players, parents, custodial team, and Coach Stearns who had all hands on deck to make this big tournament run so smoothly!"
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer Varsity brought all the hype & energy to Friday Night Lights - wowing the crowd with an explosive USA themed halftime routine."
+        }
+      ]
+    },
+    {
+      "date": "2026-09-06",
+      "title": "SLOHS Newsletter, 9.6.26",
+      "items": [
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo traveled to Carmel on Friday and battled the Padres in a game that wasn’t decided until the fourth quarter. The Tigers held on for a 14–11 victory."
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer traveled to Independence High School on Friday night and kept the Tiger crowd fired up throughout the game."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo hosted the Central Coast Classic Varsity Tournament on Friday and Saturday and put together a perfect 4–0 weekend to claim the tournament championship! On Friday, the Tigers shut out Monterey 14–0 before pulling away from a talented Whitney squad for a 10–6 victory. On Saturday, they defeated Turlock 12–4 and capped off the weekend with another shutout, beating Pacific Grove 10–0 in the championship game. Way to go, Tigers!"
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football hosted Nipomo on Thursday and came away with a convincing 58–6 victory. On Saturday, the Tigers welcomed Mission College Prep and Ayala for a round-robin format. The Tigers took care of business against Mission with a 31–12 win. Against Ayala, the Tiger defense turned in another strong performance, but SLO came up just short, 6–0. The girls will host Morro Bay on Thursday on Future Tiger Night."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football traveled to Independence High School to take on the Falcons. The Tigers had trouble finding their offensive rhythm and suffered a set back 35 - 7. They will look to bounce back next week in the Alumni game against Atascadero."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country traveled to Arroyo Grande to compete in the Big Ditch Classic. The boys finished fifth overall, with several runners setting personal records on the challenging 4,000-meter course. The girls turned in a strong performance, finishing second overall, led by Kasey Abercromby’s fifth-place finish."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "title": "SLOHS Newsletter, 8.30.26",
+      "items": [
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer brought the energy to Friday night’s football game with a halftime performance and an impressive tumbling routine. Each tumbler completed 28 back handsprings, showcasing the athleticism, strength, and skill of our cheer program. Great job, Tigers!"
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football started the season with a win over Morro Bay on Tuesday. On Thursday, the Tigers battled through a pair of close 12–6 losses against Rocklin and Bakersfield Christian. The Tigers bounced back in a big way on Saturday with a convincing 33 - 0 victory over Santa Maria, finishing a busy opening week on a high note."
+        },
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf hosted Lompoc for the first match of the season. The girls battled hard but came up short against the Braves, 281 - 266."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hosted the Mission Oak Hawks on Friday night. The teams traded scores throughout the first half and went into halftime tied. The Tigers took control in the third quarter and pulled away for a 35–13 victory to earn the win in front of the home crowd which included many Future Tigers!"
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo co-hosted the Arroyo Grande Fall Classic Tournament. On Friday the Tigers lost to Dos Pueblos 16-12 in the early game, then bounced back against Turlock 14 -11 in the evening game. On Saturday the Tigers went 2-0 on the day with wins against College Park and Sanger."
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball had a busy and successful week, starting with a 3–0 victory over Coastal Christian at home on Tuesday. The Tigers traveled to Clovis on Thursday to take on Buchanan losing 3 to 1, but rebounded on Friday and Saturday winning the Wild West Showdown hosted by Clovis High. Maddie Immoos and Logan Crosson were named to the All Tournament Team, while Ella Buchanan was named the tournament’s MVP."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis hit the courts for three straight days of competition. On Thursday, the Tigers battled Oak Ridge in a highly competitive match, narrowly falling 5–4. They bounced back on Friday with a dominant 9–0 victory over Rocklin before finishing the three-day stretch Saturday morning with an impressive 8–1 win over Chico High. A strong finish to a busy three days for the Tigers!"
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country hosted 66 runners for the annual Madonna Mountain Time Trial on Saturday. Sophomore Gavin Wells was the top boys finisher for the Tigers, running a time that places him 18th on the all-time list for the course. Sophomore Emirie Sarabia led the girls, posting a time that ranks her 17th all-time. In the “highly competitive” staff divisions, Adam Basch took first in the retired athletic director category, while Jimmie Johnson claimed the top spot among math teachers."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "title": "SLOHS Newsletter, 8.23.26",
+      "items": [
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball traveled to Bakersfield where they played hard but ultimately lost to Frontier on Tuesday. On Thursday the Tigers rallied for a 3 -0 victory against the Liberty Patriots. On Saturday, the Tigers took 1st place at the Cardinal Classic held at UCSB. Great job!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis hosted the Knights of Bullard High on Friday. The Tigers defeated the Knights 9 -0 with equally strong performances in doubles and singles play."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo opened the season with an impressive victory over the Tigers of Lemoore, doubling up their opponent 18-9."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hosted Mount Whitney in their inaugural game on the new turf. The Tigers’ defense put together a strong performance, shutting out the Pioneers 14 - 0. What a great way to open the new field."
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer brought great energy to the football crowds at all three levels this week and delivered strong halftime performances. Their enthusiasm helped create a positive atmosphere throughout the games."
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo jumped out to a 9 -0 lead enroute to a 23 -7 victory over the Lemoore Tigers on Tuesday."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country will host their annual Madonna Mountain Time Trial on Saturday, August 29. SLOHS XC team members, their families/friends, and SLOHS staff are all welcome to join, but of course the athletes take priority in positioning. Meet at the playground at Laguna Lake Park at 7:50 am."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "title": "SLOHS Newsletter, 8.16.26",
+      "items": [
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball opened the season off with two impressive victories. On Tuesday, the Tigers traveled to Morro Bay and swept the Pirates. They followed that up on Thursday with a 3 - 0 victory over the Stockdale Mustangs. A great start to the season!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis hosted Clovis East for a scrimmage on Friday. The Tigers look ready to serve up a great season. The Tigers officially open their season this Friday against Bullard."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hosted Paso Robles for friendly scrimmage on Friday. It was great to see the Tigers on the turf competing against another team. They return to Holt Field this Friday to host Mount Whitney."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "title": "SLOHS Newsletter, 8.9.26",
+      "items": [
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball kicked off the season Saturday with their annual Black & Gold Scrimmage, followed by a fun and competitive Alumni Game, with the current Tigers edging the Tiger alumni by just five points. The Tigers hit the road Tuesday to take on Morro Bay before hosting Stockdale on Thursday for their first home contest of the season."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis will host Clovis East for a scrimmage on Friday at 3 pm.."
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football wrapped up training camp with a well-earned dip in the pool! All three levels will open the season this week with scrimmages against Paso Robles. Freshman Football takes the field Thursday, August 13 at 5:00 p.m., followed by JV on Friday at 4:00 p.m. and Varsity under the lights at 6:00 p.m."
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "title": "SLOHS Newsletter, 8.2.26",
+      "items": [
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Varsity Cheer",
+          "body": "Varsity Cheer just returned from a four-day UCA Cheer Camp at UCSB with some incredible hardware: the team earned the highly coveted Gold Superior ribbon, plus trophies for 2nd in Cheer & Sideline and 3rd in Camp Routine. Four Tigers earned All-American Cheerleader honors - Evelyn de la Motte, Jazmine Patton, Lily Ross, & Piper Davis - and Jazmine also took the title of Best Jumper among all athletes in attendance. It was a great time full of sun, skill-building, and team bonding!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "The Black and Gold scrimmage/Alumni game is August 8 at 2:00/4:00 pm in the big gym."
+        }
+      ]
+    }
+  ]
+}

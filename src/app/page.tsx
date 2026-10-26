@@ -7,6 +7,13 @@ import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
 import { isDonateDriveActive } from "./data/campaign";
 import { ALL_EVENTS } from "./data/events";
 import hofInductees from "./data/hof-inductees.json";
+import {
+  LATEST_ISSUE,
+  type NewsItem,
+  formatIssueDate,
+  issueAnchor,
+  splitLead,
+} from "./data/athletics-news";
 
 const STATS = [
   { num: "27", label: "CIF-sanctioned teams" },
@@ -87,6 +94,18 @@ function buildHomeCalendar(): {
 }
 
 const CALENDAR = buildHomeCalendar();
+
+// "Read more" on the home news cards jumps to that week on /news.
+const LATEST_NEWS_HREF = LATEST_ISSUE
+  ? `/news#${issueAnchor(LATEST_ISSUE.date)}`
+  : "/news";
+
+// The card's title is the team name, so drop it from the start of the
+// paragraph and capitalise what's left: "Girls Golf took 4th…" → "Took 4th…".
+function cardText(item: NewsItem): string {
+  const rest = splitLead(item).rest.trim();
+  return rest.charAt(0).toUpperCase() + rest.slice(1);
+}
 
 // Fall-season designs, swapped in from the spring three (baseball, track,
 // beach volleyball) at the 2026-27 rollover. These are the fall sports we
@@ -232,6 +251,43 @@ export default function ClassicHomePage() {
 
       {/* Teams carousel — current-trimester teams. "View all" → /teams */}
       <TeamsCarousel />
+
+      {/* This week in Tiger athletics — the latest recaps from the SLOHS
+          weekly newsletter. Three cards, clamped; the full text is on /news. */}
+      {LATEST_ISSUE && LATEST_ISSUE.items.length > 0 && (
+        <section className="tiger-section tiger-news-strip">
+          <div className="tiger-container">
+            <div className="tiger-merch-strip-head">
+              <div className="tiger-section-head">
+                <span className="tiger-eyebrow">
+                  Athletics News · Week of {formatIssueDate(LATEST_ISSUE.date)}
+                </span>
+                <h2>This week in Tiger athletics.</h2>
+              </div>
+              <Link href="/news" className="tiger-ulink">
+                All athletics news →
+              </Link>
+            </div>
+            <div className="tiger-three-grid tiger-news-grid">
+              {LATEST_ISSUE.items.slice(0, 3).map((item) => (
+                <div key={item.heading} className="tiger-three-card">
+                  <div className="tiger-three-num">FROM THE SLOHS NEWSLETTER</div>
+                  <h3 className="tiger-three-title">{item.heading}</h3>
+                  <p className="tiger-three-body tiger-news-body">
+                    {cardText(item)}
+                  </p>
+                  <Link
+                    href={LATEST_NEWS_HREF}
+                    className="tiger-ulink tiger-three-cta"
+                  >
+                    Read more →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Booster Bash band — the year's biggest fundraiser. Carries the
           auction-item ask the Treasurer wanted surfaced on the home page,

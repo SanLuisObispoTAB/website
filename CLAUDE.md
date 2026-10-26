@@ -171,6 +171,19 @@ So:
   Worth fixing if a board member asks to edit a team page themselves.
 - **No comms-channel features on team pages** — Home Campus is the
   source of truth for game schedules and changes (decision #40).
+- **Athletics News** (`/news`, decision #255) comes from the "Athletics"
+  section of the SLOHS weekly newsletter — a Sunday ParentSquare digest
+  from `donotreply@parentsquare.com`. Data is
+  `src/app/data/athletics-news.json` (editable at `/admin` → Athletics
+  News), one entry per newsletter. **Paste paragraphs verbatim** — the
+  page credits the school's words; only drop duplicate paragraphs and a
+  team name run into itself ("Flag Football Flag Football…"). Tag each
+  recap with its `teams` slugs so it reaches the team page. Keep
+  `notices` on the newest week only. It is deliberately **not a
+  scoreboard** — don't add a score field (#131, #193).
+- **No carousel shows the same sport twice in a row** (#256). Any list
+  of slides or team cards goes through `spreadBySport` in
+  `src/app/data/spread-by-sport.ts` — don't hand-order to satisfy it.
 - **/watch is the Hudl BlueFrame portal embed**, not a custom catalog.
   See decision #59. Don't recreate the custom catalog without the
   user explicitly asking for it back.

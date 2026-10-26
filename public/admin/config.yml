@@ -298,6 +298,109 @@ collections:
                 }
 
   # ---------------------------------------------------------------
+  # Athletics News — weekly recaps from the SLOHS newsletter (/news)
+  # ---------------------------------------------------------------
+  - name: athletics_news
+    label: "Athletics News"
+    files:
+      - name: athletics_news
+        label: "Weekly Athletics Recaps"
+        file: "src/app/data/athletics-news.json"
+        description: "One entry per SLOHS weekly newsletter. Each Sunday, add a new week and paste in each team's paragraph from the newsletter's Athletics section, as written. Shows on /news, on the home page (newest week, first three teams), and on each team's page (its three latest)."
+        fields:
+          - { name: note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
+          - name: issues
+            label: "Weeks"
+            label_singular: "Week"
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            fields:
+              - {
+                  name: date,
+                  label: "Newsletter date (the Sunday it went out)",
+                  widget: datetime,
+                  date_format: "YYYY-MM-DD",
+                  time_format: false,
+                  format: "YYYY-MM-DD",
+                  picker_utc: true,
+                }
+              - {
+                  name: title,
+                  label: "Newsletter title",
+                  widget: string,
+                  hint: "As the school titled it, e.g. SLOHS Newsletter, 10.25.26",
+                }
+              - name: items
+                label: "Team recaps"
+                label_singular: "Recap"
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - {
+                      name: heading,
+                      label: "Team name as the newsletter writes it",
+                      widget: string,
+                      hint: "e.g. Girls Golf. If the paragraph starts with these exact words they are set in bold; otherwise the name is shown in bold before the paragraph.",
+                    }
+                  - name: teams
+                    label: "Team page(s)"
+                    widget: select
+                    multiple: true
+                    required: false
+                    hint: "Pick the team(s) this paragraph is about, so it also shows on their team page. Pick two for a combined recap (e.g. both water polo squads)."
+                    options:
+                      - { label: "Boys Football", value: "football" }
+                      - { label: "Girls Volleyball", value: "girls-volleyball" }
+                      - { label: "Boys Baseball", value: "baseball" }
+                      - { label: "Co-ed Track & Field", value: "track-field" }
+                      - { label: "Girls Softball", value: "softball" }
+                      - { label: "Boys Volleyball", value: "boys-volleyball" }
+                      - { label: "Girls Beach Volleyball", value: "beach-volleyball" }
+                      - { label: "Boys Tennis", value: "boys-tennis" }
+                      - { label: "Girls Tennis", value: "girls-tennis" }
+                      - { label: "Boys Swim & Dive", value: "boys-swim-dive" }
+                      - { label: "Girls Swim & Dive", value: "girls-swim-dive" }
+                      - { label: "Boys Water Polo", value: "boys-water-polo" }
+                      - { label: "Girls Water Polo", value: "girls-water-polo" }
+                      - { label: "Boys Basketball", value: "boys-basketball" }
+                      - { label: "Girls Basketball", value: "girls-basketball" }
+                      - { label: "Boys Soccer", value: "boys-soccer" }
+                      - { label: "Girls Soccer", value: "girls-soccer" }
+                      - { label: "Co-ed Cross Country", value: "cross-country" }
+                      - { label: "Boys Golf", value: "boys-golf" }
+                      - { label: "Girls Golf", value: "girls-golf" }
+                      - { label: "Boys Wrestling", value: "boys-wrestling" }
+                      - { label: "Girls Wrestling", value: "girls-wrestling" }
+                      - { label: "Girls Flag Football", value: "flag-football" }
+                      - { label: "Girls STUNT", value: "stunt" }
+                      - { label: "Tiger Cheer", value: "cheer" }
+                      - { label: "Dance Team", value: "dance" }
+                      - { label: "Tiger Winter Cheer", value: "winter-cheer" }
+                      - { label: "Traditional Competitive Cheer", value: "competitive-cheer" }
+                  - {
+                      name: body,
+                      label: "Paragraph",
+                      widget: text,
+                      hint: "Paste it exactly as the newsletter wrote it. Leave a blank line between paragraphs if it runs to more than one.",
+                    }
+              - name: notices
+                label: "Notices (optional)"
+                label_singular: "Notice"
+                widget: list
+                required: false
+                hint: "Time-sensitive athletics-department items such as athletic clearances or tryouts. Keep these on the newest week only and delete them from the previous week, so old instructions don't linger."
+                fields:
+                  - { name: title, label: "Title", widget: string }
+                  - { name: body, label: "Text", widget: text }
+                  - name: links
+                    label: "Links"
+                    widget: list
+                    required: false
+                    fields:
+                      - { name: label, label: "Link text", widget: string }
+                      - { name: url, label: "URL", widget: string }
+
+  # ---------------------------------------------------------------
   # Teams — per-sport pages
   # ---------------------------------------------------------------
   - name: teams_index

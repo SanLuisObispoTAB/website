@@ -27,6 +27,7 @@ const STATIC_ROUTES = [
   // it is a public page an alumnus may reasonably search for.
   "/hall-of-fame/donate",
   "/upcoming",
+  "/news",
   "/back-to-school",
   "/booster-bash",
   "/watch",
@@ -47,7 +48,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [...STATIC_ROUTES, ...teamRoutes].map((path) => ({
     url: `${base}${path}`,
     lastModified,
-    changeFrequency: path === "" || path === "/upcoming" ? "weekly" : "monthly",
+    changeFrequency:
+      path === "" || path === "/upcoming" || path === "/news"
+        ? "weekly"
+        : "monthly",
     priority: path === "" ? 1 : 0.7,
   }));
 }

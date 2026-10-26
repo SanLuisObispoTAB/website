@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { spreadBySport } from "../../data/spread-by-sport";
 
 type Slide = {
   src: string;
@@ -16,7 +17,9 @@ type Slide = {
   objectPosition?: string;
 };
 
-const SLIDES: Slide[] = [
+// Order here is a preference, not the final rotation: spreadBySport (below)
+// moves slides so the same sport never plays twice in a row.
+const SLIDE_LIST: Slide[] = [
   {
     src: "/photos/bfball-tunnel.jpg",
     sport: "Football",
@@ -68,6 +71,8 @@ const SLIDES: Slide[] = [
     objectPosition: "center 45%",
   },
 ];
+
+const SLIDES = spreadBySport(SLIDE_LIST, (s) => s.sport);
 
 const ROTATE_MS = 9500;
 

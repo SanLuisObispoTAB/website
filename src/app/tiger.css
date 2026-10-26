@@ -2472,3 +2472,29 @@
   .tiger-scope .tiger-bash-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .tiger-scope .tiger-bash-title { font-size: 34px; }
 }
+
+/* Home: "This week in Tiger athletics" (latest SLOHS newsletter recaps).
+   Reuses the three-card grid; the paragraph is clamped because the full
+   recap lives on /news. */
+.tiger-news-grid {
+  margin-top: 0;
+}
+.tiger-news-body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
+  min-height: 0;
+}
+.tiger-news-grid .tiger-three-card {
+  padding: 36px 32px 32px;
+}
+.tiger-news-grid .tiger-three-title {
+  font-size: 28px;
+}
+.tiger-news-grid .tiger-three-cta {
+  margin-top: auto;
+  padding-top: 16px;
+  align-self: flex-start;
+}

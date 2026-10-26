@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import ZoomablePhotos from "./ZoomablePhotos";
 import { minimumForDesignation } from "../data/sponsor-tiers";
+import { NewsRecap } from "./AthleticsNews";
+import {
+  formatIssueDate,
+  issueAnchor,
+  recentItemsForTeam,
+} from "../data/athletics-news";
 
 /** A roster row is a name and a grade — nothing else, by policy. The AD
  *  cleared publishing athletes' names and grade levels (29 Sep 2026), and
@@ -206,6 +212,10 @@ export default function TeamPage({ team }: { team: Team }) {
   // The quick-facts band holds coach / captains / liaisons. Teams awaiting
   // their 2026-27 handoff info have none of the three, so skip the band
   // entirely rather than render an empty strip.
+  // The team's latest recaps from the SLOHS weekly newsletter. The section
+  // hides itself when the newsletter hasn't mentioned the team yet.
+  const recentNews = recentItemsForTeam(team.slug, 3);
+
   const hasQuickFacts =
     headCoaches.length > 0 ||
     (team.captains?.length ?? 0) > 0 ||
@@ -332,6 +342,40 @@ export default function TeamPage({ team }: { team: Team }) {
                 alt: g.caption ?? `${team.name} action photo ${i + 1}`,
               }))}
             />
+          </div>
+        </section>
+      )}
+
+      {/* Latest recaps from the SLOHS weekly newsletter (see /news) */}
+      {recentNews.length > 0 && (
+        <section className="slotab-section">
+          <div className="slotab-container">
+            <div className="slotab-section-title">
+              <span className="slotab-kicker">Latest News</span>
+              <h2>{team.name} this season</h2>
+            </div>
+            <div className="slotab-team-news">
+              {recentNews.map((item) => (
+                <div key={item.date + item.heading}>
+                  <Link
+                    href={`/news#${issueAnchor(item.date)}`}
+                    className="slotab-team-news-date"
+                  >
+                    Week of {formatIssueDate(item.date)}
+                  </Link>
+                  <NewsRecap item={item} showTeamLink={false} />
+                </div>
+              ))}
+              <p className="slotab-news-source">
+                From the SLOHS weekly newsletter, as written by the SLO High
+                athletic department.
+              </p>
+            </div>
+            <div className="slotab-team-news-more">
+              <Link href="/news" className="slotab-btn">
+                All Athletics News →
+              </Link>
+            </div>
           </div>
         </section>
       )}
