@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import hofData from "../data/hof.json";
 import HofThermometer from "./HofThermometer";
+import { hasPassed } from "../data/event-dates";
 
 // The Hall of Fame Fund band on /hall-of-fame (#184, reframed #186, #187).
 //
@@ -243,7 +244,9 @@ export default function HofFund() {
             <Link href={donateHref()} className="slotab-btn">
               {fund.ctaLabel}
             </Link>
-            {ceremony.ticketsUrl && (
+            {/* Ticket link only while the induction is still ahead (#261) —
+                #260 flipped the ceremony strip below but missed this one. */}
+            {ceremony.ticketsUrl && !hasPassed(ceremony.date) && (
               <Link
                 href={ceremony.ticketsUrl}
                 target="_blank"
