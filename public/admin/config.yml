@@ -740,6 +740,40 @@ collections:
                       widget: string,
                       hint: "Full https:// URL for outside links, or a path like /hall-of-fame for pages on this site.",
                     }
+              # ---- After the event (#260). Once the date above has passed,
+              # the page becomes a record of the night: the fields below show
+              # and the ticket button, QR, lead copy, body and links hide.
+              - {
+                  name: pastKicker,
+                  label: "AFTER THE EVENT — small text above the title",
+                  widget: string,
+                  required: false,
+                  hint: "e.g. Thank You for a Great Night. Used once the date has passed.",
+                }
+              - {
+                  name: recap,
+                  label: "AFTER THE EVENT — recap paragraphs",
+                  widget: list,
+                  required: false,
+                  field: { name: paragraph, label: "Paragraph", widget: text },
+                  hint: "How the night went. The first paragraph is set larger.",
+                }
+              - name: gallery
+                label: "AFTER THE EVENT — photos"
+                label_singular: "Photo"
+                widget: list
+                required: false
+                hint: "Photos from the event. While this is empty the page shows a 'Photos coming soon' placeholder."
+                fields:
+                  - { name: photo, label: "Photo", widget: image }
+                  - { name: caption, label: "Caption (optional)", widget: string, required: false }
+              - name: pastLinks
+                label: "AFTER THE EVENT — buttons"
+                widget: list
+                required: false
+                fields:
+                  - { name: label, label: "Label", widget: string }
+                  - { name: url, label: "URL", widget: string }
 
   # ---------------------------------------------------------------
   # Hall of Fame — induction ceremony, committee, mission, etc.
@@ -803,6 +837,15 @@ collections:
                   required: false,
                   hint: "Leave empty and the button falls back to the general /donate page.",
                 }
+              - name: gallery
+                label: "Photos from the induction night"
+                label_singular: "Photo"
+                widget: list
+                required: false
+                hint: "Shown on the Hall of Fame page once the ceremony date has passed. While empty, a 'Photos coming soon' placeholder shows instead."
+                fields:
+                  - { name: photo, label: "Photo", widget: image }
+                  - { name: caption, label: "Caption (optional)", widget: string, required: false }
               - { name: _note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
           - name: fund
             label: "Hall of Fame Fund (donation band)"

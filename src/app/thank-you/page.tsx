@@ -9,6 +9,7 @@ import { specialFund } from "../data/special-funds";
 // paid for happens. One source with /hall-of-fame — the date has already moved
 // once (Oct 3 → Oct 10) and must never disagree between two pages.
 import hofData from "../data/hof.json";
+import { hasPassed } from "../data/event-dates";
 
 const { ceremony } = hofData;
 
@@ -98,9 +99,16 @@ function ThankYouBody({
         <p>
           It goes straight to honoring this year&apos;s inductees — the engraved
           award, the medallion, the nameplate on the wall in the Big Gym. Your
-          gift also enrolls you as a SLOTAB member at the matching tier, and
-          you&apos;re welcome at the induction on{" "}
-          {ceremony.dateLabel} at {ceremony.venueName}.
+          gift also enrolls you as a SLOTAB member at the matching tier
+          {/* Only invite them while the induction is still ahead (#260). */}
+          {hasPassed(ceremony.date) ? (
+            "."
+          ) : (
+            <>
+              , and you&apos;re welcome at the induction on{" "}
+              {ceremony.dateLabel} at {ceremony.venueName}.
+            </>
+          )}
         </p>
       ) : (
         <p>

@@ -7,6 +7,8 @@ import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
 import { isDonateDriveActive } from "./data/campaign";
 import { ALL_EVENTS } from "./data/events";
 import hofInductees from "./data/hof-inductees.json";
+import { getFeaturedEvent } from "./components/FeaturedEventPage";
+import { hasPassed } from "./data/event-dates";
 import {
   LATEST_ISSUE,
   type NewsItem,
@@ -94,6 +96,9 @@ function buildHomeCalendar(): {
 }
 
 const CALENDAR = buildHomeCalendar();
+
+// Booster Bash band switches to a thank-you once the night has passed (#260).
+const BASH_PAST = hasPassed(getFeaturedEvent("booster-bash")?.date);
 
 // "Read more" on the home news cards jumps to that week on /news.
 const LATEST_NEWS_HREF = LATEST_ISSUE
@@ -260,12 +265,12 @@ export default function ClassicHomePage() {
             <div className="tiger-merch-strip-head">
               <div className="tiger-section-head">
                 <span className="tiger-eyebrow">
-                  Athletics News · Week of {formatIssueDate(LATEST_ISSUE.date)}
+                  Tiger News · Week of {formatIssueDate(LATEST_ISSUE.date)}
                 </span>
                 <h2>This week in Tiger athletics.</h2>
               </div>
               <Link href="/news" className="tiger-ulink">
-                All athletics news →
+                All Tiger News →
               </Link>
             </div>
             <div className="tiger-three-grid tiger-news-grid">
@@ -296,29 +301,44 @@ export default function ClassicHomePage() {
         <div className="tiger-container">
           <div className="tiger-bash-inner">
             <div>
-              <span className="tiger-eyebrow">Saturday, October 10 · The Historic Octagon Barn</span>
+              {/* After the night (#260) the band becomes a thank-you that
+                  points at the recap page, where the photos will go. */}
+              <span className="tiger-eyebrow">
+                Saturday, October 10 · The Historic Octagon Barn
+                {BASH_PAST ? " · Thank You" : ""}
+              </span>
               <h2 className="tiger-bash-title">
                 Booster Bash <em>2026</em>
               </h2>
-              <p className="tiger-bash-body">
-                An evening of food, drinks, and live and silent auctions — and
-                the night the Hall of Fame inducts its newest class. Donating
-                an auction item is one of the biggest ways to help.
-              </p>
+              {BASH_PAST ? (
+                <p className="tiger-bash-body">
+                  Thank you to everyone who came out to the Tiger&apos;s Den —
+                  the night the Hall of Fame inducted its Class of 2026.
+                  Photos from the evening are on their way.
+                </p>
+              ) : (
+                <p className="tiger-bash-body">
+                  An evening of food, drinks, and live and silent auctions — and
+                  the night the Hall of Fame inducts its newest class. Donating
+                  an auction item is one of the biggest ways to help.
+                </p>
+              )}
             </div>
             <div className="tiger-bash-actions">
               <Link
                 href="/booster-bash"
                 className="tiger-btn tiger-btn-primary tiger-btn-arrow"
               >
-                Tickets &amp; Details
+                {BASH_PAST ? "See the Night" : <>Tickets &amp; Details</>}
               </Link>
-              <a
-                href="mailto:slotabboosterbash@gmail.com?subject=Booster%20Bash%20auction%20item%20donation"
-                className="tiger-ulink"
-              >
-                Donate an auction item →
-              </a>
+              {!BASH_PAST && (
+                <a
+                  href="mailto:slotabboosterbash@gmail.com?subject=Booster%20Bash%20auction%20item%20donation"
+                  className="tiger-ulink"
+                >
+                  Donate an auction item →
+                </a>
+              )}
               {/* The Hall of Fame ask, surfaced where the induction is already
                   mentioned. The band on /hall-of-fame is the only place the
                   fund is explained, and nobody browses to a Hall of Fame page

@@ -107,6 +107,9 @@
 .slotab-platinum-head,
 .slotab-event-intro,
 .slotab-news-weeks,
+.slotab-event-held,
+.slotab-feature-strip,
+.slotab-event-photos-placeholder,
 .slotab-team-news-more,
 .slotab-consent-actions .slotab-btn,
 /* tiger.css centered blocks — listed here so the rule lives in one place */
@@ -5259,4 +5262,58 @@ a.slotab-platinum-slide:hover {
 .slotab-team-news-more {
   text-align: center;
   margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   PAST EVENTS — /booster-bash, /back-to-school and the Hall of Fame strip
+   once the day is over (#260). Artwork smaller (it's no longer the
+   invitation), a "Held …" line, and a photo section that shows a
+   placeholder until the board adds pictures.
+   ========================================================================== */
+.slotab-flyer.slotab-flyer-past,
+.slotab-flyer.slotab-flyer-past.wide {
+  max-width: 420px;
+}
+.slotab-event-held {
+  text-align: center;
+  font-family: var(--tiger-sans);
+  font-size: 0.85rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slotab-gold-dark);
+  margin: 1.5rem 0 2rem;
+}
+.slotab-event-photos-placeholder {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  border: 2px dashed var(--slotab-border);
+  background: #fff;
+  text-align: center;
+  color: var(--slotab-muted);
+}
+.slotab-event-photos-placeholder p {
+  margin: 0;
+}
+.slotab-event-photos-placeholder strong {
+  display: block;
+  color: var(--tiger-ink);
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+}
+/* Inside the gold Hall of Fame strip the placeholder sits on gold. */
+.slotab-feature-strip .slotab-event-photos-placeholder {
+  border-color: rgba(10, 10, 10, 0.35);
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--slotab-black);
+  margin: 1.5rem auto;
+}
+.slotab-hof-class-names {
+  font-family: var(--tiger-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+#inductees {
+  scroll-margin-top: 6rem;
 }

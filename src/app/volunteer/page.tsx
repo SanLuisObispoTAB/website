@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getFeaturedEvent } from "../components/FeaturedEventPage";
+import { hasPassed } from "../data/event-dates";
 import PageHeader from "../components/PageHeader";
 import slotabEvents from "../data/slotab-events.json";
 
@@ -59,6 +61,9 @@ TODAY_MIDNIGHT.setHours(0, 0, 0, 0);
 // on the next deploy after the date — the same basis the meeting dimming uses.
 const BACK_TO_SCHOOL_DATE = new Date("2026-08-13T00:00:00");
 const SHOW_BACK_TO_SCHOOL = BACK_TO_SCHOOL_DATE >= TODAY_MIDNIGHT;
+// Same rule for the Booster Bash, keyed off the event page's own date so the
+// two can't disagree (#260).
+const SHOW_BOOSTER_BASH = !hasPassed(getFeaturedEvent("booster-bash")?.date);
 
 const MEETINGS = (slotabEvents.events as RawEvent[])
   .filter((e) => /meeting/i.test(e.categoryLabel))
@@ -127,6 +132,7 @@ export default function VolunteerPage() {
                 ))}
               </ul>
             </li>
+            {SHOW_BOOSTER_BASH && (
             <li>
               <strong>Booster Bash — Saturday, October 10:</strong> Our largest
               fundraiser of the year, at the Octagon Barn. The night is made up
@@ -138,6 +144,7 @@ export default function VolunteerPage() {
               </a>
               . <Link href="/booster-bash">Event details →</Link>
             </li>
+            )}
             <li>
               <strong>Tiger Bites concessions:</strong> open at every home
               football game, now with a brand-new BBQ. This season SLOTAB

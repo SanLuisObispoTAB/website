@@ -72,8 +72,9 @@ export default function HallOfFamePage() {
         </div>
       </section>
 
-      {/* Past Inductees — filterable grid */}
-      <section className="slotab-section">
+      {/* Past Inductees — filterable grid. `#inductees` is the target of the
+          ceremony strip's "Meet the Inductees" button once the night is over. */}
+      <section className="slotab-section" id="inductees">
         <div className="slotab-container">
           <div className="slotab-section-title">
             <span className="slotab-kicker">46 Inductees and Counting</span>

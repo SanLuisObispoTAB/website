@@ -75,12 +75,13 @@ const BASE_NAV: NavItem[] = [
     label: "Events",
     children: [
       { href: "/upcoming", label: "Upcoming" },
-      { href: "/news", label: "Athletics News" },
       { href: "/back-to-school", label: "Back to School Day" },
       { href: "/booster-bash", label: "Booster Bash" },
     ],
   },
   { label: "Teams" }, // children injected per-render (season-dependent) below
+  // Weekly recaps from the SLOHS newsletter (#255). Top level since #259.
+  { label: "Tiger News", href: "/news" },
   { label: "Watch", href: "/watch" },
   { label: "Shop", href: "/merch" },
   { label: "Hall of Fame", href: "/hall-of-fame" },

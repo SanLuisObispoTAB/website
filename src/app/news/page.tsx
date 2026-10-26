@@ -9,7 +9,7 @@ import {
 } from "../data/athletics-news";
 
 export const metadata = {
-  title: "Athletics News — SLOTAB",
+  title: "Tiger News — SLOTAB",
   description:
     "Weekly SLO High Tiger athletics recaps from the SLOHS newsletter: results, league titles, playoff news, and standout performances.",
 };
@@ -17,7 +17,7 @@ export const metadata = {
 export default function NewsPage() {
   return (
     <>
-      <PageHeader kicker="Tiger Athletics" title="Athletics News" />
+      <PageHeader kicker="Athletics News · This Season" title="Tiger News" />
       <section className="slotab-section">
         <div className="slotab-container">
           <div

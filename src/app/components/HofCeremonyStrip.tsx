@@ -1,5 +1,8 @@
 import Link from "next/link";
+import EventPhotos, { type EventPhoto } from "./EventPhotos";
 import hofData from "../data/hof.json";
+import hofInductees from "../data/hof-inductees.json";
+import { hasPassed } from "../data/event-dates";
 
 // The gold "Save the Date" strip on /hall-of-fame.
 //
@@ -14,6 +17,7 @@ import hofData from "../data/hof.json";
 
 export default function HofCeremonyStrip() {
   const { ceremony } = hofData;
+  if (hasPassed(ceremony.date)) return <InductedStrip />;
   // Same label as the band's own buttons — one string, so a rename can't leave
   // two buttons on one page disagreeing about what the fund is called.
   const fund = hofData.fund as { ctaLabel: string };
@@ -68,6 +72,60 @@ export default function HofCeremonyStrip() {
               {fund.ctaLabel}
             </Link>
           )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The strip once the induction night is over (#260): welcomes the class by
+ *  name, then the night's photos — or a placeholder until they're added in
+ *  hof.json → ceremony.gallery. Names come from the same file as the
+ *  inductee grid, matched on the ceremony's year, so they can't drift. */
+function InductedStrip() {
+  const { ceremony } = hofData;
+  const fund = hofData.fund as { ctaLabel: string };
+  const gallery = (ceremony as { gallery?: EventPhoto[] }).gallery;
+  const year = ceremony.date.slice(0, 4);
+  const names = (
+    hofInductees.inductees as { name: string; yearInducted: string }[]
+  )
+    .filter((i) => i.yearInducted === year)
+    .map((i) => i.name);
+
+  return (
+    <section className="slotab-feature-strip">
+      <div className="slotab-container">
+        <span
+          className="slotab-kicker"
+          style={{
+            display: "block",
+            letterSpacing: "0.2em",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Inducted {ceremony.dateLabel}
+        </span>
+        <h2>Welcome to the Hall, Class of {year}</h2>
+        {names.length > 0 && (
+          <p className="slotab-hof-class-names">{names.join(" · ")}</p>
+        )}
+        <p style={{ maxWidth: 640, margin: "0.5rem auto 0" }}>
+          Inducted at the Booster Bash at {ceremony.venueName}. Thank you to
+          everyone who came out to celebrate them.
+        </p>
+        <EventPhotos photos={gallery} eventName="the induction" />
+        <div className="slotab-btn-row" style={{ justifyContent: "center" }}>
+          <Link href="#inductees" className="slotab-btn dark">
+            Meet the Inductees
+          </Link>
+          <Link
+            href="/hall-of-fame/donate"
+            className="slotab-btn dark"
+            style={{ background: "transparent", color: "var(--slotab-black)" }}
+          >
+            {fund.ctaLabel}
+          </Link>
         </div>
       </div>
     </section>

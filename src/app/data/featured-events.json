@@ -1,5 +1,5 @@
 {
-  "_note": "Stub pages for upcoming SLOTAB events, editable at /admin → 'Featured Event Pages'. Every field except title/kicker/slug is optional and the page hides whatever is empty — so an event can go live with just a date and fill in as the photo, copy, and signup links arrive. Keep `date` in sync with the matching entry in slotab-events.json; that file is what feeds the calendar, the ticker, and /upcoming.",
+  "_note": "Stub pages for upcoming SLOTAB events, editable at /admin → 'Featured Event Pages'. Every field except title/kicker/slug is optional and the page hides whatever is empty — so an event can go live with just a date and fill in as the photo, copy, and signup links arrive. Keep `date` in sync with the matching entry in slotab-events.json; that file is what feeds the calendar, the ticker, and /upcoming. Once `date` has passed the page switches to a record of the event (#260): pastKicker, recap, gallery and pastLinks show; the ticket button, QR code, intro, body and links hide.",
   "events": [
     {
       "slug": "back-to-school",
@@ -26,7 +26,23 @@
         }
       ],
       "photoWidth": 1200,
-      "photoHeight": 1334
+      "photoHeight": 1334,
+      "pastKicker": "Thanks for Stopping By",
+      "recap": [
+        "Thank you to everyone who stopped by the SLOTAB table at Back to School Day on August 13, and to the volunteers who staffed it all day.",
+        "Missed us? You can still join SLOTAB or pick up Tiger gear online."
+      ],
+      "gallery": [],
+      "pastLinks": [
+        {
+          "label": "Become a Member",
+          "url": "/membership"
+        },
+        {
+          "label": "Shop Tiger Gear",
+          "url": "/merch"
+        }
+      ]
     },
     {
       "slug": "booster-bash",
@@ -75,7 +91,24 @@
         "Wear your Tiger Gear or Black and Gold and help us make this a night to remember!"
       ],
       "photoWidth": 1024,
-      "photoHeight": 1024
+      "photoHeight": 1024,
+      "pastKicker": "Thank You for a Great Night",
+      "recap": [
+        "Thank you to everyone who joined us at the Historic Octagon Barn on October 10 for the 2026 Tiger's Den.",
+        "The Booster Bash is SLOTAB's biggest fundraiser of the year, and it was also the night the SLOHS Athletics Hall of Fame inducted its Class of 2026. Every ticket, auction bid and donation goes straight back to Tiger athletes.",
+        "A huge thank-you to our volunteers, our auction donors, and everyone who came out in black and gold."
+      ],
+      "gallery": [],
+      "pastLinks": [
+        {
+          "label": "Meet the Hall of Fame Class of 2026",
+          "url": "/hall-of-fame"
+        },
+        {
+          "label": "Become a Member",
+          "url": "/membership"
+        }
+      ]
     }
   ]
 }

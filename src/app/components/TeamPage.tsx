@@ -373,7 +373,7 @@ export default function TeamPage({ team }: { team: Team }) {
             </div>
             <div className="slotab-team-news-more">
               <Link href="/news" className="slotab-btn">
-                All Athletics News →
+                All Tiger News →
               </Link>
             </div>
           </div>

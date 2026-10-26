@@ -686,7 +686,24 @@
   border-bottom: 1px solid var(--tiger-bone);
 }
 
-@media (max-width: 1024px) {
+/* Nine top-level items (Tiger News joined in #259) need ~1,260px at full
+   padding. Labels never wrap — a two-line "Get Involved" was the symptom —
+   so between 1,160 and 1,299px the padding tightens, and below 1,160 the
+   Menu button takes over. Before this the bar overflowed sideways anywhere
+   from 1,025 to ~1,145px. */
+.tiger-nav-link {
+  white-space: nowrap;
+}
+@media (max-width: 1299px) {
+  .tiger-nav-links {
+    margin-left: 12px;
+    gap: 0;
+  }
+  .tiger-nav-link {
+    padding: 12px 10px;
+  }
+}
+@media (max-width: 1159px) {
   .tiger-nav-links {
     display: none;
   }

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import PageHeader from "./PageHeader";
+import EventPhotos, { type EventPhoto } from "./EventPhotos";
 import featuredEvents from "../data/featured-events.json";
+import { hasPassed } from "../data/event-dates";
 
 export type FeaturedEvent = {
   slug: string;
@@ -39,6 +41,21 @@ export type FeaturedEvent = {
   qrImage?: string;
   qrCaption?: string;
   links?: { label: string; url: string }[];
+
+  // ---- After the event (#260) ------------------------------------------
+  // Once `date` has passed, the page becomes a record of the night: the
+  // ticket button, QR code, lead copy, body and links above are all hidden
+  // (they're written in the future tense), and these show instead.
+
+  /** Small text above the title once the event is over. */
+  pastKicker?: string;
+  /** A few paragraphs about how it went. */
+  recap?: string[];
+  /** Photos from the event. Empty shows a "photos coming soon" placeholder. */
+  gallery?: EventPhoto[];
+  /** Buttons that still make sense afterwards (the future-tense `links`
+   *  are hidden). */
+  pastLinks?: { label: string; url: string }[];
 };
 
 export function getFeaturedEvent(slug: string): FeaturedEvent | undefined {
@@ -52,6 +69,8 @@ export default function FeaturedEventPage({
 }: {
   event: FeaturedEvent;
 }) {
+  if (hasPassed(event.date)) return <PastEventPage event={event} />;
+
   const hasWhen = Boolean(event.dateLabel || event.timeLabel);
   const hasCard =
     hasWhen || Boolean(event.venueName) || Boolean(event.ctaUrl);
@@ -185,6 +204,80 @@ export default function FeaturedEventPage({
                   </Link>
                 );
               })}
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  );
+}
+
+/** The same page once the event is over: a record of the night rather than
+ *  an invitation. Keeps the artwork, date and venue; drops tickets, QR code
+ *  and every future-tense paragraph; adds the recap and the photos (or a
+ *  placeholder until they arrive). */
+function PastEventPage({ event }: { event: FeaturedEvent }) {
+  return (
+    <>
+      <PageHeader kicker={event.pastKicker || "Thank You"} title={event.title} />
+      <section className="slotab-section">
+        <div className="slotab-container">
+          {event.photo && (
+            <div
+              className={`slotab-flyer slotab-flyer-past${
+                (event.photoWidth ?? 1200) > (event.photoHeight ?? 1500)
+                  ? " wide"
+                  : ""
+              }`}
+            >
+              <Image
+                src={event.photo}
+                alt={event.photoAlt || `${event.title} artwork`}
+                width={event.photoWidth ?? 1200}
+                height={event.photoHeight ?? 1500}
+                sizes="(max-width: 940px) 100vw, 480px"
+                priority
+              />
+            </div>
+          )}
+
+          {(event.dateLabel || event.venueName) && (
+            <p className="slotab-event-held">
+              Held {event.dateLabel}
+              {event.venueName ? <> · {event.venueName}</> : null}
+            </p>
+          )}
+
+          {event.recap && event.recap.length > 0 && (
+            <div className="slotab-event-intro slotab-prose">
+              {event.recap.map((para, i) => (
+                <p key={para} className={i === 0 ? "lead" : undefined}>
+                  {para}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="slotab-section alt">
+        <div className="slotab-container">
+          <div className="slotab-section-title">
+            <span className="slotab-kicker">Photos</span>
+            <h2>{event.title} in Pictures</h2>
+          </div>
+          <EventPhotos photos={event.gallery} eventName={event.title} />
+
+          {event.pastLinks && event.pastLinks.length > 0 && (
+            <div
+              className="slotab-btn-row"
+              style={{ justifyContent: "center", marginTop: "2.5rem" }}
+            >
+              {event.pastLinks.map((l) => (
+                <Link key={l.url} href={l.url} className="slotab-btn outline">
+                  {l.label} →
+                </Link>
+              ))}
             </div>
           )}
         </div>
