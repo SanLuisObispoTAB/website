@@ -4,9 +4,13 @@
     {
       "name": "Weekly Athletics Schedule Oct 26 - Oct 31",
       "gid": "292526178"
+    },
+    {
+      "name": "Weekly Athletics Schedule Nov 2 - Nov 7",
+      "gid": "1237404704"
     }
   ],
-  "fetchedAt": "2026-10-26T19:40:57.222Z",
+  "fetchedAt": "2026-10-28T19:13:41.587Z",
   "events": [
     {
       "id": "weekly-2026-10-26-girls-golf--cif-area",
@@ -25,7 +29,7 @@
       "category": "boys-water-polo",
       "categoryLabel": "Boys Water Polo",
       "isSport": true,
-      "date": "2026-10-26T17:00:00",
+      "date": "2026-10-26T15:00:00",
       "title": "Boys Water Polo — League JV Tournament",
       "detail": "MBHS",
       "isHome": false,
@@ -94,31 +98,6 @@
       "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
     },
     {
-      "id": "weekly-2026-10-29-boys-water-polo--mtn-league-finals",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-10-29T12:00:00",
-      "title": "Boys Water Polo @ Mtn League Finals",
-      "detail": "MBHS",
-      "isHome": false,
-      "opponent": "Mtn League Finals",
-      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
-    },
-    {
-      "id": "weekly-2026-10-29-cheer-jv-cif-playoff-flag-",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-10-29T12:00:00",
-      "title": "Cheer @ CIF playoff (Flag)",
-      "detail": "TBD · JV",
-      "isHome": false,
-      "opponent": "CIF playoff (Flag)",
-      "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
-    },
-    {
       "id": "weekly-2026-10-29-football-frosh-moorpark",
       "category": "football",
       "categoryLabel": "Football",
@@ -132,39 +111,40 @@
       "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
     },
     {
-      "id": "weekly-2026-10-29-girls-tennis--cif-playoffs-quaterfinal",
+      "id": "weekly-2026-10-29-girls-tennis--clovis-west-cif-quaterfi",
       "category": "girls-tennis",
       "categoryLabel": "Girls Tennis",
       "isSport": true,
       "date": "2026-10-29T16:00:00",
-      "title": "Girls Tennis vs CIF Playoffs Quaterfinals (Team)",
+      "title": "Girls Tennis vs Clovis West - CIF Quaterfinals",
       "detail": "SLOHS",
       "isHome": true,
-      "opponent": "CIF Playoffs Quaterfinals (Team)",
+      "opponent": "Clovis West - CIF Quaterfinals",
       "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
     },
     {
-      "id": "weekly-2026-10-29-girls-water-polo--mtn-league-tournament",
-      "category": "girls-water-polo",
-      "categoryLabel": "Girls Water Polo",
-      "isSport": true,
-      "date": "2026-10-29T16:45:00",
-      "title": "Girls Water Polo — Mtn League Tournament",
-      "detail": "MBHS",
-      "isHome": false,
-      "opponent": "Mtn League Tournament",
-      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
-    },
-    {
-      "id": "weekly-2026-10-29-flag-football--cif-playoff-tbd",
+      "id": "weekly-2026-10-29-flag-football--templeton-cif-quarterfin",
       "category": "flag-football",
       "categoryLabel": "Girls Flag Football",
       "isSport": true,
       "date": "2026-10-29T18:00:00",
-      "title": "Flag Football vs CIF playoff TBD",
+      "title": "Flag Football vs Templeton - CIF Quarterfinals",
       "detail": "SLOHS",
       "isHome": true,
-      "opponent": "CIF playoff TBD",
+      "opponent": "Templeton - CIF Quarterfinals",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-cheer-jv-templeton-cif-quarterfin",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-10-29T18:00:00",
+      "title": "Cheer vs Templeton - CIF Quarterfinals",
+      "detail": "SLOHS · JV",
+      "isHome": true,
+      "opponent": "Templeton - CIF Quarterfinals",
+      "level": "JV",
       "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
     },
     {
@@ -177,6 +157,30 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Clovis North - CIF Quarterfinals",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-boys-water-polo--mtn-league-finals",
+      "category": "boys-water-polo",
+      "categoryLabel": "Boys Water Polo",
+      "isSport": true,
+      "date": "2026-10-29T18:00:00",
+      "title": "Boys Water Polo @ Mtn League Finals",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "Mtn League Finals",
+      "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-10-29-girls-water-polo--mtn-league-tournament",
+      "category": "girls-water-polo",
+      "categoryLabel": "Girls Water Polo",
+      "isSport": true,
+      "date": "2026-10-29T19:15:00",
+      "title": "Girls Water Polo — Mtn League Tournament",
+      "detail": "MBHS",
+      "isHome": false,
+      "opponent": "Mtn League Tournament",
       "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
     },
     {
@@ -215,6 +219,163 @@
       "isHome": false,
       "opponent": "SLO County Meet, Senior Recognition",
       "sourceTab": "Weekly Athletics Schedule Oct 26 - Oct 31"
+    },
+    {
+      "id": "weekly-2026-11-03-flag-football--cif-playoff-tbd",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-11-03T12:00:00",
+      "title": "Flag Football @ CIF playoff TBD",
+      "isHome": false,
+      "opponent": "CIF playoff TBD",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-03-girls-tennis--cif-playoffs-team-",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-11-03T12:00:00",
+      "title": "Girls Tennis @ CIF Playoffs (Team)",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Playoffs (Team)",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-03-cheer-jv-cif-playoff-flag-",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-11-03T12:00:00",
+      "title": "JV Gold Cheer @ CIF playoff (Flag)",
+      "detail": "TBD · JV",
+      "isHome": false,
+      "opponent": "CIF playoff (Flag)",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-03-girls-volleyball--cif-semifinals",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-11-03T18:00:00",
+      "title": "Girls Volleyball @ CIF Semifinals",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Semifinals",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-04-cross-country--ccaa-league-championship",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-11-04T12:00:00",
+      "title": "Cross Country — CCAA League Championships (JV)",
+      "detail": "JV",
+      "isHome": false,
+      "opponent": "CCAA League Championships (JV)",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-05-flag-football--cif-playoff-tbd",
+      "category": "flag-football",
+      "categoryLabel": "Girls Flag Football",
+      "isSport": true,
+      "date": "2026-11-05T12:00:00",
+      "title": "Flag Football @ CIF playoff TBD",
+      "isHome": false,
+      "opponent": "CIF playoff TBD",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-05-cheer-jv-cif-playoff-flag-",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-11-05T12:00:00",
+      "title": "JV Gold Cheer @ CIF playoff (Flag)",
+      "detail": "TBD · JV",
+      "isHome": false,
+      "opponent": "CIF playoff (Flag)",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-05-girls-volleyball--cif-finals",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-11-05T18:00:00",
+      "title": "Girls Volleyball @ CIF Finals",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "CIF Finals",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-06-girls-tennis--area-individuals-west-",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-11-06T12:00:00",
+      "title": "Girls Tennis @ Area Individuals (West)",
+      "detail": "Santa Ynez HS",
+      "isHome": false,
+      "opponent": "Area Individuals (West)",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-06-cheer-varsity-cif-first-round",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-11-06T12:00:00",
+      "title": "Varsity Cheer @ CIF - First Round",
+      "detail": "TBA · Varsity",
+      "isHome": false,
+      "opponent": "CIF - First Round",
+      "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-06-football--cif-first-round",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-11-06T19:00:00",
+      "title": "Football @ CIF - First Round",
+      "detail": "TBA",
+      "isHome": false,
+      "opponent": "CIF - First Round",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-07-cross-country--ccaa-league-championship",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-11-07T12:00:00",
+      "title": "Cross Country — CCAA League Championships (V)",
+      "detail": "Varsity",
+      "isHome": false,
+      "opponent": "CCAA League Championships (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-07-girls-tennis--area-individuals-west-",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-11-07T12:00:00",
+      "title": "Girls Tennis @ Area Individuals (West)",
+      "detail": "Santa Ynez HS",
+      "isHome": false,
+      "opponent": "Area Individuals (West)",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
     }
   ]
 }
