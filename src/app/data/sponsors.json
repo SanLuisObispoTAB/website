@@ -91,6 +91,10 @@
         {
           "name": "Old San Luis BBQ",
           "logo": "/sponsors/silver/Old-San-Luis-BBQ.png"
+        },
+        {
+          "name": "Tardiff & Saldo Law Offices",
+          "logo": "/sponsors/silver/Tardiff-and-Saldo.png"
         }
       ]
     },
@@ -117,6 +121,10 @@
           "name": "Acacia Creek Home Staging",
           "logo": "/sponsors/tigerpride/Acacia-Creek-Home-Staging.png",
           "website": "https://www.acaciacreekstaging.com/"
+        },
+        {
+          "name": "Souza General Engineering Contracting",
+          "logo": "/sponsors/tigerpride/Souza-Contracting.png"
         }
       ]
     },
