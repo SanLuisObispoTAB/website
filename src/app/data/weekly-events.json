@@ -6,7 +6,7 @@
       "gid": "1237404704"
     }
   ],
-  "fetchedAt": "2026-11-02T22:32:53.064Z",
+  "fetchedAt": "2026-11-04T20:37:13.426Z",
   "events": [
     {
       "id": "weekly-2026-11-03-girls-tennis--cif-semifinals-clovis-no",
@@ -42,18 +42,6 @@
       "detail": "Fairbanks",
       "isHome": false,
       "opponent": "CCAA League Championships (JV)",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
-    },
-    {
-      "id": "weekly-2026-11-05-girls-volleyball--cif-finals",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-11-05T18:00:00",
-      "title": "Girls Volleyball @ CIF Finals",
-      "detail": "TBD",
-      "isHome": false,
-      "opponent": "CIF Finals",
       "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
     },
     {
@@ -103,6 +91,18 @@
       "isHome": true,
       "opponent": "CIF Round 1 - Dinuba",
       "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+    },
+    {
+      "id": "weekly-2026-11-07-wrestling--tiger-scrimmage",
+      "category": "wrestling",
+      "categoryLabel": "Boys Wrestling",
+      "isSport": true,
+      "date": "2026-11-07T08:00:00",
+      "title": "Boys Wrestling vs Tiger Scrimmage",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Tiger Scrimmage",
       "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
     },
     {
