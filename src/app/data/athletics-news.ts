@@ -95,11 +95,20 @@ export function issueAnchor(date: string): string {
 }
 
 /** The newsletter paragraph usually opens with the team name ("Girls Golf took
- *  4th…"). Split that off so it can be set in bold, the way the newsletter
- *  prints it, without repeating the name. */
-export function splitLead(item: NewsItem): { lead?: string; rest: string } {
-  if (item.heading && item.body.startsWith(item.heading)) {
-    return { lead: item.heading, rest: item.body.slice(item.heading.length) };
+ *  4th…"), sometimes after "The" ("The Girls Tennis team took…", 11.8.26).
+ *  Split the name out so it can be set in bold, the way the newsletter prints
+ *  it, without repeating it. */
+export function splitLead(item: NewsItem): {
+  before?: string;
+  lead?: string;
+  rest: string;
+} {
+  const h = item.heading;
+  if (h && item.body.startsWith(h)) {
+    return { lead: h, rest: item.body.slice(h.length) };
+  }
+  if (h && item.body.startsWith(`The ${h}`)) {
+    return { before: "The ", lead: h, rest: item.body.slice(4 + h.length) };
   }
   return { rest: item.body };
 }

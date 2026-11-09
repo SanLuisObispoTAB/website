@@ -181,6 +181,13 @@ So:
   recap with its `teams` slugs so it reaches the team page. Keep
   `notices` on the newest week only. It is deliberately **not a
   scoreboard** — don't add a score field (#131, #193).
+  **It updates itself** (#265): a scheduled Claude task ("SLOTAB — weekly
+  Tiger News import", Mondays 7:05 AM, `~/.claude/scheduled-tasks/`) runs
+  `npm run news-import -- <newsletter.txt>`. Never hand-write recaps into
+  the JSON; feed the newsletter text to that script. When a new team
+  name or opening style shows up, extend `TEAM_NAMES` in
+  `scripts/import-athletics-news.mjs` and re-run, since re-running
+  replaces the week.
 - **No carousel shows the same sport twice in a row** (#256). Any list
   of slides or team cards goes through `spreadBySport` in
   `src/app/data/spread-by-sport.ts` — don't hand-order to satisfy it.

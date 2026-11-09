@@ -108,8 +108,11 @@ const LATEST_NEWS_HREF = LATEST_ISSUE
 // The card's title is the team name, so drop it from the start of the
 // paragraph and capitalise what's left: "Girls Golf took 4th…" → "Took 4th…".
 function cardText(item: NewsItem): string {
-  const rest = splitLead(item).rest.trim();
-  return rest.charAt(0).toUpperCase() + rest.slice(1);
+  const { before, rest } = splitLead(item);
+  // "The Girls Tennis team took…" reads fine whole; only trim a bare lead.
+  if (before) return item.body;
+  const t = rest.trim();
+  return t.charAt(0).toUpperCase() + t.slice(1);
 }
 
 // Fall-season designs, swapped in from the spring three (baseball, track,

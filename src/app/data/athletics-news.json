@@ -2,6 +2,142 @@
   "note": "Weekly athletics recaps from the 'Athletics' section of the SLOHS weekly newsletter (ParentSquare, Sundays). Text is quoted as the school wrote it; only duplicate paragraphs and doubled team-name lead-ins are removed. Not a scoreboard: no score field, and a team the newsletter skips has no entry. Edited at /admin → Athletics News. See src/app/data/athletics-news.ts.",
   "issues": [
     {
+      "date": "2026-11-08",
+      "title": "SLOHS Newsletter, 11.8.26",
+      "items": [
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "The Cross Country teams competed in the CCAA League Championships on Saturday, and both the boys and girls teams came away with first-place finishes! With these victories, both programs have now captured six consecutive CCAA League titles. Congratulations to both teams and their coaches on another outstanding season!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "The Girls Tennis team took on the Broncos of Clovis North on Thursday in Clovis for the CIF semifinals. The Tigers battled throughout the competition, keeping each match close and winning one of the three doubles sets. Despite their strong effort, the Tigers came up short in singles play, falling to Clovis North by a final score of 7–2. On Friday, the team traveled to Santa Ynez to compete in the CCAA Area Singles and Doubles Tournament, where several Tigers earned the opportunity to advance to the section tournament. In singles competition, Sloan Hrdlcika, Domi Osorio, and Zoe Stackhouse secured their spots in the upcoming section singles tournament. The Tigers also found success in doubles, with two teams qualifying for the section doubles tournament. Bailey Allen and Jessa Lebed earned one of the qualifying spots, while Scarlett and Sierra Mellinger captured the second."
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball played a talented Buchanan Team on Tuesday in the CIF semifinals. The Tigers gave Buchanan all they could handle but came up short 3 -1. Congratulations on a great CIF run. The Tigers qualified for the CIF State Volleyball Playoffs. We are the #7 seed in Division 1 and we will host #10 Orange Lutheran at 6:00 on Tuesday, November 10."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "The Girls Water Polo team hosted a CIF quarterfinal playoff game Thursday against the Garces Rams. The Tigers came out strong, scoring the first two goals of the game. The Rams battled back, however, taking a 6-2 lead into halftime. The Tigers never gave up, putting together a strong rally in the fourth quarter, but ultimately fell just short, losing 8-7. Congratulations to our Tigers on a great season!"
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football will continue their playoff run after beating the Dinuba Emperors 21- 7 on Friday. The Tigers will take on Tulare Western next Friday in Tulare. Great job Tigers! During halftime, the Frosh Football team was also recognized for an outstanding season, finishing undefeated at 10–0!"
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "The Boys Water Polo team hosted Clovis East on Saturday in the CIF Quarterfinals. The Tigers battled hard in an exciting, back-and-forth contest, matching Clovis East throughout regulation. The two teams were tied 10–10 at the end of regulation, sending the game into overtime. Despite a strong effort and determination, the Tigers came up short in overtime, falling 14–10 and bringing their CIF playoff run to an end. Congratulations to the team on a hard-fought season and for representing the Tigers with pride!"
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer brought great energy to a packed Holt Stadium on Friday night. The squad helped energize the crowd throughout the tight game."
+        }
+      ],
+      "notices": [
+        {
+          "title": "Athletic Clearances",
+          "body": "Before participating, students must create a Home Campus profile and upload a current athletic clearance completed by a licensed medical professional (MD, PA, or NP).",
+          "links": [
+            {
+              "label": "Home Campus Instructions - Google Docs",
+              "url": "https://drive.google.com/file/d/1o8fOjgWiXrdCDJ3fhhAz9eIRRFAA7Cze/view"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-11-01",
+      "title": "SLOHS Newsletter, 11.1.26",
+      "items": [
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "Cross Country hosted the San Luis Obispo County Meet on Saturday, welcoming runners from across the county while also taking time to celebrate our seniors. The Tigers made the most of their home-course advantage, with both the boys' and girls' teams finishing first in the county! Congratulations to our runners and coaches on a fantastic showing, and a special thank you to our seniors for their dedication to Tiger Cross Country! The varsity team will be in action again on Saturday at the CCAA League Championships."
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "Girls Tennis hosted Clovis West in the CIF Quarter Finals on Tuesday. The Tigers won 5 -2 and will move on to play at Clovis North Tuesday in the CIF Semifinals. Congratulations to the All League award winners for Tennis. Zoe Stackhouse was named Singles MVP while Sloane Hrdlicka was named to the first team. For Doubles, the team of Bailey Allen and Jessica Lebed as well as the team of Scarlett and Sierra Mellinger were named 1st team All League."
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball served up their first sweep of the postseason, defeating Clovis North 3-0 on Thursday in front of a packed house! The Tigers continue their quest for a CIF championship as they travel to Buchanan on Tuesday."
+        },
+        {
+          "teams": [
+            "girls-water-polo"
+          ],
+          "heading": "Girls Water Polo",
+          "body": "Girls Water Polo dove into postseason action with a hard-fought 8 - 6 victory over Atascadero in the league tournament, earning a spot in the championship game. The Tigers battled Arroyo Grande in the finals but came up short, falling 13 - 6. The Tigers now turn their attention to the CIF playoffs, where they will host a quarterfinal game on Thursday at 6:00 p.m. Let's pack the stands and cheer on our Tigers as they continue their postseason run! Go Tigers!"
+        },
+        {
+          "teams": [
+            "boys-water-polo"
+          ],
+          "heading": "Boys Water Polo",
+          "body": "Boys Water Polo punched their ticket to the league championship game with a 13 - 10 victory over Paso Robles on Tuesday. In the finals, the Tigers battled Arroyo Grande in a nail-biter, coming up just short in a 10–9 loss. The Tigers now turn their attention to the CIF playoffs, where they will host Clovis East on Saturday at 1:00 p.m. Let's pack the house, bring the energy, and give our Tigers a true home-pool advantage! Go Tigers!"
+        },
+        {
+          "teams": [
+            "flag-football"
+          ],
+          "heading": "Flag Football",
+          "body": "Flag Football made history this week, competing in the inaugural CIF Central Section Flag Football Playoffs. The Tigers jumped out to a 25–0 first-quarter lead against Robert F. Kennedy High School on Tuesday, cruising to a 60–0 victory. On Thursday, the Tigers hosted Templeton in the quarterfinals. After falling behind 13–0, the Tigers battled back but came up just short in a 19–18 loss. Congratulations to the Tigers on an outstanding season, a second consecutive league championship, and a place in CIF history! Go Tigers!"
+        },
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Football",
+          "body": "Football hosted a talented St. Joseph team on Friday for Senior Night. The Knights jumped out to an early 41–0 lead, but the Tigers refused to back down, battling until the final whistle in a 62 - 14 loss. Despite the tough night, the Tigers showed grit and determination. A special thank you to our seniors for their dedication and contributions to Tiger Football! The Tigers have plenty to be proud of after a successful regular season, and their journey isn't over yet. The Tigers will host Dinuba in the first round of the CIF Playoffs on Friday at 7:00 p.m. Let's pack Holt Field and cheer on our Tigers as they begin their postseason run."
+        },
+        {
+          "teams": [
+            "girls-golf"
+          ],
+          "heading": "Girls Golf",
+          "body": "Girls Golf saw Julia Schroeter Heptig participate in the CIF Area Tournament in Lemoore on Monday. Julia shot a 92, narrowly missing the cut to move on to the next round. Great job to Julia and the Tigers golf team as they enter the off season."
+        },
+        {
+          "teams": [
+            "cheer"
+          ],
+          "heading": "Cheer",
+          "body": "Cheer celebrated their seniors during pregame festivities, then transformed their regular uniforms into a zombie-inspired look! They kicked off halftime with an epic routine that brought the energy and excitement to the crowd! Great job Cheer team!"
+        }
+      ]
+    },
+    {
       "date": "2026-10-25",
       "title": "SLOHS Newsletter, 10.25.26",
       "items": [
@@ -60,22 +196,6 @@
           ],
           "heading": "Cross Country",
           "body": "Cross Country traveled to Clovis to compete in the Clovis North Twilight Invitational, where the Tigers turned in strong performances under the lights! On the boys' side, Rodolfo Uribe (9:48.0) and Gavin Wells (9:59.5) both broke the 10-minute barrier on the two-mile course. Leading the way for the girls were Kasey Abercromby (11:43.0) and Claire Folden (12:12.3). With the postseason approaching, the Tigers are hitting their stride at just the right time. Keep up the great work, Tigers!"
-        }
-      ],
-      "notices": [
-        {
-          "title": "Athletic Clearances",
-          "body": "Basketball, Soccer, Wrestling and Competitive Cheer are offered as winter sports at SLO High. Practices and tryouts start next week. Before participating, students must create a Home Campus profile and upload a current athletic clearance completed by a licensed medical professional (MD, PA, or NP).",
-          "links": [
-            {
-              "label": "Home Campus Instructions",
-              "url": "https://drive.google.com/file/d/1o8fOjgWiXrdCDJ3fhhAz9eIRRFAA7Cze/view"
-            },
-            {
-              "label": "Winter 26 Tryout Schedule",
-              "url": "https://docs.google.com/spreadsheets/d/1356OdDfDk0bZpKUD7Wn3l3CJmB3Q6sRc-t1uR4WXXk8/edit?usp=sharing"
-            }
-          ]
         }
       ]
     },

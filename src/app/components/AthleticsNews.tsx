@@ -11,7 +11,7 @@ export function NewsRecap({
   item: NewsItem;
   showTeamLink?: boolean;
 }) {
-  const { lead, rest } = splitLead(item);
+  const { before, lead, rest } = splitLead(item);
   const href =
     showTeamLink && item.teams?.length === 1
       ? teamHref(item.teams[0])
@@ -30,6 +30,7 @@ export function NewsRecap({
   return (
     <>
       <p className="slotab-news-recap">
+        {before}
         {leadNode}
         {lead ? first : <> — {first.trim()}</>}
       </p>
