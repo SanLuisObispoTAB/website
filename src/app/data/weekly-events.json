@@ -2,144 +2,85 @@
   "source": "https://docs.google.com/spreadsheets/d/1lzPklHuK6CzaxW9k3czS8ZmlTjNFNVO6ZZkvo4xuG3c/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule Nov 2 - Nov 7",
-      "gid": "1237404704"
+      "name": "Weekly Athletics Schedule Nov 9 - Nov 14",
+      "gid": "702902700"
     }
   ],
-  "fetchedAt": "2026-11-04T20:37:13.426Z",
+  "fetchedAt": "2026-11-09T19:41:21.787Z",
   "events": [
     {
-      "id": "weekly-2026-11-03-girls-tennis--cif-semifinals-clovis-no",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-11-03T16:00:00",
-      "title": "Girls Tennis @ CIF Semifinals - Clovis North",
-      "detail": "Clovis North",
-      "isHome": false,
-      "opponent": "CIF Semifinals - Clovis North",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
-    },
-    {
-      "id": "weekly-2026-11-03-girls-volleyball--cif-semifinals-buchanan",
+      "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
       "category": "girls-volleyball",
       "categoryLabel": "Girls Volleyball",
       "isSport": true,
-      "date": "2026-11-03T18:00:00",
-      "title": "Girls Volleyball @ CIF Semifinals - Buchanan",
-      "detail": "Buchanan",
-      "isHome": false,
-      "opponent": "CIF Semifinals - Buchanan",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
-    },
-    {
-      "id": "weekly-2026-11-04-cross-country--ccaa-league-championship",
-      "category": "cross-country",
-      "categoryLabel": "Cross Country",
-      "isSport": true,
-      "date": "2026-11-04T16:00:00",
-      "title": "Cross Country — CCAA League Championships (JV)",
-      "detail": "Fairbanks",
-      "isHome": false,
-      "opponent": "CCAA League Championships (JV)",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
-    },
-    {
-      "id": "weekly-2026-11-05-girls-water-polo--cif-tbd",
-      "category": "girls-water-polo",
-      "categoryLabel": "Girls Water Polo",
-      "isSport": true,
-      "date": "2026-11-05T18:00:00",
-      "title": "Girls Water Polo vs CIF TBD",
+      "date": "2026-11-10T18:00:00",
+      "title": "Girls Volleyball vs Organge Lutheran",
       "detail": "SLOHS",
       "isHome": true,
-      "opponent": "CIF TBD",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+      "opponent": "Organge Lutheran",
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
-      "id": "weekly-2026-11-06-girls-tennis--area-individuals-west-",
+      "id": "weekly-2026-11-13-girls-tennis--section-individuals",
       "category": "girls-tennis",
       "categoryLabel": "Girls Tennis",
       "isSport": true,
-      "date": "2026-11-06T12:00:00",
-      "title": "Girls Tennis @ Area Individuals (West)",
-      "detail": "Santa Ynez HS",
+      "date": "2026-11-13T12:00:00",
+      "title": "Girls Tennis @ Section Individuals",
+      "detail": "Buchanan HS",
       "isHome": false,
-      "opponent": "Area Individuals (West)",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+      "opponent": "Section Individuals",
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
-      "id": "weekly-2026-11-06-football--cif-round-1-dinuba",
+      "id": "weekly-2026-11-13-football--cif-quarterfinals-tulare",
       "category": "football",
       "categoryLabel": "Football",
       "isSport": true,
-      "date": "2026-11-06T19:00:00",
-      "title": "Football vs CIF Round 1 - Dinuba",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "CIF Round 1 - Dinuba",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+      "date": "2026-11-13T19:00:00",
+      "title": "Football @ CIF Quarterfinals - Tulare Western",
+      "detail": "Bob Mathias Stadium",
+      "isHome": false,
+      "opponent": "CIF Quarterfinals - Tulare Western",
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
-      "id": "weekly-2026-11-06-cheer-varsity-cif-round-1-dinuba",
+      "id": "weekly-2026-11-13-cheer-varsity-cif-quarterfinals-tulare",
       "category": "cheer",
       "categoryLabel": "Cheer",
       "isSport": true,
-      "date": "2026-11-06T19:00:00",
-      "title": "Varsity Cheer vs CIF Round 1 - Dinuba",
-      "detail": "SLOHS · Varsity",
-      "isHome": true,
-      "opponent": "CIF Round 1 - Dinuba",
+      "date": "2026-11-13T19:00:00",
+      "title": "Cheer @ CIF Quarterfinals - Tulare Western",
+      "detail": "Bob Mathias Stadium · Varsity",
+      "isHome": false,
+      "opponent": "CIF Quarterfinals - Tulare Western",
       "level": "Varsity",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
-      "id": "weekly-2026-11-07-wrestling--tiger-scrimmage",
-      "category": "wrestling",
-      "categoryLabel": "Boys Wrestling",
+      "id": "weekly-2026-11-14-cheer-jvvarsity-pismo-beach-band-review-",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
       "isSport": true,
-      "date": "2026-11-07T08:00:00",
-      "title": "Boys Wrestling vs Tiger Scrimmage",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Tiger Scrimmage",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
-    },
-    {
-      "id": "weekly-2026-11-07-cross-country--ccaa-league-championship",
-      "category": "cross-country",
-      "categoryLabel": "Cross Country",
-      "isSport": true,
-      "date": "2026-11-07T08:30:00",
-      "title": "Cross Country — CCAA League Championships (V)",
-      "detail": "Fairbanks",
+      "date": "2026-11-14T12:00:00",
+      "title": "Cheer @ Pismo Beach Band Review (Varsity & JV Black)",
+      "detail": "Pismo · JV & Varsity",
       "isHome": false,
-      "opponent": "CCAA League Championships (V)",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+      "opponent": "Pismo Beach Band Review (Varsity & JV Black)",
+      "level": "JV & Varsity",
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
-      "id": "weekly-2026-11-07-girls-tennis--area-individuals-west-",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
+      "id": "weekly-2026-11-14-girls-volleyball--state-playoffs",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
       "isSport": true,
-      "date": "2026-11-07T12:00:00",
-      "title": "Girls Tennis @ Area Individuals (West)",
-      "detail": "Santa Ynez HS",
+      "date": "2026-11-14T18:00:00",
+      "title": "Girls Volleyball @ State Playoffs",
+      "detail": "TBD",
       "isHome": false,
-      "opponent": "Area Individuals (West)",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
-    },
-    {
-      "id": "weekly-2026-11-07-boys-water-polo--cif-clovis-east",
-      "category": "boys-water-polo",
-      "categoryLabel": "Boys Water Polo",
-      "isSport": true,
-      "date": "2026-11-07T13:00:00",
-      "title": "Boys Water Polo vs CIF - Clovis East",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "CIF - Clovis East",
-      "sourceTab": "Weekly Athletics Schedule Nov 2 - Nov 7"
+      "opponent": "State Playoffs",
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     }
   ]
 }
