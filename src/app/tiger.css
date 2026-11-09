@@ -352,7 +352,8 @@
   width: max-content;
   animation: tiger-marquee 40s linear infinite;
 }
-.tiger-marquee:hover {
+.tiger-marquee:hover,
+.tiger-marquee:focus-within {
   animation-play-state: paused;
 }
 
@@ -507,6 +508,18 @@
 .tiger-topbar-score {
   color: var(--tiger-gold);
   font-weight: 700;
+}
+/* The Tiger News item links to /news (#266). Cream like the rest of the
+   bar, gold underline on hover. */
+.tiger-scope a.tiger-topbar-link {
+  color: var(--tiger-cream);
+  text-decoration: none;
+}
+.tiger-scope a.tiger-topbar-link:hover .tiger-topbar-text,
+.tiger-scope a.tiger-topbar-link:focus-visible .tiger-topbar-text {
+  text-decoration: underline;
+  text-decoration-color: var(--tiger-gold);
+  text-underline-offset: 3px;
 }
 
 /* ==========================================================================
@@ -2514,4 +2527,119 @@
   margin-top: auto;
   padding-top: 16px;
   align-self: flex-start;
+}
+
+/* ==========================================================================
+   Tiger News teaser (#266) — so arriving visitors see that there's news
+   without scrolling. Desktop: a card inside the hero, top-right over the
+   photo. Phones and small tablets: a slim bar between the menu and the
+   hero (the hero's text fills it top to bottom there). Exactly one shows.
+   ========================================================================== */
+.tiger-hero-news {
+  position: absolute;
+  top: 36px;
+  right: 40px;
+  width: 360px;
+  z-index: 3;
+}
+.tiger-scope a.tiger-news-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 22px 18px;
+  background: rgba(10, 10, 10, 0.78);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-top: 3px solid var(--tiger-gold);
+  color: var(--tiger-cream);
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.tiger-scope a.tiger-news-card:hover {
+  background: rgba(10, 10, 10, 0.9);
+  transform: translateY(-2px);
+}
+.tiger-news-card-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--tiger-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tiger-gold);
+}
+.tiger-news-card-new {
+  background: var(--tiger-gold);
+  color: var(--tiger-black);
+  font-weight: 700;
+  padding: 2px 6px;
+}
+.tiger-news-card-title {
+  font-family: var(--tiger-serif);
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.1;
+  color: #fff;
+}
+.tiger-news-card-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+.tiger-news-card-more {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.65);
+}
+.tiger-news-card-go {
+  font-family: var(--tiger-sans);
+  font-weight: 650;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--tiger-gold);
+  margin-top: 2px;
+}
+
+.tiger-scope a.tiger-news-bar {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  background: var(--tiger-gold);
+  color: var(--tiger-black);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.tiger-news-bar-tag {
+  font-family: var(--tiger-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 3px 7px;
+  background: var(--tiger-black);
+  color: var(--tiger-gold);
+}
+.tiger-news-bar-text {
+  flex: 1;
+  font-weight: 650;
+}
+.tiger-news-bar-go {
+  font-weight: 700;
+}
+
+@media (max-width: 1099px) {
+  .tiger-hero-news {
+    display: none;
+  }
+  .tiger-scope a.tiger-news-bar {
+    display: flex;
+  }
 }

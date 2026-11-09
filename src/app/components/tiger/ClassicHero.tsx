@@ -79,9 +79,11 @@ const ROTATE_MS = 9500;
 type Props = {
   /** Whether the seasonal Donate drive is running (resolved server-side). */
   donateActive?: boolean;
+  /** Tiger News card, shown top-right over the photo on desktop (#266). */
+  teaser?: React.ReactNode;
 };
 
-export default function ClassicHero({ donateActive = false }: Props) {
+export default function ClassicHero({ donateActive = false, teaser }: Props) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -115,6 +117,7 @@ export default function ClassicHero({ donateActive = false }: Props) {
       <div className="tiger-hero-overlay-h" />
 
       <div className="tiger-hero-content">
+        {teaser && <div className="tiger-hero-news">{teaser}</div>}
         <div>
           <div className="tiger-hero-pill-row">
             <span className="tiger-hero-pill">SLO Tiger Athletics</span>

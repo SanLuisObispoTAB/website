@@ -112,3 +112,20 @@ export function splitLead(item: NewsItem): {
   }
   return { rest: item.body };
 }
+
+/** Recap text for a card whose title is already the team name: drop the
+ *  name from the start and capitalise what's left ("Girls Golf took 4th…"
+ *  → "Took 4th…"). "The Girls Tennis team took…" reads fine whole. */
+export function teaserText(item: NewsItem): string {
+  const { before, rest } = splitLead(item);
+  if (before) return item.body;
+  const t = rest.trim();
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+/** Posted within the last 8 days (as of the build): drives "New this week".
+ *  The weekly import redeploys on Mondays, so this stays honest. */
+export function isRecentIssue(issue: NewsIssue): boolean {
+  const posted = new Date(`${issue.date}T00:00:00`);
+  return Date.now() - posted.getTime() < 8 * 24 * 60 * 60 * 1000;
+}

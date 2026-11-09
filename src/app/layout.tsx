@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Manrope, JetBrains_Mono } from "next/font/google";
 import LayoutShell from "./components/LayoutShell";
+import { buildTickerItems } from "./data/ticker";
 import "./globals.css";
 // Legacy stylesheet loaded FIRST so the new tiger design system wins
 // on equal-specificity rules (e.g. .slotab-scope h1 vs .tiger-hero-*).
@@ -113,7 +114,7 @@ export default function RootLayout({
       <body
         className={`${sourceSerif.variable} ${manrope.variable} ${jetbrainsMono.variable} slotab-scope tiger-scope`}
       >
-        <LayoutShell>{children}</LayoutShell>
+        <LayoutShell tickerItems={buildTickerItems()}>{children}</LayoutShell>
       </body>
     </html>
   );

@@ -1,17 +1,20 @@
 name: SLOTAB — refresh weekly events
 
 # Refreshes src/app/data/weekly-events.json from the public
-# SLOHS Athletic Department Google Sheet on Monday mornings and again
-# mid-week. The job commits any diff, which triggers a Vercel redeploy.
+# SLOHS Athletic Department Google Sheet every morning. The job commits
+# only when the data changed, which triggers a Vercel redeploy; a day with
+# no change costs one ~20s run and no commit.
+#
+# Daily since #266. It used to run Monday and Wednesday only, and GitHub
+# often starts scheduled jobs hours late (Monday's 06:00 run landed between
+# 11:00 and 14:30 Pacific through October-November). The ticker had already
+# run out of games by the time the new week's tab was picked up. A daily run
+# also catches the department adding a game mid-week.
 
 on:
   schedule:
-    # Monday 06:00 Pacific = Monday 14:00 UTC — the weekly refresh. This runs
-    # late enough to pick up Sunday-night fixes to the sheet, so it replaces
-    # the former Monday 07:00 UTC run rather than supplementing it.
-    - cron: "0 14 * * 1"
-    # Wednesday 14:00 UTC — picks up any mid-week schedule changes
-    - cron: "0 14 * * 3"
+    # 06:00 Pacific (14:00 UTC; 05:00 PST in winter) every day.
+    - cron: "0 14 * * *"
   workflow_dispatch: {}
 
 jobs:

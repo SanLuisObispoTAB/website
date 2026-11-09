@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ClassicHero from "./components/tiger/ClassicHero";
+import NewsTeaser from "./components/tiger/NewsTeaser";
 import PlatinumCarousel from "./components/PlatinumCarousel";
 import TeamsCarousel from "./components/tiger/TeamsCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
@@ -11,10 +12,9 @@ import { getFeaturedEvent } from "./components/FeaturedEventPage";
 import { hasPassed } from "./data/event-dates";
 import {
   LATEST_ISSUE,
-  type NewsItem,
   formatIssueDate,
   issueAnchor,
-  splitLead,
+  teaserText,
 } from "./data/athletics-news";
 
 const STATS = [
@@ -105,15 +105,6 @@ const LATEST_NEWS_HREF = LATEST_ISSUE
   ? `/news#${issueAnchor(LATEST_ISSUE.date)}`
   : "/news";
 
-// The card's title is the team name, so drop it from the start of the
-// paragraph and capitalise what's left: "Girls Golf took 4th…" → "Took 4th…".
-function cardText(item: NewsItem): string {
-  const { before, rest } = splitLead(item);
-  // "The Girls Tennis team took…" reads fine whole; only trim a bare lead.
-  if (before) return item.body;
-  const t = rest.trim();
-  return t.charAt(0).toUpperCase() + t.slice(1);
-}
 
 // Fall-season designs, swapped in from the spring three (baseball, track,
 // beach volleyball) at the 2026-27 rollover. These are the fall sports we
@@ -147,7 +138,52 @@ export default function ClassicHomePage() {
 
   return (
     <>
-      <ClassicHero donateActive={donateActive} />
+      {/* Tiger News teaser (#266): a bar above the hero on phones, a card
+          inside it on desktop — so a visitor sees there's something new
+          without scrolling. The full strip follows the hero. */}
+      <NewsTeaser variant="bar" />
+      <ClassicHero
+        donateActive={donateActive}
+        teaser={<NewsTeaser variant="card" />}
+      />
+
+      {/* This week in Tiger athletics — the latest recaps from the SLOHS
+          weekly newsletter. Three cards, clamped; the full text is on /news. */}
+      {LATEST_ISSUE && LATEST_ISSUE.items.length > 0 && (
+        <section className="tiger-section tiger-news-strip">
+          <div className="tiger-container">
+            <div className="tiger-merch-strip-head">
+              <div className="tiger-section-head">
+                <span className="tiger-eyebrow">
+                  Tiger News · Week of {formatIssueDate(LATEST_ISSUE.date)}
+                </span>
+                <h2>This week in Tiger athletics.</h2>
+              </div>
+              <Link href="/news" className="tiger-ulink">
+                All Tiger News →
+              </Link>
+            </div>
+            <div className="tiger-three-grid tiger-news-grid">
+              {LATEST_ISSUE.items.slice(0, 3).map((item) => (
+                <div key={item.heading} className="tiger-three-card">
+                  <div className="tiger-three-num">FROM THE SLOHS NEWSLETTER</div>
+                  <h3 className="tiger-three-title">{item.heading}</h3>
+                  <p className="tiger-three-body tiger-news-body">
+                    {teaserText(item)}
+                  </p>
+                  <Link
+                    href={LATEST_NEWS_HREF}
+                    className="tiger-ulink tiger-three-cta"
+                  >
+                    Read more →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
 
       {/* Stats bar */}
       <section className="tiger-stats">
@@ -259,43 +295,6 @@ export default function ClassicHomePage() {
 
       {/* Teams carousel — current-trimester teams. "View all" → /teams */}
       <TeamsCarousel />
-
-      {/* This week in Tiger athletics — the latest recaps from the SLOHS
-          weekly newsletter. Three cards, clamped; the full text is on /news. */}
-      {LATEST_ISSUE && LATEST_ISSUE.items.length > 0 && (
-        <section className="tiger-section tiger-news-strip">
-          <div className="tiger-container">
-            <div className="tiger-merch-strip-head">
-              <div className="tiger-section-head">
-                <span className="tiger-eyebrow">
-                  Tiger News · Week of {formatIssueDate(LATEST_ISSUE.date)}
-                </span>
-                <h2>This week in Tiger athletics.</h2>
-              </div>
-              <Link href="/news" className="tiger-ulink">
-                All Tiger News →
-              </Link>
-            </div>
-            <div className="tiger-three-grid tiger-news-grid">
-              {LATEST_ISSUE.items.slice(0, 3).map((item) => (
-                <div key={item.heading} className="tiger-three-card">
-                  <div className="tiger-three-num">FROM THE SLOHS NEWSLETTER</div>
-                  <h3 className="tiger-three-title">{item.heading}</h3>
-                  <p className="tiger-three-body tiger-news-body">
-                    {cardText(item)}
-                  </p>
-                  <Link
-                    href={LATEST_NEWS_HREF}
-                    className="tiger-ulink tiger-three-cta"
-                  >
-                    Read more →
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Booster Bash band — the year's biggest fundraiser. Carries the
           auction-item ask the Treasurer wanted surfaced on the home page,
