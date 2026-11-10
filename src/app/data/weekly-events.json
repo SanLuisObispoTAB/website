@@ -4,9 +4,13 @@
     {
       "name": "Weekly Athletics Schedule Nov 9 - Nov 14",
       "gid": "702902700"
+    },
+    {
+      "name": "Weekly Athletics Schedule Nov 16 - Nov 21",
+      "gid": "901090693"
     }
   ],
-  "fetchedAt": "2026-11-09T19:41:21.787Z",
+  "fetchedAt": "2026-11-10T20:39:02.300Z",
   "events": [
     {
       "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
@@ -81,6 +85,178 @@
       "isHome": false,
       "opponent": "State Playoffs",
       "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
+    },
+    {
+      "id": "weekly-2026-11-16-basketball-jv-slo-jv-vs-st-joseph-jv",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-16T17:20:00",
+      "title": "Boys Basketball — SLO JV vs St.Joseph JV",
+      "detail": "St. Joseph · JV",
+      "isHome": false,
+      "opponent": "SLO JV vs St.Joseph JV",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-17-basketball-jv-slo-jv-vs-paso-robles-jv",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-17T15:00:00",
+      "title": "Boys Basketball — SLO JV vs Paso Robles JV",
+      "detail": "St. Joseph · JV",
+      "isHome": false,
+      "opponent": "SLO JV vs Paso Robles JV",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-17-girls-volleyball--state-playoffs",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-11-17T18:00:00",
+      "title": "Girls Volleyball @ State Playoffs",
+      "detail": "TBD",
+      "isHome": false,
+      "opponent": "State Playoffs",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-19-cross-country--cif-cs-championships",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-11-19T12:00:00",
+      "title": "Cross Country — CIF-CS Championships",
+      "detail": "Varsity",
+      "isHome": false,
+      "opponent": "CIF-CS Championships",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-19-basketball--templeton",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-11-19T15:45:00",
+      "title": "Girls Basketball @ Templeton",
+      "detail": "Templeton",
+      "isHome": false,
+      "opponent": "Templeton",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-20-cheer--cif-semifinals",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-11-20T12:00:00",
+      "title": "Cheer @ CIF -Semifinals",
+      "detail": "TBA",
+      "isHome": false,
+      "opponent": "CIF -Semifinals",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-20-girls-volleyball--state-finals",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-11-20T12:00:00",
+      "title": "Girls Volleyball @ State Finals",
+      "detail": "Santiago CC",
+      "isHome": false,
+      "opponent": "State Finals",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-20-basketball--san-marcos",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-11-20T15:30:00",
+      "title": "Girls Basketball vs San Marcos",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "San Marcos",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-20-basketball-frosh-aghs-frosh-tourney",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-20T15:45:00",
+      "title": "Boys Basketball @ AGHS Frosh Tourney",
+      "detail": "AGHS · Frosh",
+      "isHome": false,
+      "opponent": "AGHS Frosh Tourney",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-20-basketball--clovis-west-v-",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-20T18:30:00",
+      "title": "Boys Basketball vs Clovis West (V)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Clovis West (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-20-football--cif-semifinals",
+      "category": "football",
+      "categoryLabel": "Football",
+      "isSport": true,
+      "date": "2026-11-20T19:00:00",
+      "title": "Football @ CIF -Semifinals",
+      "detail": "TBA",
+      "isHome": false,
+      "opponent": "CIF -Semifinals",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-21-wrestling--santa-maria-novice",
+      "category": "wrestling",
+      "categoryLabel": "Girls Wrestling",
+      "isSport": true,
+      "date": "2026-11-21T12:00:00",
+      "title": "Girls Wrestling @ Santa Maria Novice",
+      "detail": "Santa Maria",
+      "isHome": false,
+      "opponent": "Santa Maria Novice",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-21-basketball--centenniel",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-21T14:00:00",
+      "title": "Boys Basketball @ Centenniel",
+      "detail": "Clovis",
+      "isHome": false,
+      "opponent": "Centenniel",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-21-basketball-jv-slo-jv-vs-dos-pueblos-jv",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-21T14:40:00",
+      "title": "Boys Basketball — SLO JV vs Dos Pueblos JV",
+      "detail": "St. Joseph · JV",
+      "isHome": false,
+      "opponent": "SLO JV vs Dos Pueblos JV",
+      "level": "JV",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     }
   ]
 }
