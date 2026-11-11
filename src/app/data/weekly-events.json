@@ -10,7 +10,7 @@
       "gid": "901090693"
     }
   ],
-  "fetchedAt": "2026-11-10T20:39:02.300Z",
+  "fetchedAt": "2026-11-11T20:58:18.335Z",
   "events": [
     {
       "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
@@ -22,6 +22,18 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Organge Lutheran",
+      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
+    },
+    {
+      "id": "weekly-2026-11-12-girls-volleyball--cif-state-playoffs-bisho",
+      "category": "girls-volleyball",
+      "categoryLabel": "Girls Volleyball",
+      "isSport": true,
+      "date": "2026-11-12T17:00:00",
+      "title": "Girls Volleyball vs CIF State Playoffs - Bishop's",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "CIF State Playoffs - Bishop's",
       "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
@@ -46,19 +58,6 @@
       "detail": "Bob Mathias Stadium",
       "isHome": false,
       "opponent": "CIF Quarterfinals - Tulare Western",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
-    {
-      "id": "weekly-2026-11-13-cheer-varsity-cif-quarterfinals-tulare",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-11-13T19:00:00",
-      "title": "Cheer @ CIF Quarterfinals - Tulare Western",
-      "detail": "Bob Mathias Stadium · Varsity",
-      "isHome": false,
-      "opponent": "CIF Quarterfinals - Tulare Western",
-      "level": "Varsity",
       "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
@@ -129,9 +128,9 @@
       "category": "cross-country",
       "categoryLabel": "Cross Country",
       "isSport": true,
-      "date": "2026-11-19T12:00:00",
+      "date": "2026-11-19T11:00:00",
       "title": "Cross Country — CIF-CS Championships",
-      "detail": "Varsity",
+      "detail": "Woodward Park",
       "isHome": false,
       "opponent": "CIF-CS Championships",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
@@ -219,6 +218,19 @@
       "detail": "TBA",
       "isHome": false,
       "opponent": "CIF -Semifinals",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-21-basketball-frosh-aghs-frosh-tourney",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-21T12:00:00",
+      "title": "Boys Basketball @ AGHS Frosh Tourney",
+      "detail": "AGHS · Frosh",
+      "isHome": false,
+      "opponent": "AGHS Frosh Tourney",
+      "level": "Frosh",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
