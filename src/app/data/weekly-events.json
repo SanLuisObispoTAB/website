@@ -10,7 +10,7 @@
       "gid": "901090693"
     }
   ],
-  "fetchedAt": "2026-11-12T21:14:37.533Z",
+  "fetchedAt": "2026-11-13T20:41:51.662Z",
   "events": [
     {
       "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
@@ -74,15 +74,15 @@
       "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
-      "id": "weekly-2026-11-14-girls-volleyball--state-playoffs",
+      "id": "weekly-2026-11-14-girls-volleyball--regional-semi-finals-cor",
       "category": "girls-volleyball",
       "categoryLabel": "Girls Volleyball",
       "isSport": true,
       "date": "2026-11-14T18:00:00",
-      "title": "Girls Volleyball @ State Playoffs",
-      "detail": "TBD",
-      "isHome": false,
-      "opponent": "State Playoffs",
+      "title": "Girls Volleyball vs Regional Semi Finals - Coronado",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Regional Semi Finals - Coronado",
       "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
     },
     {
