@@ -10,7 +10,7 @@
       "gid": "901090693"
     }
   ],
-  "fetchedAt": "2026-11-13T20:41:51.662Z",
+  "fetchedAt": "2026-11-14T18:53:48.864Z",
   "events": [
     {
       "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
@@ -78,7 +78,7 @@
       "category": "girls-volleyball",
       "categoryLabel": "Girls Volleyball",
       "isSport": true,
-      "date": "2026-11-14T18:00:00",
+      "date": "2026-11-14T17:00:00",
       "title": "Girls Volleyball vs Regional Semi Finals - Coronado",
       "detail": "SLOHS",
       "isHome": true,
@@ -112,15 +112,15 @@
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
-      "id": "weekly-2026-11-17-girls-volleyball--state-playoffs",
+      "id": "weekly-2026-11-17-girls-volleyball--regional-championship",
       "category": "girls-volleyball",
       "categoryLabel": "Girls Volleyball",
       "isSport": true,
       "date": "2026-11-17T18:00:00",
-      "title": "Girls Volleyball @ State Playoffs",
+      "title": "Girls Volleyball — Regional Championship",
       "detail": "TBD",
       "isHome": false,
-      "opponent": "State Playoffs",
+      "opponent": "Regional Championship",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
@@ -145,18 +145,6 @@
       "detail": "Templeton",
       "isHome": false,
       "opponent": "Templeton",
-      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
-    },
-    {
-      "id": "weekly-2026-11-20-cheer--cif-semifinals",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-11-20T12:00:00",
-      "title": "Cheer @ CIF -Semifinals",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF -Semifinals",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
@@ -206,18 +194,6 @@
       "detail": "SLOHS",
       "isHome": true,
       "opponent": "Clovis West (V)",
-      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
-    },
-    {
-      "id": "weekly-2026-11-20-football--cif-semifinals",
-      "category": "football",
-      "categoryLabel": "Football",
-      "isSport": true,
-      "date": "2026-11-20T19:00:00",
-      "title": "Football @ CIF -Semifinals",
-      "detail": "TBA",
-      "isHome": false,
-      "opponent": "CIF -Semifinals",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
