@@ -10,7 +10,7 @@
       "gid": "901090693"
     }
   ],
-  "fetchedAt": "2026-11-14T18:53:48.864Z",
+  "fetchedAt": "2026-11-15T19:29:54.436Z",
   "events": [
     {
       "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
@@ -99,6 +99,18 @@
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
+      "id": "weekly-2026-11-17-girls-tennis--section-individuals",
+      "category": "girls-tennis",
+      "categoryLabel": "Girls Tennis",
+      "isSport": true,
+      "date": "2026-11-17T12:00:00",
+      "title": "Girls Tennis @ Section Individuals",
+      "detail": "Buchanan",
+      "isHome": false,
+      "opponent": "Section Individuals",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
       "id": "weekly-2026-11-17-basketball-jv-slo-jv-vs-paso-robles-jv",
       "category": "basketball",
       "categoryLabel": "Boys Basketball",
@@ -109,18 +121,6 @@
       "isHome": false,
       "opponent": "SLO JV vs Paso Robles JV",
       "level": "JV",
-      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
-    },
-    {
-      "id": "weekly-2026-11-17-girls-volleyball--regional-championship",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-11-17T18:00:00",
-      "title": "Girls Volleyball — Regional Championship",
-      "detail": "TBD",
-      "isHome": false,
-      "opponent": "Regional Championship",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
@@ -145,18 +145,6 @@
       "detail": "Templeton",
       "isHome": false,
       "opponent": "Templeton",
-      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
-    },
-    {
-      "id": "weekly-2026-11-20-girls-volleyball--state-finals",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-11-20T12:00:00",
-      "title": "Girls Volleyball @ State Finals",
-      "detail": "Santiago CC",
-      "isHome": false,
-      "opponent": "State Finals",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
