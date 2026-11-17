@@ -2,89 +2,12 @@
   "source": "https://docs.google.com/spreadsheets/d/1lzPklHuK6CzaxW9k3czS8ZmlTjNFNVO6ZZkvo4xuG3c/htmlembed",
   "tabs": [
     {
-      "name": "Weekly Athletics Schedule Nov 9 - Nov 14",
-      "gid": "702902700"
-    },
-    {
       "name": "Weekly Athletics Schedule Nov 16 - Nov 21",
       "gid": "901090693"
     }
   ],
-  "fetchedAt": "2026-11-16T23:06:19.012Z",
+  "fetchedAt": "2026-11-17T21:57:36.074Z",
   "events": [
-    {
-      "id": "weekly-2026-11-10-girls-volleyball--organge-lutheran",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-11-10T18:00:00",
-      "title": "Girls Volleyball vs Organge Lutheran",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Organge Lutheran",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
-    {
-      "id": "weekly-2026-11-12-girls-volleyball--cif-state-playoffs-bisho",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-11-12T17:00:00",
-      "title": "Girls Volleyball vs CIF State Playoffs - Bishop's",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "CIF State Playoffs - Bishop's",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
-    {
-      "id": "weekly-2026-11-13-girls-tennis--section-individuals",
-      "category": "girls-tennis",
-      "categoryLabel": "Girls Tennis",
-      "isSport": true,
-      "date": "2026-11-13T12:00:00",
-      "title": "Girls Tennis @ Section Individuals",
-      "detail": "Buchanan HS",
-      "isHome": false,
-      "opponent": "Section Individuals",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
-    {
-      "id": "weekly-2026-11-13-football--cif-quarterfinals-tulare",
-      "category": "football",
-      "categoryLabel": "Football",
-      "isSport": true,
-      "date": "2026-11-13T19:00:00",
-      "title": "Football @ CIF Quarterfinals - Tulare Western",
-      "detail": "Bob Mathias Stadium",
-      "isHome": false,
-      "opponent": "CIF Quarterfinals - Tulare Western",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
-    {
-      "id": "weekly-2026-11-14-cheer-jvvarsity-pismo-beach-band-review-",
-      "category": "cheer",
-      "categoryLabel": "Cheer",
-      "isSport": true,
-      "date": "2026-11-14T12:00:00",
-      "title": "Cheer @ Pismo Beach Band Review (Varsity & JV Black)",
-      "detail": "Pismo · JV & Varsity",
-      "isHome": false,
-      "opponent": "Pismo Beach Band Review (Varsity & JV Black)",
-      "level": "JV & Varsity",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
-    {
-      "id": "weekly-2026-11-14-girls-volleyball--regional-semi-finals-cor",
-      "category": "girls-volleyball",
-      "categoryLabel": "Girls Volleyball",
-      "isSport": true,
-      "date": "2026-11-14T17:00:00",
-      "title": "Girls Volleyball vs Regional Semi Finals - Coronado",
-      "detail": "SLOHS",
-      "isHome": true,
-      "opponent": "Regional Semi Finals - Coronado",
-      "sourceTab": "Weekly Athletics Schedule Nov 9 - Nov 14"
-    },
     {
       "id": "weekly-2026-11-16-basketball-jv-slo-jv-vs-st-joseph-jv",
       "category": "basketball",
