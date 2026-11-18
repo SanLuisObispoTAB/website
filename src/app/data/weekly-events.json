@@ -4,9 +4,13 @@
     {
       "name": "Weekly Athletics Schedule Nov 16 - Nov 21",
       "gid": "901090693"
+    },
+    {
+      "name": "Weekly Athletics Schedule Nov 23 - Nov 28",
+      "gid": "15909238"
     }
   ],
-  "fetchedAt": "2026-11-17T21:57:36.074Z",
+  "fetchedAt": "2026-11-18T21:39:40.668Z",
   "events": [
     {
       "id": "weekly-2026-11-16-basketball-jv-slo-jv-vs-st-joseph-jv",
@@ -108,6 +112,18 @@
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
+      "id": "weekly-2026-11-21-wrestling--novice-tournament-sm",
+      "category": "wrestling",
+      "categoryLabel": "Boys Wrestling",
+      "isSport": true,
+      "date": "2026-11-21T09:00:00",
+      "title": "Boys Wrestling — NOVICE Tournament- SM",
+      "detail": "Santa Maria High",
+      "isHome": false,
+      "opponent": "NOVICE Tournament- SM",
+      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
       "id": "weekly-2026-11-21-basketball-frosh-aghs-frosh-tourney",
       "category": "basketball",
       "categoryLabel": "Boys Basketball",
@@ -156,6 +172,68 @@
       "opponent": "SLO JV vs Dos Pueblos JV",
       "level": "JV",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
+    },
+    {
+      "id": "weekly-2026-11-23-soccer-frosh-paso-robles",
+      "category": "soccer",
+      "categoryLabel": "Boys Soccer",
+      "isSport": true,
+      "date": "2026-11-23T16:15:00",
+      "title": "Boys Soccer vs Paso Robles",
+      "detail": "SLOHS (Holt) · Frosh",
+      "isHome": true,
+      "opponent": "Paso Robles",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Nov 23 - Nov 28"
+    },
+    {
+      "id": "weekly-2026-11-24-wrestling--san-luis-obispo-varsity",
+      "category": "wrestling",
+      "categoryLabel": "Boys Wrestling",
+      "isSport": true,
+      "date": "2026-11-24T08:00:00",
+      "title": "Boys Wrestling vs San Luis Obispo Varsity",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "San Luis Obispo Varsity",
+      "sourceTab": "Weekly Athletics Schedule Nov 23 - Nov 28"
+    },
+    {
+      "id": "weekly-2026-11-24-basketball--dos-pueblos",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-11-24T13:00:00",
+      "title": "Girls Basketball vs Dos Pueblos",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Dos Pueblos",
+      "sourceTab": "Weekly Athletics Schedule Nov 23 - Nov 28"
+    },
+    {
+      "id": "weekly-2026-11-28-cross-country--cif-state-championships",
+      "category": "cross-country",
+      "categoryLabel": "Cross Country",
+      "isSport": true,
+      "date": "2026-11-28T12:00:00",
+      "title": "Cross Country — CIF-State Championships",
+      "detail": "Woodward Park",
+      "isHome": false,
+      "opponent": "CIF-State Championships",
+      "sourceTab": "Weekly Athletics Schedule Nov 23 - Nov 28"
+    },
+    {
+      "id": "weekly-2026-11-28-basketball-varsity-sanger-west-v-",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-11-28T15:30:00",
+      "title": "Boys Basketball @ Sanger West (V)",
+      "detail": "Bakersfield Christian · Varsity",
+      "isHome": false,
+      "opponent": "Sanger West (V)",
+      "level": "Varsity",
+      "sourceTab": "Weekly Athletics Schedule Nov 23 - Nov 28"
     }
   ]
 }
