@@ -10,7 +10,7 @@
       "gid": "15909238"
     }
   ],
-  "fetchedAt": "2026-11-18T21:39:40.668Z",
+  "fetchedAt": "2026-11-19T21:55:06.126Z",
   "events": [
     {
       "id": "weekly-2026-11-16-basketball-jv-slo-jv-vs-st-joseph-jv",
@@ -112,15 +112,15 @@
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
-      "id": "weekly-2026-11-21-wrestling--novice-tournament-sm",
+      "id": "weekly-2026-11-21-wrestling--santa-maria-novice",
       "category": "wrestling",
-      "categoryLabel": "Boys Wrestling",
+      "categoryLabel": "Girls Wrestling",
       "isSport": true,
       "date": "2026-11-21T09:00:00",
-      "title": "Boys Wrestling — NOVICE Tournament- SM",
+      "title": "Girls & Boys Wrestling @ Santa Maria Novice",
       "detail": "Santa Maria High",
       "isHome": false,
-      "opponent": "NOVICE Tournament- SM",
+      "opponent": "Santa Maria Novice",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
@@ -134,18 +134,6 @@
       "isHome": false,
       "opponent": "AGHS Frosh Tourney",
       "level": "Frosh",
-      "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
-    },
-    {
-      "id": "weekly-2026-11-21-wrestling--santa-maria-novice",
-      "category": "wrestling",
-      "categoryLabel": "Girls Wrestling",
-      "isSport": true,
-      "date": "2026-11-21T12:00:00",
-      "title": "Girls Wrestling @ Santa Maria Novice",
-      "detail": "Santa Maria",
-      "isHome": false,
-      "opponent": "Santa Maria Novice",
       "sourceTab": "Weekly Athletics Schedule Nov 16 - Nov 21"
     },
     {
