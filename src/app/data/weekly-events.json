@@ -8,9 +8,13 @@
     {
       "name": "Weekly Athletics Schedule Nov 23 - Nov 28",
       "gid": "15909238"
+    },
+    {
+      "name": "Weekly Athletics Schedule Nov 30 - Dec 5",
+      "gid": "11114957"
     }
   ],
-  "fetchedAt": "2026-11-20T21:36:57.485Z",
+  "fetchedAt": "2026-11-21T20:17:53.305Z",
   "events": [
     {
       "id": "weekly-2026-11-16-basketball-jv-slo-jv-vs-st-joseph-jv",
@@ -222,6 +226,247 @@
       "opponent": "Sanger West (V)",
       "level": "Varsity",
       "sourceTab": "Weekly Athletics Schedule Nov 23 - Nov 28"
+    },
+    {
+      "id": "weekly-2026-11-30-soccer-frosh-pioneer-valley",
+      "category": "soccer",
+      "categoryLabel": "Boys Soccer",
+      "isSport": true,
+      "date": "2026-11-30T16:15:00",
+      "title": "Boys Frosh Soccer vs Pioneer Valley",
+      "detail": "SLOHS (Taylor Field) · Frosh",
+      "isHome": true,
+      "opponent": "Pioneer Valley",
+      "level": "Frosh",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-01-basketball--arroyo-grande-",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-12-01T15:45:00",
+      "title": "Boys Basketball vs Arroyo Grande *",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Arroyo Grande *",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-01-soccer--arroyo-grande-",
+      "category": "soccer",
+      "categoryLabel": "Girls Soccer",
+      "isSport": true,
+      "date": "2026-12-01T16:15:00",
+      "title": "Girls Soccer @ Arroyo Grande *",
+      "detail": "Arroyo Grande",
+      "isHome": false,
+      "opponent": "Arroyo Grande *",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-01-basketball--arroyo-grande-",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-12-01T17:00:00",
+      "title": "Girls Basketball @ Arroyo Grande *",
+      "detail": "Arroyo Grande",
+      "isHome": false,
+      "opponent": "Arroyo Grande *",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-02-wrestling--mini-tournament",
+      "category": "wrestling",
+      "categoryLabel": "Girls Wrestling",
+      "isSport": true,
+      "date": "2026-12-02T14:00:00",
+      "title": "Girls Wrestling — Mini Tournament",
+      "detail": "Cabrillo",
+      "isHome": false,
+      "opponent": "Mini Tournament",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-02-wrestling--st-joseph",
+      "category": "wrestling",
+      "categoryLabel": "Boys Wrestling",
+      "isSport": true,
+      "date": "2026-12-02T16:00:00",
+      "title": "Boys Wrestling vs St. Joseph",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "St. Joseph",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-02-basketball--ag-frosh-st-joseph-frosh",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-12-02T16:10:00",
+      "title": "Boys Basketball @ AG Frosh, St. Joseph Frosh",
+      "detail": "St. Joseph",
+      "isHome": false,
+      "opponent": "AG Frosh, St. Joseph Frosh",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-03-basketball--jw-design-holiday-classi",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-12-03T12:00:00",
+      "title": "Girls Basketball — JW Design Holiday Classic (V)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "JW Design Holiday Classic (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-03-basketball--santa-cruz-tournament-v-",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-12-03T12:00:00",
+      "title": "Boys Basketball — Santa Cruz Tournament (V)",
+      "detail": "Santa Cruz",
+      "isHome": false,
+      "opponent": "Santa Cruz Tournament (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-03-basketball--slo-frosh-vs-righetti-fr",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-12-03T17:20:00",
+      "title": "Boys Basketball — SLO Frosh vs Righetti Frosh",
+      "detail": "St. Joseph",
+      "isHome": false,
+      "opponent": "SLO Frosh vs Righetti Frosh",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-04-wrestling--righetti-duals-jv-",
+      "category": "wrestling",
+      "categoryLabel": "Boys Wrestling",
+      "isSport": true,
+      "date": "2026-12-04T12:00:00",
+      "title": "Boys Wrestling @ Righetti Duals (JV)",
+      "detail": "Righetti",
+      "isHome": false,
+      "opponent": "Righetti Duals (JV)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-04-cheer--slo-holiday-parade",
+      "category": "cheer",
+      "categoryLabel": "Cheer",
+      "isSport": true,
+      "date": "2026-12-04T12:00:00",
+      "title": "Winter Sideline Cheer @ SLO Holiday Parade",
+      "detail": "Downtown SLO",
+      "isHome": false,
+      "opponent": "SLO Holiday Parade",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-04-basketball--santa-cruz-tournament-v-",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-12-04T12:00:00",
+      "title": "Boys Basketball — Santa Cruz Tournament (V)",
+      "detail": "Santa Cruz",
+      "isHome": false,
+      "opponent": "Santa Cruz Tournament (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-04-basketball--jw-design-holiday-classi",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-12-04T12:00:00",
+      "title": "Girls Basketball — JW Design Holiday Classic (V)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "JW Design Holiday Classic (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-04-soccer--hanford-high-school",
+      "category": "soccer",
+      "categoryLabel": "Girls Soccer",
+      "isSport": true,
+      "date": "2026-12-04T15:30:00",
+      "title": "Girls Soccer vs Hanford High School",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Hanford High School",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-04-soccer--san-clemente",
+      "category": "soccer",
+      "categoryLabel": "Boys Soccer",
+      "isSport": true,
+      "date": "2026-12-04T19:00:00",
+      "title": "Boys Soccer vs San Clemente",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "San Clemente",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-05-wrestling--old-dutch-tournament-v-",
+      "category": "wrestling",
+      "categoryLabel": "Boys Wrestling",
+      "isSport": true,
+      "date": "2026-12-05T12:00:00",
+      "title": "Boys Wrestling — Old Dutch Tournament (V)",
+      "detail": "Righetti",
+      "isHome": false,
+      "opponent": "Old Dutch Tournament (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-05-basketball--jw-design-holiday-classi",
+      "category": "basketball",
+      "categoryLabel": "Girls Basketball",
+      "isSport": true,
+      "date": "2026-12-05T12:00:00",
+      "title": "Girls Basketball — JW Design Holiday Classic (V)",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "JW Design Holiday Classic (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-05-basketball--santa-cruz-tournament-v-",
+      "category": "basketball",
+      "categoryLabel": "Boys Basketball",
+      "isSport": true,
+      "date": "2026-12-05T12:00:00",
+      "title": "Boys Basketball — Santa Cruz Tournament (V)",
+      "detail": "Santa Cruz",
+      "isHome": false,
+      "opponent": "Santa Cruz Tournament (V)",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
+    },
+    {
+      "id": "weekly-2026-12-05-soccer--madera-high-school",
+      "category": "soccer",
+      "categoryLabel": "Boys Soccer",
+      "isSport": true,
+      "date": "2026-12-05T16:00:00",
+      "title": "Boys Soccer vs Madera High School",
+      "detail": "SLOHS",
+      "isHome": true,
+      "opponent": "Madera High School",
+      "sourceTab": "Weekly Athletics Schedule Nov 30 - Dec 5"
     }
   ]
 }
