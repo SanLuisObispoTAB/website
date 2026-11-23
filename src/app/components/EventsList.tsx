@@ -99,7 +99,7 @@ export default function EventsList() {
         <p className="slotab-events-empty">
           No events are published yet. The SLOHS athletic department posts each
           week&apos;s game schedule shortly before it starts, and this page
-          picks it up automatically — check back as the fall season opens.
+          picks it up automatically — check back as the season opens.
         </p>
       ) : (
         visible.length === 0 && (

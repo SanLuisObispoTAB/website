@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import ClassicHero from "./components/tiger/ClassicHero";
 import NewsTeaser from "./components/tiger/NewsTeaser";
+import WrapFeature from "./components/WrapFeature";
 import PlatinumCarousel from "./components/PlatinumCarousel";
 import TeamsCarousel from "./components/tiger/TeamsCarousel";
 import TigerSponsorWall from "./components/tiger/TigerSponsorWall";
 import { isDonateDriveActive } from "./data/campaign";
+import { currentSeason } from "./data/seasons";
 import { ALL_EVENTS } from "./data/events";
 import hofInductees from "./data/hof-inductees.json";
 import { getFeaturedEvent } from "./components/FeaturedEventPage";
@@ -144,6 +146,7 @@ export default function ClassicHomePage() {
       <NewsTeaser variant="bar" />
       <ClassicHero
         donateActive={donateActive}
+        season={currentSeason()}
         teaser={<NewsTeaser variant="card" />}
       />
 
@@ -180,6 +183,7 @@ export default function ClassicHomePage() {
                 </div>
               ))}
             </div>
+            <WrapFeature />
           </div>
         </section>
       )}

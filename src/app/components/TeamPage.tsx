@@ -178,6 +178,37 @@ const DESIGNATION_MONEY = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 });
 
+// Hudl cameras cover Holt Field (stadium), the Big Gym, and the baseball and
+// softball fields — not the pool, the tennis courts, or off-campus courses
+// (decision #106). These sports compete only at uncovered venues, so their
+// pages don't get the "Watch the team on Hudl" block (#270: the new Boys Swim
+// & Dive page showed it, and so had every water polo, swim, golf, tennis and
+// cross country page since the block was added).
+const NOT_ON_HUDL = new Set([
+  "Swim & Dive",
+  "Water Polo",
+  "Golf",
+  "Tennis",
+  "Cross Country",
+]);
+
+// "In Action" heading: where the sport is played, not always "on the field".
+const VENUE_PHRASE: Record<string, string> = {
+  "Swim & Dive": "in the pool",
+  "Water Polo": "in the pool",
+  Basketball: "on the court",
+  Volleyball: "on the court",
+  Tennis: "on the court",
+  Wrestling: "on the mat",
+  Golf: "on the course",
+  "Cross Country": "on the course",
+  "Track & Field": "on the track",
+  Cheer: "on the sideline",
+  "Competitive Cheer": "on the mat",
+  STUNT: "on the mat",
+  Dance: "in performance",
+};
+
 export default function TeamPage({ team }: { team: Team }) {
   // A team may declare one head coach or several (cross country runs boys and
   // girls under two). Normalise to a list so the markup has one shape.
@@ -332,7 +363,9 @@ export default function TeamPage({ team }: { team: Team }) {
           <div className="slotab-container">
             <div className="slotab-section-title">
               <span className="slotab-kicker">In Action</span>
-              <h2>{team.name} on the field</h2>
+              <h2>
+                {team.name} {VENUE_PHRASE[team.sport] ?? "on the field"}
+              </h2>
             </div>
             <ZoomablePhotos
               variant="gallery"
@@ -527,6 +560,7 @@ export default function TeamPage({ team }: { team: Team }) {
       )}
 
       {/* Watch this team — link to the BlueFrame portal on /watch */}
+      {!NOT_ON_HUDL.has(team.sport) && (
       <section className="slotab-section">
         <div
           className="slotab-container"
@@ -545,6 +579,7 @@ export default function TeamPage({ team }: { team: Team }) {
           </Link>
         </div>
       </section>
+      )}
 
       {/* Team wishlist */}
       {team.wishlist && team.wishlist.length > 0 && (

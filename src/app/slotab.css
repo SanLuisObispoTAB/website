@@ -107,6 +107,7 @@
 .slotab-platinum-head,
 .slotab-event-intro,
 .slotab-news-weeks,
+.slotab-wrap-intro,
 .slotab-event-held,
 .slotab-feature-strip,
 .slotab-event-photos-placeholder,
@@ -5241,6 +5242,153 @@ a.slotab-platinum-slide:hover {
   text-decoration-color: var(--tiger-gold);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
+}
+
+/* Season wrap-up — /news/<id>, e.g. /news/fall-2026 (#268). One card per
+   team: action photo beside a headline and a short list of highlights. */
+.slotab-wrap-intro {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+.slotab-wrap-lede {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0 0 0.75rem;
+}
+.slotab-wrap-meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--slotab-muted);
+}
+.slotab-wrap-pending {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+}
+.slotab-wrap-teams {
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+.slotab-wrap-team {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--slotab-border);
+  scroll-margin-top: 6rem;
+  text-wrap: pretty;
+}
+.slotab-wrap-team:last-child {
+  border-bottom: 0;
+}
+.slotab-wrap-team-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  border-bottom: 4px solid var(--slotab-gold);
+}
+.slotab-wrap-team-photo img {
+  object-fit: cover;
+}
+.slotab-wrap-team-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-slotab-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--slotab-gold-dark);
+}
+.slotab-wrap-tag {
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: var(--tiger-ink);
+  color: #fff;
+}
+.slotab-scope .slotab-wrap-team h2 {
+  font-size: 1.45rem;
+  line-height: 1.25;
+  margin: 0.35rem 0 0.85rem;
+}
+.slotab-wrap-team ul {
+  margin: 0 0 1rem;
+  padding-left: 1.15rem;
+  line-height: 1.6;
+}
+.slotab-wrap-team li + li {
+  margin-top: 0.4rem;
+}
+.slotab-wrap-team-pending {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.9rem;
+  background: var(--slotab-bg-alt);
+  border-left: 3px solid var(--slotab-gold);
+  font-size: 0.92rem;
+}
+.slotab-wrap-thanks {
+  max-width: 920px;
+  margin: 2.5rem auto 0;
+}
+@media (max-width: 720px) {
+  .slotab-wrap-team {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* The featured wrap-up: atop /news, and under the home Tiger News strip */
+.slotab-wrap-feature {
+  max-width: 820px;
+  margin: 0 auto 2.5rem;
+  display: block;
+  padding: 1.25rem 1.5rem;
+  background: var(--tiger-ink);
+  color: #fff;
+  border-left: 5px solid var(--tiger-gold);
+  text-decoration: none;
+}
+a.slotab-wrap-feature,
+a.slotab-wrap-feature:hover,
+.slotab-scope a.slotab-wrap-feature,
+.slotab-scope a.slotab-wrap-feature:hover,
+.tiger-scope a.slotab-wrap-feature,
+.tiger-scope a.slotab-wrap-feature:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.slotab-wrap-feature-kicker {
+  display: block;
+  font-family: var(--tiger-sans);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tiger-gold);
+  margin-bottom: 0.3rem;
+}
+.slotab-wrap-feature-title {
+  display: block;
+  font-family: var(--font-slotab-heading), sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+.slotab-wrap-feature-go {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 650;
+  font-size: 0.9rem;
+}
+.tiger-news-strip .slotab-wrap-feature {
+  max-width: none;
+  margin: 2rem 0 0;
 }
 
 /* Team page: the team's latest recaps */

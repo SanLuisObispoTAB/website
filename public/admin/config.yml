@@ -400,6 +400,77 @@ collections:
                       - { name: label, label: "Link text", widget: string }
                       - { name: url, label: "URL", widget: string }
 
+      - name: season_wraps
+        label: "Season Wrap-ups"
+        file: "src/app/data/season-wraps.json"
+        description: "One entry per athletic season, celebrating what each team accomplished. Shows at /news/<URL id> (e.g. /news/fall-2026), and is featured atop /news and on the home page for about ten weeks after it is posted. Written by SLOTAB from the weekly recaps, so every fact should be in a recap on /news. Titles, playoff runs and honors only; no game scores."
+        fields:
+          - { name: note, label: "Internal note (not shown on the site)", widget: hidden, required: false }
+          - name: wraps
+            label: "Seasons"
+            label_singular: "Season"
+            widget: list
+            summary: "{{fields.published}} · {{fields.title}}"
+            fields:
+              - { name: id, label: "URL id", widget: string, hint: "Lower-case with hyphens, e.g. winter-2027. The page lives at /news/<this>. Don't change it once posted." }
+              - { name: season, label: "Season", widget: select, options: ["Fall", "Winter", "Spring"] }
+              - { name: schoolYear, label: "School year", widget: string, hint: "e.g. 2026-27" }
+              - { name: title, label: "Title", widget: string, hint: "e.g. Winter 2027 in review" }
+              - { name: published, label: "Posted on", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", picker_utc: true }
+              - { name: updated, label: "Last updated", widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", picker_utc: true, required: false, hint: "Change this when you add a late playoff result." }
+              - { name: intro, label: "Introduction", widget: text }
+              - name: teams
+                label: "Teams"
+                label_singular: "Team"
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { name: name, label: "Team name", widget: string }
+                  - name: teams
+                    label: "Team page"
+                    widget: select
+                    multiple: true
+                    hint: "Links the card to the team's page and uses its photo. Pick one."
+                    options:
+                      - { label: "Boys Football", value: "football" }
+                      - { label: "Girls Volleyball", value: "girls-volleyball" }
+                      - { label: "Boys Baseball", value: "baseball" }
+                      - { label: "Co-ed Track & Field", value: "track-field" }
+                      - { label: "Girls Softball", value: "softball" }
+                      - { label: "Boys Volleyball", value: "boys-volleyball" }
+                      - { label: "Girls Beach Volleyball", value: "beach-volleyball" }
+                      - { label: "Boys Tennis", value: "boys-tennis" }
+                      - { label: "Girls Tennis", value: "girls-tennis" }
+                      - { label: "Boys Swim & Dive", value: "boys-swim-dive" }
+                      - { label: "Girls Swim & Dive", value: "girls-swim-dive" }
+                      - { label: "Boys Water Polo", value: "boys-water-polo" }
+                      - { label: "Girls Water Polo", value: "girls-water-polo" }
+                      - { label: "Boys Basketball", value: "boys-basketball" }
+                      - { label: "Girls Basketball", value: "girls-basketball" }
+                      - { label: "Boys Soccer", value: "boys-soccer" }
+                      - { label: "Girls Soccer", value: "girls-soccer" }
+                      - { label: "Co-ed Cross Country", value: "cross-country" }
+                      - { label: "Boys Golf", value: "boys-golf" }
+                      - { label: "Girls Golf", value: "girls-golf" }
+                      - { label: "Boys Wrestling", value: "boys-wrestling" }
+                      - { label: "Girls Wrestling", value: "girls-wrestling" }
+                      - { label: "Girls Flag Football", value: "flag-football" }
+                      - { label: "Girls STUNT", value: "stunt" }
+                      - { label: "Tiger Cheer", value: "cheer" }
+                      - { label: "Dance Team", value: "dance" }
+                      - { label: "Tiger Winter Cheer", value: "winter-cheer" }
+                      - { label: "Traditional Competitive Cheer", value: "competitive-cheer" }
+                  - { name: headline, label: "Headline", widget: string, hint: "The season in one line, e.g. Undefeated Mountain League champions" }
+                  - { name: highlights, label: "Highlights", widget: list, field: { name: highlight, label: "Highlight", widget: text } }
+                  - { name: stillCompeting, label: "Still competing (optional)", widget: text, required: false, hint: "A result still to come. Shows a 'Still competing' tag. Delete this and add the result to Highlights once it's reported." }
+              - name: thanks
+                label: "Thank-you note (optional)"
+                widget: object
+                required: false
+                fields:
+                  - { name: title, label: "Title", widget: string }
+                  - { name: body, label: "Text", widget: text }
+
   # ---------------------------------------------------------------
   # Teams — per-sport pages
   # ---------------------------------------------------------------

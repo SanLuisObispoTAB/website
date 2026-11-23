@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PageHeader from "../components/PageHeader";
 import { NewsRecap } from "../components/AthleticsNews";
+import WrapFeature from "../components/WrapFeature";
 import {
   NEWS_ISSUES,
   formatIssueDate,
@@ -34,6 +35,8 @@ export default function NewsPage() {
               .
             </p>
           </div>
+
+          <WrapFeature />
 
           {NEWS_ISSUES.length > 1 && (
             <nav className="slotab-news-weeks" aria-label="Jump to a week">

@@ -1,0 +1,119 @@
+{
+  "note": "End-of-season celebrations, one entry per season (decision #268). Written by SLOTAB from the SLOHS weekly newsletter recaps on /news, so every fact here should be traceable to a recap there. Celebrates what teams achieved: titles, playoff runs, honors. Not a scoreboard, so no game scores (#131, #193); records like 10-0 are fine. A team with an individual or team result still pending gets a stillCompeting line, which shows a 'Still competing' tag; delete the line and add the result when the newsletter reports it. Edited at /admin -> Athletics News -> Season Wrap-ups. See src/app/data/season-wraps.ts.",
+  "wraps": [
+    {
+      "id": "fall-2026",
+      "season": "Fall",
+      "schoolYear": "2026-27",
+      "title": "Fall 2026 in review",
+      "published": "2026-11-23",
+      "updated": "2026-11-23",
+      "intro": "Five league championships, a CIF State playoff run, and a place in the first-ever CIF Central Section flag football playoffs. Here is what our fall Tigers accomplished this season. Congratulations to every athlete, coach, and family who made it happen.",
+      "teams": [
+        {
+          "teams": ["girls-volleyball"],
+          "name": "Girls Volleyball",
+          "headline": "Mountain League champions, then a run to the CIF State regional semifinals",
+          "highlights": [
+            "Won the Mountain League title, clinched on Senior Night, and finished league play 13–1.",
+            "Won the Cardinal Classic at UCSB and the Wild West Showdown in Clovis, and took second at the SLOTown Showdown, the 16-team tournament the program hosts.",
+            "Swept Clovis North in the CIF Central Section playoffs and reached the section semifinals.",
+            "Qualified for the CIF State Playoffs as the No. 7 seed in Division 1, beat Orange Lutheran and The Bishop's School at home, and reached the Regional Semifinals.",
+            "Tournament honors: Ella Buchanan, Wild West Showdown MVP; Maddie Immoos and Logan Crosson, Wild West all-tournament; Frankie Morrow and Hazel Williams, SLOTown Showdown all-tournament."
+          ]
+        },
+        {
+          "teams": ["cross-country"],
+          "name": "Cross Country",
+          "headline": "Boys and girls both league champions, the sixth straight title for each",
+          "highlights": [
+            "Both teams won the CCAA League Championships, giving each program six consecutive league titles.",
+            "Both teams also won the San Luis Obispo County Meet on their home course, the Ojai Invitational, and the CCAA mid-season meet.",
+            "At the ASICS Clovis Invitational the girls placed 7th of 29 schools and the boys 8th of 33, and Emiri Sarabia won the frosh/sophomore race.",
+            "Rodolfo Uribe and Gavin Wells both broke 10 minutes on the two-mile course at the Clovis North Twilight Invitational."
+          ],
+          "stillCompeting": "The varsity teams raced the CIF Central Section Championships at Woodward Park on November 19. Results will be added here once the school reports them."
+        },
+        {
+          "teams": ["boys-water-polo"],
+          "name": "Boys Water Polo",
+          "headline": "Undefeated Mountain League champions",
+          "highlights": [
+            "Went a perfect 10–0 in Mountain League play to win the league title.",
+            "Reached the CCAA tournament final, falling to Arroyo Grande by a single goal.",
+            "Hosted a CIF Central Section quarterfinal against Clovis East that went to overtime.",
+            "Placed second in the Platinum Division at the Thrills in the Hills tournament and won all three of its games at the SLOTown Showdown."
+          ]
+        },
+        {
+          "teams": ["flag-football"],
+          "name": "Flag Football",
+          "headline": "Back-to-back league champions, and part of CIF history",
+          "highlights": [
+            "Won a second consecutive Mountain League championship.",
+            "Played in the first-ever CIF Central Section flag football playoffs, winning in the first round and falling by a single point to Templeton in the quarterfinals.",
+            "Season highlights included a touchdown in the closing seconds to beat Lompoc and a five-interception game against Aptos, with two returned for touchdowns."
+          ]
+        },
+        {
+          "teams": ["football"],
+          "name": "Football",
+          "headline": "Second round of the CIF playoffs, for the second year running",
+          "highlights": [
+            "Opened the new turf at Holt Field with a shutout of Mount Whitney.",
+            "Came back from a halftime deficit to win the Homecoming game against crosstown rival Mission College Prep.",
+            "Beat Dinuba at Holt Field in the first round of the CIF Central Section playoffs, and led Tulare Western in the second round before the season ended in the rain in Tulare.",
+            "The Frosh team finished undefeated at 10–0."
+          ]
+        },
+        {
+          "teams": ["girls-tennis"],
+          "name": "Girls Tennis",
+          "headline": "Undefeated in league, CIF semifinalists, and six All-League honorees",
+          "highlights": [
+            "Went undefeated through league play.",
+            "Beat Clovis West at home in the CIF Central Section quarterfinals and reached the section semifinals.",
+            "All-League: Zoe Stackhouse, Singles MVP; Sloan Hrdlicka, first team singles; Bailey Allen and Jessica Lebed, and Scarlett and Sierra Mellinger, first team doubles.",
+            "At the CCAA area tournament, Hrdlicka, Domi Osorio, and Stackhouse qualified for the section singles tournament, and both doubles teams qualified for section doubles."
+          ],
+          "stillCompeting": "Sloan Hrdlicka advanced at the section individual tournament at Buchanan High School and was set to compete again on November 17. Her result will be added here once the school reports it."
+        },
+        {
+          "teams": ["girls-water-polo"],
+          "name": "Girls Water Polo",
+          "headline": "Central Coast Classic champions and a one-goal CIF quarterfinal",
+          "highlights": [
+            "Won the Central Coast Classic, the tournament the program hosts, going 4–0 with two shutouts.",
+            "Went 4–0 at the Grizzly Classic in Granite Bay.",
+            "Reached the CCAA tournament final.",
+            "Hosted a CIF Central Section quarterfinal against Garces and rallied in the fourth quarter before falling by one goal."
+          ]
+        },
+        {
+          "teams": ["girls-golf"],
+          "name": "Girls Golf",
+          "headline": "A CIF Area qualifier and a run of second-place finishes",
+          "highlights": [
+            "Took second at Rancho Maria, Mission Country Club, and Dairy Creek.",
+            "Finished fourth at the Mountain League championship.",
+            "Julia Schroeter Heptig qualified individually for the CIF Area Tournament in Lemoore, narrowly missing the cut for the next round. She posted the day's low score at Mission Country Club, and she and Addison Hopple led the Tigers at Dairy Creek."
+          ]
+        },
+        {
+          "teams": ["cheer"],
+          "name": "Tiger Cheer",
+          "headline": "Award-winning at camp, and at every Friday night game",
+          "highlights": [
+            "At UCA Cheer Camp at UCSB, Varsity earned the Gold Superior ribbon and placed second in Cheer & Sideline and third in Camp Routine.",
+            "Evelyn de la Motte, Jazmine Patton, Lily Ross, and Piper Davis earned All-American honors, and Jazmine was named Best Jumper among all athletes at camp.",
+            "Cheered football at all three levels and volleyball in the Big Gym, with themed halftime routines and a tumbling routine in which each tumbler completed 28 back handsprings."
+          ]
+        }
+      ],
+      "thanks": {
+        "title": "Thank you, Tiger families and sponsors",
+        "body": "Business sponsorships, SLOTAB memberships, and team fundraising brought in $110K this fall, as SLOTAB President Andria McGhee reported in the November 15 newsletter. And when ASB stickers didn't cover admission to CIF playoff games, SLOTAB and local sponsors Gillett Law and Pancho's Mexican Food paid to get students into the stands."
+      }
+    }
+  ]
+}

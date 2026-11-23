@@ -35,6 +35,7 @@ const DATA = path.join(ROOT, "src/app/data/athletics-news.json");
 // still imported (untagged) and reported, so add them here when they appear.
 const TEAM_NAMES = {
   "Football": ["football"],
+  "Tiger Football": ["football"], // 11.15.26
   "Flag Football": ["flag-football"],
   "Girls Flag Football": ["flag-football"],
   "Girls Volleyball": ["girls-volleyball"],
@@ -273,6 +274,19 @@ function parse(sectionLines) {
     const looksLikeTitle = p.length <= 60 && !/[.!?]$/.test(p) && links.length === 0;
     if (looksLikeTitle) {
       notices.push({ title: p, body: "", buttons: [], inline: [] });
+      last = "notice";
+      continue;
+    }
+
+    // A notice whose title is run into its text on one line, in Title Case
+    // before a colon or a spaced dash (11.15.26: "Winter Sports Parent
+    // Meeting: Our mandatory…", "Fall Sports - Parents and guardians…").
+    // Without this both were glued onto the Cross Country recap above them.
+    // "Please note: …" is lower-case after the first word, so it falls
+    // through and joins the notice before it, which is what it qualifies.
+    const runIn = p.match(/^((?:[A-Z][\w&'’/]*)(?: [A-Z][\w&'’/]*){0,5})(?::| [-–—]) +(.+)$/s);
+    if (runIn && !linkOnly) {
+      notices.push({ title: runIn[1], body: runIn[2].trim(), buttons: [], inline: [...links] });
       last = "notice";
       continue;
     }

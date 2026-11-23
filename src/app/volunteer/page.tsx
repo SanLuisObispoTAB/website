@@ -64,6 +64,11 @@ const SHOW_BACK_TO_SCHOOL = BACK_TO_SCHOOL_DATE >= TODAY_MIDNIGHT;
 // Same rule for the Booster Bash, keyed off the event page's own date so the
 // two can't disagree (#260).
 const SHOW_BOOSTER_BASH = !hasPassed(getFeaturedEvent("booster-bash")?.date);
+// The three football-night asks (home games, Tiger Bites, the Tiger Den
+// trailer) end with the last home game. They were still asking for help "this
+// fall" a month after it, so they now drop off at the Fall → Winter turnover
+// (#267). Next August, add the new dates above and they come back.
+const SHOW_FOOTBALL_NIGHTS = !hasPassed(FOOTBALL_VOLUNTEER_DATES.at(-1));
 
 const MEETINGS = (slotabEvents.events as RawEvent[])
   .filter((e) => /meeting/i.test(e.categoryLabel))
@@ -123,6 +128,7 @@ export default function VolunteerPage() {
                 <Link href="/back-to-school">Grab a shift →</Link>
               </li>
             )}
+            {SHOW_FOOTBALL_NIGHTS && (
             <li>
               <strong>Home football games:</strong> we need volunteers at every
               home game this fall — concessions, gate, and the apparel booth.
@@ -132,6 +138,7 @@ export default function VolunteerPage() {
                 ))}
               </ul>
             </li>
+            )}
             {SHOW_BOOSTER_BASH && (
             <li>
               <strong>Booster Bash — Saturday, October 10:</strong> Our largest
@@ -145,6 +152,8 @@ export default function VolunteerPage() {
               . <Link href="/booster-bash">Event details →</Link>
             </li>
             )}
+            {SHOW_FOOTBALL_NIGHTS && (
+            <>
             <li>
               <strong>Tiger Bites concessions:</strong> open at every home
               football game, now with a brand-new BBQ. This season SLOTAB
@@ -162,6 +171,8 @@ export default function VolunteerPage() {
               </a>
               . <Link href="/merch">See the merch →</Link>
             </li>
+            </>
+            )}
             <li>
               <strong>Ongoing:</strong> We are in continued need of volunteers
               for concession stands, gate ticketing, and the apparel booth.

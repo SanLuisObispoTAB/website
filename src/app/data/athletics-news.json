@@ -2,6 +2,66 @@
   "note": "Weekly athletics recaps from the 'Athletics' section of the SLOHS weekly newsletter (ParentSquare, Sundays). Text is quoted as the school wrote it; only duplicate paragraphs and doubled team-name lead-ins are removed. Not a scoreboard: no score field, and a team the newsletter skips has no entry. Edited at /admin → Athletics News. See src/app/data/athletics-news.ts.",
   "issues": [
     {
+      "date": "2026-11-15",
+      "title": "SLOHS Newsletter, 11.15.26",
+      "items": [
+        {
+          "teams": [
+            "football"
+          ],
+          "heading": "Tiger Football",
+          "body": "Tiger Football traveled to Tulare on Friday to take on Tulare Western in the second round of the CIF Playoffs. Battling both the Mustangs and rainy conditions, the Tigers showed grit and determination, taking a 14–13 lead before falling 26–14. Despite the loss, the Tigers capped off another outstanding season on the gridiron, advancing to the second round of the CIF Playoffs for the second consecutive year! Congratulations to our players and coaches on a fantastic season. Go Tiger Army!"
+        },
+        {
+          "teams": [
+            "girls-volleyball"
+          ],
+          "heading": "Girls Volleyball",
+          "body": "Girls Volleyball put together an incredible run in the CIF State Playoffs this week! On Tuesday, the Tigers overcame a slow start against Orange Lutheran, rallying for a thrilling 3–2 victory. The win earned them the opportunity to host The Bishop’s School from San Diego, where the Tigers kept their momentum rolling with a 3–1 victory to advance to the Regional Semifinals. On Saturday, the Tigers hosted Coronado High School, falling 3–0 to bring their remarkable season to a close. Despite the loss, the Tigers have plenty to be proud of. Their outstanding season and deep playoff run proved that SLO High Volleyball can compete with the best teams in the state! Congratulations to our players and coaches on an unforgettable season. Go Tigers!"
+        },
+        {
+          "teams": [
+            "girls-tennis"
+          ],
+          "heading": "Girls Tennis",
+          "body": "The Girls Tennis team made the journey to Buchanan High School where the players represented the Tigers in singles and double competition. Sloan Hrdlicka took the victory in individual competition and will compete again on Tuesday."
+        },
+        {
+          "teams": [
+            "cross-country"
+          ],
+          "heading": "Cross Country",
+          "body": "The Cross Country teams had no competitions this week as they prepared to compete in the CIF Central Section Championships on Thursday at Woodward Park."
+        }
+      ],
+      "notices": [
+        {
+          "title": "Fall Sports",
+          "body": "Parents and guardians your feedback matters. Please take a moment to answer the exit survey if your child participated in a fall sport. Parent/Guardian Survey",
+          "links": [
+            {
+              "label": "Parent/Guardian Survey",
+              "url": "https://docs.google.com/forms/d/e/1FAIpQLScp2_iPlTbPjA7Aps5acNe0Vxy_Mhl7BGQBJIT_T5S3PGTe0Q/viewform?usp=sharing&ouid=114769374424261650159"
+            }
+          ]
+        },
+        {
+          "title": "Winter Sports Parent Meeting",
+          "body": "Our mandatory Winter Sports Parent Meeting will take place on Monday, November 16, from 6:00–8:00 p.m. Parents and guardians will gather in the SLO High Theater at 6:00 p.m. for a brief presentation before breaking into individual team meetings at designated locations. This is an important opportunity to meet with coaches, review team expectations, and prepare for a successful winter season. Please note: Due to a scheduled game, Boys Basketball will hold its parent meeting separately on Wednesday, November 18."
+        },
+        {
+          "title": "Athletic Clearances",
+          "body": "Before participating, students must create a Home Campus profile and upload a current athletic clearance completed by a licensed medical professional (MD, PA, or NP).",
+          "links": [
+            {
+              "label": "Home Campus Instructions - Google Docs",
+              "url": "https://drive.google.com/file/d/1o8fOjgWiXrdCDJ3fhhAz9eIRRFAA7Cze/view"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "date": "2026-11-08",
       "title": "SLOHS Newsletter, 11.8.26",
       "items": [
@@ -53,18 +113,6 @@
           ],
           "heading": "Cheer",
           "body": "Cheer brought great energy to a packed Holt Stadium on Friday night. The squad helped energize the crowd throughout the tight game."
-        }
-      ],
-      "notices": [
-        {
-          "title": "Athletic Clearances",
-          "body": "Before participating, students must create a Home Campus profile and upload a current athletic clearance completed by a licensed medical professional (MD, PA, or NP).",
-          "links": [
-            {
-              "label": "Home Campus Instructions - Google Docs",
-              "url": "https://drive.google.com/file/d/1o8fOjgWiXrdCDJ3fhhAz9eIRRFAA7Cze/view"
-            }
-          ]
         }
       ]
     },

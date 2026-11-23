@@ -1,0 +1,15 @@
+{
+  "slug": "boys-swim-dive",
+  "name": "Boys Swim & Dive",
+  "sport": "Swim & Dive",
+  "gender": "Boys",
+  "season": "Spring",
+  "tagline": "Black and gold in every lane.",
+  "gallery": [
+    "/photos/bswim-image-0.jpg"
+  ],
+  "headCoach": {
+    "name": "Grant East",
+    "email": "geast@slcusd.org"
+  }
+}

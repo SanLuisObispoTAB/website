@@ -6,17 +6,18 @@
 
 **Rosters are name + grade only** (AD approval 2026-09-29, decision #235). Strip jersey numbers, positions and student IDs at intake; the audit flags any that reach a team file.
 
-## Standard teams (20)
+## Standard teams (21)
 
 | Team | action hero | action gallery | squad portrait | head coach | coach bio | coach email | liaison | roster | captains | wishlist |
 |---|---|---|---|---|---|---|---|---|---|---|
 | `baseball` | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `boys-basketball` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `boys-soccer` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| `boys-swim-dive` | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `boys-water-polo` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |
 | `boys-wrestling` | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `cheer` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `competitive-cheer` | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ |
+| `competitive-cheer` | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
 | `cross-country` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | `dance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
 | `flag-football` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ✅ |
@@ -29,20 +30,20 @@
 | `girls-water-polo` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
 | `girls-wrestling` | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
 | `stunt` | ✅ | ❌ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| `winter-cheer` | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| `winter-cheer` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
 
 ### What's missing, by count
 
-- **roster** — missing on 18 of 20 teams
-- **captains** — missing on 16 of 20 teams
-- **wishlist** — missing on 16 of 20 teams
-- **coach bio** — missing on 15 of 20 teams
-- **liaison** — missing on 7 of 20 teams
-- **action gallery** — missing on 6 of 20 teams
-- **action hero** — missing on 3 of 20 teams
-- **squad portrait** — missing on 0 of 20 teams ✅
-- **head coach** — missing on 0 of 20 teams ✅
-- **coach email** — missing on 0 of 20 teams ✅
+- **roster** — missing on 19 of 21 teams
+- **captains** — missing on 17 of 21 teams
+- **wishlist** — missing on 17 of 21 teams
+- **coach bio** — missing on 14 of 21 teams
+- **liaison** — missing on 8 of 21 teams
+- **action gallery** — missing on 6 of 21 teams
+- **action hero** — missing on 4 of 21 teams
+- **squad portrait** — missing on 1 of 21 teams
+- **head coach** — missing on 0 of 21 teams ✅
+- **coach email** — missing on 0 of 21 teams ✅
 
 Fully complete: `cheer`
 
@@ -51,10 +52,11 @@ Fully complete: `cheer`
 - `baseball` — needs **action hero**, **action gallery**, **coach bio**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 0 action shots, 1 portrait, 0 on roster)_
 - `boys-basketball` — needs **coach bio**, **liaison**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 6 action shots, 1 portrait, 0 on roster)_
 - `boys-soccer` — needs **coach bio**, **liaison**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 2 action shots, 1 portrait, 0 on roster)_
+- `boys-swim-dive` — needs **action hero**, **squad portrait**, **coach bio**, **liaison**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 1 action shot, 0 portraits, 0 on roster)_
 - `boys-water-polo` — needs **roster** _(1 head coach, 0 assistants, 1 action shot, 1 portrait, 0 on roster)_
 - `boys-wrestling` — needs **action gallery**, **coach bio**, **liaison**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 0 action shots, 1 portrait, 0 on roster)_
 - `cheer` — complete ✅ _(1 head coach, 7 assistants, 4 action shots, 3 portraits, 48 on roster)_
-- `competitive-cheer` — needs **action hero**, **action gallery**, **coach bio**, **roster**, **captains** _(1 head coach, 0 assistants, 0 action shots, 1 portrait, 0 on roster)_
+- `competitive-cheer` — needs **action hero**, **action gallery**, **roster**, **captains** _(1 head coach, 0 assistants, 0 action shots, 1 portrait, 0 on roster)_
 - `cross-country` — needs **roster**, **wishlist** _(2 head coaches, 4 assistants, 18 action shots, 3 portraits, 0 on roster)_
 - `dance` — needs **roster**, **wishlist** _(1 head coach, 0 assistants, 2 action shots, 2 portraits, 0 on roster)_
 - `flag-football` — needs **liaison**, **captains** _(1 head coach, 5 assistants, 4 action shots, 1 portrait, 39 on roster)_
@@ -67,7 +69,7 @@ Fully complete: `cheer`
 - `girls-water-polo` — needs **coach bio**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 4 action shots, 1 portrait, 0 on roster)_
 - `girls-wrestling` — needs **action hero**, **action gallery**, **coach bio**, **liaison**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 0 action shots, 1 portrait, 0 on roster)_
 - `stunt` — needs **action gallery**, **coach bio**, **liaison**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 0 action shots, 1 portrait, 0 on roster)_
-- `winter-cheer` — needs **coach bio**, **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 2 action shots, 1 portrait, 0 on roster)_
+- `winter-cheer` — needs **roster**, **captains**, **wishlist** _(1 head coach, 0 assistants, 2 action shots, 1 portrait, 0 on roster)_
 
 ## Large programs (2) — held to a lower bar
 

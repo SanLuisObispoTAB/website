@@ -11,7 +11,7 @@
     { "slug": "beach-volleyball", "name": "Beach Volleyball", "gender": "Girls", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
     { "slug": "boys-tennis", "name": "Tennis", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
     { "slug": "girls-tennis", "name": "Tennis", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
-    { "slug": "boys-swim-dive", "name": "Swim & Dive", "gender": "Boys", "season": "Spring", "hasPage": false, "operationalSetup": "none" },
+    { "slug": "boys-swim-dive", "name": "Swim & Dive", "gender": "Boys", "season": "Spring", "hasPage": true, "operationalSetup": "none" },
     { "slug": "girls-swim-dive", "name": "Swim & Dive", "gender": "Girls", "season": "Spring", "hasPage": true, "operationalSetup": "none" },
     { "slug": "boys-water-polo", "name": "Water Polo", "gender": "Boys", "season": "Fall", "hasPage": true, "operationalSetup": "none" },
     { "slug": "girls-water-polo", "name": "Water Polo", "gender": "Girls", "season": "Fall", "hasPage": true, "operationalSetup": "none" },

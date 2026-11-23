@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import teamsData from "./data/teams.json";
+import { SEASON_WRAPS } from "./data/season-wraps";
 
 // Public routes only. Deliberately excluded: /admin and /admin-portal (board
 // tooling), /board/* (password-gated), and /spring-social (an unlinked page
@@ -45,7 +46,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((t) => t.hasPage)
     .map((t) => `/teams/${t.slug}`);
 
-  return [...STATIC_ROUTES, ...teamRoutes].map((path) => ({
+  // Season wrap-ups (#268): /news/fall-2026 and its successors.
+  const wrapRoutes = SEASON_WRAPS.map((w) => `/news/${w.id}`);
+
+  return [...STATIC_ROUTES, ...teamRoutes, ...wrapRoutes].map((path) => ({
     url: `${base}${path}`,
     lastModified,
     changeFrequency:
