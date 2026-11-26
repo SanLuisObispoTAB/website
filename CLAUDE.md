@@ -206,6 +206,14 @@ So:
   `style={{ textAlign: "center" }}`. CSS can't see phrase boundaries, so
   when specific words must never split (a date, a name, an address),
   join them with `&nbsp;` — `.slotab-mail-address` does this (#89).
+- **Fonts are self-hosted** (decision #272) in `src/app/fonts/` and loaded
+  with `next/font/local` in `src/app/layout.tsx`. Don't switch back to
+  `next/font/google`: its build-time fetch failed a production deploy
+  (and `next dev` in #262). Manrope and JetBrains Mono list one variable
+  file once per weight on purpose, so off-grid weights like 650 still
+  snap the way they did on Google. A Vercel "deployment failed" email
+  carrying the message *slotab: refresh weekly events* is a build
+  failure, not a scraper failure — the Actions run will be green.
 - **/watch Hudl venues**: streaming covers Holt Field (stadium), the Big
   Gym, and the baseball and softball fields — **not** the pool
   (confirmed 2026-08-11, decision #106). Coverage is also per-coach

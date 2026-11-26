@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Source_Serif_4, Manrope, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import LayoutShell from "./components/LayoutShell";
 import { buildTickerItems } from "./data/ticker";
 import "./globals.css";
@@ -15,22 +15,43 @@ import "./tiger.css";
 // (`opsz`) axis so large headlines render with the lighter, more
 // editorial display variant (matches the design PDF). Without
 // `axes: ["opsz"]` the font would render at a heavier static weight.
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
+//
+// Self-hosted from src/app/fonts/ since decision #272. next/font/google
+// fetched these from Google at build time, and Turbopack's font resolver
+// failed a production build on 2026-11-26 (it had already broken
+// `next dev` in #262). Local files mean a build never touches the network
+// for fonts. The .woff2 files are the upstream google/fonts variable TTFs
+// subset to Google's latin + latin-ext ranges (OFL licences alongside).
+//
+// Manrope and JetBrains Mono list the same file once per weight on
+// purpose. That is how Google served them, and it keeps the old snapping:
+// a `font-weight: 650` on Manrope still renders at 700, not a true 650.
+// Source Serif 4 was served as a 200–900 range, so it stays a range.
+const sourceSerif = localFont({
+  src: [
+    { path: "./fonts/SourceSerif4-Variable.woff2", weight: "200 900", style: "normal" },
+    { path: "./fonts/SourceSerif4-Italic-Variable.woff2", weight: "200 900", style: "italic" },
+  ],
   variable: "--font-tiger-serif",
 });
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+const manrope = localFont({
+  src: [
+    { path: "./fonts/Manrope-Variable.woff2", weight: "400" },
+    { path: "./fonts/Manrope-Variable.woff2", weight: "500" },
+    { path: "./fonts/Manrope-Variable.woff2", weight: "600" },
+    { path: "./fonts/Manrope-Variable.woff2", weight: "700" },
+    { path: "./fonts/Manrope-Variable.woff2", weight: "800" },
+  ],
   variable: "--font-tiger-sans",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+const jetbrainsMono = localFont({
+  src: [
+    { path: "./fonts/JetBrainsMono-Variable.woff2", weight: "400" },
+    { path: "./fonts/JetBrainsMono-Variable.woff2", weight: "500" },
+    { path: "./fonts/JetBrainsMono-Variable.woff2", weight: "700" },
+  ],
   variable: "--font-tiger-mono",
 });
 
